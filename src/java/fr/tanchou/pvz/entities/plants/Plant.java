@@ -14,14 +14,14 @@ public abstract class Plant extends Entitie {
         this.card = new PlantCards(name, cost, cooldown);
     }
 
+    protected abstract Bullet createBullet();
+
     public Bullet shoot() {
         if (canShoot()) {
             return createBullet(); // Délègue à une méthode qui retourne un projectile concret
         }
         return null;
     }
-
-    protected abstract Bullet createBullet();
 
     protected boolean canShoot() {
         if (timeSinceLastShot >= shootSpeed) {

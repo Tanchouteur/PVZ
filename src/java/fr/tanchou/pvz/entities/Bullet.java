@@ -2,13 +2,14 @@ package fr.tanchou.pvz.entities;
 
 import fr.tanchou.pvz.entities.zombie.Zombie;
 
-public abstract class Bullet {
+public abstract class Bullet extends Entitie {
     private int damage;
     private int speed;
     private Double position;
     private Effect effect;
 
     public Bullet(int damage, int speed) {
+        super(1000);
 
         this.damage = damage;
         this.speed = speed;
@@ -58,6 +59,11 @@ public abstract class Bullet {
         double collisionThreshold = 0.4; // Par exemple, 0.5 unité de distance
 
         return distance <= collisionThreshold;
+    }
+
+    @Override
+    public void onDeath() {
+
     }
 
 }

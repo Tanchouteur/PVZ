@@ -1,13 +1,21 @@
 package fr.tanchou.pvz.entities;
 
+import fr.tanchou.pvz.entities.plants.PlantVue;
+
 public abstract class Entitie {
     private Double x;
     private int y;
     private int healthPoint;
 
+
     public Entitie(int healthPoint) {
         this.healthPoint = healthPoint;
+        createVue();
     }
+
+    public abstract EntitieVue createVue();
+
+    public abstract void onDeath();
 
     public int getHealthPoint() {
         return healthPoint;
@@ -25,8 +33,6 @@ public abstract class Entitie {
         }
     }
 
-    public abstract void onDeath();
-
     public Double getX() {
         return x;
     }
@@ -42,5 +48,4 @@ public abstract class Entitie {
     public void setY(int y) {
         this.y = y;
     }
-
 }

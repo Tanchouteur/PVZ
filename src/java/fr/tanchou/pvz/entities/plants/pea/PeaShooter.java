@@ -12,5 +12,10 @@ public class PeaShooter extends Plant {
     protected Bullet createBullet() {
         return new PeaBullet(this.getX(), 20, 1);
     }
+
+    @Override
+    public PeashooterVue createVue() {
+        return new PeashooterVue(this);
+    }
 }
 
