@@ -14,11 +14,15 @@ public class Row {
     private boolean lawnMower;
     private Zombie firstZombie;
 
+    private RowVue rowVue;
+
     Row() {
         listPlants = new LinkedList<>();
         listZombie = new LinkedList<>();
         listBullets = new LinkedList<>();
         lawnMower = true;
+
+        rowVue = new RowVue(this);
     }
 
     public void addPlant(Plant plant) {
@@ -101,4 +105,7 @@ public class Row {
         }
     }
 
+    public RowVue getRowVue() {
+        return rowVue;
+    }
 }

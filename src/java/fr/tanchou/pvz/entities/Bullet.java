@@ -5,11 +5,10 @@ import fr.tanchou.pvz.entities.zombie.Zombie;
 public abstract class Bullet extends Entitie {
     private int damage;
     private int speed;
-    private Double position;
     private Effect effect;
 
-    public Bullet(int damage, int speed) {
-        super(1000);
+    public Bullet(int damage, int speed, Double x, int y) {
+        super(1000, x, y);
 
         this.damage = damage;
         this.speed = speed;
@@ -39,21 +38,14 @@ public abstract class Bullet extends Entitie {
         this.effect = effect;
     }
 
-    public Double getPosition() {
-        return position;
-    }
-
-    public void setPosition(Double position) {
-        this.position = position;
-    }
-
     public void move() {
-        this.position -= (double) speed /100;
+        this.setX(this.getX() - speed/100);
+        System.out.println("bullet avance à la position " + this.getX());
     }
 
     public boolean collidesWith(Zombie zombie) {
         // Différence entre la position du projectile et celle du zombie
-        double distance = Math.abs(this.position - zombie.getX());
+        double distance = Math.abs(this.getX() - zombie.getX());
 
         // Taille ou rayon défini pour détecter la collision
         double collisionThreshold = 0.4; // Par exemple, 0.5 unité de distance
@@ -63,7 +55,7 @@ public abstract class Bullet extends Entitie {
 
     @Override
     public void onDeath() {
-
+        System.out.println("Bullet est mort");
     }
 
 }

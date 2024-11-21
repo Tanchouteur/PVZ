@@ -6,11 +6,13 @@ public abstract class Entitie {
     private Double x;
     private int y;
     private int healthPoint;
+    private final EntitieVue vue;
 
-
-    public Entitie(int healthPoint) {
+    public Entitie(int healthPoint, Double x, int y) {
         this.healthPoint = healthPoint;
-        createVue();
+        this.x = x;
+        this.y = y;
+        this.vue = createVue();
     }
 
     public abstract EntitieVue createVue();
@@ -47,5 +49,9 @@ public abstract class Entitie {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public EntitieVue getVue() {
+        return vue;
     }
 }

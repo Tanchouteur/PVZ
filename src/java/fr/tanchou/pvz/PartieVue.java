@@ -3,6 +3,7 @@ package fr.tanchou.pvz;
 import fr.tanchou.pvz.game.Partie;
 import fr.tanchou.pvz.game.PartieController;
 import fr.tanchou.pvz.game.Row;
+import fr.tanchou.pvz.game.RowVue;
 import fr.tanchou.pvz.player.Player;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -12,17 +13,16 @@ import javafx.stage.Stage;
 
 public class PartieVue extends Application {
     private Pane rootPane;
-    private GridPane gridPane;
     private Pane animationLayer;
     private PartieController controller;
+
 
     @Override
     public void start(Stage primaryStage) {
         rootPane = new Pane();
-        gridPane = new GridPane();
         animationLayer = new Pane();
 
-        rootPane.getChildren().addAll(gridPane, animationLayer);
+        rootPane.getChildren().addAll(animationLayer);
 
         // Création du modèle et du joueur
         Player player = new Player("Louis");
@@ -39,19 +39,28 @@ public class PartieVue extends Application {
         primaryStage.show();
     }
 
-    public GridPane getGridPane() {
-        return gridPane;
-    }
-
     public Pane getAnimationLayer() {
         return animationLayer;
     }
 
     // Mise à jour de la vue avec les informations du modèle
     public void update(Partie partie) {
-        // Exemple : Ajouter des éléments dans gridPane ou animationLayer
+        int i = 0;
 
+        // Mettre à jour chaque ligne (Row) dans le jeu
+        for (Row row : partie.getRows()) {
+            i++;
+            RowVue rowVue = row.getRowVue();
+            Pane rowPane = rowVue.getRowPane();
 
+            // Si le rowPane n'est pas déjà ajouté au rootPane, ajoute-le
+            if (!rootPane.getChildren().contains(rowPane)) {
+                rowPane.setLayoutY(i * 100);  // Par exemple, espacer les lignes verticalement
+                rootPane.getChildren().add(rowPane);
+            }
 
+            // Mettre à jour l'affichage des entités dans la ligne
+            rowVue.update();
+        }
     }
 }

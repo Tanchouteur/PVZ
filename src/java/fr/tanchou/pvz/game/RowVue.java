@@ -1,75 +1,75 @@
 package fr.tanchou.pvz.game;
 
-import fr.tanchou.pvz.entities.BulletVue;
 import fr.tanchou.pvz.entities.Entitie;
 import fr.tanchou.pvz.entities.EntitieVue;
 import fr.tanchou.pvz.entities.plants.Plant;
-import fr.tanchou.pvz.entities.plants.PlantVue;
 import fr.tanchou.pvz.entities.zombie.Zombie;
-import fr.tanchou.pvz.entities.zombie.ZombieVue;
 import javafx.scene.layout.Pane;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class RowVue {
-    private Row row;
 
     private final Pane plantLayer;
     private final Pane zombieLayer;
     private final Pane bulletLayer;
-
-    private List<PlantVue> plantVues;
-    private List<ZombieVue> zombieVues;
-    private List<BulletVue> bulletVues;
+    private final Pane rowPane;  // Nouveau Pane parent qui contient les trois couches
+    private final Row row;
 
     public RowVue(Row row) {
         this.row = row;
-
         plantLayer = new Pane();
         zombieLayer = new Pane();
         bulletLayer = new Pane();
+        rowPane = new Pane();  // Initialisation du Pane parent
 
-        plantVues = new ArrayList<>();
-        zombieVues = new ArrayList<>();
-        bulletVues = new ArrayList<>();
+        // Ajout des couches au Pane parent (rowPane)
+        rowPane.getChildren().addAll(plantLayer, zombieLayer, bulletLayer);
 
+        // Ajouter les plantes à la couche correspondante
         for (Plant plant : row.getListPlants()) {
             EntitieVue plantVue = plant.createVue();
-            plantVues.add((PlantVue) plantVue);
             plantLayer.getChildren().add(plantVue.getImageView());
         }
 
+        // Ajouter les zombies à la couche correspondante
         for (Zombie zombie : row.getListZombies()) {
             EntitieVue zombieVue = zombie.createVue();
-            zombieVues.add((ZombieVue) zombieVue);
             zombieLayer.getChildren().add(zombieVue.getImageView());
         }
 
+        // Ajouter les projectiles à la couche correspondante
         for (Entitie bullet : row.getListBullets()) {
             EntitieVue bulletVue = bullet.createVue();
-            bulletVues.add((BulletVue) bulletVue);
             bulletLayer.getChildren().add(bulletVue.getImageView());
         }
     }
 
     public void update() {
-        // Met à jour la position de chaque vue d'entité
-        for (PlantVue plantVue : plantVues) {
-            plantVue.update();
+        // Met à jour la position et l'état des plantes
+        for (Plant plant : row.getListPlants()) {
+            if (!plantLayer.getChildren().contains(plant.getVue().getImageView())) {
+                plantLayer.getChildren().add(plant.getVue().getImageView());
+            }
+            plant.getVue().update();
         }
 
-        for (ZombieVue zombieVue : zombieVues) {
-            zombieVue.update();
+        // Met à jour la position et l'état des zombies
+        for (Zombie zombie : row.getListZombies()) {
+            if (!zombieLayer.getChildren().contains(zombie.getVue().getImageView())) {
+                zombieLayer.getChildren().add(zombie.getVue().getImageView());
+            }
+            zombie.getVue().update();
         }
 
-        for (BulletVue bulletVue : bulletVues) {
-            bulletVue.update();
+        // Met à jour la position et l'état des projectiles
+        for (Entitie bullet : row.getListBullets()) {
+            if (!bulletLayer.getChildren().contains(bullet.getVue().getImageView())) {
+                bulletLayer.getChildren().add(bullet.getVue().getImageView());
+            }
+            bullet.getVue().update();
         }
     }
 
-    public Pane getPlantLayer() {
-        return plantLayer;
+    public Pane getRowPane() {
+        return rowPane;  // Retourne le Pane parent qui contient toutes les couches
     }
 }
-

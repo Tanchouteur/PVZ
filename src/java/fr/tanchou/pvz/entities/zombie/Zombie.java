@@ -7,8 +7,8 @@ public abstract class Zombie extends Entitie {
     private int speed;
     private Effect effect;
 
-    protected Zombie(int speed, int healthPoint) {
-        super(healthPoint);
+    protected Zombie(int speed, int healthPoint, Double x, int y) {
+        super(healthPoint, x, y);
         this.speed = speed;
     }
 

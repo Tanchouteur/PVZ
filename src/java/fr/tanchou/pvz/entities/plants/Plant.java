@@ -8,17 +8,17 @@ public abstract class Plant extends Entitie {
     private PlantCards card;
     protected int timeSinceLastShot = 0;
 
-    protected Plant(int shootSpeed, String name, int cost, int cooldown, int healthPoint) {
-        super(healthPoint);
+    protected Plant(int shootSpeed, String name, int cost, int cooldown, int healthPoint, Double x, int y) {
+        super(healthPoint,x,y);
         this.shootSpeed = shootSpeed;
         this.card = new PlantCards(name, cost, cooldown);
     }
 
-    protected abstract Bullet createBullet();
+    protected abstract Bullet createBullet(int y);
 
     public Bullet shoot() {
         if (canShoot()) {
-            return createBullet(); // Délègue à une méthode qui retourne un projectile concret
+            return createBullet(this.getY()); // Délègue à une méthode qui retourne un projectile concret
         }
         return null;
     }
