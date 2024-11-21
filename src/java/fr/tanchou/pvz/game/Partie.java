@@ -47,7 +47,9 @@ public class Partie {
 
             // Mettre à jour les plantes
             for (Plant plant : row.getListPlants()) {
+                plant.tick(); // Mettre à jour le compteur de tir
                 Bullet bullet = plant.shoot(); // Faire tirer la plante
+
                 if (bullet != null) {
                     row.addBullet(bullet); // Ajouter le projectile à la rangée
                 }
