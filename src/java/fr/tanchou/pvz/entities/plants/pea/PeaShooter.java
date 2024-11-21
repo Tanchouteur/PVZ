@@ -1,7 +1,7 @@
 package fr.tanchou.pvz.entities.plants.pea;
 
 import fr.tanchou.pvz.entities.Bullet;
-import fr.tanchou.pvz.entities.Plant;
+import fr.tanchou.pvz.entities.plants.Plant;
 
 public class PeaShooter extends Plant {
     public PeaShooter() {
@@ -10,7 +10,7 @@ public class PeaShooter extends Plant {
 
     @Override
     protected Bullet createBullet() {
-        return new PeaBullet(this.getPosition(), 20, 1);
+        return new PeaBullet(this.getX(), 20, 1);
     }
 }
 

@@ -1,6 +1,6 @@
-package fr.tanchou.pvz.entities.zombie;
+package fr.tanchou.pvz.entities.zombie.normalZombie;
 
-import fr.tanchou.pvz.entities.Zombie;
+import fr.tanchou.pvz.entities.zombie.Zombie;
 
 public class NormalZombie extends Zombie {
 

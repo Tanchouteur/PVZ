@@ -1,8 +1,8 @@
 package fr.tanchou.pvz.game;
 
 import fr.tanchou.pvz.entities.Bullet;
-import fr.tanchou.pvz.entities.Plant;
-import fr.tanchou.pvz.entities.Zombie;
+import fr.tanchou.pvz.entities.plants.Plant;
+import fr.tanchou.pvz.entities.zombie.Zombie;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -68,7 +68,7 @@ public class Row {
     public Zombie findFirstZombie() {
         Zombie firstZombie = listZombie.getFirst();
         for (Zombie zombie : listZombie) {
-            if (zombie.getPosition() < firstZombie.getPosition()) {
+            if (zombie.getX() < firstZombie.getX()) {
                 firstZombie = zombie;
             }
         }

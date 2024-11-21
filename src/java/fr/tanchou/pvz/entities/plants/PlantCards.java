@@ -1,4 +1,4 @@
-package fr.tanchou.pvz.entities;
+package fr.tanchou.pvz.entities.plants;
 
 public class PlantCards {
     private String name;

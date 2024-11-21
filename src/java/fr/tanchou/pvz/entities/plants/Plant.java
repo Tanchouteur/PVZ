@@ -1,4 +1,7 @@
-package fr.tanchou.pvz.entities;
+package fr.tanchou.pvz.entities.plants;
+
+import fr.tanchou.pvz.entities.Bullet;
+import fr.tanchou.pvz.entities.Entitie;
 
 public abstract class Plant extends Entitie {
     private int shootSpeed;

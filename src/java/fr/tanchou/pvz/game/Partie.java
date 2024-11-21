@@ -1,8 +1,8 @@
 package fr.tanchou.pvz.game;
 
 import fr.tanchou.pvz.entities.Bullet;
-import fr.tanchou.pvz.entities.Plant;
-import fr.tanchou.pvz.entities.Zombie;
+import fr.tanchou.pvz.entities.plants.Plant;
+import fr.tanchou.pvz.entities.zombie.Zombie;
 import fr.tanchou.pvz.player.Player;
 
 public class Partie {
@@ -38,7 +38,7 @@ public class Partie {
                 zombie.move(); // Avancer les zombies
 
                 // Vérifier si le zombie atteint la fin de la rangée
-                if (zombie.getPosition() < 0) {
+                if (zombie.getX() < 0) {
 
                     System.out.println("Game Over! Un zombie a atteint la maison.");
                     return;

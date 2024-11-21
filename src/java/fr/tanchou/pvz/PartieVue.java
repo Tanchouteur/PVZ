@@ -2,11 +2,12 @@ package fr.tanchou.pvz;
 
 import fr.tanchou.pvz.game.Partie;
 import fr.tanchou.pvz.game.PartieController;
+import fr.tanchou.pvz.game.Row;
 import fr.tanchou.pvz.player.Player;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class PartieVue extends Application {
@@ -23,11 +24,18 @@ public class PartieVue extends Application {
 
         rootPane.getChildren().addAll(gridPane, animationLayer);
 
-        Player player = new Player("Louis"); // Création du joueur
-        Partie partie = new Partie(player); // Création du modèle
+        // Création du modèle et du joueur
+        Player player = new Player("Louis");
+        Partie partie = new Partie(player);
 
-        controller = new PartieController(partie, this); // Lien avec le contrôleur
+        // Création du contrôleur avec le modèle et la vue
+        controller = new PartieController(partie, this);
+
+        // Démarrage du jeu
+        controller.startGame();
+
         primaryStage.setScene(new Scene(rootPane, 800, 600));
+        primaryStage.setTitle("Plante versus Zombie");
         primaryStage.show();
     }
 
@@ -39,7 +47,11 @@ public class PartieVue extends Application {
         return animationLayer;
     }
 
+    // Mise à jour de la vue avec les informations du modèle
     public void update(Partie partie) {
+        // Exemple : Ajouter des éléments dans gridPane ou animationLayer
+
+
 
     }
 }

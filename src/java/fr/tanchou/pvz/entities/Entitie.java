@@ -1,7 +1,8 @@
 package fr.tanchou.pvz.entities;
 
 public abstract class Entitie {
-    private Double position;
+    private Double x;
+    private int y;
     private int healthPoint;
 
     public Entitie(int healthPoint) {
@@ -26,11 +27,20 @@ public abstract class Entitie {
 
     public abstract void onDeath();
 
-    public Double getPosition() {
-        return position;
+    public Double getX() {
+        return x;
     }
 
-    public void setPosition(Double position) {
-        this.position = position;
+    public void setX(Double x) {
+        this.x = x;
     }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
 }

@@ -1,5 +1,7 @@
 package fr.tanchou.pvz.entities;
 
+import fr.tanchou.pvz.entities.zombie.Zombie;
+
 public abstract class Bullet {
     private int damage;
     private int speed;
@@ -50,7 +52,7 @@ public abstract class Bullet {
 
     public boolean collidesWith(Zombie zombie) {
         // Différence entre la position du projectile et celle du zombie
-        double distance = Math.abs(this.position - zombie.getPosition());
+        double distance = Math.abs(this.position - zombie.getX());
 
         // Taille ou rayon défini pour détecter la collision
         double collisionThreshold = 0.4; // Par exemple, 0.5 unité de distance

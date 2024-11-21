@@ -1,6 +1,6 @@
 package fr.tanchou.pvz.player;
 
-import fr.tanchou.pvz.entities.PlantCards;
+import fr.tanchou.pvz.entities.plants.PlantCards;
 
 public class Player {
     private int sun;

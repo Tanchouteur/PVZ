@@ -1,4 +1,7 @@
-package fr.tanchou.pvz.entities;
+package fr.tanchou.pvz.entities.zombie;
+
+import fr.tanchou.pvz.entities.Effect;
+import fr.tanchou.pvz.entities.Entitie;
 
 public abstract class Zombie extends Entitie {
     private int speed;
@@ -26,8 +29,8 @@ public abstract class Zombie extends Entitie {
     }
 
     public void move() {
-        this.setPosition(this.getPosition() - speed/100);
-        System.out.println("Zombie avance à la position " + this.getPosition());
+        this.setX(this.getX() - speed/100);
+        System.out.println("Zombie avance à la position " + this.getX());
     }
 
     @Override
