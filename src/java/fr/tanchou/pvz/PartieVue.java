@@ -36,6 +36,7 @@ public class PartieVue extends Application {
 
         primaryStage.setScene(new Scene(rootPane, 800, 600));
         primaryStage.setTitle("Plante versus Zombie");
+
         primaryStage.show();
     }
 

@@ -2,6 +2,7 @@ package fr.tanchou.pvz.game;
 
 import fr.tanchou.pvz.entities.Bullet;
 import fr.tanchou.pvz.entities.plants.Plant;
+import fr.tanchou.pvz.entities.plants.pea.PeaShooter;
 import fr.tanchou.pvz.entities.zombie.Zombie;
 import fr.tanchou.pvz.player.Player;
 
@@ -15,6 +16,8 @@ public class Partie {
         for (int i = 0; i < 5; i++) {
             this.rows[i] = new Row();
         }
+
+        rows[0].addPlant(new PeaShooter(0.0, 0));
     }
 
     public Row[] getRows() {

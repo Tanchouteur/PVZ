@@ -11,7 +11,7 @@ public class PeashooterVue extends PlantVue {
 
     public PeashooterVue(PeaShooter plant) {
 
-        URL url = plant.getClass().getResource("/assets/plants/peaShooter/peashooter.png");
+        URL url = plant.getClass().getResource("/assets/plants/peaShooter/Peashooteringamerender.png");
         if (url == null) {
             System.err.println("Impossible de charger l'image du Peashooter");
             exit(1);

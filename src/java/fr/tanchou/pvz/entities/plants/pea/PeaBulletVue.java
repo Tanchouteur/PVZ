@@ -10,7 +10,7 @@ import static java.lang.System.exit;
 public class PeaBulletVue extends EntitieVue {
 
     public PeaBulletVue(PeaBullet peaBullet) {
-        URL url = peaBullet.getClass().getResource("/assets/plants/peaShooter/peaBullet.png");
+        URL url = peaBullet.getClass().getResource("/assets/plants/peaShooter/PeaBullet.png");
         if (url == null) {
             System.err.println("Impossible de charger l'image du peaBullet");
             exit(1);

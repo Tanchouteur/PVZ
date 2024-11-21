@@ -10,7 +10,6 @@ public abstract class EntitieVue {
     public EntitieVue(Entitie entitie, ImageView imageView) {
         this.entitie = entitie;
         this.imageView = imageView;
-        entitie.createVue();
     }
 
     public void update() {

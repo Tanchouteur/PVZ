@@ -39,8 +39,8 @@ public abstract class Bullet extends Entitie {
     }
 
     public void move() {
-        this.setX(this.getX() - speed/100);
-        System.out.println("bullet avance à la position " + this.getX());
+        this.setX(this.getX() + speed*0.5);
+        System.out.println("bullet avance à la position " + this.getX() + " test " + (this.getX() + (speed/100)));
     }
 
     public boolean collidesWith(Zombie zombie) {

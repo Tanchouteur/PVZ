@@ -11,7 +11,6 @@ public class PeaBullet extends Bullet {
 
     @Override
     public EntitieVue createVue() {
-
         return new PeaBulletVue(this);
     }
 }

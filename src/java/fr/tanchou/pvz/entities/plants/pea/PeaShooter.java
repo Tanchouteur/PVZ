@@ -10,7 +10,7 @@ public class PeaShooter extends Plant {
 
     @Override
     protected Bullet createBullet(int y) {
-        return new PeaBullet(this.getX(), y, 20, 1);
+        return new PeaBullet(this.getX(), y, 20, 10);
     }
 
     @Override
