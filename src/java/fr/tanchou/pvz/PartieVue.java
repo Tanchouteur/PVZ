@@ -1,5 +1,8 @@
 package fr.tanchou.pvz;
 
+import fr.tanchou.pvz.game.Partie;
+import fr.tanchou.pvz.game.PartieController;
+import fr.tanchou.pvz.player.Player;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -20,7 +23,10 @@ public class PartieVue extends Application {
 
         rootPane.getChildren().addAll(gridPane, animationLayer);
 
-        controller = new PartieController(this); // Lien avec le contrôleur
+        Player player = new Player("Louis"); // Création du joueur
+        Partie partie = new Partie(player); // Création du modèle
+
+        controller = new PartieController(partie, this); // Lien avec le contrôleur
         primaryStage.setScene(new Scene(rootPane, 800, 600));
         primaryStage.show();
     }
@@ -31,5 +37,9 @@ public class PartieVue extends Application {
 
     public Pane getAnimationLayer() {
         return animationLayer;
+    }
+
+    public void update(Partie partie) {
+
     }
 }

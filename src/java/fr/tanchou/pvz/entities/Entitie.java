@@ -1,12 +1,8 @@
-package fr.tanchou.pvz;
+package fr.tanchou.pvz.entities;
 
 public abstract class Entitie {
     private Double position;
-    private int healthPoint;
-
-    Entitie(Double position) {
-        this.position = position;
-    }
+    int healthPoint;
 
     public Double getPosition() {
         return position;

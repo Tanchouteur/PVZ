@@ -1,5 +1,6 @@
 package fr.tanchou.pvz;
 
+import fr.tanchou.pvz.game.Row;
 import javafx.scene.layout.Pane;
 
 public class RowVue {

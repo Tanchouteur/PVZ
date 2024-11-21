@@ -1,5 +1,6 @@
 package fr.tanchou.pvz;
 
+import fr.tanchou.pvz.entities.Plant;
 import javafx.scene.image.ImageView;
 
 public class PlanteVue {
