@@ -1,6 +1,5 @@
 package fr.tanchou.pvz.entities;
 
-import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
 public abstract class EntitieVue {
