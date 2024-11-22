@@ -12,10 +12,8 @@ public abstract class PlantVue extends EntitieVue {
 
     @Override
     public void updateDetails(Pane parent) {
-        imageView.setFitWidth(100); // Largeur fixe
-        imageView.setFitHeight(100); // Largeur fixe
-
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(100);
         imageView.setLayoutY(50);
     }
-
 }
