@@ -93,7 +93,7 @@ public class Row {
             }
 
             // Supprimer le projectile s'il est hors de l'écran
-            if (bullet.getX() > 7.0) {
+            if (bullet.getX() > 10) {
                 bullet.onDeath();
                 iterator.remove();
             }
