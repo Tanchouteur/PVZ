@@ -14,6 +14,8 @@ public class Row {
     private boolean lawnMower;
     private Zombie firstZombie;
 
+    private boolean haveZombie = false;
+
     private RowVue rowVue;
 
     Row() {
@@ -31,6 +33,9 @@ public class Row {
 
     public void addZombie(Zombie zombie) {
         listZombie.add(zombie);
+        if (!haveZombie) {
+            haveZombie = true;
+        }
     }
 
     public void addBullet(Bullet bullet) {
@@ -43,6 +48,10 @@ public class Row {
 
     public void removeZombie(Zombie zombie) {
         listZombie.remove(zombie);
+
+        if (listZombie.isEmpty()) {
+            haveZombie = false;
+        }
     }
 
     public void removeBullet(Bullet bullet) {
@@ -113,5 +122,13 @@ public class Row {
 
     public RowVue getRowVue() {
         return rowVue;
+    }
+
+    public boolean haveZombie() {
+        return haveZombie;
+    }
+
+    public void setHaveZombie(boolean haveZombie) {
+        this.haveZombie = haveZombie;
     }
 }

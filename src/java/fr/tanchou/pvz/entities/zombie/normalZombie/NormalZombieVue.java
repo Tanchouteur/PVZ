@@ -8,7 +8,7 @@ import static java.lang.System.exit;
 
 public class NormalZombieVue extends ZombieVue {
     public NormalZombieVue(NormalZombie normalZombie) {
-        URL url = normalZombie.getClass().getResource("/assets/zombie/normalZombie/normalZombie.png");
+        URL url = normalZombie.getClass().getResource("/assets/zombies/normalZombie/NormalZombie.png");
         if (url == null) {
             System.err.println("Impossible de charger l'image du zombie");
             exit(1);

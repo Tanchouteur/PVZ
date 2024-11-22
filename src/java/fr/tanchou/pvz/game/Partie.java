@@ -4,6 +4,7 @@ import fr.tanchou.pvz.entities.Bullet;
 import fr.tanchou.pvz.entities.plants.Plant;
 import fr.tanchou.pvz.entities.plants.pea.PeaShooter;
 import fr.tanchou.pvz.entities.zombie.Zombie;
+import fr.tanchou.pvz.entities.zombie.normalZombie.NormalZombie;
 import fr.tanchou.pvz.player.Player;
 
 public class Partie {
@@ -18,6 +19,11 @@ public class Partie {
         }
 
         rows[0].addPlant(new PeaShooter(0.0, 0));
+        rows[1].addPlant(new PeaShooter(0.0, 1));
+        rows[2].addPlant(new PeaShooter(0.0, 2));
+
+
+        rows[0].addZombie(new NormalZombie(7.0, 0));
     }
 
     public Row[] getRows() {
@@ -51,10 +57,12 @@ public class Partie {
             // Mettre à jour les plantes
             for (Plant plant : row.getListPlants()) {
                 plant.tick(); // Mettre à jour le compteur de tir
-                Bullet bullet = plant.shoot(); // Faire tirer la plante
 
-                if (bullet != null) {
-                    row.addBullet(bullet); // Ajouter le projectile à la rangée
+                if (row.haveZombie()) {
+                    Bullet bullet = plant.shoot(); // Faire tirer la plante
+                    if (bullet != null) {
+                        row.addBullet(bullet); // Ajouter le projectile à la rangée
+                    }
                 }
             }
 

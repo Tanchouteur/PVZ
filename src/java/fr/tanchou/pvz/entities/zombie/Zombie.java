@@ -29,7 +29,7 @@ public abstract class Zombie extends Entitie {
     }
 
     public void move() {
-        this.setX(this.getX() - speed/100);
+        this.setX(this.getX() - speed*0.01);
         System.out.println("Zombie avance à la position " + this.getX());
     }
 
