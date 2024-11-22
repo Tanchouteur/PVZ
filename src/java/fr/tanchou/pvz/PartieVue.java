@@ -7,6 +7,8 @@ import fr.tanchou.pvz.game.RowVue;
 import fr.tanchou.pvz.player.Player;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -28,6 +30,22 @@ public class PartieVue extends Application {
 
 
         hudLayer = new Pane();
+
+        Image backgroundImage = new Image(String.valueOf(getClass().getResource( "/assets/terrains/day.webp")));
+
+        // Crée un ImageView pour afficher l'image de fond
+        ImageView backgroundImageView = new ImageView(backgroundImage);
+
+        // Assure-toi que l'image couvre toute la fenêtre
+        backgroundImageView.setFitWidth(1090);  // Largeur de ton jeu
+        backgroundImageView.setFitHeight(600);  // Hauteur de ton jeu
+
+        // Positionne l'image dans le coin supérieur gauche
+        backgroundImageView.setX(0);
+        backgroundImageView.setY(0);
+
+        // Ajoute l'image de fond en premier dans le rootPane
+        rootPane.getChildren().add(backgroundImageView);
 
         rootPane.getChildren().addAll(animationLayer, hudLayer);
 
