@@ -23,7 +23,7 @@ public class Partie {
         rows[2].addPlant(new PeaShooter(0.0, 2));
 
 
-        rows[0].addZombie(new NormalZombie(7.0, 0));
+        rows[0].addZombie(new NormalZombie(2.0, 0));
     }
 
     public Row[] getRows() {
@@ -48,7 +48,22 @@ public class Partie {
                     row.removeZombie(zombie);
                     continue;
                 }
-                zombie.move(); // Avancer les zombies
+
+                if (row.havePlant()) {
+                    for (Plant plant : row.getListPlants()) {
+                        if (plant.isDead()) {
+                            row.removePlant(plant);
+                            continue;
+                        }
+                        if (zombie.collidesWith(plant)) {
+                            plant.takeDamage(zombie.getDamage());
+                        }else {
+                            zombie.move(); // Avancer les zombies
+                        }
+                    }
+                }else {
+                    zombie.move(); // Avancer les zombies
+                }
 
                 // Vérifier si le zombie atteint la fin de la rangée
                 if (zombie.getX() < 0) {

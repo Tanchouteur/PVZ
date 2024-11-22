@@ -7,7 +7,7 @@ import javafx.scene.layout.Pane;
 public class NormalZombie extends Zombie {
 
     public NormalZombie(Double x, int y) {
-        super(1, 100, x, y);
+        super(1, 200,1, x, y);
     }
 
     @Override

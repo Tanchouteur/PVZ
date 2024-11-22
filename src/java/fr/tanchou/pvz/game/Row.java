@@ -133,4 +133,8 @@ public class Row {
     public void setHaveZombie(boolean haveZombie) {
         this.haveZombie = haveZombie;
     }
+
+    public boolean havePlant() {
+        return !listPlants.isEmpty();
+    }
 }

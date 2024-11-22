@@ -55,7 +55,8 @@ public abstract class Bullet extends Entitie {
 
     @Override
     public void onDeath() {
-        this.getVue().getImageView().setVisible(false);
+        if (this.getVue() != null)
+            this.getVue().getImageView().setVisible(false);
     }
 
 }

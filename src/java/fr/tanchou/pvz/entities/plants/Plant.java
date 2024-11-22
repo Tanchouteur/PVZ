@@ -7,6 +7,7 @@ public abstract class Plant extends Entitie {
     private int shootSpeed;
     private PlantCards card;
     protected int timeSinceLastShot = 0;
+    private boolean isDead = false;
 
     protected Plant(int shootSpeed, String name, int cost, int cooldown, int healthPoint, Double x, int y) {
         super(healthPoint,x,y);
@@ -37,7 +38,9 @@ public abstract class Plant extends Entitie {
 
     @Override
     public void onDeath() {
-        System.out.println("Plant est mort");
+        if (this.getVue() != null)
+            this.getVue().getImageView().setVisible(false);
+        isDead = true;
     }
 
     public void setShootSpeed(int shootSpeed) {
@@ -54,5 +57,13 @@ public abstract class Plant extends Entitie {
 
     public void setCard(PlantCards card) {
         this.card = card;
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
     }
 }
