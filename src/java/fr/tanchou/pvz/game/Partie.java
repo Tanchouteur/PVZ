@@ -33,7 +33,7 @@ public class Partie {
         rows[2].addPlant(new PeaShooter(0.0, 2));
 
 
-        rows[0].addZombie(new NormalZombie(8.0, 0));
+        rows[0].addZombie(new NormalZombie(9.0, 0));
         /*rows[1].addZombie(new NormalZombie(8.0, 0));
         rows[2].addZombie(new NormalZombie(8.0, 0));
         rows[3].addZombie(new NormalZombie(8.0, 0));

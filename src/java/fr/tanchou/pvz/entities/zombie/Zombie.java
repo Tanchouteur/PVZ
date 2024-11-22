@@ -47,7 +47,7 @@ public abstract class Zombie extends Entitie {
     }
 
     public void move() {
-        this.setX(this.getX() - speed*0.01);
+        this.setX(this.getX() - speed*0.004);
     }
 
     public int getSpeed() {

@@ -67,7 +67,7 @@ public class Row {
         for (Plant plant : listPlants) {
             plant.tick();
 
-            if (haveZombie) {
+            if (haveZombie()) {
                 Bullet bullet = plant.shoot();
                 if (bullet != null) {
                     addBullet(bullet);
@@ -175,7 +175,7 @@ public class Row {
     }
 
     public boolean haveZombie() {
-        return haveZombie;
+        return !listZombie.isEmpty();
     }
 
     public void setHaveZombie(boolean haveZombie) {
