@@ -21,7 +21,12 @@ public class PartieVue extends Application {
     @Override
     public void start(Stage primaryStage) {
         rootPane = new Pane();
+
         animationLayer = new Pane();
+        animationLayer.setLayoutX(100); // Décalage horizontal
+        animationLayer.setLayoutY(50); // Décalage vertical
+
+
         hudLayer = new Pane();
 
         rootPane.getChildren().addAll(animationLayer, hudLayer);
@@ -36,7 +41,7 @@ public class PartieVue extends Application {
         // Démarrage du jeu
         controller.startGame();
 
-        primaryStage.setScene(new Scene(rootPane, 800, 600));
+        primaryStage.setScene(new Scene(rootPane, 1200, 800));
         primaryStage.setTitle("Plante versus Zombie");
 
         primaryStage.show();
@@ -56,10 +61,10 @@ public class PartieVue extends Application {
             RowVue rowVue = row.getRowVue();
             Pane rowPane = rowVue.getRowPane();
 
-            // Si le rowPane n'est pas déjà ajouté au rootPane, ajoute-le
-            if (!rootPane.getChildren().contains(rowPane)) {
+            // Si le rowPane n'est pas déjà ajouté, ajoute-le
+            if (!animationLayer.getChildren().contains(rowPane)) {
                 rowPane.setLayoutY(i * 100);  // Par exemple, espacer les lignes verticalement
-                rootPane.getChildren().add(rowPane);
+                animationLayer.getChildren().add(rowPane);
             }
 
             // Mettre à jour l'affichage des entités dans la ligne

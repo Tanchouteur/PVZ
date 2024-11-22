@@ -2,6 +2,7 @@ package fr.tanchou.pvz.entities.plants.pea;
 
 import fr.tanchou.pvz.entities.Bullet;
 import fr.tanchou.pvz.entities.plants.Plant;
+import javafx.scene.layout.Pane;
 
 public class PeaShooter extends Plant {
     public PeaShooter(Double x, int y) {
@@ -14,8 +15,8 @@ public class PeaShooter extends Plant {
     }
 
     @Override
-    public PeashooterVue createVue() {
-        return new PeashooterVue(this);
+    public PeashooterVue createVue(Pane parent) {
+        return new PeashooterVue(this, parent);
     }
 }
 

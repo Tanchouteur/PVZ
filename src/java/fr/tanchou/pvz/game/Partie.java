@@ -44,6 +44,10 @@ public class Partie {
 
             // Mettre à jour les zombies
             for (Zombie zombie : row.getListZombies()) {
+                if (zombie.isDead()) {
+                    row.removeZombie(zombie);
+                    continue;
+                }
                 zombie.move(); // Avancer les zombies
 
                 // Vérifier si le zombie atteint la fin de la rangée

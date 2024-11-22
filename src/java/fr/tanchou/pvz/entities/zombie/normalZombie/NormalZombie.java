@@ -2,6 +2,7 @@ package fr.tanchou.pvz.entities.zombie.normalZombie;
 
 import fr.tanchou.pvz.entities.EntitieVue;
 import fr.tanchou.pvz.entities.zombie.Zombie;
+import javafx.scene.layout.Pane;
 
 public class NormalZombie extends Zombie {
 
@@ -10,7 +11,7 @@ public class NormalZombie extends Zombie {
     }
 
     @Override
-    public EntitieVue createVue() {
-        return new NormalZombieVue(this);
+    public EntitieVue createVue(Pane parent) {
+        return new NormalZombieVue(this, parent);
     }
 }

@@ -1,21 +1,22 @@
 package fr.tanchou.pvz.entities;
 
 import fr.tanchou.pvz.entities.plants.PlantVue;
+import javafx.scene.layout.Pane;
 
 public abstract class Entitie {
     private Double x;
     private int y;
     private int healthPoint;
-    private final EntitieVue vue;
+    private EntitieVue vue;
 
     public Entitie(int healthPoint, Double x, int y) {
         this.healthPoint = healthPoint;
         this.x = x;
         this.y = y;
-        this.vue = createVue();
+        //this.vue = createVue();
     }
 
-    public abstract EntitieVue createVue();
+    public abstract EntitieVue createVue(Pane parent);
 
     public abstract void onDeath();
 
@@ -49,6 +50,10 @@ public abstract class Entitie {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public void setVue(EntitieVue vue) {
+        this.vue = vue;
     }
 
     public EntitieVue getVue() {

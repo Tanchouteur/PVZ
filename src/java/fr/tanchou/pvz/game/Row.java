@@ -107,7 +107,8 @@ public class Row {
             for (Zombie zombie : listZombie) {
                 if (bullet.collidesWith(zombie)) {
                     zombie.takeDamage(bullet.getDamage());
-                    bullet.onDeath(); // Supprimer le projectile après collision
+                    bullet.onDeath();
+                    iterator.remove();
                     break;
                 }
             }
@@ -119,6 +120,7 @@ public class Row {
             }
         }
     }
+
 
     public RowVue getRowVue() {
         return rowVue;
