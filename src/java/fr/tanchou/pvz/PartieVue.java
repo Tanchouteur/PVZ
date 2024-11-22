@@ -8,12 +8,13 @@ import fr.tanchou.pvz.player.Player;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class PartieVue extends Application {
     private Pane rootPane;
     private Pane animationLayer;
+    private Pane hudLayer;
+
     private PartieController controller;
 
 
@@ -21,8 +22,9 @@ public class PartieVue extends Application {
     public void start(Stage primaryStage) {
         rootPane = new Pane();
         animationLayer = new Pane();
+        hudLayer = new Pane();
 
-        rootPane.getChildren().addAll(animationLayer);
+        rootPane.getChildren().addAll(animationLayer, hudLayer);
 
         // Création du modèle et du joueur
         Player player = new Player("Louis");

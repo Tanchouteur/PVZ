@@ -98,9 +98,15 @@ public class Row {
             for (Zombie zombie : listZombie) {
                 if (bullet.collidesWith(zombie)) {
                     zombie.takeDamage(bullet.getDamage());
-                    iterator.remove(); // Supprimer le projectile après collision
+                    bullet.onDeath(); // Supprimer le projectile après collision
                     break;
                 }
+            }
+
+            // Supprimer le projectile s'il est hors de l'écran
+            if (bullet.getX() > 7.0) {
+                bullet.onDeath();
+                iterator.remove();
             }
         }
     }

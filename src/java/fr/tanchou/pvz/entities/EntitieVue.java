@@ -13,8 +13,8 @@ public abstract class EntitieVue {
 
     public void update() {
         // Mettre à jour la position de l'entité
-        imageView.setLayoutX(entitie.getX());
-        imageView.setLayoutY(entitie.getY());
+        imageView.setLayoutX(entitie.getX()*100);
+        imageView.setLayoutY(entitie.getY()*100);
     }
 
     public ImageView getImageView() {
