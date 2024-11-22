@@ -10,6 +10,7 @@ import fr.tanchou.pvz.player.Player;
 public class Partie {
     private final Row[] rows;
     private final Player player;
+    private boolean defeated = false;
 
     public Partie(Player player) {
         this.player = player;
@@ -43,47 +44,10 @@ public class Partie {
         for (Row row : rows) {
 
             // Mettre à jour les zombies
-            for (Zombie zombie : row.getListZombies()) {
-                if (zombie.isDead()) {
-                    row.removeZombie(zombie);
-                    continue;
-                }
-
-                if (row.havePlant()) {
-                    for (Plant plant : row.getListPlants()) {
-                        if (plant.isDead()) {
-                            row.removePlant(plant);
-                            continue;
-                        }
-                        if (zombie.collidesWith(plant)) {
-                            plant.takeDamage(zombie.getDamage());
-                        }else {
-                            zombie.move(); // Avancer les zombies
-                        }
-                    }
-                }else {
-                    zombie.move(); // Avancer les zombies
-                }
-
-                // Vérifier si le zombie atteint la fin de la rangée
-                if (zombie.getX() < 0) {
-
-                    System.out.println("Game Over! Un zombie a atteint la maison.");
-                    return;
-                }
-            }
+            row.updateZombies();
 
             // Mettre à jour les plantes
-            for (Plant plant : row.getListPlants()) {
-                plant.tick(); // Mettre à jour le compteur de tir
-
-                if (row.haveZombie()) {
-                    Bullet bullet = plant.shoot(); // Faire tirer la plante
-                    if (bullet != null) {
-                        row.addBullet(bullet); // Ajouter le projectile à la rangée
-                    }
-                }
-            }
+            row.updatePlants();
 
             // Mettre à jour les projectiles
             row.updateBullets();
@@ -98,4 +62,7 @@ public class Partie {
     private void spawnZombies() {
     }
 
+    public boolean isDefeated() {
+        return defeated;
+    }
 }

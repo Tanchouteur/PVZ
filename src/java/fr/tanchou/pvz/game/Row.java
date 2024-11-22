@@ -16,7 +16,7 @@ public class Row {
 
     private boolean haveZombie = false;
 
-    private RowVue rowVue;
+    private final RowVue rowVue;
 
     Row() {
         listPlants = new LinkedList<>();
@@ -25,6 +25,90 @@ public class Row {
         lawnMower = true;
 
         rowVue = new RowVue(this);
+    }
+
+    public void updateZombies() {
+        Iterator<Zombie> iterator = listZombie.iterator();
+
+        while (iterator.hasNext()) {
+            Zombie zombie = iterator.next();
+
+            if (zombie.isDead()) {
+                iterator.remove();
+                continue;
+            }
+
+            if (havePlant()) {
+                for (Plant plant : listPlants) {
+                    if (plant.isDead()) {
+                        removePlant(plant);
+                        continue;
+                    }
+                    if (zombie.collidesWith(plant)) {
+                        plant.takeDamage(zombie.getDamage());
+                    } else {
+                        zombie.move();
+                    }
+                }
+            } else {
+                zombie.move();
+            }
+
+            if (zombie.getX() < -1.0) {
+                zombie.onDeath();
+                iterator.remove();
+            }
+        }
+    }
+
+    public void updatePlants() {
+        for (Plant plant : listPlants) {
+            plant.tick();
+
+            if (haveZombie) {
+                Bullet bullet = plant.shoot();
+                if (bullet != null) {
+                    addBullet(bullet);
+                }
+            }
+        }
+    }
+
+    public void updateBullets() {
+        Iterator<Bullet> iterator = listBullets.iterator();
+
+        while (iterator.hasNext()) {
+            Bullet bullet = iterator.next();
+            bullet.move();
+
+            // Vérifier les collisions avec les zombies
+            for (Zombie zombie : listZombie) {
+                if (bullet.collidesWith(zombie)) {
+                    zombie.takeDamage(bullet.getDamage());
+                    bullet.onDeath();
+                    iterator.remove();
+                    break;
+                }
+            }
+
+            // Supprimer le projectile s'il est hors de l'écran
+            if (bullet.getX() > 7.0) {
+                bullet.onDeath();
+                iterator.remove();
+            }
+        }
+    }
+
+    public LinkedList<Plant> getListPlants() {
+        return listPlants;
+    }
+
+    public LinkedList<Zombie> getListZombies() {
+        return listZombie;
+    }
+
+    public LinkedList<Bullet> getListBullets() {
+        return listBullets;
     }
 
     public void addPlant(Plant plant) {
@@ -58,18 +142,6 @@ public class Row {
         listBullets.remove(bullet);
     }
 
-    public LinkedList<Plant> getListPlants() {
-        return listPlants;
-    }
-
-    public LinkedList<Zombie> getListZombies() {
-        return listZombie;
-    }
-
-    public LinkedList<Bullet> getListBullets() {
-        return listBullets;
-    }
-
     public boolean haveLawnMower() {
         return lawnMower;
     }
@@ -95,32 +167,6 @@ public class Row {
     public Zombie getFirstZombie() {
         return firstZombie;
     }
-
-    public void updateBullets() {
-        Iterator<Bullet> iterator = listBullets.iterator();
-
-        while (iterator.hasNext()) {
-            Bullet bullet = iterator.next();
-            bullet.move();
-
-            // Vérifier les collisions avec les zombies
-            for (Zombie zombie : listZombie) {
-                if (bullet.collidesWith(zombie)) {
-                    zombie.takeDamage(bullet.getDamage());
-                    bullet.onDeath();
-                    iterator.remove();
-                    break;
-                }
-            }
-
-            // Supprimer le projectile s'il est hors de l'écran
-            if (bullet.getX() > 7.0) {
-                bullet.onDeath();
-                iterator.remove();
-            }
-        }
-    }
-
 
     public RowVue getRowVue() {
         return rowVue;

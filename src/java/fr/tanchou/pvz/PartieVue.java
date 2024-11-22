@@ -53,6 +53,12 @@ public class PartieVue extends Application {
 
     // Mise à jour de la vue avec les informations du modèle
     public void update(Partie partie) {
+
+        if (partie.isDefeated()) {
+            controller.stopGame();
+            return;
+        }
+
         int i = 0;
 
         // Mettre à jour chaque ligne (Row) dans le jeu
