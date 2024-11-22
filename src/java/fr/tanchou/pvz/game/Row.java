@@ -32,6 +32,7 @@ public class Row {
 
         while (iterator.hasNext()) {
             Zombie zombie = iterator.next();
+            zombie.tick();
 
             if (zombie.isDead()) {
                 iterator.remove();
@@ -45,7 +46,7 @@ public class Row {
                         continue;
                     }
                     if (zombie.collidesWith(plant)) {
-                        plant.takeDamage(zombie.getDamage());
+                        zombie.attack(plant);
                     } else {
                         zombie.move();
                     }

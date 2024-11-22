@@ -1,9 +1,6 @@
 package fr.tanchou.pvz.game;
 
-import fr.tanchou.pvz.entities.Bullet;
-import fr.tanchou.pvz.entities.plants.Plant;
 import fr.tanchou.pvz.entities.plants.pea.PeaShooter;
-import fr.tanchou.pvz.entities.zombie.Zombie;
 import fr.tanchou.pvz.entities.zombie.normalZombie.NormalZombie;
 import fr.tanchou.pvz.player.Player;
 
@@ -51,7 +48,6 @@ public class Partie {
 
             // Mettre à jour les projectiles
             row.updateBullets();
-
         }
 
         // Ajouter de nouveaux zombies (si nécessaire)

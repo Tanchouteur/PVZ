@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/louis/IdeaProjects/PVZ/src/java</OriginalElement>
+  <nodes>
+    <node x="-48.529447070947825" y="1360.4793660230112">fr.tanchou.pvz.entities.zombie.normalZombie.NormalZombie</node>
+    <node x="699.2173879185491" y="393.27703432807175">fr.tanchou.pvz.entities.zombie.normalZombie.NormalZombieVue</node>
+    <node x="1358.7601046570026" y="1309.1252316860575">fr.tanchou.pvz.entities.Effect</node>
+    <node x="1910.1147676636785" y="368.8444264594922">fr.tanchou.pvz.entities.plants.pea.PeaBulletVue</node>
+    <node x="2080.3526369654383" y="875.9246586136101">fr.tanchou.pvz.game.Partie</node>
+    <node x="1755.972031422781" y="943.4778983822489">fr.tanchou.pvz.game.PartieController</node>
+    <node x="419.3901561914744" y="228.54463339419192">fr.tanchou.pvz.entities.Entitie</node>
+    <node x="406.33673911475535" y="868.2012396445848">fr.tanchou.pvz.entities.plants.Plant</node>
+    <node x="1699.4005576137263" y="-41.377263189371995">fr.tanchou.pvz.entities.plants.PlantVue</node>
+    <node x="332.0931400635207" y="-207.08310529874768">fr.tanchou.pvz.player.PlayerPlants</node>
+    <node x="232.91647091458316" y="1340.9213762095656">fr.tanchou.pvz.entities.plants.pea.PeaShooter</node>
+    <node x="1379.2013966433153" y="348.24198620134933">fr.tanchou.pvz.game.RowVue</node>
+    <node x="1580.5800368038763" y="384.80962602755375">fr.tanchou.pvz.entities.plants.pea.PeashooterVue</node>
+    <node x="1059.5993639960652" y="1365.2986935917127">fr.tanchou.pvz.entities.plants.pea.PeaBullet</node>
+    <node x="619.5092632512703" y="-31.81321708745684">fr.tanchou.pvz.entities.zombie.ZombieVue</node>
+    <node x="821.5170980960874" y="1327.8056812762247">fr.tanchou.pvz.PartieVue</node>
+    <node x="1180.8947755042843" y="890.9570113947264">fr.tanchou.pvz.entities.Bullet</node>
+    <node x="1065.2539917126826" y="63.94521977988654">fr.tanchou.pvz.game.Row</node>
+    <node x="930.2094678004105" y="907.7148216447449">fr.tanchou.pvz.player.Player</node>
+    <node x="2023.4054844517527" y="-56.73151721615077">fr.tanchou.pvz.entities.BulletVue</node>
+    <node x="1717.7880402308515" y="-356.27030270407954">fr.tanchou.pvz.entities.EntitieVue</node>
+    <node x="543.0917374057125" y="1305.2698804147008">fr.tanchou.pvz.entities.plants.PlantCards</node>
+    <node x="-153.32741884928336" y="847.8403776060118">fr.tanchou.pvz.entities.zombie.Zombie</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="fr.tanchou.pvz.entities.zombie.normalZombie.NormalZombieVue" target="fr.tanchou.pvz.entities.zombie.ZombieVue" relationship="GENERALIZATION">
+      <point x="-109.70812466727875" y="-31.5" />
+      <point x="0.0" y="31.499999999999993" />
+    </edge>
+    <edge source="fr.tanchou.pvz.entities.Bullet" target="fr.tanchou.pvz.entities.Entitie" relationship="GENERALIZATION">
+      <point x="2.2449571565630322E-4" y="-142.50001139472636" />
+      <point x="1298.395" y="839.0" />
+      <point x="528.89" y="839.0" />
+      <point x="-1.5619147438883374E-4" y="166.50036660580804" />
+    </edge>
+    <edge source="fr.tanchou.pvz.entities.zombie.normalZombie.NormalZombie" target="fr.tanchou.pvz.entities.zombie.Zombie" relationship="GENERALIZATION">
+      <point x="-89.29797177833554" y="-44.5" />
+      <point x="0.0" y="166.5" />
+    </edge>
+    <edge source="fr.tanchou.pvz.entities.zombie.Zombie" target="fr.tanchou.pvz.entities.Entitie" relationship="GENERALIZATION">
+      <point x="126.00041884928336" y="-3.7760601185254927E-4" />
+      <point x="388.837" y="1014.3399999999999" />
+      <point x="388.837" y="839.0" />
+      <point x="528.89" y="839.0" />
+      <point x="-1.5619147438883374E-4" y="166.50036660580804" />
+    </edge>
+    <edge source="fr.tanchou.pvz.entities.BulletVue" target="fr.tanchou.pvz.entities.EntitieVue" relationship="GENERALIZATION">
+      <point x="-115.50048445175275" y="-4.8278384922895157E-4" />
+      <point x="1994.0" y="-25.232" />
+      <point x="1994.0" y="-285.77" />
+      <point x="119.99995976914852" y="3.0270407953025824E-4" />
+    </edge>
+    <edge source="fr.tanchou.pvz.entities.plants.pea.PeashooterVue" target="fr.tanchou.pvz.entities.plants.PlantVue" relationship="GENERALIZATION">
+      <point x="116.82052080985" y="-31.5" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="fr.tanchou.pvz.entities.plants.PlantVue" target="fr.tanchou.pvz.entities.EntitieVue" relationship="GENERALIZATION">
+      <point x="4.423862737894524E-4" y="-31.499736810628004" />
+      <point x="1831.401" y="-66.0" />
+      <point x="1994.0" y="-66.0" />
+      <point x="1994.0" y="-285.77" />
+      <point x="119.99995976914852" y="3.0270407953025824E-4" />
+    </edge>
+    <edge source="fr.tanchou.pvz.entities.plants.pea.PeaBulletVue" target="fr.tanchou.pvz.entities.BulletVue" relationship="GENERALIZATION">
+      <point x="20.790716788074178" y="-31.5" />
+      <point x="-108.0" y="31.5" />
+    </edge>
+    <edge source="fr.tanchou.pvz.entities.plants.pea.PeaShooter" target="fr.tanchou.pvz.entities.plants.Plant" relationship="GENERALIZATION">
+      <point x="55.92026820017219" y="-56.5" />
+      <point x="-146.5" y="166.5" />
+    </edge>
+    <edge source="fr.tanchou.pvz.entities.plants.Plant" target="fr.tanchou.pvz.entities.Entitie" relationship="GENERALIZATION">
+      <point x="2.6088524464285E-4" y="-166.50023964458478" />
+      <point x="560.337" y="839.0" />
+      <point x="528.89" y="839.0" />
+      <point x="-1.5619147438883374E-4" y="166.50036660580804" />
+    </edge>
+    <edge source="fr.tanchou.pvz.entities.plants.pea.PeaBullet" target="fr.tanchou.pvz.entities.Bullet" relationship="GENERALIZATION">
+      <point x="111.5" y="-44.5" />
+      <point x="-8.295411508219104" y="142.5" />
+    </edge>
+    <edge source="fr.tanchou.pvz.entities.zombie.ZombieVue" target="fr.tanchou.pvz.entities.EntitieVue" relationship="GENERALIZATION">
+      <point x="-2.6325127032578166E-4" y="-31.49978291254316" />
+      <point x="742.009" y="-66.0" />
+      <point x="1994.0" y="-66.0" />
+      <point x="1994.0" y="-285.77" />
+      <point x="119.99995976914852" y="3.0270407953025824E-4" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.3784592370979807" showDependencies="false" x="1416.4450810276692" y="727.0382924901189" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

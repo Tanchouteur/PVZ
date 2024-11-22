@@ -9,6 +9,7 @@ public abstract class Zombie extends Entitie {
     private Effect effect;
     private boolean isDead = false;
     private final int damage;
+    protected int timeSinceLastAttack = 0;
 
     protected Zombie(int speed, int healthPoint, int damage, Double x, int y) {
         super(healthPoint, x, y);
@@ -23,6 +24,20 @@ public abstract class Zombie extends Entitie {
         double collisionThreshold = 0.4; // Par exemple, 0.5 unité de distance
 
         return distance <= collisionThreshold;
+    }
+
+    public boolean canAttack() {
+        if (timeSinceLastAttack >= 100) {
+            timeSinceLastAttack = 0; // Réinitialise le compteur après un tir
+            return true;
+        }
+        return false;
+    }
+
+    public void attack(Plant plant) {
+        if (canAttack()){
+            plant.takeDamage(damage);
+        }
     }
 
     @Override
@@ -61,5 +76,9 @@ public abstract class Zombie extends Entitie {
 
     public int getDamage() {
         return damage;
+    }
+
+    public void tick() {
+        timeSinceLastAttack++;
     }
 }
