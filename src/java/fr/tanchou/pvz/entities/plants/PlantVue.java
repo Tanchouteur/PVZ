@@ -7,14 +7,15 @@ import javafx.scene.layout.Pane;
 public abstract class PlantVue extends EntitieVue {
 
     public PlantVue(Plant plant, ImageView imageView, Pane parent) {
-
-        imageView.setFitWidth(50); // Largeur fixe
-        imageView.setFitHeight(50); // Largeur fixe
-
-        double bottomPosition = 100.0 - 50.0; // Hauteur totale du parent moins la hauteur de l'image
-        imageView.setLayoutY(50);
-
         super(plant, imageView);
+    }
+
+    @Override
+    public void updateDetails(Pane parent) {
+        imageView.setFitWidth(100); // Largeur fixe
+        imageView.setFitHeight(100); // Largeur fixe
+
+        imageView.setLayoutY(50);
     }
 
 }

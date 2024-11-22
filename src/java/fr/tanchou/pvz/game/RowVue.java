@@ -22,8 +22,8 @@ public class RowVue {
 
         rowPane = new Pane();  // Initialisation du Pane parent
 
-        rowPane.setStyle("-fx-background-color: transparent;");
-        rowPane.setPrefSize(1090, 100);
+        //rowPane.setStyle("-fx-background-color: linear-gradient(to bottom, #00ff00, #00cc00);");
+        rowPane.setPrefSize(1090, 800);  // Taille du Pane parent
 
         // Ajout des couches au Pane parent (rowPane)
         rowPane.getChildren().addAll(plantLayer, zombieLayer, bulletLayer);
@@ -47,6 +47,10 @@ public class RowVue {
         }
     }
 
+    public void setSize(double width, double height) {
+        rowPane.setPrefSize(width, height);
+    }
+
     public void update() {
 
         // Met à jour la position et l'état des plantes
@@ -57,7 +61,7 @@ public class RowVue {
             if (!plantLayer.getChildren().contains(plant.getVue().getImageView())) {
                 plantLayer.getChildren().add(plant.getVue().getImageView());
             }
-            //plant.getVue().update(plantLayer);
+            plant.getVue().update(plantLayer);
         }
 
         // Met à jour la position et l'état des zombies

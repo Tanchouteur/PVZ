@@ -10,7 +10,10 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import java.util.Objects;
 
 public class PartieVue extends Application {
     private Pane rootPane;
@@ -25,20 +28,12 @@ public class PartieVue extends Application {
         rootPane = new Pane();
 
         animationLayer = new Pane();
-        animationLayer.setLayoutX(100); // Décalage horizontal
-        animationLayer.setLayoutY(50); // Décalage vertical
 
 
         hudLayer = new Pane();
 
-        Image backgroundImage = new Image(String.valueOf(getClass().getResource( "/assets/terrains/day.webp")));
-
-        // Crée un ImageView pour afficher l'image de fond
+        Image backgroundImage = new Image(Objects.requireNonNull(getClass().getResource("/assets/terrains/day.png")).toExternalForm());
         ImageView backgroundImageView = new ImageView(backgroundImage);
-
-        // Assure-toi que l'image couvre toute la fenêtre
-        backgroundImageView.setFitWidth(1090);  // Largeur de ton jeu
-        backgroundImageView.setFitHeight(600);  // Hauteur de ton jeu
 
         // Positionne l'image dans le coin supérieur gauche
         backgroundImageView.setX(0);
@@ -59,8 +54,19 @@ public class PartieVue extends Application {
         // Démarrage du jeu
         controller.startGame();
 
-        primaryStage.setScene(new Scene(rootPane, 1200, 800));
-        primaryStage.setTitle("Plante versus Zombie");
+        primaryStage.setScene(new Scene(rootPane, 1920, 1080));
+        primaryStage.setTitle("Plante versus Zombie - " + player.getName());
+
+        backgroundImageView.setFitWidth(rootPane.getWidth()+0.35*rootPane.getWidth());
+        backgroundImageView.setFitHeight(rootPane.getHeight());
+
+        animationLayer.setLayoutX(rootPane.getWidth()*0.25); // Décalage horizontal
+        animationLayer.setLayoutY(rootPane.getHeight()*0.1); // Décalage vertical
+
+        rootPane.setStyle("-fx-border-color: red; -fx-border-width: 2;");
+        animationLayer.setStyle("-fx-border-color: blue; -fx-border-width: 2;");
+        hudLayer.setStyle("-fx-border-color: green; -fx-border-width: 2;");
+
 
         primaryStage.show();
     }
@@ -81,18 +87,20 @@ public class PartieVue extends Application {
 
         // Mettre à jour chaque ligne (Row) dans le jeu
         for (Row row : partie.getRows()) {
-            i++;
+
             RowVue rowVue = row.getRowVue();
             Pane rowPane = rowVue.getRowPane();
 
             // Si le rowPane n'est pas déjà ajouté, ajoute-le
             if (!animationLayer.getChildren().contains(rowPane)) {
-                rowPane.setLayoutY(i * 100);  // Par exemple, espacer les lignes verticalement
+                rowVue.setSize(rootPane.getWidth()*0.75, rootPane.getHeight()*0.17);  // Taille du Pane parent
+                rowPane.setLayoutY(i * (rootPane.getHeight()*0.17));  // Par exemple, espacer les lignes verticalement
                 animationLayer.getChildren().add(rowPane);
             }
 
             // Mettre à jour l'affichage des entités dans la ligne
             rowVue.update();
+            i++;
         }
     }
 }

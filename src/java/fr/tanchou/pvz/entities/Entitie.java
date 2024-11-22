@@ -1,6 +1,5 @@
 package fr.tanchou.pvz.entities;
 
-import fr.tanchou.pvz.entities.plants.PlantVue;
 import javafx.scene.layout.Pane;
 
 public abstract class Entitie {
@@ -28,7 +27,7 @@ public abstract class Entitie {
         this.healthPoint = healthPoint;
     }
 
-    public void takeDamage(int damage) {
+    public void  takeDamage(int damage) {
         this.healthPoint -= damage;
 
         if (this.healthPoint <= 0) {

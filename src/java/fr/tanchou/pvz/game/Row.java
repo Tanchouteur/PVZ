@@ -3,6 +3,7 @@ package fr.tanchou.pvz.game;
 import fr.tanchou.pvz.entities.Bullet;
 import fr.tanchou.pvz.entities.plants.Plant;
 import fr.tanchou.pvz.entities.zombie.Zombie;
+import javafx.scene.layout.Pane;
 
 import java.util.Iterator;
 import java.util.LinkedList;

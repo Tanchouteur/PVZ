@@ -14,13 +14,15 @@ public abstract class EntitieVue {
     }
 
     public void update(Pane parent) {
-        double bottomPosition = entitie.getY()*parent.getHeight() - imageView.getFitHeight(); // Hauteur totale du parent moins la hauteur de l'image
-
+        //double bottomPosition = entitie.getY()*parent.getHeight() - imageView.getFitHeight(); // Hauteur totale du parent moins la hauteur de l'image
+        imageView.setLayoutY(entitie.getY()*100);
+        updateDetails(parent); // Mettre à jour les détails de l'entité
         // Mettre à jour la position de l'entité
-        imageView.setLayoutX(entitie.getX()*100);
-        imageView.setLayoutY(entitie.getY()*parent.getHeight());
+        imageView.setLayoutX(entitie.getX()*150);
 
     }
+
+    public abstract void updateDetails(Pane parent);
 
     public ImageView getImageView() {
         return imageView;
