@@ -20,7 +20,7 @@ public class SunVue extends BulletVue {
         });
         super(sun, new ImageView(url.toString()));
 
-        imageView.setFitWidth(50);
-        imageView.setFitHeight(50);
+        imageView.setFitWidth(150);
+        imageView.setFitHeight(150);
     }
 }

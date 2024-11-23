@@ -5,6 +5,7 @@ import fr.tanchou.pvz.game.PartieController;
 import fr.tanchou.pvz.game.board.Row;
 import fr.tanchou.pvz.game.board.RowVue;
 import fr.tanchou.pvz.player.Player;
+import fr.tanchou.pvz.player.gui.HudPane;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -17,7 +18,7 @@ import java.util.Objects;
 public class PartieVue extends Application {
     private Pane rootPane;
     private Pane animationLayer;
-    private Pane hudLayer;
+    private HudPane hudLayer;
     private Pane sunLayer;
 
     private PartieController controller;
@@ -30,8 +31,6 @@ public class PartieVue extends Application {
         animationLayer = new Pane();
         sunLayer = new Pane();
 
-        hudLayer = new Pane();
-
         Image backgroundImage = new Image(Objects.requireNonNull(getClass().getResource("/assets/terrains/day.png")).toExternalForm());
         ImageView backgroundImageView = new ImageView(backgroundImage);
 
@@ -42,11 +41,13 @@ public class PartieVue extends Application {
         // Ajoute l'image de fond en premier dans le rootPane
         rootPane.getChildren().add(backgroundImageView);
 
-        rootPane.getChildren().addAll(animationLayer, hudLayer, sunLayer);
+        rootPane.getChildren().addAll(animationLayer, sunLayer);
 
         // Création du modèle et du joueur
         Player player = new Player("Louis");
         Partie partie = new Partie(player);
+
+        hudLayer = new HudPane(player);
 
         // Création du contrôleur avec le modèle et la vue
         controller = new PartieController(partie, this);

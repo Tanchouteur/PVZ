@@ -4,13 +4,13 @@ import fr.tanchou.pvz.entities.Entitie;
 
 public abstract class Plant extends Entitie {
 
-    private PlantCards card;
+    private PlantCard card;
     protected int timeSinceLastShot = 0;
     private boolean isDead = false;
 
     protected Plant(String name, int cost, int cooldownToBuy, int healthPoint) {
         super(healthPoint,-1.0,-1);
-        this.card = new PlantCards(name, cost, cooldownToBuy);
+        this.card = new PlantCard(name, cost, cooldownToBuy);
     }
 
     public void tick() {
@@ -24,11 +24,11 @@ public abstract class Plant extends Entitie {
         isDead = true;
     }
 
-    public PlantCards getCard() {
+    public PlantCard getCard() {
         return card;
     }
 
-    public void setCard(PlantCards card) {
+    public void setCard(PlantCard card) {
         this.card = card;
     }
 

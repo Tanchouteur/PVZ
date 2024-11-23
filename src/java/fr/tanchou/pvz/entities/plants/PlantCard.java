@@ -1,11 +1,16 @@
 package fr.tanchou.pvz.entities.plants;
 
-public class PlantCards {
+import javafx.scene.layout.Pane;
+
+import java.net.URL;
+import java.util.Objects;
+
+public class PlantCard {
     private String name;
     private int cost;
     private int cooldown;
 
-    public PlantCards(String name, int cost, int cooldown) {
+    public PlantCard(String name, int cost, int cooldown) {
         this.name = name;
         this.cost = cost;
         this.cooldown = cooldown;
@@ -33,5 +38,13 @@ public class PlantCards {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public VuePlantCard createVue() {
+        return new VuePlantCard(this);
+    }
+
+    public URL getURL(){
+        return this.getClass().getResource("/assets/plants/Cards/" + this.getName() + "Card.png");
     }
 }

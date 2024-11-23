@@ -1,15 +1,16 @@
 package fr.tanchou.pvz.player;
 
-import fr.tanchou.pvz.entities.plants.PlantCards;
+import fr.tanchou.pvz.entities.plants.PlantCard;
 
 public class Player {
     private int sun;
-    private PlantCards plantCards;
+    private PlantCard[] plantCards;
     private final String name;
 
     public Player(String name) {
         this.name = name;
         this.sun = 50;
+        this.plantCards = new PlantCard[5];
     }
 
     public int getSun() {
@@ -24,12 +25,16 @@ public class Player {
         this.sun -= sun;
     }
 
-    public PlantCards getPlantCards() {
+    public PlantCard[] getPlantCards() {
         return plantCards;
     }
 
-    public void setPlantCards(PlantCards plantCards) {
+    public void setPlantCards(PlantCard[] plantCards) {
         this.plantCards = plantCards;
+    }
+
+    public void setPlantCard(int index, PlantCard plantCard) {
+        this.plantCards[index] = plantCard;
     }
 
     public String getName() {

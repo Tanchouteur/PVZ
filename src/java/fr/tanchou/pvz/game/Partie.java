@@ -77,7 +77,7 @@ public class Partie {
             // Mettre à jour les projectiles
             row.updateBullets();
 
-            this.sunManager.updateSuns();
+            this.sunManager.updateSuns(player);
 
         }
 

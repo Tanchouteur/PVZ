@@ -2,6 +2,7 @@ package fr.tanchou.pvz.game.board;
 
 import fr.tanchou.pvz.entities.plants.passive.sunflower.Sun;
 import fr.tanchou.pvz.entities.plants.passive.sunflower.SunVue;
+import fr.tanchou.pvz.player.Player;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
@@ -34,7 +35,7 @@ public class SunManager {
     }
 
     // Mettre à jour les soleils
-    public void updateSuns() {
+    public void updateSuns(Player player) {
         Iterator<Sun> iterator = suns.iterator();
         timeToLastSpawn++;
 
@@ -44,6 +45,7 @@ public class SunManager {
 
             // Supprimer les soleils collectés ou en dehors de l'écran
             if (sun.isCollected()) {
+                player.addSun(sun.getValue());
                 iterator.remove();
             }
         }
