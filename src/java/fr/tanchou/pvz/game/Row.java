@@ -40,22 +40,35 @@ public class Row {
                 continue;
             }
 
+            boolean hasCollided = false; // Pour suivre si une collision a été détectée
+
+            // Vérifie s'il y a des plantes sur la ligne
             if (havePlant()) {
-                for (Plant plant : listPlants) {
+                Iterator<Plant> plantIterator = listPlants.iterator();
+
+                while (plantIterator.hasNext()) {
+                    Plant plant = plantIterator.next();
+
                     if (plant.isDead()) {
-                        removePlant(plant);
+                        plantIterator.remove(); // Supprime les plantes mortes
                         continue;
                     }
+
+                    // Vérifie si le zombie entre en collision avec la plante
                     if (zombie.collidesWith(plant)) {
                         zombie.attack(plant);
-                    } else {
-                        zombie.move();
+                        hasCollided = true; // Collision détectée, le zombie attaque
+                        break; // Quitte la boucle, car le zombie ne peut attaquer qu'une seule plante
                     }
                 }
-            } else {
+            }
+
+            // Si aucune collision n'a été détectée, le zombie avance
+            if (!hasCollided) {
                 zombie.move();
             }
 
+            // Si le zombie sort de l'écran (à gauche), il meurt
             if (zombie.getX() < -1.0) {
                 zombie.onDeath();
                 iterator.remove();

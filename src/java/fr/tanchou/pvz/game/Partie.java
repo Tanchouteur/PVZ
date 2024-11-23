@@ -26,14 +26,14 @@ public class Partie {
 
         rows[0].addPlant(new PeaShooter(0.0, 0));
         rows[0].addPlant(new PeaShooter(1.0, 0));
-        rows[0].addPlant(new PeaShooter(2.0, 0));
-        rows[0].addPlant(new PeaShooter(3.0, 0));
+        /*rows[0].addPlant(new PeaShooter(2.0, 0));
+        rows[0].addPlant(new PeaShooter(3.0, 0));*/
 
         rows[1].addPlant(new PeaShooter(0.0, 1));
         rows[2].addPlant(new PeaShooter(0.0, 2));
 
 
-        rows[0].addZombie(new NormalZombie(9.0, 0));
+        rows[0].addZombie(new NormalZombie(3.0, 0));
         /*rows[1].addZombie(new NormalZombie(8.0, 0));
         rows[2].addZombie(new NormalZombie(8.0, 0));
         rows[3].addZombie(new NormalZombie(8.0, 0));

@@ -22,7 +22,7 @@ public abstract class Zombie extends Entitie {
         double distance = Math.abs(this.getX() - plant.getX());
 
         double collisionThreshold = 0.4; // Par exemple, 0.5 unité de distance
-
+        //System.out.println("Distance : " + distance + " from " + this + " to " + plant);
         return distance <= collisionThreshold;
     }
 
@@ -37,6 +37,7 @@ public abstract class Zombie extends Entitie {
     public void attack(Plant plant) {
         if (canAttack()){
             plant.takeDamage(damage);
+            //System.out.println("Zombie attack");
         }
     }
 
@@ -47,7 +48,8 @@ public abstract class Zombie extends Entitie {
     }
 
     public void move() {
-        this.setX(this.getX() - speed*0.004);
+        //System.out.println("Zombie move " + speed);
+        this.setX(this.getX() - speed*0.008);
     }
 
     public int getSpeed() {
