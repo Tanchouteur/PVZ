@@ -12,7 +12,7 @@ public class PeashooterVue extends PlantVue {
 
     public PeashooterVue(PeaShooter plant, Pane parent) {
 
-        URL url = plant.getClass().getResource("/assets/plants/peaShooter/Peashooteringamerender.png");
+        URL url = plant.getClass().getResource("/assets/plants/peaShooter/PeaShootera.gif");
         if (url == null) {
             System.err.println("Impossible de charger l'image du Peashooter");
             exit(1);

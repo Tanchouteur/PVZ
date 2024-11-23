@@ -9,7 +9,7 @@ import static java.lang.System.exit;
 
 public class SunVue extends BulletVue {
     SunVue(Sun sun) {
-        URL url = sun.getClass().getResource("/assets/items/Sun/Sun.png");
+        URL url = sun.getClass().getResource("/assets/items/Sun/SunAnimated.gif");
         if (url == null) {
             System.err.println("Impossible de charger l'image du Sun");
             exit(1);

@@ -10,7 +10,7 @@ import static java.lang.System.exit;
 
 public class SunFlowerVue extends PlantVue {
     public SunFlowerVue(SunFlower plant, Pane parent) {
-        URL url = plant.getClass().getResource("/assets/plants/sunFlower/Sunflower.png");
+        URL url = plant.getClass().getResource("/assets/plants/sunFlower/SunflowerA.gif");
         if (url == null) {
             System.err.println("Impossible de charger l'image du sunflower");
             exit(1);

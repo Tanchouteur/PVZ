@@ -7,7 +7,7 @@ import javafx.scene.layout.Pane;
 
 public class PeaShooter extends ShooterPlant {
     public PeaShooter() {
-        super(100, "PeaShooter", 100, 5, 100);
+        super(110, "PeaShooter", 100, 5, 100);
     }
 
     @Override
