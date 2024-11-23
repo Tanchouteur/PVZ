@@ -1,7 +1,6 @@
-package fr.tanchou.pvz.entities.plants.pea;
+package fr.tanchou.pvz.entities.plants.shooter.pea;
 
 import fr.tanchou.pvz.entities.BulletVue;
-import fr.tanchou.pvz.entities.EntitieVue;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;

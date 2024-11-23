@@ -1,39 +1,51 @@
 package fr.tanchou.pvz.game;
 
-import fr.tanchou.pvz.entities.plants.pea.PeaShooter;
-import fr.tanchou.pvz.entities.zombie.normalZombie.NormalZombie;
+import fr.tanchou.pvz.entities.plants.shooter.pea.PeaShooter;
+import fr.tanchou.pvz.entities.plants.passive.sunflower.SunFlower;
+import fr.tanchou.pvz.game.board.Row;
+import fr.tanchou.pvz.game.board.SunManager;
 import fr.tanchou.pvz.game.spawn.SerieRowFactory;
 import fr.tanchou.pvz.game.spawn.ZombieFactory;
 import fr.tanchou.pvz.game.spawn.ZombieSpawner;
 import fr.tanchou.pvz.player.Player;
+import javafx.scene.layout.Pane;
 
 public class Partie {
     private final Row[] rows;
     private final Player player;
     private boolean defeated = false;
 
-    private ZombieSpawner zombieSpawner;
+
+
+    private final SunManager sunManager;
+
+    private final ZombieSpawner zombieSpawner;
 
 
     public Partie(Player player) {
         this.player = player;
         this.rows = new Row[5];
+        sunManager = new SunManager();
         for (int i = 0; i < 5; i++) {
-            this.rows[i] = new Row();
+            this.rows[i] = new Row(sunManager);
         }
+
+
 
         zombieSpawner = new ZombieSpawner(this, new SerieRowFactory(new ZombieFactory()));
 
-        rows[0].addPlant(new PeaShooter(0.0, 0));
-        rows[0].addPlant(new PeaShooter(1.0, 0));
-        /*rows[0].addPlant(new PeaShooter(2.0, 0));
-        rows[0].addPlant(new PeaShooter(3.0, 0));*/
+        rows[0].placePlantInCase(0, new PeaShooter());
+        rows[0].placePlantInCase(1, new SunFlower());
+
+        /*rows[0].addPlant(new PeaShooter(1.0, 0));
+        rows[0].addPlant(new PeaShooter(2.0, 0));
+        rows[0].addPlant(new PeaShooter(3.0, 0));
 
         rows[1].addPlant(new PeaShooter(0.0, 1));
-        rows[2].addPlant(new PeaShooter(0.0, 2));
+        rows[2].addPlant(new PeaShooter(0.0, 2));*/
 
 
-        rows[0].addZombie(new NormalZombie(3.0, 0));
+        /*rows[0].addZombie(new NormalZombie(3.0, 0));*/
         /*rows[1].addZombie(new NormalZombie(8.0, 0));
         rows[2].addZombie(new NormalZombie(8.0, 0));
         rows[3].addZombie(new NormalZombie(8.0, 0));
@@ -65,12 +77,18 @@ public class Partie {
             // Mettre à jour les projectiles
             row.updateBullets();
 
+            this.sunManager.updateSuns();
+
         }
 
-        //zombieSpawner.tick();
+        zombieSpawner.tick();
     }
 
     public boolean isDefeated() {
         return defeated;
+    }
+
+    public SunManager getSunManager() {
+        return sunManager;
     }
 }

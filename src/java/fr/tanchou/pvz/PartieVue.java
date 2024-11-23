@@ -2,15 +2,14 @@ package fr.tanchou.pvz;
 
 import fr.tanchou.pvz.game.Partie;
 import fr.tanchou.pvz.game.PartieController;
-import fr.tanchou.pvz.game.Row;
-import fr.tanchou.pvz.game.RowVue;
+import fr.tanchou.pvz.game.board.Row;
+import fr.tanchou.pvz.game.board.RowVue;
 import fr.tanchou.pvz.player.Player;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.util.Objects;
@@ -19,6 +18,7 @@ public class PartieVue extends Application {
     private Pane rootPane;
     private Pane animationLayer;
     private Pane hudLayer;
+    private Pane sunLayer;
 
     private PartieController controller;
 
@@ -28,7 +28,7 @@ public class PartieVue extends Application {
         rootPane = new Pane();
 
         animationLayer = new Pane();
-
+        sunLayer = new Pane();
 
         hudLayer = new Pane();
 
@@ -42,7 +42,7 @@ public class PartieVue extends Application {
         // Ajoute l'image de fond en premier dans le rootPane
         rootPane.getChildren().add(backgroundImageView);
 
-        rootPane.getChildren().addAll(animationLayer, hudLayer);
+        rootPane.getChildren().addAll(animationLayer, hudLayer, sunLayer);
 
         // Création du modèle et du joueur
         Player player = new Player("Louis");
@@ -100,7 +100,13 @@ public class PartieVue extends Application {
 
             // Mettre à jour l'affichage des entités dans la ligne
             rowVue.update();
+
             i++;
         }
+
+        // Mettre à jour l'affichage des informations du joueur
+
+        // Mettre à jour les soleils
+        partie.getSunManager().updateSunsView(sunLayer);
     }
 }

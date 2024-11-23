@@ -1,31 +1,49 @@
-package fr.tanchou.pvz.game;
+package fr.tanchou.pvz.game.board;
 
 import fr.tanchou.pvz.entities.Bullet;
 import fr.tanchou.pvz.entities.plants.Plant;
+import fr.tanchou.pvz.entities.plants.passive.sunflower.Sun;
+import fr.tanchou.pvz.entities.plants.passive.sunflower.SunFlower;
+import fr.tanchou.pvz.entities.plants.shooter.ShooterPlant;
 import fr.tanchou.pvz.entities.zombie.Zombie;
-import javafx.scene.layout.Pane;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Row {
     private final LinkedList<Plant> listPlants;
     private final LinkedList<Zombie> listZombie;
     private final LinkedList<Bullet> listBullets;
+
     private boolean lawnMower;
     private Zombie firstZombie;
 
     private boolean haveZombie = false;
 
     private final RowVue rowVue;
+    private final List<Case> cases;
 
-    Row() {
+    private final SunManager sunManager;
+
+    public Row(SunManager sunManager) {
         listPlants = new LinkedList<>();
         listZombie = new LinkedList<>();
         listBullets = new LinkedList<>();
+
+        this.sunManager = sunManager;
+
         lawnMower = true;
 
         rowVue = new RowVue(this);
+
+        // Initialiser les cases avec des positions fixes
+        cases = new ArrayList<>();
+        for (int i = 0; i < 9; i++) {
+            cases.add(new Case(i, 0)); // Espacement des cases
+        }
     }
 
     public void updateZombies() {
@@ -40,35 +58,21 @@ public class Row {
                 continue;
             }
 
-            boolean hasCollided = false; // Pour suivre si une collision a été détectée
+            boolean hasCollided = false;
 
-            // Vérifie s'il y a des plantes sur la ligne
-            if (havePlant()) {
-                Iterator<Plant> plantIterator = listPlants.iterator();
-
-                while (plantIterator.hasNext()) {
-                    Plant plant = plantIterator.next();
-
-                    if (plant.isDead()) {
-                        plantIterator.remove(); // Supprime les plantes mortes
-                        continue;
-                    }
-
-                    // Vérifie si le zombie entre en collision avec la plante
-                    if (zombie.collidesWith(plant)) {
-                        zombie.attack(plant);
-                        hasCollided = true; // Collision détectée, le zombie attaque
-                        break; // Quitte la boucle, car le zombie ne peut attaquer qu'une seule plante
-                    }
+            // Vérifie les collisions avec les plantes dans les cases
+            for (Case c : cases) {
+                if (c.isOccupied() && zombie.collidesWith(c.getPlant())) {
+                    zombie.attack(c.getPlant());
+                    hasCollided = true;
+                    break;
                 }
             }
 
-            // Si aucune collision n'a été détectée, le zombie avance
             if (!hasCollided) {
                 zombie.move();
             }
 
-            // Si le zombie sort de l'écran (à gauche), il meurt
             if (zombie.getX() < -1.0) {
                 zombie.onDeath();
                 iterator.remove();
@@ -77,13 +81,29 @@ public class Row {
     }
 
     public void updatePlants() {
-        for (Plant plant : listPlants) {
-            plant.tick();
+        for (Case c : cases) {
+            if (c.isOccupied()) {
+                Plant plant = c.getPlant();
+                plant.tick();
 
-            if (haveZombie()) {
-                Bullet bullet = plant.shoot();
-                if (bullet != null) {
-                    addBullet(bullet);
+                if (plant.isDead()) {
+                    plant.onDeath();
+                    c.removePlant(); // Retire la plante morte de la case
+                }
+
+                if (plant instanceof ShooterPlant shooterPlant) {
+                    if (haveZombie()) {
+                        Bullet bullet = shooterPlant.shoot();
+                        if (bullet != null) {
+                            addBullet(bullet);
+                        }
+                    }
+                }else if (plant instanceof SunFlower sunFlower) {
+                    Sun sun = (Sun) sunFlower.action();
+
+                    if (sun != null) {
+                        sunManager.addSun(sun.getX(), sun.getY(), sun.getValue());
+                    }
                 }
             }
         }
@@ -96,7 +116,6 @@ public class Row {
             Bullet bullet = iterator.next();
             bullet.move();
 
-            // Vérifier les collisions avec les zombies
             for (Zombie zombie : listZombie) {
                 if (bullet.collidesWith(zombie)) {
                     zombie.takeDamage(bullet.getDamage());
@@ -106,10 +125,29 @@ public class Row {
                 }
             }
 
-            // Supprimer le projectile s'il est hors de l'écran
-            if (bullet.getX() > 10) {
+            if (bullet.getX() > 11) {
                 bullet.onDeath();
                 iterator.remove();
+            }
+        }
+    }
+
+    public void placePlantInCase(int caseIndex, Plant plant) {
+        if (caseIndex >= 0 && caseIndex < cases.size()) {
+            Case selectedCase = cases.get(caseIndex);
+            if (!selectedCase.isOccupied()) {
+                selectedCase.placePlant(plant);
+                listPlants.add(plant); // Facultatif si on veut garder la liste des plantes
+            }
+        }
+    }
+
+    public void removePlantFromCase(int caseIndex) {
+        if (caseIndex >= 0 && caseIndex < cases.size()) {
+            Case selectedCase = cases.get(caseIndex);
+            if (selectedCase.isOccupied()) {
+                listPlants.remove(selectedCase.getPlant()); // Retirer de la liste si nécessaire
+                selectedCase.removePlant();
             }
         }
     }

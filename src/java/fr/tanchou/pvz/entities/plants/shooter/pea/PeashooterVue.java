@@ -1,4 +1,4 @@
-package fr.tanchou.pvz.entities.plants.pea;
+package fr.tanchou.pvz.entities.plants.shooter.pea;
 
 import fr.tanchou.pvz.entities.plants.PlantVue;
 import javafx.scene.image.ImageView;

@@ -1,4 +1,4 @@
-package fr.tanchou.pvz.game;
+package fr.tanchou.pvz.game.board;
 
 import fr.tanchou.pvz.entities.Entitie;
 import fr.tanchou.pvz.entities.EntitieVue;
