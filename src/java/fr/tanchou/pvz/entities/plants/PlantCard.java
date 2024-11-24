@@ -1,9 +1,12 @@
 package fr.tanchou.pvz.entities.plants;
 
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.util.Objects;
+
+import static java.lang.System.exit;
 
 public class PlantCard {
     private String name;
@@ -16,6 +19,14 @@ public class PlantCard {
         this.cooldown = cooldown;
     }
 
+    public URL getURL(){
+        URL url = this.getClass().getResource("/assets/plants/Cards/" + this.getName() + "Card.png");
+        if (url == null) {
+            System.out.println("/assets/plants/Cards/" + this.getName() + "Card.png");
+            exit(1);
+        }
+        return url;
+    }
     public String getName() {
         return name;
     }
@@ -41,10 +52,14 @@ public class PlantCard {
     }
 
     public VuePlantCard createVue() {
-        return new VuePlantCard(this);
+        VuePlantCard vuePlantCard = new VuePlantCard(this);
+        vuePlantCard.setOnMouseClicked((MouseEvent event) -> {
+            System.out.println("Clicked on " + this.getName());
+        });
+        vuePlantCard.setFitHeight(100);
+        vuePlantCard.setFitWidth(100);
+        return vuePlantCard;
     }
 
-    public URL getURL(){
-        return this.getClass().getResource("/assets/plants/Cards/" + this.getName() + "Card.png");
-    }
+
 }

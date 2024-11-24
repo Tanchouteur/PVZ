@@ -83,7 +83,7 @@ java -jar pvz.jar
 ## Roadmap
 
 - [x] Créer un diagramme de classes pour structurer le projet.
-- [ ] Développer les mécaniques de base du jeu.
+- [x] Développer les mécaniques de base du jeu.
 - [ ] Intégrer des animations et des sons.
 - [ ] Ajouter un système de sauvegarde.
 - [ ] Entraîner un réseau de neurones à jouer au jeu.

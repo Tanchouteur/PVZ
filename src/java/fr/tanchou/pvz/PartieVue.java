@@ -41,14 +41,14 @@ public class PartieVue extends Application {
         // Ajoute l'image de fond en premier dans le rootPane
         rootPane.getChildren().add(backgroundImageView);
 
-        rootPane.getChildren().addAll(animationLayer, sunLayer);
+
 
         // Création du modèle et du joueur
         Player player = new Player("Louis");
         Partie partie = new Partie(player);
 
         hudLayer = new HudPane(player);
-
+        rootPane.getChildren().addAll(animationLayer, sunLayer, hudLayer);
         // Création du contrôleur avec le modèle et la vue
         controller = new PartieController(partie, this);
 

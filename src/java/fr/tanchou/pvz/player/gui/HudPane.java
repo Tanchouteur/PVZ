@@ -24,7 +24,8 @@ public class HudPane extends Pane {
         // Ajout des éléments graphiques
 
         for (int i = 0; i < player.getPlantCards().length; i++) {
-            //player.getPlantCards()[i].createVue();
+            if (player.getPlantCards()[i] != null)
+                plantPane.getChildren().add(player.getPlantCards()[i].createVue());
         }
 
         return plantPane;

@@ -11,6 +11,11 @@ public class Player {
         this.name = name;
         this.sun = 50;
         this.plantCards = new PlantCard[5];
+
+        this.setPlantCards(new PlantCard[]{
+                new PlantCard("Peashooter", 100, 5),
+                new PlantCard("Sunflower", 50, 5),
+        });
     }
 
     public int getSun() {
