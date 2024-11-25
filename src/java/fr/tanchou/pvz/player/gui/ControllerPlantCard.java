@@ -7,7 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
-public class ControllerPlantCard extends EventHandler<MouseEvent> {
+public class ControllerPlantCard implements EventHandler<MouseEvent> {
 
     private Pane gamePane; // Le Pane où les plantes sont placées (ex : le terrain de jeu)
 
@@ -34,10 +34,15 @@ public class ControllerPlantCard extends EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent mouseEvent) {
+        if (!(mouseEvent.getSource() instanceof VuePlantCard vuePlantCard)) {
+            return;
+        }
+        PlantCard plantCard = vuePlantCard.getPlantCard();
+
         System.out.println("Clicked on " + plantCard.getName());
 
         // Créer une nouvelle plante et la placer sous la souris
         Plant plant = plantCard.getPlant(); // Crée une nouvelle plante avec la carte actuelle
-        createPlantUnderMouse(plant, event.getSceneX(), event.getSceneY()); // Place la plante sous la souris
+        createPlantUnderMouse(plant, mouseEvent.getSceneX(), mouseEvent.getSceneY()); // Place la plante sous la souris
     }
 }
