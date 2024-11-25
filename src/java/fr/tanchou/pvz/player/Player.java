@@ -1,5 +1,6 @@
 package fr.tanchou.pvz.player;
 
+import fr.tanchou.pvz.entities.plants.Plant;
 import fr.tanchou.pvz.entities.plants.PlantCard;
 import fr.tanchou.pvz.entities.plants.passive.sunflower.SunFlower;
 import fr.tanchou.pvz.entities.plants.shooter.pea.PeaShooter;
@@ -8,6 +9,8 @@ public class Player {
     private int sun;
     private PlantCard[] plantCards;
     private final String name;
+
+    private Plant selectedPlant;
 
     public Player(String name) {
         this.name = name;
@@ -46,5 +49,17 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    public Plant getSelectedPlant() {
+        return selectedPlant;
+    }
+
+    public void setSelectedPlant(Plant selectedPlant) {
+        this.selectedPlant = selectedPlant;
+    }
+
+    public boolean canAffordPlant(Plant selectedPlant) {
+        return this.sun >= selectedPlant.getCard().getCost();
     }
 }

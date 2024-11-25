@@ -23,6 +23,10 @@ public class PartieVue extends Application {
 
     private PartieController controller;
 
+    private int mouseX;
+    private int mouseY;
+
+    private Scene scene;
 
     @Override
     public void start(Stage primaryStage) {
@@ -41,11 +45,9 @@ public class PartieVue extends Application {
         // Ajoute l'image de fond en premier dans le rootPane
         rootPane.getChildren().add(backgroundImageView);
 
-
-
         // Création du modèle et du joueur
         Player player = new Player("Louis");
-        Partie partie = new Partie(player);
+        Partie partie = new Partie(player, rootPane);
 
         hudLayer = new HudPane(player, animationLayer);
         rootPane.getChildren().addAll(animationLayer, sunLayer, hudLayer);
@@ -54,8 +56,8 @@ public class PartieVue extends Application {
 
         // Démarrage du jeu
         controller.startGame();
-
-        primaryStage.setScene(new Scene(rootPane, 1920, 1080));
+        this.scene = new Scene(rootPane, 1920, 1080);
+        primaryStage.setScene(scene);
         primaryStage.setTitle("Plante versus Zombie - " + player.getName());
 
         backgroundImageView.setFitWidth(rootPane.getWidth()+0.35*rootPane.getWidth());
@@ -68,6 +70,18 @@ public class PartieVue extends Application {
         animationLayer.setStyle("-fx-border-color: blue; -fx-border-width: 2;");
         hudLayer.setStyle("-fx-border-color: green; -fx-border-width: 2;");
 
+        scene.setOnMouseMoved(mouseEvent -> {
+            mouseX = (int) mouseEvent.getX();
+            mouseY = (int) mouseEvent.getY();
+        });
+
+        scene.setOnMouseClicked(event -> {
+            double mouseX = event.getSceneX();
+            double mouseY = event.getSceneY();
+
+            // Appeler la méthode pour ajouter une plante
+            partie.placePlantUnderMouse(mouseX, mouseY);
+        });
 
         primaryStage.show();
     }
@@ -101,11 +115,12 @@ public class PartieVue extends Application {
 
             // Mettre à jour l'affichage des entités dans la ligne
             rowVue.update();
-
             i++;
         }
 
+
         // Mettre à jour l'affichage des informations du joueur
+        hudLayer.update(mouseX, mouseY);
 
         // Mettre à jour les soleils
         partie.getSunManager().updateSunsView(sunLayer);

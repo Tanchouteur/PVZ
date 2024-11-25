@@ -236,4 +236,8 @@ public class Row {
     public boolean havePlant() {
         return !listPlants.isEmpty();
     }
+
+    public List<Case> getCases() {
+        return cases;
+    }
 }

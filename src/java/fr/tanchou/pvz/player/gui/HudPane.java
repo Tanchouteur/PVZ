@@ -13,18 +13,22 @@ public class HudPane extends Pane {
 
     private Player player;
     private Pane plantPane;
+    private Pane anim;
 
     private ControllerPlantCard controllerPlantCard;
+    private Plant activePlant = null; // Stocke la plante active (sous la souris)
+    private boolean isPlantFollowingMouse = false; // Indique si une plante suit actuellement la souris
 
     public HudPane(Player player, Pane animationLayer) {
         this.setPrefSize(200, 600);
         this.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
 
-        // Ajout des éléments graphiques
+        // Initialisation des éléments graphiques
         this.player = player;
         this.plantPane = createPlantPane();
         this.controllerPlantCard = new ControllerPlantCard(animationLayer);
         this.getChildren().add(plantPane);
+        this.anim = animationLayer;
     }
 
     private Pane createPlantPane() {
@@ -35,7 +39,7 @@ public class HudPane extends Pane {
         plantPane.setPrefSize(200, 500);
         plantPane.setStyle("-fx-background-color: rgba(0,0,0,0);");
 
-        // Ajout des éléments graphiques
+        // Ajout des cartes de plantes
         for (PlantCard plantCard : player.getPlantCards()) {
             if (plantCard != null) {
                 VuePlantCard vuePlantCard = plantCard.createVue();
@@ -61,19 +65,51 @@ public class HudPane extends Pane {
         return plantPane;
     }
 
-
-    public void update() {
-        // Mise à jour des éléments graphiques
-    }
-
     public void createPlantUnderMouse(Plant plant, double mouseX, double mouseY) {
-        // Créer un objet représentant la plante et la placer à la position de la souris
-        plant.setVue(plant.createVue(plantPane));
-        plant.getVue().getImageView().setLayoutX(mouseX - plant.getVue().getImageView().getFitWidth() / 2); // Centrer la plante sur la souris
-        plant.getVue().getImageView().setLayoutY(mouseY - plant.getVue().getImageView().getFitHeight() / 2);
+        if (activePlant != null) {
+            return; // Une plante est déjà active
+        }
 
-        // Ajoutez la vuePlant à un conteneur (ex: Pane de jeu)
-        plantPane.getChildren().add(plant.getVue().getImageView());
+        // Initialiser la plante active
+        activePlant = plant;
+        isPlantFollowingMouse = true;
+
+        plant.setVue(plant.createVue(anim));
+        activePlant.getVue().getImageView().setFitHeight(100);
+        activePlant.getVue().getImageView().setFitWidth(100);
+        player.setSelectedPlant(plant);
+        anim.getChildren().add(plant.getVue().getImageView());
+
+        // Position initiale de la plante sous la souris
+        updatePlantPosition(mouseX, mouseY);
     }
 
+    private void updatePlantPosition(double mouseX, double mouseY) {
+        if (activePlant != null) {
+            mouseX -= anim.getLayoutX();
+            mouseY -= anim.getLayoutY();
+
+            activePlant.getVue().getImageView().setLayoutX(mouseX - activePlant.getVue().getImageView().getFitWidth() / 2);
+            activePlant.getVue().getImageView().setLayoutY(mouseY - activePlant.getVue().getImageView().getFitHeight() / 2);
+        }
+    }
+
+    private void placePlant(double mouseX, double mouseY) {
+        if (activePlant != null) {
+            // Poser la plante à la position finale
+            activePlant.getVue().getImageView().setLayoutX(mouseX - activePlant.getVue().getImageView().getFitWidth() / 2);
+            activePlant.getVue().getImageView().setLayoutY(mouseY - activePlant.getVue().getImageView().getFitHeight() / 2);
+
+            // Désactiver le suivi
+            activePlant = null;
+            isPlantFollowingMouse = false;
+        }
+    }
+
+    public void update(double mouseX, double mouseY) {
+        // Mise à jour de la position de la plante si elle suit la souris
+        if (isPlantFollowingMouse && activePlant != null) {
+            updatePlantPosition(mouseX, mouseY);
+        }
+    }
 }
