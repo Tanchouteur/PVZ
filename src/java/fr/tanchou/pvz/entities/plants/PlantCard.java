@@ -12,11 +12,13 @@ public class PlantCard {
     private String name;
     private int cost;
     private int cooldown;
+    private Plant plant;
 
-    public PlantCard(String name, int cost, int cooldown) {
+    public PlantCard(String name, int cost, int cooldown, Plant plant) {
         this.name = name;
         this.cost = cost;
         this.cooldown = cooldown;
+        this.plant = plant;
     }
 
     public URL getURL(){
@@ -53,13 +55,12 @@ public class PlantCard {
 
     public VuePlantCard createVue() {
         VuePlantCard vuePlantCard = new VuePlantCard(this);
-        vuePlantCard.setOnMouseClicked((MouseEvent event) -> {
-            System.out.println("Clicked on " + this.getName());
-        });
         vuePlantCard.setFitHeight(100);
         vuePlantCard.setFitWidth(100);
         return vuePlantCard;
     }
 
-
+    public Plant getPlant() {
+        return plant;
+    }
 }

@@ -10,7 +10,7 @@ public abstract class Plant extends Entitie {
 
     protected Plant(String name, int cost, int cooldownToBuy, int healthPoint) {
         super(healthPoint,-1.0,-1);
-        this.card = new PlantCard(name, cost, cooldownToBuy);
+        this.card = new PlantCard(name, cost, cooldownToBuy, this);
     }
 
     public void tick() {

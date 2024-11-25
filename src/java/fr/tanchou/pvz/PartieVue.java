@@ -47,7 +47,7 @@ public class PartieVue extends Application {
         Player player = new Player("Louis");
         Partie partie = new Partie(player);
 
-        hudLayer = new HudPane(player);
+        hudLayer = new HudPane(player, animationLayer);
         rootPane.getChildren().addAll(animationLayer, sunLayer, hudLayer);
         // Création du contrôleur avec le modèle et la vue
         controller = new PartieController(partie, this);

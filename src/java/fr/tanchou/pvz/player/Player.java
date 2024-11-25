@@ -1,6 +1,8 @@
 package fr.tanchou.pvz.player;
 
 import fr.tanchou.pvz.entities.plants.PlantCard;
+import fr.tanchou.pvz.entities.plants.passive.sunflower.SunFlower;
+import fr.tanchou.pvz.entities.plants.shooter.pea.PeaShooter;
 
 public class Player {
     private int sun;
@@ -13,8 +15,8 @@ public class Player {
         this.plantCards = new PlantCard[5];
 
         this.setPlantCards(new PlantCard[]{
-                new PlantCard("Peashooter", 100, 5),
-                new PlantCard("Sunflower", 50, 5),
+                new PeaShooter().getCard(),
+                new SunFlower().getCard(),
         });
     }
 
