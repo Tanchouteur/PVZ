@@ -53,9 +53,15 @@ public class HudPane extends Pane {
 
                         System.out.println("Clicked on " + plantCard.getName());
 
-                        // Créer une nouvelle plante et la placer sous la souris
-                        Plant plant = plantCard.getPlant(); // Crée une nouvelle plante avec la carte actuelle
-                        createPlantUnderMouse(plant, mouseEvent.getSceneX(), mouseEvent.getSceneY());
+                        if (player.getSelectedPlant()==null) {
+                            Plant plant = plantCard.getPlant(); // Crée une nouvelle plante avec la carte actuelle
+                            createPlantUnderMouse(plant, mouseEvent.getSceneX(), mouseEvent.getSceneY());
+                        }else {
+                            player.setSelectedPlant(null);
+                            anim.getChildren().remove(activePlant.getVue().getImageView());
+                            activePlant.setVue(null);
+                            activePlant = null;
+                        }
                     }
                 });
                 plantPane.getChildren().add(vuePlantCard); // Ajout à VBox
@@ -66,18 +72,23 @@ public class HudPane extends Pane {
     }
 
     public void createPlantUnderMouse(Plant plant, double mouseX, double mouseY) {
-        if (activePlant != null) {
+
+
+
+        if (activePlant != null && activePlant == plant) {
             return; // Une plante est déjà active
         }
+        //System.out.println("Plant : " + plant + " activePlant : " + activePlant);
 
         // Initialiser la plante active
+        player.setSelectedPlant(plant);
         activePlant = plant;
         isPlantFollowingMouse = true;
 
         plant.setVue(plant.createVue(anim));
         activePlant.getVue().getImageView().setFitHeight(100);
         activePlant.getVue().getImageView().setFitWidth(100);
-        player.setSelectedPlant(plant);
+
         anim.getChildren().add(plant.getVue().getImageView());
 
         // Position initiale de la plante sous la souris

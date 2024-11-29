@@ -17,7 +17,7 @@ public class Partie {
     private final Player player;
     private boolean defeated = false;
 
-    private Pane rootPane;
+    private final Pane rootPane;
 
     private final SunManager sunManager;
 
@@ -118,12 +118,14 @@ public class Partie {
 
         // Identifier la case sous la souris
         Case targetCase = getCaseUnderMouse(mouseX, mouseY, rowHeight, caseWidth);
-
+        System.out.println(targetCase);
         if (targetCase != null && targetCase.isOccupied()) {
             // Vérifiez si le joueur a assez de soleil pour planter
             if (player.canAffordPlant(player.getSelectedPlant())) {
+
                 // Placez la plante dans la case
-                targetCase.placePlant(player.getSelectedPlant()); // Exemple : Ajouter une plante spécifique
+                targetCase.placePlant(player.getSelectedPlant()); // Ajouter une plante spécifique
+                System.out.println("occuper ? "+targetCase.isOccupied()+ " - plant : " + targetCase.getPlant());// e
                 player.removeSun(player.getSelectedPlant().getCard().getCost()); // Déduire le coût
             }
         }

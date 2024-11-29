@@ -43,4 +43,13 @@ public abstract class Plant extends Entitie {
     public int getTimeSinceLastShot() {
         return timeSinceLastShot;
     }
+
+    @Override
+    public String toString() {
+        return "Plant{" +
+                "card=" + card.getName() +
+                ", timeSinceLastShot=" + timeSinceLastShot +
+                ", isDead=" + isDead +
+                '}';
+    }
 }

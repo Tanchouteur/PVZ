@@ -22,6 +22,7 @@ public class Case {
         if (plant != null) {
             plant.setX(this.x);  // Positionner la plante à la position de la case
             plant.setY(this.y);
+            System.out.println(plant.getCard() + " plantée en " + this.x + ", " + this.y);
         }
     }
 
