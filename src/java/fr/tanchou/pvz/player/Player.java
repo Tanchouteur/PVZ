@@ -14,7 +14,7 @@ public class Player {
 
     public Player(String name) {
         this.name = name;
-        this.sun = 100;
+        this.sun = 110;
         this.plantCards = new PlantCard[5];
 
         this.setPlantCards(new PlantCard[]{
