@@ -11,11 +11,8 @@ import fr.tanchou.pvz.player.Player;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Row {
-    private final LinkedList<Plant> listPlants;
+    private final LinkedList<Case> listCases;
     private final LinkedList<Zombie> listZombie;
     private final LinkedList<Bullet> listBullets;
 
@@ -24,13 +21,12 @@ public class Row {
 
     private boolean haveZombie = false;
 
-    private final RowVue rowVue;
-    private final LinkedList<Case> cases;
+    private RowVue rowVue;
+
 
     private final SunManager sunManager;
 
     public Row(int rowIndex, SunManager sunManager, Player player) {
-        listPlants = new LinkedList<>();
         listZombie = new LinkedList<>();
         listBullets = new LinkedList<>();
 
@@ -39,12 +35,10 @@ public class Row {
         lawnMower = true;
 
         // Initialiser les cases avec des positions fixes
-        cases = new LinkedList<>();
+        listCases = new LinkedList<>();
         for (int i = 0; i < 9; i++) {
-            cases.add(new Case(i, rowIndex)); // Espacement des cases
+            listCases.add(new Case(i, rowIndex)); // Espacement des cases
         }
-
-        rowVue = new RowVue(this, player);
     }
 
     public void updateZombies() {
@@ -62,7 +56,7 @@ public class Row {
             boolean hasCollided = false;
 
             // Vérifie les collisions avec les plantes dans les cases
-            for (Case c : cases) {
+            for (Case c : listCases) {
                 if (c.isOccupied() && zombie.collidesWith(c.getPlant())) {
                     zombie.attack(c.getPlant());
                     hasCollided = true;
@@ -82,7 +76,7 @@ public class Row {
     }
 
     public void updatePlants() {
-        for (Case c : cases) {
+        for (Case c : listCases) {
             if (c.isOccupied()) {
                 Plant plant = c.getPlant();
                 plant.tick();
@@ -134,27 +128,21 @@ public class Row {
     }
 
     public void placePlantInCase(int caseIndex, Plant plant) {
-        if (caseIndex >= 0 && caseIndex < cases.size()) {
-            Case selectedCase = cases.get(caseIndex);
+        if (caseIndex >= 0 && caseIndex < listCases.size()) {
+            Case selectedCase = listCases.get(caseIndex);
             if (!selectedCase.isOccupied()) {
                 selectedCase.placePlant(plant);
-                listPlants.add(plant); // Facultatif si on veut garder la liste des plantes
             }
         }
     }
 
     public void removePlantFromCase(int caseIndex) {
-        if (caseIndex >= 0 && caseIndex < cases.size()) {
-            Case selectedCase = cases.get(caseIndex);
+        if (caseIndex >= 0 && caseIndex < listCases.size()) {
+            Case selectedCase = listCases.get(caseIndex);
             if (selectedCase.isOccupied()) {
-                listPlants.remove(selectedCase.getPlant()); // Retirer de la liste si nécessaire
                 selectedCase.removePlant();
             }
         }
-    }
-
-    public LinkedList<Plant> getListPlants() {
-        return listPlants;
     }
 
     public LinkedList<Zombie> getListZombies() {
@@ -165,9 +153,6 @@ public class Row {
         return listBullets;
     }
 
-    public void addPlant(Plant plant) {
-        listPlants.add(plant);
-    }
 
     public void addZombie(Zombie zombie) {
         listZombie.add(zombie);
@@ -178,10 +163,6 @@ public class Row {
 
     public void addBullet(Bullet bullet) {
         listBullets.add(bullet);
-    }
-
-    public void removePlant(Plant plant) {
-        listPlants.remove(plant);
     }
 
     public void removeZombie(Zombie zombie) {
@@ -234,11 +215,11 @@ public class Row {
         this.haveZombie = haveZombie;
     }
 
-    public boolean havePlant() {
-        return !listPlants.isEmpty();
+    public LinkedList<Case> getListCases() {
+        return listCases;
     }
 
-    public LinkedList<Case> getCases() {
-        return cases;
+    public void setRowVue(RowVue rowVue) {
+        this.rowVue = rowVue;
     }
 }

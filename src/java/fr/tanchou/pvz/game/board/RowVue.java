@@ -2,7 +2,6 @@ package fr.tanchou.pvz.game.board;
 
 import fr.tanchou.pvz.entities.Entitie;
 import fr.tanchou.pvz.entities.EntitieVue;
-import fr.tanchou.pvz.entities.plants.Plant;
 import fr.tanchou.pvz.entities.zombie.Zombie;
 import fr.tanchou.pvz.game.controller.CaseClickController;
 import fr.tanchou.pvz.player.Player;
@@ -10,15 +9,19 @@ import javafx.scene.layout.Pane;
 
 public class RowVue {
     private final Pane caseLayer;
-    private final Pane plantLayer;
     private final Pane zombieLayer;
     private final Pane bulletLayer;
+
+    private final Player player;
+    private final Pane animationLayer;
+
     private final Pane rowPane;  // Nouveau Pane parent qui contient les trois couches
     private final Row row;
 
-    public RowVue(Row row, Player player) {
+    public RowVue(Row row, Player player, Pane animationLayer) {
         this.row = row;
-        plantLayer = new Pane();
+        this.player = player;
+        this.animationLayer = animationLayer;
         zombieLayer = new Pane();
         bulletLayer = new Pane();
         caseLayer = new Pane();
@@ -30,20 +33,14 @@ public class RowVue {
         caseLayer.setLayoutY(rowPane.getWidth());
         caseLayer.setLayoutX(rowPane.getHeight());
         // Ajout des couches au Pane parent (rowPane)
-        rowPane.getChildren().addAll(plantLayer, zombieLayer, bulletLayer, caseLayer);
+        rowPane.getChildren().addAll(caseLayer, zombieLayer, bulletLayer );
 
         caseLayer.setPickOnBounds(false);
 
-        for (Case caseModel : row.getCases()) {
-            CaseClickController clickController = new CaseClickController(caseModel, player);
+        for (Case caseModel : row.getListCases()) {
+            CaseClickController clickController = new CaseClickController(caseModel, this);
             caseModel.getCaseVue().setOnMouseClicked(clickController);
             caseLayer.getChildren().add(caseModel.getCaseVue());
-        }
-
-        // Ajouter les plantes à la couche correspondante
-        for (Plant plant : row.getListPlants()) {
-            EntitieVue plantVue = plant.createVue(plantLayer);
-            plantLayer.getChildren().add(plantVue.getImageView());
         }
 
         // Ajouter les zombies à la couche correspondante
@@ -66,14 +63,8 @@ public class RowVue {
     public void update() {
 
         // Met à jour la position et l'état des plantes
-        for (Plant plant : row.getListPlants()) {
-            if (plant.getVue() == null) {
-                plant.setVue(plant.createVue(plantLayer));
-            }
-            if (!plantLayer.getChildren().contains(plant.getVue().getImageView())) {
-                plantLayer.getChildren().add(plant.getVue().getImageView());
-            }
-            plant.getVue().update(plantLayer);
+        for (Case caseModel : row.getListCases()) {
+            caseModel.getCaseVue().update();
         }
 
         // Met à jour la position et l'état des zombies
@@ -101,5 +92,13 @@ public class RowVue {
 
     public Pane getRowPane() {
         return rowPane;  // Retourne le Pane parent qui contient toutes les couches
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Pane getAnimationLayer() {
+        return animationLayer;
     }
 }

@@ -8,6 +8,8 @@ public abstract class PlantVue extends EntitieVue {
 
     public PlantVue(Plant plant, ImageView imageView, Pane parent) {
         super(plant, imageView);
+        this.imageView.setFitWidth(100);
+        this.imageView.setFitHeight(100);
     }
 
     @Override

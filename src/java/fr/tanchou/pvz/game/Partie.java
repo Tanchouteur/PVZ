@@ -94,40 +94,4 @@ public class Partie {
         return sunManager;
     }
 
-    public Case getCaseUnderMouse(double mouseX, double mouseY, double rowHeight, double caseWidth) {
-        // Déterminer l'indice de la ligne (Row) en fonction de la hauteur de chaque ligne
-        int rowIndex = (int) (mouseY / rowHeight);
-        if (rowIndex < 0 || rowIndex >= rows.length) {
-            return null; // Hors des limites
-        }
-
-        // Déterminer l'indice de la case (Case) en fonction de la largeur de chaque case
-        Row row = rows[rowIndex];
-        int caseIndex = (int) (mouseX / caseWidth);
-        if (caseIndex < 0 || caseIndex >= row.getCases().size()) {
-            return null; // Hors des limites
-        }
-
-        // Retourner la case correspondante
-        return row.getCases().get(caseIndex);
-    }
-
-    public void placePlantUnderMouse(double mouseX, double mouseY) {
-        double rowHeight = rootPane.getHeight() * 0.17;
-        double caseWidth = rootPane.getWidth() / 9;
-
-        // Identifier la case sous la souris
-        Case targetCase = getCaseUnderMouse(mouseX, mouseY, rowHeight, caseWidth);
-        System.out.println("Cliked on case : x :" + targetCase.getX() + " y :" + targetCase.getY() + " - plant : " + targetCase.getPlant());
-        if (targetCase != null && !targetCase.isOccupied()) {
-            // Vérifiez si le joueur a assez de soleil pour planter
-            if (player.canAffordPlant(player.getSelectedPlant())) {
-
-                // Placez la plante dans la case
-                targetCase.placePlant(player.getSelectedPlant()); // Ajouter une plante spécifique
-                System.out.println("occuper ? "+targetCase.isOccupied()+ " - plant : " + targetCase.getPlant());// e
-                player.removeSun(player.getSelectedPlant().getCard().getCost()); // Déduire le coût
-            }
-        }
-    }
 }

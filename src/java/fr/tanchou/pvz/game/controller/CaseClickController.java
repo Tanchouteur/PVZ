@@ -1,19 +1,22 @@
 package fr.tanchou.pvz.game.controller;
 
 import fr.tanchou.pvz.game.board.Case;
+import fr.tanchou.pvz.game.board.RowVue;
 import fr.tanchou.pvz.player.Player;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 
 public class CaseClickController implements EventHandler<MouseEvent> {
-
+    private final Pane paneWithPlant;
     private final Case caseModel;
     private final Player player;
 
     // Constructeur qui prend en paramètre le modèle de case et le joueur
-    public CaseClickController(Case caseModel, Player player) {
+    public CaseClickController(Case caseModel, RowVue rowVue) {
+        this.paneWithPlant = rowVue.getAnimationLayer();
         this.caseModel = caseModel;
-        this.player = player;
+        this.player = rowVue.getPlayer();
     }
 
     // Méthode appelée lors du clic
@@ -30,7 +33,9 @@ public class CaseClickController implements EventHandler<MouseEvent> {
                 System.out.println("Pas assez de soleils !");
                 return;
             }
+            player.removeSun(player.getSelectedPlant().getCard().getCost());
             caseModel.placePlant(player.getSelectedPlant());
+            paneWithPlant.getChildren().remove(player.getSelectedPlant().getVue().getImageView());
             player.setSelectedPlant(null);
 
             // Affiche un message dans la console pour confirmation

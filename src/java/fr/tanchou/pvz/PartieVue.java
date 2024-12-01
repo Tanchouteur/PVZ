@@ -23,10 +23,10 @@ public class PartieVue extends Application {
 
     private PartieController controller;
 
-    private int mouseX;
-    private int mouseY;
-
     private Scene scene;
+
+    private double mouseX;
+    private double mouseY;
 
     @Override
     public void start(Stage primaryStage) {
@@ -70,20 +70,19 @@ public class PartieVue extends Application {
         animationLayer.setStyle("-fx-border-color: blue; -fx-border-width: 2;");
         hudLayer.setStyle("-fx-border-color: green; -fx-border-width: 2;");
 
-        scene.setOnMouseMoved(mouseEvent -> {
-            mouseX = (int) mouseEvent.getX();
-            mouseY = (int) mouseEvent.getY();
+        int i = 0;
+        for (Row row : partie.getRows()) {
+            row.setRowVue(new RowVue(row, player, animationLayer));
+            row.getRowVue().setSize(rootPane.getWidth()*0.75, rootPane.getHeight()*0.17);  // Taille du Pane parent
+            row.getRowVue().getRowPane().setLayoutY(i * (rootPane.getHeight()*0.17));  // Par exemple, espacer les lignes verticalement
+            animationLayer.getChildren().add(row.getRowVue().getRowPane());
+            i++;
+        }
+
+        this.scene.setOnMouseMoved(event -> {
+            mouseX = event.getSceneX();
+            mouseY = event.getSceneY();
         });
-
-        /*animationLayer.setOnMouseClicked(event -> {
-            double mouseX = event.getSceneX();
-            double mouseY = event.getSceneY();
-
-            if (player.getSelectedPlant() != null) {
-                partie.placePlantUnderMouse(mouseX, mouseY);
-            }
-            System.out.println("Mouse clicked at " + mouseX + ", " + mouseY + " ans player selected plant is " + player.getSelectedPlant());
-        });*/
 
         primaryStage.show();
     }
@@ -100,26 +99,10 @@ public class PartieVue extends Application {
             return;
         }
 
-        int i = 0;
-
         // Mettre à jour chaque ligne (Row) dans le jeu
         for (Row row : partie.getRows()) {
-
-            RowVue rowVue = row.getRowVue();
-            Pane rowPane = rowVue.getRowPane();
-
-            // Si le rowPane n'est pas déjà ajouté, ajoute-le
-            if (!animationLayer.getChildren().contains(rowPane)) {
-                rowVue.setSize(rootPane.getWidth()*0.75, rootPane.getHeight()*0.17);  // Taille du Pane parent
-                rowPane.setLayoutY(i * (rootPane.getHeight()*0.17));  // Par exemple, espacer les lignes verticalement
-                animationLayer.getChildren().add(rowPane);
-            }
-
-            // Mettre à jour l'affichage des entités dans la ligne
-            rowVue.update();
-            i++;
+            row.getRowVue().update();
         }
-
 
         // Mettre à jour l'affichage des informations du joueur
         hudLayer.update(mouseX, mouseY);

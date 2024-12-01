@@ -1,16 +1,15 @@
 package fr.tanchou.pvz.game.board;
 
+import fr.tanchou.pvz.entities.plants.PlantVue;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 
 public class CaseVue extends Pane {
-
+    private PlantVue plantVue;
     private final int rowIndex;
     private final double columnIndex;
     private int x, y;
 
     public CaseVue(double columnIndex, int rowIndex) {
-
         this.rowIndex = rowIndex;
         this.columnIndex = columnIndex;
         this.x = (int) (columnIndex * 150) - 10;
@@ -36,4 +35,12 @@ public class CaseVue extends Pane {
     public double getColumnIndex() {
         return columnIndex;
     }
+
+    public void update() {
+        if (plantVue != null) {
+            plantVue.update(this);
+        }
+    }
+
+
 }

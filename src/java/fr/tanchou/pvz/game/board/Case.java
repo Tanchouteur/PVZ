@@ -23,6 +23,8 @@ public class Case {
         if (plant != null) {
             plant.setX(this.x);  // Positionner la plante à la position de la case
             plant.setY(this.y);
+            plant.setVue(plant.createVue(caseVue));  // Créer la vue de la plante
+            caseVue.getChildren().add(plant.getVue().getImageView());
             System.out.println(plant.getCard() + " plantée en " + this.x + ", " + this.y);
         }
     }
