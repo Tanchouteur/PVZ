@@ -4,29 +4,41 @@ import fr.tanchou.pvz.entities.Entitie;
 import fr.tanchou.pvz.entities.EntitieVue;
 import fr.tanchou.pvz.entities.plants.Plant;
 import fr.tanchou.pvz.entities.zombie.Zombie;
+import fr.tanchou.pvz.game.controller.CaseClickController;
+import fr.tanchou.pvz.player.Player;
 import javafx.scene.layout.Pane;
 
 public class RowVue {
-
+    private final Pane caseLayer;
     private final Pane plantLayer;
     private final Pane zombieLayer;
     private final Pane bulletLayer;
     private final Pane rowPane;  // Nouveau Pane parent qui contient les trois couches
     private final Row row;
 
-    public RowVue(Row row) {
+    public RowVue(Row row, Player player) {
         this.row = row;
         plantLayer = new Pane();
         zombieLayer = new Pane();
         bulletLayer = new Pane();
-
+        caseLayer = new Pane();
         rowPane = new Pane();  // Initialisation du Pane parent
 
         //rowPane.setStyle("-fx-background-color: linear-gradient(to bottom, #00ff00, #00cc00);");
         rowPane.setPrefSize(1090, 800);  // Taille du Pane parent
-
+        caseLayer.setPrefSize(1090, 800);
+        caseLayer.setLayoutY(rowPane.getWidth());
+        caseLayer.setLayoutX(rowPane.getHeight());
         // Ajout des couches au Pane parent (rowPane)
-        rowPane.getChildren().addAll(plantLayer, zombieLayer, bulletLayer);
+        rowPane.getChildren().addAll(plantLayer, zombieLayer, bulletLayer, caseLayer);
+
+        caseLayer.setPickOnBounds(false);
+
+        for (Case caseModel : row.getCases()) {
+            CaseClickController clickController = new CaseClickController(caseModel, player);
+            caseModel.getCaseVue().setOnMouseClicked(clickController);
+            caseLayer.getChildren().add(caseModel.getCaseVue());
+        }
 
         // Ajouter les plantes à la couche correspondante
         for (Plant plant : row.getListPlants()) {

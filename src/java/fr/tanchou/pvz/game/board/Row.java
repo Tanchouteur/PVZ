@@ -6,6 +6,7 @@ import fr.tanchou.pvz.entities.plants.passive.sunflower.Sun;
 import fr.tanchou.pvz.entities.plants.passive.sunflower.SunFlower;
 import fr.tanchou.pvz.entities.plants.shooter.ShooterPlant;
 import fr.tanchou.pvz.entities.zombie.Zombie;
+import fr.tanchou.pvz.player.Player;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -24,11 +25,11 @@ public class Row {
     private boolean haveZombie = false;
 
     private final RowVue rowVue;
-    private final List<Case> cases;
+    private final LinkedList<Case> cases;
 
     private final SunManager sunManager;
 
-    public Row(SunManager sunManager) {
+    public Row(int rowIndex, SunManager sunManager, Player player) {
         listPlants = new LinkedList<>();
         listZombie = new LinkedList<>();
         listBullets = new LinkedList<>();
@@ -37,13 +38,13 @@ public class Row {
 
         lawnMower = true;
 
-        rowVue = new RowVue(this);
-
         // Initialiser les cases avec des positions fixes
-        cases = new ArrayList<>();
+        cases = new LinkedList<>();
         for (int i = 0; i < 9; i++) {
-            cases.add(new Case(i, 0)); // Espacement des cases
+            cases.add(new Case(i, rowIndex)); // Espacement des cases
         }
+
+        rowVue = new RowVue(this, player);
     }
 
     public void updateZombies() {
@@ -237,7 +238,7 @@ public class Row {
         return !listPlants.isEmpty();
     }
 
-    public List<Case> getCases() {
+    public LinkedList<Case> getCases() {
         return cases;
     }
 }

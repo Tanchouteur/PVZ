@@ -6,11 +6,12 @@ public class Case {
     private final double x;  // Position en X
     private final int y;  // Position en Y
     private Plant plant;     // Plante occupant la case
-
+    private final CaseVue caseVue;
     public Case(double x, int y) {
         this.x = x;
         this.y = y;
         this.plant = null;
+        this.caseVue = new CaseVue(x, y);
     }
 
     public boolean isOccupied() {
@@ -40,5 +41,9 @@ public class Case {
 
     public double getY() {
         return y;
+    }
+
+    public CaseVue getCaseVue() {
+        return caseVue;
     }
 }

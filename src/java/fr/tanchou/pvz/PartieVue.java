@@ -75,7 +75,7 @@ public class PartieVue extends Application {
             mouseY = (int) mouseEvent.getY();
         });
 
-        animationLayer.setOnMouseClicked(event -> {
+        /*animationLayer.setOnMouseClicked(event -> {
             double mouseX = event.getSceneX();
             double mouseY = event.getSceneY();
 
@@ -83,7 +83,7 @@ public class PartieVue extends Application {
                 partie.placePlantUnderMouse(mouseX, mouseY);
             }
             System.out.println("Mouse clicked at " + mouseX + ", " + mouseY + " ans player selected plant is " + player.getSelectedPlant());
-        });
+        });*/
 
         primaryStage.show();
     }

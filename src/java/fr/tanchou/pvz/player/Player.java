@@ -9,8 +9,7 @@ public class Player {
     private int sun;
     private PlantCard[] plantCards;
     private final String name;
-
-    private Plant selectedPlant;
+    private Plant selectedPlant = null; // Stocke la plante sélectionnée (à planter)
 
     public Player(String name) {
         this.name = name;
@@ -62,4 +61,5 @@ public class Player {
     public boolean canAffordPlant(Plant selectedPlant) {
         return this.sun >= selectedPlant.getCard().getCost();
     }
+
 }

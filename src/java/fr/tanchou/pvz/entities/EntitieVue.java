@@ -15,10 +15,10 @@ public abstract class EntitieVue {
 
     public void update(Pane parent) {
         //double bottomPosition = entitie.getY()*parent.getHeight() - imageView.getFitHeight(); // Hauteur totale du parent moins la hauteur de l'image
-        imageView.setLayoutY(entitie.getY()*100);
+        imageView.setLayoutY(entitie.getY() + 25); // Positionner l'image en Y
         updateDetails(parent); // Mettre à jour les détails de l'entité
         // Mettre à jour la position de l'entité
-        imageView.setLayoutX(entitie.getX()*150);
+        imageView.setLayoutX(entitie.getX()*150 - 10); // Positionner l'image en X
 
     }
 

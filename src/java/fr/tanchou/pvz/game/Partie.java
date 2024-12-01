@@ -29,15 +29,15 @@ public class Partie {
         this.rows = new Row[5];
         sunManager = new SunManager();
         for (int i = 0; i < 5; i++) {
-            this.rows[i] = new Row(sunManager);
+            this.rows[i] = new Row(i, sunManager, player);
         }
 
         this.rootPane = rootPane;
 
         zombieSpawner = new ZombieSpawner(this, new SerieRowFactory(new ZombieFactory()));
 
-        rows[0].placePlantInCase(0, new PeaShooter());
-        rows[0].placePlantInCase(1, new SunFlower());
+        rows[1].placePlantInCase(0, new PeaShooter());
+        rows[2].placePlantInCase(1, new SunFlower());
 
         /*rows[0].addPlant(new PeaShooter(1.0, 0));
         rows[0].addPlant(new PeaShooter(2.0, 0));
@@ -118,8 +118,8 @@ public class Partie {
 
         // Identifier la case sous la souris
         Case targetCase = getCaseUnderMouse(mouseX, mouseY, rowHeight, caseWidth);
-        System.out.println(targetCase);
-        if (targetCase != null && targetCase.isOccupied()) {
+        System.out.println("Cliked on case : x :" + targetCase.getX() + " y :" + targetCase.getY() + " - plant : " + targetCase.getPlant());
+        if (targetCase != null && !targetCase.isOccupied()) {
             // Vérifiez si le joueur a assez de soleil pour planter
             if (player.canAffordPlant(player.getSelectedPlant())) {
 
@@ -130,5 +130,4 @@ public class Partie {
             }
         }
     }
-
 }
