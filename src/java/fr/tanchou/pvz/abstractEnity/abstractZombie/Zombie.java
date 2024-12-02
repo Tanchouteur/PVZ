@@ -9,6 +9,7 @@ public abstract class Zombie extends Entity {
     private final int damage;
     protected int timeSinceLastAttack = 0;
     private final int attackRate;
+    private boolean heating = false;
 
     protected Zombie(int healthPoint, int collideRadius, double x, int y, int speed, int damage, int attackRate) {
         super(healthPoint, collideRadius,x, y);
@@ -35,8 +36,9 @@ public abstract class Zombie extends Entity {
     }
 
     public void move() {
-        //System.out.println("Zombie move " + speed);
-        this.setX(this.getX() - speed*0.01);
+        if (!heating) {
+            this.setX(this.getX() - speed * 0.01);
+        }
     }
 
     public int getSpeed() {
@@ -65,5 +67,13 @@ public abstract class Zombie extends Entity {
 
     public int getAttackRate() {
         return attackRate;
+    }
+
+    public boolean heating() {
+        return heating;
+    }
+
+    public void setHeating(boolean heating) {
+        this.heating = heating;
     }
 }

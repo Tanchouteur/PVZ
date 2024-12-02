@@ -2,40 +2,32 @@ package fr.tanchou.pvz.game;
 
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.PeaShooter;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
-import fr.tanchou.pvz.game.board.Row;
-import fr.tanchou.pvz.game.board.SunManager;
+import fr.tanchou.pvz.game.rowComponent.Row;
 import fr.tanchou.pvz.game.spawn.SerieRowFactory;
 import fr.tanchou.pvz.game.spawn.ZombieFactory;
 import fr.tanchou.pvz.game.spawn.ZombieSpawner;
 import fr.tanchou.pvz.player.Player;
-import javafx.scene.layout.Pane;
 
 public class Partie {
     private final Row[] rows;
     private final Player player;
     private boolean defeated = false;
 
-    private final Pane rootPane;
-
     private final SunManager sunManager;
-
     private final ZombieSpawner zombieSpawner;
 
-
-    public Partie(Player player, Pane rootPane) {
+    public Partie(Player player) {
         this.player = player;
         this.rows = new Row[5];
         sunManager = new SunManager();
         for (int i = 0; i < 5; i++) {
-            this.rows[i] = new Row(i, sunManager, player);
+            this.rows[i] = new Row(i, sunManager);
         }
-
-        this.rootPane = rootPane;
 
         zombieSpawner = new ZombieSpawner(this, new SerieRowFactory(new ZombieFactory()));
 
-        rows[1].placePlantInCase(0, new PeaShooter());
-        rows[2].placePlantInCase(1, new SunFlower());
+        rows[1].placePlantInCase(0, new PeaShooter(1,1));
+        rows[2].placePlantInCase(1, new SunFlower(0,2));
 
         /*rows[0].addPlant(new PeaShooter(1.0, 0));
         rows[0].addPlant(new PeaShooter(2.0, 0));
@@ -67,21 +59,14 @@ public class Partie {
     public void update() {
 
         for (Row row : rows) {
-
-            // Mettre à jour les zombies
-            row.updateZombies();
-
-            // Mettre à jour les plantes
-            row.updatePlants();
-
-            // Mettre à jour les projectiles
-            row.updateBullets();
-
-            this.sunManager.updateSuns(player);
-
+            row.tick();
+            sunManager.tick();
+            defeated = row.isDefeat();
         }
 
         zombieSpawner.tick();
+
+        player.tick();
     }
 
     public boolean isDefeated() {

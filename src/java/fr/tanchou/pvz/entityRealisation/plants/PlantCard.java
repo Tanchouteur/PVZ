@@ -25,4 +25,8 @@ public class PlantCard {
         }
         return null;
     }
+
+    public Plant getPlant() {
+        return plant;
+    }
 }

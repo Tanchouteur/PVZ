@@ -1,37 +1,71 @@
 package fr.tanchou.pvz.player;
 
-import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
+import fr.tanchou.pvz.entityRealisation.ObjectOfPlant.Sun;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.PeaShooter;
 import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
+import fr.tanchou.pvz.game.SunManager;
 
 public class Player {
-    private int sun;
+    private int sold;
     private PlantCard[] plantCards;
     private final String name;
-    private Plant selectedPlant = null; // Stocke la plante sélectionnée (à planter)
+    private PlantCard activPlantCard;
 
-    public Player(String name) {
+    private final SunManager sunManager;
+    private int lastCollectSun = 0;
+
+    public Player(String name, SunManager sunManager) {
         this.name = name;
-        this.sun = 110;
+        this.sold = 100;
         this.plantCards = new PlantCard[5];
 
         this.setPlantCards(new PlantCard[]{
-                new PeaShooter().getCard(),
-                new SunFlower().getCard(),
+                new PlantCard(240, new PeaShooter(-1, -1)),
+                new PlantCard(240, new SunFlower(-1, -2))
         });
+
+        this.sunManager = sunManager;
     }
 
-    public int getSun() {
-        return sun;
+    public void tick() {
+        for (PlantCard plantCard : plantCards) {
+            plantCard.tick();
+        }
+        this.collectSun();
     }
 
-    public void addSun(int sun) {
-        this.sun += sun;
+    public void collectSun() {
+        lastCollectSun++;
+        if (lastCollectSun > 48) {
+            for (Sun sun : sunManager.getSunLinkedList()){
+                sold += sun.getValue();
+                sunManager.getSunLinkedList().remove(sun);
+            }
+            lastCollectSun = 0;
+        }
     }
 
-    public void removeSun(int sun) {
-        this.sun -= sun;
+    public int getSold() {
+        return sold;
+    }
+
+    public void buyPlant(PlantCard plantCard) {
+        this.sold -= plantCard.getPlant().getCost();
+        this.activPlantCard = plantCard;
+    }
+
+    public void cancelBuyPlant() {
+        this.sold += activPlantCard.getPlant().getCost();
+        this.activPlantCard = null;
+    }
+
+    public PlantCard getActivPlantCard() {
+        return activPlantCard;
+    }
+
+    public void setActivPlantCard(PlantCard activPlantCard) {
+        this.activPlantCard = activPlantCard;
     }
 
     public PlantCard[] getPlantCards() {
@@ -49,17 +83,4 @@ public class Player {
     public String getName() {
         return name;
     }
-
-    public Plant getSelectedPlant() {
-        return selectedPlant;
-    }
-
-    public void setSelectedPlant(Plant selectedPlant) {
-        this.selectedPlant = selectedPlant;
-    }
-
-    public boolean canAffordPlant(Plant selectedPlant) {
-        return this.sun >= selectedPlant.getCard().getCost();
-    }
-
 }

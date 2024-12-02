@@ -1032,7 +1032,7 @@ div.snippet-container:hover button.snippet-copy span {
  * striped:
  *      Borders around the table and vertical borders between cells, striped rows,
  *      vertical margins, styled caption.
- *      Best for tables that have a header row, and a body containing a series of simple rows.
+ *      Best for tables that have a header rowComponent, and a body containing a series of simple rows.
  */
 
 table.borderless,

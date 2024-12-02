@@ -5,8 +5,8 @@ import fr.tanchou.pvz.abstractEnity.abstracObjectOfPlant.ObjectOfPlant;
 public class Sun extends ObjectOfPlant {
     private final int value;
 
-    public Sun(double x, int y, int colliderRadius, int value) {
-        super(x, y, colliderRadius);
+    public Sun(double x, int y, int value) {
+        super(x, y, 1);
         this.value = value;
     }
 
@@ -16,6 +16,6 @@ public class Sun extends ObjectOfPlant {
 
     @Override
     public ObjectOfPlant clone() {
-        return new Sun(this.getX(), this.getY(), this.getCollider().getRadius(), this.getValue());
+        return new Sun(this.getX(), this.getY(), this.getValue());
     }
 }

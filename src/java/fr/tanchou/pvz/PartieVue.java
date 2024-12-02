@@ -2,8 +2,7 @@ package fr.tanchou.pvz;
 
 import fr.tanchou.pvz.game.Partie;
 import fr.tanchou.pvz.game.PartieController;
-import fr.tanchou.pvz.game.board.Row;
-import fr.tanchou.pvz.game.board.RowVue;
+import fr.tanchou.pvz.game.rowComponent.Row;
 import fr.tanchou.pvz.player.Player;
 import fr.tanchou.pvz.player.gui.HudPane;
 import javafx.application.Application;

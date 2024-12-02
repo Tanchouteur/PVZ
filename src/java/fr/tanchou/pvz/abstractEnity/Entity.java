@@ -15,7 +15,7 @@ public abstract class Entity {
 
     public abstract Entity clone(double x, int y);
 
-    boolean collidesWith(Entity entity) {
+    public boolean collideWith(Entity entity) {
         return Math.sqrt(Math.pow(this.getCollider().getRadius() + entity.getCollider().getRadius(), 2) - Math.pow(this.getX() - entity.getX(), 2) - Math.pow(this.getY() - entity.getY(), 2)) >= 0;
     }
 
