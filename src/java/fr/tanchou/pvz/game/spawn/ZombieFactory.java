@@ -1,9 +1,8 @@
 package fr.tanchou.pvz.game.spawn;
 
-import fr.tanchou.pvz.entities.zombie.Zombie;
-import fr.tanchou.pvz.entities.zombie.ZombieType;
-import fr.tanchou.pvz.entities.zombie.conheadZombie.ConeheadZombie;
-import fr.tanchou.pvz.entities.zombie.normalZombie.NormalZombie;
+import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
+import fr.tanchou.pvz.entityRealisation.zombie.ConeheadZombie;
+import fr.tanchou.pvz.entityRealisation.zombie.NormalZombie;
 
 public class ZombieFactory {
 

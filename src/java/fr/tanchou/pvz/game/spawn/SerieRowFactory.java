@@ -1,7 +1,6 @@
 package fr.tanchou.pvz.game.spawn;
 
-import fr.tanchou.pvz.entities.zombie.Zombie;
-import fr.tanchou.pvz.entities.zombie.ZombieType;
+import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,16 +1,11 @@
 package fr.tanchou.pvz.player.gui;
 
-import fr.tanchou.pvz.entities.plants.Plant;
-import fr.tanchou.pvz.entities.plants.PlantCard;
-import fr.tanchou.pvz.entities.plants.VuePlantCard;
+import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
+import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
 import fr.tanchou.pvz.game.controller.PlantCardController;
 import fr.tanchou.pvz.player.Player;
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
-import java.security.cert.PolicyNode;
 
 public class HudPane extends Pane {
 

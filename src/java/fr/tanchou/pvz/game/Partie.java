@@ -1,9 +1,7 @@
 package fr.tanchou.pvz.game;
 
-import fr.tanchou.pvz.entities.plants.Plant;
-import fr.tanchou.pvz.entities.plants.shooter.pea.PeaShooter;
-import fr.tanchou.pvz.entities.plants.passive.sunflower.SunFlower;
-import fr.tanchou.pvz.game.board.Case;
+import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.PeaShooter;
+import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
 import fr.tanchou.pvz.game.board.Row;
 import fr.tanchou.pvz.game.board.SunManager;
 import fr.tanchou.pvz.game.spawn.SerieRowFactory;

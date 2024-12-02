@@ -1,6 +1,6 @@
 package fr.tanchou.pvz.game.board;
 
-import fr.tanchou.pvz.entities.plants.Plant;
+import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
 
 public class Case {
     private final double x;  // Position en X

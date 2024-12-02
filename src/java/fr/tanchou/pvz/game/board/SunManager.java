@@ -1,9 +1,6 @@
 package fr.tanchou.pvz.game.board;
 
-import fr.tanchou.pvz.entities.plants.passive.sunflower.Sun;
-import fr.tanchou.pvz.entities.plants.passive.sunflower.SunVue;
 import fr.tanchou.pvz.player.Player;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.util.Iterator;

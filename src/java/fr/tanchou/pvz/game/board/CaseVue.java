@@ -1,6 +1,5 @@
 package fr.tanchou.pvz.game.board;
 
-import fr.tanchou.pvz.entities.plants.PlantVue;
 import javafx.scene.layout.Pane;
 
 public class CaseVue extends Pane {

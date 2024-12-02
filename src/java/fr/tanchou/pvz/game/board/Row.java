@@ -1,11 +1,10 @@
 package fr.tanchou.pvz.game.board;
 
-import fr.tanchou.pvz.entities.Bullet;
-import fr.tanchou.pvz.entities.plants.Plant;
-import fr.tanchou.pvz.entities.plants.passive.sunflower.Sun;
-import fr.tanchou.pvz.entities.plants.passive.sunflower.SunFlower;
-import fr.tanchou.pvz.entities.plants.shooter.ShooterPlant;
-import fr.tanchou.pvz.entities.zombie.Zombie;
+import fr.tanchou.pvz.abstractEnity.abstracObjectOfPlant.Bullet;
+import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
+import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
+import fr.tanchou.pvz.abstractEnity.abstractPlant.ObjectGeneratorsPlant;
+import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
 import fr.tanchou.pvz.player.Player;
 
 import java.util.Iterator;
@@ -86,9 +85,9 @@ public class Row {
                     c.removePlant(); // Retire la plante morte de la case
                 }
 
-                if (plant instanceof ShooterPlant shooterPlant) {
+                if (plant instanceof ObjectGeneratorsPlant objectGeneratorsPlant) {
                     if (haveZombie()) {
-                        Bullet bullet = shooterPlant.shoot();
+                        Bullet bullet = objectGeneratorsPlant.shoot();
                         if (bullet != null) {
                             addBullet(bullet);
                         }

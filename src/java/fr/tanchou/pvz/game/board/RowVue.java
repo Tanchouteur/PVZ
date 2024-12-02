@@ -1,8 +1,7 @@
 package fr.tanchou.pvz.game.board;
 
-import fr.tanchou.pvz.entities.Entitie;
-import fr.tanchou.pvz.entities.EntitieVue;
-import fr.tanchou.pvz.entities.zombie.Zombie;
+import fr.tanchou.pvz.abstractEnity.Entity;
+import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
 import fr.tanchou.pvz.game.controller.CaseClickController;
 import fr.tanchou.pvz.player.Player;
 import javafx.scene.layout.Pane;
@@ -50,7 +49,7 @@ public class RowVue {
         }
 
         // Ajouter les projectiles à la couche correspondante
-        for (Entitie bullet : row.getListBullets()) {
+        for (Entity bullet : row.getListBullets()) {
             EntitieVue bulletVue = bullet.createVue(bulletLayer);
             bulletLayer.getChildren().add(bulletVue.getImageView());
         }
@@ -79,7 +78,7 @@ public class RowVue {
         }
 
         // Met à jour la position et l'état des projectiles
-        for (Entitie bullet : row.getListBullets()) {
+        for (Entity bullet : row.getListBullets()) {
             if (bullet.getVue() == null) {
                 bullet.setVue(bullet.createVue(bulletLayer));
             }

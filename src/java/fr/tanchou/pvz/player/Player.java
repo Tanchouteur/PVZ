@@ -1,9 +1,9 @@
 package fr.tanchou.pvz.player;
 
-import fr.tanchou.pvz.entities.plants.Plant;
-import fr.tanchou.pvz.entities.plants.PlantCard;
-import fr.tanchou.pvz.entities.plants.passive.sunflower.SunFlower;
-import fr.tanchou.pvz.entities.plants.shooter.pea.PeaShooter;
+import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
+import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.PeaShooter;
+import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
+import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
 
 public class Player {
     private int sun;

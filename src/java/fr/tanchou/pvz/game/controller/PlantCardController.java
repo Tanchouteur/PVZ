@@ -1,8 +1,7 @@
 package fr.tanchou.pvz.game.controller;
 
-import fr.tanchou.pvz.entities.plants.Plant;
-import fr.tanchou.pvz.entities.plants.PlantCard;
-import fr.tanchou.pvz.entities.plants.VuePlantCard;
+import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
+import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
 import fr.tanchou.pvz.player.Player;
 import fr.tanchou.pvz.player.gui.HudPane;
 import javafx.event.EventHandler;

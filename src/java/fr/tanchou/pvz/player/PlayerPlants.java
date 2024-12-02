@@ -1,6 +1,6 @@
 package fr.tanchou.pvz.player;
 
-import fr.tanchou.pvz.entities.plants.PlantCard;
+import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
 
 import java.util.LinkedList;
 
