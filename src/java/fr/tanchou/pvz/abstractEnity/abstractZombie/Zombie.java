@@ -11,12 +11,15 @@ public abstract class Zombie extends Entity {
     protected int timeSinceLastAttack = 0;
     private final int attackRate;
     private boolean heating = false;
+    private final String name;
 
-    protected Zombie(int healthPoint, double collideRadius, double x, int y, int speed, int damage, int attackRate) {
+    protected Zombie(int healthPoint, double collideRadius, double x, int y, int speed, int damage, int attackRate, String name) {
         super(healthPoint, collideRadius,x, y);
+        this.name = name;
         this.speed = speed;
         this.damage = damage;
         this.attackRate = attackRate;
+
     }
 
     public abstract Zombie clone(double x, int y);
@@ -81,6 +84,6 @@ public abstract class Zombie extends Entity {
 
     @Override
     public String toString() {
-        return "Zombie{ hp=" + this.getHealthPoint() + ", position="+this.getX()+","+this.getY()+" heating ="+heating+" }";
+        return this.name + "{ hp=" + this.getHealthPoint() + ", position="+this.getX()+","+this.getY()+" heating ="+heating+" }";
     }
 }

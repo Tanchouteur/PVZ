@@ -10,6 +10,7 @@ public class Partie {
     private final Row[] rows;
     private final Player player;
     private boolean defeated = false;
+    private boolean victory = false;
 
     private final SunManager sunManager;
     private final ZombieSpawner zombieSpawner;
@@ -76,5 +77,13 @@ public class Partie {
             stringBuilder.append("----------------------------------------------------------------------------------------------------------").append("\n");
         }
         return stringBuilder.toString();
+    }
+
+    public boolean isVictory() {
+        return victory;
+    }
+
+    public void setVictory(boolean victory) {
+        this.victory = victory;
     }
 }
