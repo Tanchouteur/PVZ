@@ -30,6 +30,23 @@ public class PVZ {
     }
 
     public void stopGame() {
-        gameController.stopGame();
+        if (gameController != null) {
+            gameController.stopGame();
+        }
+    }
+
+    public Partie getPartie() {
+        if (partie == null) {
+            throw new IllegalStateException("Partie not created");
+        }
+        return partie;
+    }
+
+    public PlayerController getPlayerController() {
+        return playerController;
+    }
+
+    public SunManager getSunManager() {
+        return sunManager;
     }
 }

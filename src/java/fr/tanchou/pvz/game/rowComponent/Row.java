@@ -211,4 +211,8 @@ public class Row {
 
         return stringBuilder.toString();
     }
+
+    public PlantCase getPlantCase(int x) {
+        return plantCasesArray[x];
+    }
 }

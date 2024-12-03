@@ -34,11 +34,14 @@ public class PVZGraphic extends Application {
         Scene scene = new Scene(root, 1920, 1080);
         primaryStage.setTitle("Plants vs Zombies");
         primaryStage.setScene(scene);
+        primaryStage.setMaximized(false);
         primaryStage.show();
+
     }
 
     private void startGame(Stage primaryStage) {
         // Passer à l'écran de jeu
+        pvzInstance.startGame(false);
         PartieControllerView controllerView = new PartieControllerView(pvzInstance);
         controllerView.start(primaryStage);
     }

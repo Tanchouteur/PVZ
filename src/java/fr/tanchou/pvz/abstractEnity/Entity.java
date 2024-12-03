@@ -5,12 +5,14 @@ public abstract class Entity {
     private final Collider collider;
     private double x;
     private final int y;
+    private final String name;
 
-    public Entity(int healthPoint, double colliderRadius, double x, int y) {
+    public Entity(int healthPoint, double colliderRadius, double x, int y, String name) {
         this.healthPoint = healthPoint;
         this.collider = new Collider(colliderRadius);
         this.x = x;
         this.y = y;
+        this.name = name;
     }
 
     public abstract Entity clone(double x, int y);
@@ -46,5 +48,9 @@ public abstract class Entity {
 
     public int getY() {
         return y;
+    }
+
+    public String getName() {
+        return name;
     }
 }
