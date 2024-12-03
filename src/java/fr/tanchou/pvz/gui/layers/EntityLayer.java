@@ -21,7 +21,7 @@ public class EntityLayer extends Pane {
         this.setStyle("-fx-background-color: rgba(0, 0, 0, 0.30);");
 
         this.plantLayer = new PlantLayer(width, height, partie);
-        this.zombieLayer = new ZombieLayer(this.getWidth(), this.getHeight());
+        this.zombieLayer = new ZombieLayer(this.getWidth(), this.getHeight(), partie.getRows());
 
         this.getChildren().add(plantLayer);
         this.getChildren().add(zombieLayer);

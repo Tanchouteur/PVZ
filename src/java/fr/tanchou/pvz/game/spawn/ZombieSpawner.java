@@ -25,7 +25,7 @@ public class ZombieSpawner {
         this.partie = partie;
         this.rand = new Random();
         this.tickCount = 0;
-        this.spawnRate = 50;
+        this.spawnRate = 70;
         this.inWave = false;
         this.zombiesToSpawn = 0;
 
@@ -74,7 +74,7 @@ public class ZombieSpawner {
             spawnRate = Math.max(20, spawnRate - 1);  // Augmenter progressivement la vitesse de spawn
         }
 
-        if (tickCount > 300) {
+        if (tickCount > 800) {
             currentState = State.WAVE1;
             zombiesToSpawn = 20;
             tickCount = 0;
@@ -108,7 +108,7 @@ public class ZombieSpawner {
             spawnZombie();
         }
 
-        if (tickCount > 200) {
+        if (tickCount > 600) {
             currentState = State.WAVE2;
             zombiesToSpawn = 30;
             tickCount = 0;
@@ -121,6 +121,15 @@ public class ZombieSpawner {
         int rowIndex = rand.nextInt(5);
 
         Zombie zombie = zombiesArray[0].clone(10.0, rowIndex);
+
+        partie.getOneRow(rowIndex).addZombie(zombie);
+
+        System.out.println(zombie + " Spawned in row: " + rowIndex);
+    }
+
+    public void spawnZombie(int rowIndex) {
+
+        Zombie zombie = zombiesArray[0].clone(7.0, rowIndex);
 
         partie.getOneRow(rowIndex).addZombie(zombie);
 

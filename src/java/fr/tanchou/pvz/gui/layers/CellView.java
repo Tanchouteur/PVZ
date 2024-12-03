@@ -20,6 +20,8 @@ public class CellView extends Pane {
             if (this.getChildren().isEmpty()) {
                 this.getChildren().add(new EntityView(plantCase.getPlant(), this.getWidth()-(this.getWidth()/4), this.getHeight() - (this.getHeight()/4)));
             }
+        }else {
+            this.getChildren().clear();
         }
     }
 }

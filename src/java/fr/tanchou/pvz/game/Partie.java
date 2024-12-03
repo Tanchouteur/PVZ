@@ -31,9 +31,10 @@ public class Partie {
 
         zombieSpawner = new ZombieSpawner(this);
 
-        rows[1].placePlantInCase(0, new PeaShooter(1,1));
-        rows[2].placePlantInCase(1, new SunFlower(0,2));
+        rows[1].placePlantInCase(0, new PeaShooter(0,1));
+        rows[2].placePlantInCase(1, new SunFlower(1,2));
 
+        zombieSpawner.spawnZombie(2);
     }
 
     public Row[] getRows() {
@@ -61,7 +62,7 @@ public class Partie {
         }
 
         sunManager.tick();
-        zombieSpawner.tick();
+        //zombieSpawner.tick();
 
         playerController.tick();
     }

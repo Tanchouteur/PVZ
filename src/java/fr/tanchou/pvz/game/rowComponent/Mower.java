@@ -9,7 +9,7 @@ public class Mower {
 
     public Mower() {
         this.x = -0.5;
-        this.collider = new Collider(1);
+        this.collider = new Collider(.2);
     }
 
     public boolean collideWith(Zombie zombie) {

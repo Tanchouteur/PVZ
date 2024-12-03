@@ -26,15 +26,17 @@ public class EntityView extends ImageView {
 
         super(image);
         this.entity = entity;
-        this.setLayoutX(0);
-        this.setLayoutY(0);
 
         this.setFitWidth(width);
         this.setFitHeight(height);
     }
 
-    public void update() {
-        this.setLayoutX(0);
-        this.setLayoutY(0);
+    public void updateZombiePosition() {
+        this.setLayoutX((entity.getX()*170) - 100);
+        this.setLayoutY((entity.getY()*178) - 75);
+    }
+
+    public Entity getEntity() {
+        return entity;
     }
 }

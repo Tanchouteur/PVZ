@@ -46,7 +46,9 @@ public class Row {
         if (haveZombie && mower != null) {
             if (mower.collideWith(firstZombie)) {
                 mower = null;
-                listZombie.clear();
+                for (Zombie zombie : listZombie) {
+                    zombie.takeDamage(1000);
+                }
                 System.err.println("Mower");
             }
         }

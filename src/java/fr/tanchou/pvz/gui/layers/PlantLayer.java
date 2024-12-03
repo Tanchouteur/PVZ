@@ -2,9 +2,7 @@ package fr.tanchou.pvz.gui.layers;
 
 import fr.tanchou.pvz.game.Partie;
 import fr.tanchou.pvz.game.rowComponent.PlantCase;
-import fr.tanchou.pvz.game.rowComponent.Row;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 
 public class PlantLayer extends GridPane {
 
