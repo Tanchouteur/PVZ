@@ -43,7 +43,7 @@ public class Row {
     }
 
     public void updateMawer() {
-        if (haveZombie) {
+        if (haveZombie && mower != null) {
             if (mower.collideWith(firstZombie)) {
                 mower = null;
                 listZombie.clear();
@@ -170,10 +170,6 @@ public class Row {
 
     public boolean haveZombie() {
         return !listZombie.isEmpty();
-    }
-
-    public void setHaveZombie(boolean haveZombie) {
-        this.haveZombie = haveZombie;
     }
 
     public int getRowIndex() {

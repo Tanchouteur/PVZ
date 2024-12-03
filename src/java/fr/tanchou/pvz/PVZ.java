@@ -14,7 +14,7 @@ public class PVZ {
     public PVZ() {
         this.sunManager = new SunManager();
         this.player = new Player("Louis" , sunManager);
-        this.partie = new Partie(player);
+        this.partie = new Partie(player, sunManager);
         this.gameController = new PartieController(partie);
     }
 

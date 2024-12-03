@@ -16,10 +16,11 @@ public class Partie {
 
     private int tick = 0;
 
-    public Partie(Player player) {
+    public Partie(Player player, SunManager sunManager) {
         this.player = player;
         this.rows = new Row[5];
-        sunManager = new SunManager();
+        this.sunManager = sunManager;
+
         for (int i = 0; i < 5; i++) {
             this.rows[i] = new Row(i, sunManager);
         }
@@ -29,12 +30,6 @@ public class Partie {
         rows[1].placePlantInCase(0, new PeaShooter(1,1));
         rows[2].placePlantInCase(1, new SunFlower(0,2));
 
-        /*rows[0].addPlant(new PeaShooter(1.0, 0));
-        rows[0].addPlant(new PeaShooter(2.0, 0));
-        rows[0].addPlant(new PeaShooter(3.0, 0));
-
-        rows[1].addPlant(new PeaShooter(0.0, 1));
-        rows[2].addPlant(new PeaShooter(0.0, 2));*/
     }
 
     public Row[] getRows() {
@@ -58,7 +53,9 @@ public class Partie {
         }
         for (Row row : rows) {
             row.tick();
-            defeated = row.isDefeat();
+            if (row.isDefeat()){
+                defeated = true;
+            }
         }
         sunManager.tick();
         zombieSpawner.tick();
@@ -70,14 +67,10 @@ public class Partie {
         return defeated;
     }
 
-    public SunManager getSunManager() {
-        return sunManager;
-    }
-
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Partie : defeat=").append(this.isDefeated()+"\n");
+        stringBuilder.append("Partie : defeat=").append(this.isDefeated()).append("\n");
         for (Row row : rows) {
             stringBuilder.append(row).append("\n");
             stringBuilder.append("----------------------------------------------------------------------------------------------------------").append("\n");

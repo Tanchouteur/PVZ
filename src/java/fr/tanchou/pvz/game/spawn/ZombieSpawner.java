@@ -4,8 +4,6 @@ import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
 import fr.tanchou.pvz.entityRealisation.zombie.NormalZombie;
 import fr.tanchou.pvz.game.Partie;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 
 public class ZombieSpawner {
@@ -35,10 +33,10 @@ public class ZombieSpawner {
         if (tickCount > 50) {
             tickCount = 0;
             // Choisir aléatoirement une ligne sur laquelle spawn un zombie
-            int rowIndex = rand.nextInt()%4;  // On a 5 lignes possibles
+            int rowIndex = rand.nextInt(5);  // On a 5 lignes possibles
 
             partie.getOneRow(rowIndex).addZombie(zombiesArray[0].clone(10.0, rowIndex));  // Ajouter le zombie à la ligne
-            //System.out.println("Zombie Spawn : " + rowIndex);
+            System.out.println(partie.getOneRow(rowIndex).getListZombies().getLast() + " Spawn in : " + rowIndex);
         }
     }
 }

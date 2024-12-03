@@ -17,7 +17,7 @@ public class SunManager {
 
     // Ajouter un soleil à une position donnée
     public void addSun(Sun sun) {
-        sunLinkedList.add(sun);
+        this.sunLinkedList.add(sun);
     }
 
     public void tick() {
@@ -27,16 +27,16 @@ public class SunManager {
 
     // Faire apparaître un soleil à une position aléatoire
     private void spawnRandomSun() {
-        if (timeToLastSpawn > 100) {
+        if (timeToLastSpawn >= 100) {
             timeToLastSpawn = 0;
-            double x = random.nextDouble() * 8; // Limite la zone de spawn
-            int y = random.nextInt()%6; // Limite la zone de spawn
+            double x = random.nextDouble(8); // Limite la zone de spawn
+            int y = random.nextInt(5); // Limite la zone de spawn
             addSun(new Sun(x, y, 25));
             System.out.println("Sun spawned at " + x + " " + y);
         }
     }
 
     public LinkedList<Sun> getSunLinkedList() {
-        return sunLinkedList;
+        return this.sunLinkedList;
     }
 }
