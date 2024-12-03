@@ -3,10 +3,8 @@ package fr.tanchou.pvz.game;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.PeaShooter;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
 import fr.tanchou.pvz.game.rowComponent.Row;
-import fr.tanchou.pvz.game.spawn.SerieRowFactory;
-import fr.tanchou.pvz.game.spawn.ZombieFactory;
 import fr.tanchou.pvz.game.spawn.ZombieSpawner;
-import fr.tanchou.pvz.player.Player;
+import fr.tanchou.pvz.Player;
 
 public class Partie {
     private final Row[] rows;
@@ -16,6 +14,8 @@ public class Partie {
     private final SunManager sunManager;
     private final ZombieSpawner zombieSpawner;
 
+    private int tick = 0;
+
     public Partie(Player player) {
         this.player = player;
         this.rows = new Row[5];
@@ -24,7 +24,7 @@ public class Partie {
             this.rows[i] = new Row(i, sunManager);
         }
 
-        zombieSpawner = new ZombieSpawner(this, new SerieRowFactory(new ZombieFactory()));
+        zombieSpawner = new ZombieSpawner(this);
 
         rows[1].placePlantInCase(0, new PeaShooter(1,1));
         rows[2].placePlantInCase(1, new SunFlower(0,2));
@@ -35,13 +35,6 @@ public class Partie {
 
         rows[1].addPlant(new PeaShooter(0.0, 1));
         rows[2].addPlant(new PeaShooter(0.0, 2));*/
-
-
-        /*rows[0].addZombie(new NormalZombie(3.0, 0));*/
-        /*rows[1].addZombie(new NormalZombie(8.0, 0));
-        rows[2].addZombie(new NormalZombie(8.0, 0));
-        rows[3].addZombie(new NormalZombie(8.0, 0));
-        rows[4].addZombie(new NormalZombie(8.0, 0));*/
     }
 
     public Row[] getRows() {
@@ -57,7 +50,11 @@ public class Partie {
     }
 
     public void update() {
-
+        tick++;
+        if (tick >= 24) {
+            System.out.println("Tick");
+            tick = 0;
+        }
         for (Row row : rows) {
             row.tick();
             sunManager.tick();
@@ -76,5 +73,4 @@ public class Partie {
     public SunManager getSunManager() {
         return sunManager;
     }
-
 }

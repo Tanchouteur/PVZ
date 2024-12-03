@@ -1,4 +1,4 @@
-package fr.tanchou.pvz.player;
+package fr.tanchou.pvz;
 
 import fr.tanchou.pvz.entityRealisation.ObjectOfPlant.Sun;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.PeaShooter;
@@ -37,7 +37,7 @@ public class Player {
 
     public void collectSun() {
         lastCollectSun++;
-        if (lastCollectSun > 48) {
+        if (lastCollectSun > 24 && !sunManager.getSunLinkedList().isEmpty()) {
             for (Sun sun : sunManager.getSunLinkedList()){
                 sold += sun.getValue();
                 sunManager.getSunLinkedList().remove(sun);

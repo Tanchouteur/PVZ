@@ -4,12 +4,9 @@ import fr.tanchou.pvz.abstractEnity.abstracObjectOfPlant.Bullet;
 import fr.tanchou.pvz.abstractEnity.abstracObjectOfPlant.ObjectOfPlant;
 import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
 import fr.tanchou.pvz.entityRealisation.ObjectOfPlant.Sun;
-import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.PeaShooter;
-import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
 import fr.tanchou.pvz.abstractEnity.abstractPlant.ObjectGeneratorsPlant;
 import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
 import fr.tanchou.pvz.game.SunManager;
-import fr.tanchou.pvz.player.Player;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -50,6 +47,7 @@ public class Row {
             if (mower.collideWith(firstZombie)) {
                 mower = null;
                 listZombie.clear();
+                System.out.println("Mower");
             }
         }
     }
@@ -60,6 +58,7 @@ public class Row {
             Zombie zombie = iterator.next();
             if (zombie.getHealthPoint() <= 0) {
                 iterator.remove();
+                System.out.println("Zombie mort");
                 continue;
             }
 
@@ -82,8 +81,11 @@ public class Row {
                     if (zombie.collideWith(plant)) {
                         zombie.attack(plant);
                         zombie.setHeating(true);
-                    }else {
+                        System.out.println("Zombie heating");
+
+                    }else if (zombie.heating()) {
                         zombie.setHeating(false);
+                        System.out.println("Zombie stop heating");
                     }
                 }
             }
@@ -98,6 +100,8 @@ public class Row {
 
                     if (plant.getHealthPoint() <= 0) {
                         c.removePlant(); // Retire la plante morte de la case
+                        System.out.println("Plant mort : x = " + c.getX() + " y = " + c.getY());
+                        continue;
                     }
 
                     ObjectOfPlant object = plant.tick();
@@ -109,7 +113,7 @@ public class Row {
                         } else if (object instanceof Sun sun) {
                             sunManager.addSun(sun);
                         }
-
+                        System.out.println("Plant create object : x = " + c.getX() + " y = " + c.getY() + " object = " + plant.getName()+"object");
                     }
                 }
             }
@@ -126,6 +130,7 @@ public class Row {
             if (bullet.collidesWith(firstZombie)) {
                 firstZombie.takeDamage(bullet.getDamage());
                 iterator.remove();
+                System.out.println("Zombie take damage");
                 break;
             }
 
@@ -176,5 +181,6 @@ public class Row {
 
     public void placePlantInCase(int i, Plant plant) {
         plantCasesArray[i].placePlant(plant);
+        System.out.println("Plant place : x = " + plantCasesArray[i].getX() + " y = " + plantCasesArray[i].getY());
     }
 }
