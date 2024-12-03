@@ -40,7 +40,7 @@ public abstract class Zombie extends Entity {
 
     public void move() {
         if (!heating) {
-            this.setX(this.getX() - speed * 0.05);
+            this.setX(this.getX() - speed * 0.02);
         }
     }
 

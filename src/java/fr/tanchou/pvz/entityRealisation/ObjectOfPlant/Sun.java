@@ -6,7 +6,7 @@ public class Sun extends ObjectOfPlant {
     private final int value;
 
     public Sun(double x, int y, int value) {
-        super(x, y, 1);
+        super(x, y, .2);
         this.value = value;
     }
 

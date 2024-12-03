@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class ZombieLayer extends Pane {
-    private Row[] rows;
+    private final Row[] rows;
 
     public ZombieLayer(double width, double height, Row[] rows) {
         super();
@@ -18,7 +18,7 @@ public class ZombieLayer extends Pane {
         this.setLayoutX(0);
         this.setLayoutY(0);
 
-        this.setStyle("-fx-background-color: rgba(241,7,7,0.3);");
+        //this.setStyle("-fx-background-color: rgba(241,7,7,0.3);");
 
         this.rows = rows;
     }

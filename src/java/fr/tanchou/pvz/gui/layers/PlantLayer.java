@@ -12,7 +12,7 @@ public class PlantLayer extends GridPane {
         super();
         this.setPrefSize(width*(0.771), height*0.84);
 
-        this.setStyle("-fx-background-color: rgba(36,255,6,0.34);");
+        //this.setStyle("-fx-background-color: rgba(36,255,6,0.34);");
 
         this.setLayoutX(0);
         this.setLayoutY(0);

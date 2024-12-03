@@ -34,7 +34,7 @@ public class Partie {
         rows[1].placePlantInCase(0, new PeaShooter(0,1));
         rows[2].placePlantInCase(1, new SunFlower(1,2));
 
-        zombieSpawner.spawnZombie(2);
+        zombieSpawner.spawnZombie(1);
     }
 
     public Row[] getRows() {

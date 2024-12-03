@@ -12,11 +12,10 @@ public class EntityView extends ImageView {
     private final Entity entity;
 
     public EntityView(Entity entity, double width, double height) {
-        Image image;
         if (entity == null) {
             throw new IllegalArgumentException("entity cannot be null");
         }
-
+        Image image;
         if (entity instanceof Zombie){
             image = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/zombies/" + entity.getName() + "/"+ entity.getName() +".png")));
         }else {

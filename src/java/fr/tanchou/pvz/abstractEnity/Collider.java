@@ -10,4 +10,11 @@ public class Collider {
     public double getRadius() {
         return radius;
     }
+
+    @Override
+    public String toString() {
+        return "Collider{" +
+                "radius=" + radius +
+                '}';
+    }
 }

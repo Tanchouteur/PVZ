@@ -4,15 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a1fbda2-691b-482d-933f-9c7fd7f150d1" name="Changes" comment="sa commence...">
+    <list default="true" id="6a1fbda2-691b-482d-933f-9c7fd7f150d1" name="Changes" comment="sa marche">
+      <change afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/BulletLayer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/BulletView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ressources/assets/plants/PeaShooter/PeaBullet.png" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/assets/bullets/PeaBullet.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/Collider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/Collider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstracObjectOfPlant/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstracObjectOfPlant/Bullet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstractPlant/ObjectGeneratorsPlant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstractPlant/ObjectGeneratorsPlant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstractZombie/Zombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstractZombie/Zombie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/ObjectOfPlant/PeaBullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/ObjectOfPlant/PeaBullet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/ObjectOfPlant/Sun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/ObjectOfPlant/Sun.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/plants/ObjectGeneratorPlant/PeaShooter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/plants/ObjectGeneratorPlant/PeaShooter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/zombie/ConeheadZombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/zombie/ConeheadZombie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/zombie/NormalZombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/zombie/NormalZombie.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/Partie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/Partie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/rowComponent/Mower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/rowComponent/Mower.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/rowComponent/Row.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/rowComponent/Row.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/spawn/ZombieSpawner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/spawn/ZombieSpawner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/PVZGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/PVZGraphic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/CellView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/CellView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/EntityLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/EntityLayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/PlantLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/PlantLayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/ZombieLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/ZombieLayer.java" afterDir="false" />
@@ -82,6 +89,11 @@
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\louis\IdeaProjects\PVZ\ressources\assets\bullets" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.LauncherGUI">
     <configuration name="LauncherConsoleLog" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="fr.tanchou.pvz.Launcher" />
@@ -205,7 +217,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733245032214</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="sa marche">
+      <option name="closed" value="true" />
+      <created>1733258806062</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1733258806062</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -215,7 +235,8 @@
     <MESSAGE value="Vue JavaFX commencement" />
     <MESSAGE value="gameBoard" />
     <MESSAGE value="sa commence..." />
-    <option name="LAST_COMMIT_MESSAGE" value="sa commence..." />
+    <MESSAGE value="sa marche" />
+    <option name="LAST_COMMIT_MESSAGE" value="sa marche" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

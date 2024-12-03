@@ -129,7 +129,7 @@ public class ZombieSpawner {
 
     public void spawnZombie(int rowIndex) {
 
-        Zombie zombie = zombiesArray[0].clone(7.0, rowIndex);
+        Zombie zombie = zombiesArray[0].clone(10.0, rowIndex);
 
         partie.getOneRow(rowIndex).addZombie(zombie);
 

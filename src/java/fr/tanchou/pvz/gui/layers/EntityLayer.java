@@ -1,12 +1,15 @@
 package fr.tanchou.pvz.gui.layers;
 
+import fr.tanchou.pvz.abstractEnity.abstracObjectOfPlant.Bullet;
+import fr.tanchou.pvz.entityRealisation.ObjectOfPlant.PeaBullet;
 import fr.tanchou.pvz.game.Partie;
-import fr.tanchou.pvz.game.rowComponent.Row;
+import fr.tanchou.pvz.gui.props.BulletView;
 import javafx.scene.layout.Pane;
 
 public class EntityLayer extends Pane {
-    private PlantLayer plantLayer;
-    private ZombieLayer zombieLayer;
+    private final PlantLayer plantLayer;
+    private final ZombieLayer zombieLayer;
+    private final BulletLayer bulletLayer;
 
     public EntityLayer(int width, int height, Partie partie) {
         super();
@@ -18,17 +21,21 @@ public class EntityLayer extends Pane {
         this.setLayoutX(width*0.1739);
         this.setLayoutY(height*0.11);
 
-        this.setStyle("-fx-background-color: rgba(0, 0, 0, 0.30);");
+        this.setStyle("-fx-background-color: rgba(0,0,0,0);");
 
         this.plantLayer = new PlantLayer(width, height, partie);
-        this.zombieLayer = new ZombieLayer(this.getWidth(), this.getHeight(), partie.getRows());
+        this.zombieLayer = new ZombieLayer(this.getPrefWidth(), this.getPrefHeight(), partie.getRows());
+        this.bulletLayer = new BulletLayer(this.getPrefWidth(), this.getPrefHeight(), partie.getRows());
 
         this.getChildren().add(plantLayer);
         this.getChildren().add(zombieLayer);
+        this.getChildren().add(bulletLayer);
+        bulletLayer.toFront();
     }
 
     public void update() {
         plantLayer.update();
         zombieLayer.update();
+        bulletLayer.update();
     }
 }
