@@ -14,30 +14,30 @@ public class ZombieSpawner {
     private final Random rand;  // Pour gérer la randomisation des zombies
     private int tickCount;  // Compteur de ticks
 
-    private final List<Zombie> zombies;  // Liste des zombies à spawn
+    private final Zombie[] zombiesArray;  // Liste des zombies à spawn
 
     public ZombieSpawner(Partie partie) {
         this.partie = partie;
         this.rand = new Random();
         this.tickCount = 0;
-        this.zombies = new LinkedList<>();
+        this.zombiesArray = new Zombie[6];
 
         // Ajouter les zombies à la liste
-        zombies.add(new NormalZombie(11.0,0));
-        zombies.getFirst().setHeating(true);
+        zombiesArray[0] = new NormalZombie(11.0,0);
+       zombiesArray[0].setHeating(true);
 
-        partie.getOneRow(1).addZombie(zombies.getFirst().clone(10.0,1));
+        partie.getOneRow(1).addZombie(zombiesArray[0].clone(10.0,1));
     }
 
     public void tick() {
-        //tickCount++;
+        tickCount++;
 
         if (tickCount > 50) {
             tickCount = 0;
             // Choisir aléatoirement une ligne sur laquelle spawn un zombie
             int rowIndex = rand.nextInt()%4;  // On a 5 lignes possibles
 
-            partie.getOneRow(rowIndex).addZombie(zombies.getFirst().clone(10.0,rowIndex));  // Ajouter le zombie à la ligne
+            partie.getOneRow(rowIndex).addZombie(zombiesArray[0].clone(10.0, rowIndex));  // Ajouter le zombie à la ligne
             //System.out.println("Zombie Spawn : " + rowIndex);
         }
     }
