@@ -17,10 +17,13 @@ public class Partie {
 
     private int tick = 0;
 
-    public Partie(PlayerController playerController, SunManager sunManager) {
+    private boolean consoleLog;
+
+    public Partie(PlayerController playerController, SunManager sunManager, boolean consoleLog) {
         this.playerController = playerController;
         this.rows = new Row[5];
         this.sunManager = sunManager;
+        this.consoleLog = consoleLog;
 
         for (int i = 0; i < 5; i++) {
             this.rows[i] = new Row(i, sunManager);
@@ -46,18 +49,17 @@ public class Partie {
     }
 
     public void update() {
-        this.tick++;
-
-        if (tick >= 12) {
-            System.out.println(this);
-            tick = 0;
+        if (consoleLog) {
+            consoleLog();
         }
+
         for (Row row : rows) {
             row.tick();
             if (row.isDefeat()){
                 defeated = true;
             }
         }
+
         sunManager.tick();
         zombieSpawner.tick();
 
@@ -66,6 +68,14 @@ public class Partie {
 
     public boolean isDefeated() {
         return defeated;
+    }
+
+    public void consoleLog(){
+        this.tick++;
+        if (tick >= 12) {
+            System.out.println(this);
+            tick = 0;
+        }
     }
 
     @Override
@@ -85,9 +95,5 @@ public class Partie {
 
     public void setVictory(boolean victory) {
         this.victory = victory;
-    }
-
-    public SunManager getSunManager() {
-        return sunManager;
     }
 }

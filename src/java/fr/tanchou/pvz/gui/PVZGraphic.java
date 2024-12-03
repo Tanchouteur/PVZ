@@ -25,7 +25,7 @@ public class PVZGraphic extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        pvzInstance.startGame();
+        pvzInstance.startGame(false);
     }
 
     private BorderPane createGameBoard() {

@@ -4,18 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a1fbda2-691b-482d-933f-9c7fd7f150d1" name="Changes" comment="spawner upgrade">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_swt.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/Launcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/PVZGraphic.java" afterDir="false" />
+    <list default="true" id="6a1fbda2-691b-482d-933f-9c7fd7f150d1" name="Changes" comment="Vue JavaFX commencement">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Conception/PVZ.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/Conception/PVZ.mdj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Conception/PVZRefonte.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/Conception/PVZRefonte.mdj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/Launcher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/PVZ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/PVZ.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/PlayerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/Partie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/Partie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/PartieController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/PartieController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/rowComponent/Row.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/rowComponent/Row.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/PVZGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/PVZGraphic.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +58,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.LauncherConsoleLog.executor": "Run",
     "Application.PVZ.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -79,9 +74,9 @@
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration name="PVZ" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="fr.tanchou.pvz.PVZ" />
+  <component name="RunManager" selected="Application.LauncherGUI">
+    <configuration name="LauncherConsoleLog" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="fr.tanchou.pvz.Launcher" />
       <module name="PVZ" />
       <extension name="coverage">
         <pattern>
@@ -93,9 +88,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="LauncherGUI" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="fr.tanchou.pvz.Launcher" />
+      <module name="PVZ" />
+      <option name="PROGRAM_PARAMETERS" value="gui" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.tanchou.pvz.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.LauncherGUI" />
+      <item itemvalue="Application.LauncherConsoleLog" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.PVZ" />
+        <item itemvalue="Application.LauncherConsoleLog" />
       </list>
     </recent_temporary>
   </component>
@@ -152,14 +165,23 @@
       <option name="project" value="LOCAL" />
       <updated>1733234494842</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Vue JavaFX commencement">
+      <option name="closed" value="true" />
+      <created>1733236758957</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1733236758957</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Model bien avancer" />
     <MESSAGE value="jeux fonctionne" />
     <MESSAGE value="spawner upgrade" />
-    <option name="LAST_COMMIT_MESSAGE" value="spawner upgrade" />
+    <MESSAGE value="Vue JavaFX commencement" />
+    <option name="LAST_COMMIT_MESSAGE" value="Vue JavaFX commencement" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

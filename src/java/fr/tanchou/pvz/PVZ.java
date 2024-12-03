@@ -12,22 +12,20 @@ public class PVZ {
     private SunManager sunManager;
 
     public PVZ() {
-
         this.playerController = new PlayerController("Louis");
-
-        createPartie();
     }
 
-    public void createPartie(){
+    public void createPartie(boolean consoleLog){
         this.sunManager = new SunManager();
-        this.partie = new Partie(playerController, sunManager);
+        this.partie = new Partie(playerController, sunManager, consoleLog);
         this.gameController = new PartieController(partie);
 
         playerController.setPartie(partie);
         playerController.setSunManager(sunManager);
     }
 
-    public void startGame() {
+    public void startGame(boolean consoleLog) {
+        this.createPartie(consoleLog);
         gameController.startGame();
     }
 

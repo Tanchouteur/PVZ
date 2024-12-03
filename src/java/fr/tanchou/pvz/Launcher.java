@@ -11,7 +11,7 @@ public class Launcher {
         if (useGraphicalUI) {
             PVZGraphic.launchView(pvz);
         } else {
-            pvz.startGame();
+            pvz.startGame(true);
         }
     }
 
