@@ -109,4 +109,8 @@ public class PlayerController {
     public String getName() {
         return name;
     }
+
+    public SunManager getSunManager() {
+        return sunManager;
+    }
 }

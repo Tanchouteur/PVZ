@@ -2,28 +2,28 @@ package fr.tanchou.pvz.gui.layers;
 
 import fr.tanchou.pvz.PlayerController;
 import fr.tanchou.pvz.game.Partie;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-import java.util.Objects;
-
 public class PlayerLayer extends Pane {
+    private final HudLayer hudLayer;
+    private final SunLayer sunLayer;
+    private final PlayerController player;
 
     public PlayerLayer(int width, int height, Partie partie) {
         super();
-        //0.146w 0.56h
-        this.setPrefSize(width*0.146, height*0.56);
-        this.setLayoutX(width*0.00625);
-        this.setLayoutY(((double) height /2) - this.getPrefHeight()/2);
+        this.setPrefSize(width, height);
+        this.setLayoutX(0);
+        this.setLayoutY(0);
 
-        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/assets/player/panelCard.png")));
-        ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(this.getPrefWidth());
-        imageView.setFitHeight(this.getPrefHeight());
-        this.getChildren().add(imageView);
+        this.hudLayer = new HudLayer(width, height, partie);
+        this.sunLayer = new SunLayer(width, height, partie.getPlayer().getSunManager());
+        this.getChildren().add(hudLayer);
+        this.getChildren().add(sunLayer);
+        this.player = partie.getPlayer();
     }
 
     public void update(PlayerController player) {
+        hudLayer.update(player);
+        sunLayer.update();
     }
 }

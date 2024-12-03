@@ -1,9 +1,6 @@
 package fr.tanchou.pvz.gui.layers;
 
-import fr.tanchou.pvz.abstractEnity.abstracObjectOfPlant.Bullet;
-import fr.tanchou.pvz.entityRealisation.ObjectOfPlant.PeaBullet;
 import fr.tanchou.pvz.game.Partie;
-import fr.tanchou.pvz.gui.props.BulletView;
 import javafx.scene.layout.Pane;
 
 public class EntityLayer extends Pane {
