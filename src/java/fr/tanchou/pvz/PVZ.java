@@ -26,7 +26,7 @@ public class PVZ {
 
     public void startGame(boolean consoleLog) {
         this.createPartie(consoleLog);
-        gameController.startGame();
+        gameController.startGame(consoleLog);
     }
 
     public void stopGame() {

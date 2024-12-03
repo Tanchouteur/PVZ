@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a1fbda2-691b-482d-933f-9c7fd7f150d1" name="Changes" comment="Vue JavaFX commencement">
+      <change afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/Board.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/PartieControllerView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/Launcher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/PVZ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/PVZ.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/Partie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/Partie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/PartieController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/PartieController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/PVZGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/PVZGraphic.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,6 +61,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.LauncherConsoleLog.executor": "Run",
+    "Application.LauncherGUI.executor": "Run",
     "Application.PVZ.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -173,7 +176,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733236758957</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Vue JavaFX commencement">
+      <option name="closed" value="true" />
+      <created>1733237117279</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1733237117279</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

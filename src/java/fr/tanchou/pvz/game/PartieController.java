@@ -15,7 +15,7 @@ public class PartieController {
     }
 
     // Démarrer le jeu
-    public void startGame() {
+    public void startGame(boolean consoleLog) {
         // Mettre à jour le modèle pour avoir 24 ticks par seconde
         gameLoop.scheduleAtFixedRate(this::update, 0, 1000 / 10, TimeUnit.MILLISECONDS);
     }

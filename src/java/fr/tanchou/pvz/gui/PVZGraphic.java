@@ -3,7 +3,9 @@ package fr.tanchou.pvz.gui;
 import fr.tanchou.pvz.PVZ;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class PVZGraphic extends Application {
@@ -18,21 +20,27 @@ public class PVZGraphic extends Application {
     public void start(Stage primaryStage) {
         BorderPane root = new BorderPane();
 
-        root.setCenter(createGameBoard());
+        // Menu principal
+        VBox menu = new VBox();
+        Button startButton = new Button("Commencer la Partie");
+        startButton.setOnAction(event -> startGame(primaryStage));
+
+        Button exitButton = new Button("Quitter");
+        exitButton.setOnAction(event -> primaryStage.close());
+
+        menu.getChildren().addAll(startButton, exitButton);
+        root.setCenter(menu);
 
         Scene scene = new Scene(root, 1920, 1080);
         primaryStage.setTitle("Plants vs Zombies");
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        pvzInstance.startGame(false);
     }
 
-    private BorderPane createGameBoard() {
-        // Exemple : Créer une grille pour représenter le plateau
-        BorderPane gameBoard = new BorderPane();
-        // Ajouter des éléments pour les plantes, zombies, etc.
-        return gameBoard;
+    private void startGame(Stage primaryStage) {
+        // Passer à l'écran de jeu
+        PartieControllerView controllerView = new PartieControllerView(pvzInstance);
+        controllerView.start(primaryStage);
     }
 
     @Override
