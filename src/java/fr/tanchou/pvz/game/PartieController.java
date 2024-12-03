@@ -4,7 +4,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-
 public class PartieController {
     private final ScheduledExecutorService gameLoop;
     private final Partie partie;
@@ -33,6 +32,9 @@ public class PartieController {
         if (partie.isDefeated()) {
             stopGame();
             System.out.println("Game Over");
+        }else if (partie.isVictory()) {
+            stopGame();
+            System.out.println("Victory");
         }
     }
 }

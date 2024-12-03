@@ -1,21 +1,26 @@
 package fr.tanchou.pvz;
 
+import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
 import fr.tanchou.pvz.entityRealisation.ObjectOfPlant.Sun;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.PeaShooter;
 import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
+import fr.tanchou.pvz.game.Partie;
 import fr.tanchou.pvz.game.SunManager;
 
-public class Player {
+public class PlayerController {
     private int sold;
     private PlantCard[] plantCards;
     private final String name;
     private PlantCard activPlantCard;
 
-    private final SunManager sunManager;
+    private  SunManager sunManager;
+    private  Partie partie;
+
+
     private int lastCollectSun = 0;
 
-    public Player(String name, SunManager sunManager) {
+    public PlayerController(String name) {
         this.name = name;
         this.sold = 100;
         this.plantCards = new PlantCard[5];
@@ -24,8 +29,14 @@ public class Player {
                 new PlantCard(240, new PeaShooter(-1, -1)),
                 new PlantCard(240, new SunFlower(-1, -2))
         });
+    }
 
+    public void setSunManager(SunManager sunManager) {
         this.sunManager = sunManager;
+    }
+
+    public void setPartie(Partie partie) {
+        this.partie = partie;
     }
 
     public void tick() {
@@ -51,14 +62,28 @@ public class Player {
         return sold;
     }
 
-    public void buyPlant(PlantCard plantCard) {
+    public void preBuyPlant(PlantCard plantCard) {
         this.sold -= plantCard.getPlant().getCost();
         this.activPlantCard = plantCard;
     }
 
-    public void cancelBuyPlant() {
-        this.sold += activPlantCard.getPlant().getCost();
-        this.activPlantCard = null;
+    public void buyPlant(int x, int y) {
+        if (activPlantCard != null) {
+            Plant plant = activPlantCard.getNewPlant(x, y);
+            if (plant != null) {
+                activPlantCard = null;
+            }
+            partie.getOneRow(plant.getY()).placePlantInCase(x, plant);
+        }
+    }
+
+    public boolean cancelBuyPlant() {
+        if (activPlantCard != null) {
+            this.sold += activPlantCard.getPlant().getCost();
+            this.activPlantCard = null;
+            return true;
+        }
+        return false;
     }
 
     public PlantCard getActivPlantCard() {

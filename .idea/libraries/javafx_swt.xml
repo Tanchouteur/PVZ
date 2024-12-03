@@ -1,0 +1,27 @@
+<component name="libraryTable">
+  <library name="javafx-swt">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/javafx-sdk-23.0.1/lib/javafx-swt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-sdk-23.0.1/lib/javafx.base.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-sdk-23.0.1/lib/javafx.controls.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-sdk-23.0.1/lib/javafx.fxml.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-sdk-23.0.1/lib/javafx.graphics.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-sdk-23.0.1/lib/javafx.media.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-sdk-23.0.1/lib/javafx.swing.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-sdk-23.0.1/lib/javafx.web.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://$PROJECT_DIR$/lib/javafx-23.0.1-javadoc/javafx.base" />
+      <root url="file://$PROJECT_DIR$/lib/javafx-23.0.1-javadoc/javafx.controls" />
+      <root url="file://$PROJECT_DIR$/lib/javafx-23.0.1-javadoc/javafx.fxml" />
+      <root url="file://$PROJECT_DIR$/lib/javafx-23.0.1-javadoc/javafx.graphics" />
+      <root url="file://$PROJECT_DIR$/lib/javafx-23.0.1-javadoc/javafx.media" />
+      <root url="file://$PROJECT_DIR$/lib/javafx-23.0.1-javadoc/javafx.swing" />
+      <root url="file://$PROJECT_DIR$/lib/javafx-23.0.1-javadoc/javafx.web" />
+      <root url="file://$PROJECT_DIR$/lib/javafx-23.0.1-javadoc/legal" />
+      <root url="file://$PROJECT_DIR$/lib/javafx-23.0.1-javadoc/resources" />
+      <root url="file://$PROJECT_DIR$/lib/javafx-23.0.1-javadoc/script-dir" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

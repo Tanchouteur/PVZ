@@ -180,9 +180,9 @@ public class Row {
         return defeat;
     }
 
-    public void placePlantInCase(int i, Plant plant) {
-        plantCasesArray[i].placePlant(plant);
-        System.out.println("Plant place : x = " + plantCasesArray[i].getX() + " y = " + plantCasesArray[i].getY());
+    public void placePlantInCase(int x, Plant plant) {
+        plantCasesArray[x].placePlant(plant);
+        System.out.println("Plant place : x = " + plantCasesArray[x].getX() + " y = " + plantCasesArray[x].getY());
     }
 
     @Override

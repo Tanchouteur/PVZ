@@ -1131,7 +1131,7 @@
 											"top": 741,
 											"width": 211.640625,
 											"height": 13,
-											"text": "+player: Player",
+											"text": "+playerController: Player",
 											"horizontalAlignment": 0
 										},
 										{
@@ -6890,7 +6890,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGTSVb0qAWrDqE="
 							},
-							"name": "player",
+							"name": "playerController",
 							"type": "Player"
 						},
 						{
