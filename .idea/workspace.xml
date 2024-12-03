@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a1fbda2-691b-482d-933f-9c7fd7f150d1" name="Changes" comment="Model bien avancer">
+    <list default="true" id="6a1fbda2-691b-482d-933f-9c7fd7f150d1" name="Changes" comment="jeux fonctionne">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/PVZ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/PVZ.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstractZombie/Zombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstractZombie/Zombie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/Partie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/Partie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/SunManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/SunManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/rowComponent/Row.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/rowComponent/Row.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/spawn/ZombieSpawner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/spawn/ZombieSpawner.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +100,7 @@
       <workItem from="1732290652845" duration="1406000" />
       <workItem from="1733206277106" duration="2372000" />
       <workItem from="1733212438586" duration="1016000" />
-      <workItem from="1733213702057" duration="8504000" />
+      <workItem from="1733213702057" duration="8689000" />
     </task>
     <task id="LOCAL-00001" summary="Model bien avancer">
       <option name="closed" value="true" />
@@ -125,11 +118,20 @@
       <option name="project" value="LOCAL" />
       <updated>1733219726305</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="jeux fonctionne">
+      <option name="closed" value="true" />
+      <created>1733222221997</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1733222221997</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Model bien avancer" />
-    <option name="LAST_COMMIT_MESSAGE" value="Model bien avancer" />
+    <MESSAGE value="jeux fonctionne" />
+    <option name="LAST_COMMIT_MESSAGE" value="jeux fonctionne" />
   </component>
 </project>
