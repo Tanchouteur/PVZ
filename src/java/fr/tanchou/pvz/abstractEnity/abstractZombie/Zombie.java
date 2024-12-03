@@ -2,6 +2,7 @@ package fr.tanchou.pvz.abstractEnity.abstractZombie;
 
 import fr.tanchou.pvz.abstractEnity.Effect;
 import fr.tanchou.pvz.abstractEnity.Entity;
+import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
 
 public abstract class Zombie extends Entity {
     private int speed;
@@ -11,7 +12,7 @@ public abstract class Zombie extends Entity {
     private final int attackRate;
     private boolean heating = false;
 
-    protected Zombie(int healthPoint, int collideRadius, double x, int y, int speed, int damage, int attackRate) {
+    protected Zombie(int healthPoint, double collideRadius, double x, int y, int speed, int damage, int attackRate) {
         super(healthPoint, collideRadius,x, y);
         this.speed = speed;
         this.damage = damage;
@@ -21,23 +22,24 @@ public abstract class Zombie extends Entity {
     public abstract Zombie clone(double x, int y);
 
     private boolean canAttack() {
-        if (timeSinceLastAttack >= 100) {
+        if (timeSinceLastAttack >= 24) {
             timeSinceLastAttack = 0; // Réinitialise le compteur après un tir
             return true;
         }
         return false;
     }
 
-    public void attack(Entity entity) {
+    public int attack(Entity entity) {
         if (canAttack()){
-            entity.takeDamage(damage);
-            //System.out.println("Zombie attack : " + enitiy);
+            System.err.println("Zombie attack : " + entity.getX());
+            return entity.takeDamage(damage);
         }
+        return 1001;
     }
 
     public void move() {
         if (!heating) {
-            this.setX(this.getX() - speed * 0.01);
+            this.setX(this.getX() - speed * 0.1);
         }
     }
 
@@ -75,5 +77,10 @@ public abstract class Zombie extends Entity {
 
     public void setHeating(boolean heating) {
         this.heating = heating;
+    }
+
+    @Override
+    public String toString() {
+        return "Zombie{ hp=" + this.getHealthPoint() + ", position="+this.getX()+","+this.getY()+" heating ="+heating+" }";
     }
 }

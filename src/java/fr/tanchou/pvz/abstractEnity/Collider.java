@@ -1,13 +1,13 @@
 package fr.tanchou.pvz.abstractEnity;
 
 public class Collider {
-    private final int radius;
+    private final double radius;
 
-    public Collider(int radius) {
+    public Collider(double radius) {
         this.radius = radius;
     }
 
-    public int getRadius() {
+    public double getRadius() {
         return radius;
     }
 }

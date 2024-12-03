@@ -35,4 +35,9 @@ public class PlantCase {
     public double getY() {
         return y;
     }
+
+    @Override
+    public String toString(){
+        return "|"+this.getPlant()+"| ";
+    }
 }

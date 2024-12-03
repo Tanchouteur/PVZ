@@ -8,7 +8,7 @@ public abstract class Bullet extends ObjectOfPlant {
     private final int speed;
     private final Effect effect;
 
-    public Bullet(int damage, int speed, Double x, int y, int colliderRadius,Effect effect) {
+    public Bullet(int damage, int speed, Double x, int y, double colliderRadius,Effect effect) {
         super(x, y, colliderRadius);
         this.damage = damage;
         this.speed = speed;

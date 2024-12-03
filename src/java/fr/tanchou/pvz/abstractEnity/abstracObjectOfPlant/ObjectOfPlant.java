@@ -7,7 +7,7 @@ public abstract class ObjectOfPlant {
     private int y;
     private final Collider collider;
 
-    public ObjectOfPlant(double x, int y, int colliderRadius) {
+    public ObjectOfPlant(double x, int y, double colliderRadius) {
         this.x = x;
         this.y = y;
         this.collider = new Collider(colliderRadius);
@@ -33,5 +33,10 @@ public abstract class ObjectOfPlant {
 
     public Collider getCollider() {
         return collider;
+    }
+
+    @Override
+    public String toString(){
+        return "OFP("+getX()+","+getY()+")";
     }
 }

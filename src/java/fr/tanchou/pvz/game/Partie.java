@@ -50,17 +50,17 @@ public class Partie {
     }
 
     public void update() {
-        tick++;
-        if (tick >= 24) {
-            System.out.println("Tick");
+        this.tick++;
+
+        if (tick >= 12) {
+            System.out.println(this);
             tick = 0;
         }
         for (Row row : rows) {
             row.tick();
-            sunManager.tick();
             defeated = row.isDefeat();
         }
-
+        sunManager.tick();
         zombieSpawner.tick();
 
         player.tick();
@@ -72,5 +72,16 @@ public class Partie {
 
     public SunManager getSunManager() {
         return sunManager;
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Partie : defeat=").append(this.isDefeated()+"\n");
+        for (Row row : rows) {
+            stringBuilder.append(row).append("\n");
+            stringBuilder.append("----------------------------------------------------------------------------------------------------------").append("\n");
+        }
+        return stringBuilder.toString();
     }
 }

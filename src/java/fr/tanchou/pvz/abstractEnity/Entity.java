@@ -6,7 +6,7 @@ public abstract class Entity {
     private double x;
     private final int y;
 
-    public Entity(int healthPoint, int colliderRadius, double x, int y) {
+    public Entity(int healthPoint, double colliderRadius, double x, int y) {
         this.healthPoint = healthPoint;
         this.collider = new Collider(colliderRadius);
         this.x = x;

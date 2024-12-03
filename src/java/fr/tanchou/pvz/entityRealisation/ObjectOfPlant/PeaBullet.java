@@ -6,7 +6,7 @@ import fr.tanchou.pvz.abstractEnity.abstracObjectOfPlant.ObjectOfPlant;
 public class PeaBullet extends Bullet {
 
     public PeaBullet(Double x, int y) {
-        super(25, 1, x, y, 1, null);
+        super(25, 1, x, y, .2, null);
     }
 
     @Override

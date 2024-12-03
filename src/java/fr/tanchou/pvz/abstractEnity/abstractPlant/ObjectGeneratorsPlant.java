@@ -9,7 +9,7 @@ public abstract class ObjectGeneratorsPlant extends Plant {
     private final ObjectOfPlant objectOfPlant;
     private boolean zombieInFront = false;
 
-    protected ObjectGeneratorsPlant(int healthPoint, int colliderRadius, double x, int y,String name, int cost, int fireRate, ObjectOfPlant objectOfPlant) {
+    protected ObjectGeneratorsPlant(int healthPoint, double colliderRadius, double x, int y,String name, int cost, int fireRate, ObjectOfPlant objectOfPlant) {
         super(healthPoint,colliderRadius,x,y, name, cost);
         this.fireRate = fireRate;
         this.objectOfPlant = objectOfPlant;
@@ -17,6 +17,7 @@ public abstract class ObjectGeneratorsPlant extends Plant {
 
     public ObjectOfPlant fire() {
         if (canCreate()) {
+            System.err.println("GenerateObjet");
             return objectOfPlant.clone(); // Délègue à une méthode qui retourne un projectile concret
         }
         return null;
@@ -25,14 +26,9 @@ public abstract class ObjectGeneratorsPlant extends Plant {
     protected abstract boolean canCreate();
 
     public ObjectOfPlant tick() {
-        if (timeSinceLastFire < fireRate) {
-            timeSinceLastFire++;
-            return null;
-        }else {
-            timeSinceLastFire = 0;
-            fire();
-        }
-        return null;
+        timeSinceLastFire++;
+        return fire();
+
     }
 
     public abstract ObjectGeneratorsPlant clone(double x, int y);

@@ -25,19 +25,20 @@ public class ZombieSpawner {
         // Ajouter les zombies à la liste
         zombies.add(new NormalZombie(11.0,0));
         zombies.getFirst().setHeating(true);
+
+        partie.getOneRow(1).addZombie(zombies.getFirst().clone(10.0,1));
     }
 
-    // Gestion du spawn des zombies à chaque tick
     public void tick() {
-        tickCount++;
+        //tickCount++;
 
-        // Définir un intervalle pour le spawn des zombies, par exemple tous les 3 ticks
-        if (tickCount % 50 == 0) {
+        if (tickCount > 50) {
+            tickCount = 0;
             // Choisir aléatoirement une ligne sur laquelle spawn un zombie
-            int rowIndex = rand.nextInt(5);  // On a 5 lignes possibles
+            int rowIndex = rand.nextInt()%4;  // On a 5 lignes possibles
 
-            // Créer une ligne de zombies pour cette itération
             partie.getOneRow(rowIndex).addZombie(zombies.getFirst().clone(10.0,rowIndex));  // Ajouter le zombie à la ligne
+            //System.out.println("Zombie Spawn : " + rowIndex);
         }
     }
 }

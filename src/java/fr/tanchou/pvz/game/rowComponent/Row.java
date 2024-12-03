@@ -47,12 +47,14 @@ public class Row {
             if (mower.collideWith(firstZombie)) {
                 mower = null;
                 listZombie.clear();
-                System.out.println("Mower");
+                System.err.println("Mower");
             }
         }
     }
 
     public void updateZombies() {
+        this.haveZombie = !listZombie.isEmpty();
+        
         Iterator<Zombie> iterator = listZombie.iterator();
         while (iterator.hasNext()) {
             Zombie zombie = iterator.next();
@@ -63,6 +65,7 @@ public class Row {
             }
 
             zombie.move();
+            zombie.tick();
 
             if (zombie.getX() < 0 && mower == null) {
                 this.defeat = true;
@@ -78,14 +81,16 @@ public class Row {
             for (PlantCase c : plantCasesArray) {
                 if (c.getPlant() != null) {
                     Plant plant = c.getPlant();
+                    int attackResult = 1000;
                     if (zombie.collideWith(plant)) {
-                        zombie.attack(plant);
+                        attackResult = zombie.attack(plant);
                         zombie.setHeating(true);
-                        System.out.println("Zombie heating");
 
-                    }else if (zombie.heating()) {
+                    }
+                    if (attackResult <= 0) {
                         zombie.setHeating(false);
-                        System.out.println("Zombie stop heating");
+                        plantCasesArray[(int) Math.round(plant.getX())].removePlant();
+                        System.err.println("Zombie Kill " + plant.getName());
                     }
                 }
             }
@@ -95,14 +100,14 @@ public class Row {
     public void updatePlants() {
         for (PlantCase c : plantCasesArray) {
             if (c.getPlant() != null) {
-                if (c.getPlant() instanceof ObjectGeneratorsPlant plant) {
-                    plant.tick();
+                if (c.getPlant().getHealthPoint() <= 0) {
+                    c.removePlant(); // Retire la plante morte de la case
+                    System.out.println("Plant mort : x = " + c.getX() + " y = " + c.getY());
+                    continue;
+                }
 
-                    if (plant.getHealthPoint() <= 0) {
-                        c.removePlant(); // Retire la plante morte de la case
-                        System.out.println("Plant mort : x = " + c.getX() + " y = " + c.getY());
-                        continue;
-                    }
+                if (c.getPlant() instanceof ObjectGeneratorsPlant plant) {
+                    plant.setZombieInFront(haveZombie);
 
                     ObjectOfPlant object = plant.tick();
 
@@ -113,7 +118,7 @@ public class Row {
                         } else if (object instanceof Sun sun) {
                             sunManager.addSun(sun);
                         }
-                        System.out.println("Plant create object : x = " + c.getX() + " y = " + c.getY() + " object = " + plant.getName()+"object");
+                        System.err.println("Plant create object : x = " + c.getX() + " y = " + c.getY() + " object = " + plant.getName()+"object");
                     }
                 }
             }
@@ -182,5 +187,32 @@ public class Row {
     public void placePlantInCase(int i, Plant plant) {
         plantCasesArray[i].placePlant(plant);
         System.out.println("Plant place : x = " + plantCasesArray[i].getX() + " y = " + plantCasesArray[i].getY());
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Row[").append(rowIndex).append("] haveZombie=").append(haveZombie).append("{");
+        if (mower != null){
+            stringBuilder.append("Mower ");
+        }
+
+        for (PlantCase plantCase : plantCasesArray){
+            stringBuilder.append(plantCase).append(" ");
+        }
+
+        stringBuilder.append("List Zombies").append(" ");
+        for (Zombie zombie : listZombie){
+            stringBuilder.append(zombie).append(" ");
+        }
+
+        stringBuilder.append("ListBullet").append(" ");
+        for (Bullet bullet : listBullets){
+            stringBuilder.append(bullet).append(" ");
+        }
+
+        //stringBuilder.append(firstZombie);
+
+        return stringBuilder.toString();
     }
 }

@@ -21,4 +21,9 @@ public class Mower {
     public double getX() {
         return x;
     }
+
+    @Override
+    public String toString(){
+        return ""+this.getX();
+    }
 }

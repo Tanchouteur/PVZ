@@ -6,7 +6,7 @@ public abstract class Plant extends Entity {
     private final String name;
     private final int cost;
 
-    protected Plant(int healthPoint, int colliderRadius, double x, int y,String name, int cost) {
+    protected Plant(int healthPoint, double colliderRadius, double x, int y,String name, int cost) {
         super(healthPoint,colliderRadius,x,y);
         this.name = name;
         this.cost = cost;
@@ -24,8 +24,6 @@ public abstract class Plant extends Entity {
 
     @Override
     public String toString() {
-        return "Plant{" +
-                "name=" + this.getName() +
-                '}';
+        return this.getName() + " " + this.getHealthPoint();
     }
 }
