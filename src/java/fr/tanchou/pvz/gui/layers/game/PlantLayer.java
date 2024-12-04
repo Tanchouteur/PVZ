@@ -2,6 +2,7 @@ package fr.tanchou.pvz.gui.layers.game;
 
 import fr.tanchou.pvz.game.Partie;
 import fr.tanchou.pvz.game.rowComponent.PlantCase;
+import fr.tanchou.pvz.gui.controller.CellGridController;
 import javafx.scene.layout.GridPane;
 
 public class PlantLayer extends GridPane {
@@ -23,8 +24,8 @@ public class PlantLayer extends GridPane {
         // Créer et ajouter les cellules
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
-                plantCasesView[row][col] = createCell(width / cols, height / rows, partie.getOneRow(row).getPlantCase(col));
-                plantCasesView[row][col].setOnMouseClicked();
+                plantCasesView[row][col] = createCell((double) width / cols, (double) height / rows, partie.getOneRow(row).getPlantCase(col));
+                plantCasesView[row][col].setOnMouseClicked(new CellGridController(partie.getPlayer(), plantCasesView[row][col]));
                 this.add(plantCasesView[row][col], col, row);
             }
         }

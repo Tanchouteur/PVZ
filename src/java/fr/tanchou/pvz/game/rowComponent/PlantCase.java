@@ -3,11 +3,11 @@ package fr.tanchou.pvz.game.rowComponent;
 import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
 
 public class PlantCase {
-    private final double x;  // Position en X
+    private final int x;  // Position en X
     private final int y;  // Position en Y
     private Plant plant;
 
-    public PlantCase(double x, int y) {
+    public PlantCase(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -28,11 +28,11 @@ public class PlantCase {
         return plant;
     }
 
-    public double getX() {
+    public int getX() {
         return x;
     }
 
-    public double getY() {
+    public int getY() {
         return y;
     }
 

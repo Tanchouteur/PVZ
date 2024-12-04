@@ -9,13 +9,13 @@ public class CellGridController implements EventHandler {
     private final Player player;
     private final CellView cellView;
 
-    CellGridController(Player player, CellView  cellView){
+    public CellGridController(Player player, CellView cellView){
         this.player = player;
         this.cellView = cellView;
     }
 
     @Override
     public void handle(Event event) {
-
+        player.buyPlant(cellView.getPlantCase().getX(), cellView.getPlantCase().getY());
     }
 }

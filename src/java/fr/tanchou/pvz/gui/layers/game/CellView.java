@@ -24,4 +24,8 @@ public class CellView extends Pane {
             this.getChildren().clear();
         }
     }
+
+    public PlantCase getPlantCase(){
+        return this.plantCase;
+    }
 }
