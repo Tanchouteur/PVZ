@@ -27,10 +27,12 @@ public class HudLayer extends Pane {
         imageView.setFitHeight(this.getPrefHeight());
         this.getChildren().add(imageView);
 
+        int i = 0;
         for (PlantCard plantCard : player.getPlantCardsArray()){
-            PlantCardView plantCardView = new PlantCardView(plantCard);
+            PlantCardView plantCardView = new PlantCardView(plantCard, i);
             plantCardView.setOnMouseClicked(new PlayerCardController(player, plantCardView));
-            listPlantCardView.add();
+            listPlantCardView.add(plantCardView);
+            i++;
         }
     }
 

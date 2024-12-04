@@ -10,11 +10,16 @@ import java.util.Objects;
 public class PlantCardView extends ImageView {
     private final PlantCard plantCard;
     private boolean canBuy = false;
-    public PlantCardView(PlantCard plantCard){
+    public PlantCardView(PlantCard plantCard, int indexOfPlantCard){
         Image image = new Image(Objects.requireNonNull(plantCard.getClass().getResourceAsStream("/assets/card/" + plantCard.getPlant().getName() + "Card.png")));
         super(image);
         this.plantCard=plantCard;
         this.setCursor(Cursor.CROSSHAIR);
+
+        this.setFitWidth(260);
+        this.setFitHeight(600/6);
+
+        this.setLayoutX(indexOfPlantCard*this.getFitWidth());
 
         this.setOpacity(0.5);
     }
