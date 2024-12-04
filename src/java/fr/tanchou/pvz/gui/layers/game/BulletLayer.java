@@ -2,7 +2,7 @@ package fr.tanchou.pvz.gui.layers.game;
 
 import fr.tanchou.pvz.abstractEnity.abstracObjectOfPlant.Bullet;
 import fr.tanchou.pvz.game.rowComponent.Row;
-import fr.tanchou.pvz.gui.layers.game.props.BulletView;
+import fr.tanchou.pvz.gui.props.BulletView;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 

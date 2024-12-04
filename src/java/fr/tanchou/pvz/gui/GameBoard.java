@@ -23,8 +23,10 @@ public class GameBoard extends Pane {
         this.playerLayer = new PlayerLayer(width, height, partie);
         this.entityLayer = new EntityLayer(width, height, partie);
 
-        this.getChildren().add(entityLayer);
+
         this.getChildren().add(playerLayer);
+        this.getChildren().add(entityLayer);
+        playerLayer.setMouseTransparent(false);
     }
 
     private void addBackground() {
@@ -35,8 +37,8 @@ public class GameBoard extends Pane {
         this.getChildren().add(imageView);
     }
 
-    public void update(Partie partie) {
-        playerLayer.update(partie.getPlayer());
+    public void update() {
+        playerLayer.update();
         entityLayer.update();
     }
 

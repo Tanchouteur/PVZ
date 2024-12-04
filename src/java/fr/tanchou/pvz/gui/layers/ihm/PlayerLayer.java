@@ -12,18 +12,25 @@ public class PlayerLayer extends Pane {
 
     public PlayerLayer(int width, int height, Partie partie) {
         super();
-        this.setPrefSize(width, height);
-        this.setLayoutX(0);
-        this.setLayoutY(0);
+        this.setPrefSize(width*0.05, height*0.56);
+        this.setLayoutX(width*0.00625);
+        this.setLayoutY(((double) height /2) - this.getPrefHeight()/2);
+        //this.setPrefSize(width, height);
+        /*this.setLayoutX(0);
+        this.setLayoutY(0);*/
 
-        this.hudLayer = new HudLayer(width, height, partie.getPlayer());
+        this.hudLayer = new HudLayer( partie.getPlayer());
         this.sunLayer = new SunLayer(width, height, partie.getPlayer().getSunManager());
-        this.getChildren().add(hudLayer);
+
         this.getChildren().add(sunLayer);
+        this.getChildren().add(hudLayer);
         this.player = partie.getPlayer();
+
+        sunLayer.setMouseTransparent(true);
+        hudLayer.setMouseTransparent(false);
     }
 
-    public void update(Player player) {
+    public void update() {
         hudLayer.update();
         sunLayer.update();
     }

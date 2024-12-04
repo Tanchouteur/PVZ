@@ -41,7 +41,7 @@ public class PVZGraphic extends Application {
 
     private void startGame(Stage primaryStage) {
         // Passer à l'écran de jeu
-        pvzInstance.startGame(true);
+        pvzInstance.startGame(false);
         PartieControllerView controllerView = new PartieControllerView(pvzInstance);
         controllerView.start(primaryStage);
     }

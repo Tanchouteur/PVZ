@@ -9,7 +9,7 @@ public class EntityLayer extends Pane {
     private final BulletLayer bulletLayer;
     private final MawerPanel mawerLayer;
 
-    public EntityLayer(int width, int height, Partie partie) {
+    public EntityLayer(double width, double height, Partie partie) {
         super();
         //0.771w 0.919h
         // decalage x 0.1739 par rapprt a la largeur du panel parent
@@ -19,12 +19,17 @@ public class EntityLayer extends Pane {
         this.setLayoutX(width*0.1739);
         this.setLayoutY(height*0.11);
 
-        this.setStyle("-fx-background-color: rgba(0,0,0,0);");
+        //this.setStyle("-fx-background-color: rgba(202,22,22,0.37);");
 
         this.plantLayer = new PlantLayer(width, height, partie);
         this.zombieLayer = new ZombieLayer(this.getPrefWidth(), this.getPrefHeight(), partie.getRows());
         this.bulletLayer = new BulletLayer(this.getPrefWidth(), this.getPrefHeight(), partie.getRows());
         this.mawerLayer = new MawerPanel(this.getPrefWidth(), this.getPrefHeight(), partie.getRows());
+
+        zombieLayer.setMouseTransparent(true);
+        bulletLayer.setMouseTransparent(true);
+        mawerLayer.setMouseTransparent(true);
+        plantLayer.setMouseTransparent(false);
 
         this.getChildren().add(plantLayer);
         this.getChildren().add(zombieLayer);

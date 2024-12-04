@@ -43,7 +43,7 @@ public class PartieControllerView {
 
     //uniquement des observeur on ne touche pas au model on le regarde
     private void updateView() {
-        gameBoard.update(gameInstance.getPartie());
+        gameBoard.update();
     }
 
     public void stop() {

@@ -32,7 +32,7 @@ public abstract class Zombie extends Entity {
 
     public int attack(Entity entity) {
         if (canAttack()){
-            System.err.println("Zombie attack : " + entity.getX());
+            //System.err.println("Zombie attack : " + entity.getX());
             return entity.takeDamage(damage);
         }
         return 1001;

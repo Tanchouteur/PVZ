@@ -1,4 +1,4 @@
-package fr.tanchou.pvz.gui.layers.game.props;
+package fr.tanchou.pvz.gui.props;
 
 import fr.tanchou.pvz.abstractEnity.Entity;
 

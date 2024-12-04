@@ -1,4 +1,4 @@
-package fr.tanchou.pvz.gui.layers.game.props;
+package fr.tanchou.pvz.gui.props;
 
 import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
 import javafx.scene.Cursor;
@@ -17,12 +17,13 @@ public class PlantCardView extends ImageView {
         this.plantCard=plantCard;
         this.setCursor(Cursor.CROSSHAIR);
 
-        this.setFitWidth(260);
-        this.setFitHeight(600/6);
+        this.setFitWidth(160);
+        this.setFitHeight(100);
 
-        this.setLayoutX(indexOfPlantCard*this.getFitWidth());
-
-        this.setOpacity(0.5);
+        this.setLayoutX(20);
+        this.setLayoutY(indexOfPlantCard*110 + 100);
+        this.setMouseTransparent(false);
+        this.update();
     }
 
     public void update(){
@@ -40,7 +41,7 @@ public class PlantCardView extends ImageView {
 
             this.canBuy = false;
 
-            this.setOpacity(0.5);
+            this.setOpacity(0.7);
         }
     }
 

@@ -2,7 +2,7 @@ package fr.tanchou.pvz.gui.layers.game;
 
 import fr.tanchou.pvz.entityRealisation.ObjectOfPlant.Sun;
 import fr.tanchou.pvz.game.SunManager;
-import fr.tanchou.pvz.gui.layers.game.props.SunView;
+import fr.tanchou.pvz.gui.props.SunView;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
@@ -35,7 +35,7 @@ public class SunLayer extends Pane {
         }
 
         // Supprimer les vues obsolètes
-        //this.getChildren().removeAll(nodesToRemove);
+        this.getChildren().removeAll(nodesToRemove);
 
         // Identifier les soleils sans vue
         for (Sun sun : sunManager.getSunLinkedList()) {
@@ -51,7 +51,7 @@ public class SunLayer extends Pane {
 
             // Ajouter une vue pour le soleil s'il n'existe pas déjà
             if (!exists) {
-                this.getChildren().add(new SunView(sun));
+                //this.getChildren().add(new SunView(sun));
             }
         }
 

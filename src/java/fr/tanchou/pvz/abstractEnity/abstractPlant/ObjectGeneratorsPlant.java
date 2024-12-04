@@ -18,7 +18,7 @@ public abstract class ObjectGeneratorsPlant extends Plant {
 
     public ObjectOfPlant fire() {
         if (canCreate()) {
-            System.err.println("GenerateObjet");
+            //System.err.println("GenerateObjet");
             return objectOfPlant.clone(); // Délègue à une méthode qui retourne un projectile concret
         }
         return null;

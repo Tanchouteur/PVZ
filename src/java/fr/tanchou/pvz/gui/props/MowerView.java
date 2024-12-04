@@ -1,4 +1,4 @@
-package fr.tanchou.pvz.gui.layers.game.props;
+package fr.tanchou.pvz.gui.props;
 
 import fr.tanchou.pvz.game.rowComponent.Mower;
 import javafx.scene.image.Image;
@@ -14,8 +14,8 @@ public class MowerView extends ImageView {
         super(image);
 
         this.mower = mower;
-        this.setFitWidth(100);
-        this.setFitHeight(100);
+        this.setFitWidth(130);
+        this.setFitHeight(130);
 
         update();
     }

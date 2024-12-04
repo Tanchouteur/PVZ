@@ -27,7 +27,7 @@ public class Player {
 
         this.setPlantCards(new PlantCard[]{
                 new PlantCard(240, new PeaShooter(-1, -1)),
-                new PlantCard(240, new SunFlower(-1, -2))
+                new PlantCard(60, new SunFlower(-1, -2))
         });
     }
 
@@ -40,7 +40,7 @@ public class Player {
 
     public void collectSun() {
         lastCollectSun++;
-        if (lastCollectSun > 48 && !sunManager.getSunLinkedList().isEmpty()) {
+        if (lastCollectSun > 54 && !sunManager.getSunLinkedList().isEmpty()) {
             for (Sun sun : sunManager.getSunLinkedList()){
                 sold += sun.getValue();
                 sunManager.getSunLinkedList().remove(sun);
@@ -55,7 +55,9 @@ public class Player {
     }
 
     public boolean preBuyPlant(PlantCard plantCard) {
-        if (plantCard.canBuy() && (this.sold - plantCard.getPlant().getCost()) >= 0) {
+        if (this.activPlantCard != null && this.activPlantCard == plantCard) {
+            cancelBuyPlant();
+        }else if (plantCard.canBuy() && (this.sold - plantCard.getPlant().getCost()) >= 0) {
             this.sold -= plantCard.getPlant().getCost();
             this.activPlantCard = plantCard;
             return true;
@@ -75,13 +77,9 @@ public class Player {
         return false;
     }
 
-    public boolean cancelBuyPlant() {
-        if (activPlantCard != null) {
-            this.sold += activPlantCard.getPlant().getCost();
-            this.activPlantCard = null;
-            return true;
-        }
-        return false;
+    public void cancelBuyPlant() {
+        this.sold += activPlantCard.getPlant().getCost();
+        this.activPlantCard = null;
     }
 
     public PlantCard getActivPlantCard() {
