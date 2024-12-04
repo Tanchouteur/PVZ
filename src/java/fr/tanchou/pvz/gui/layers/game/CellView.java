@@ -1,7 +1,7 @@
-package fr.tanchou.pvz.gui.layers;
+package fr.tanchou.pvz.gui.layers.game;
 
 import fr.tanchou.pvz.game.rowComponent.PlantCase;
-import fr.tanchou.pvz.gui.props.EntityView;
+import fr.tanchou.pvz.gui.layers.game.props.EntityView;
 import javafx.scene.layout.Pane;
 
 public class CellView extends Pane {

@@ -1,7 +1,7 @@
-package fr.tanchou.pvz.gui.layers;
+package fr.tanchou.pvz.gui.layers.game;
 
 import fr.tanchou.pvz.game.rowComponent.Row;
-import fr.tanchou.pvz.gui.props.MowerView;
+import fr.tanchou.pvz.gui.layers.game.props.MowerView;
 import javafx.scene.layout.Pane;
 
 public class MawerPanel extends Pane {

@@ -1,4 +1,4 @@
-package fr.tanchou.pvz.gui.layers;
+package fr.tanchou.pvz.gui.layers.game;
 
 import fr.tanchou.pvz.game.Partie;
 import javafx.scene.layout.Pane;

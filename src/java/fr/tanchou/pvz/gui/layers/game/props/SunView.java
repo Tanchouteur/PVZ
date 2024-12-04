@@ -1,4 +1,4 @@
-package fr.tanchou.pvz.gui.props;
+package fr.tanchou.pvz.gui.layers.game.props;
 
 import fr.tanchou.pvz.entityRealisation.ObjectOfPlant.Sun;
 import javafx.scene.image.Image;

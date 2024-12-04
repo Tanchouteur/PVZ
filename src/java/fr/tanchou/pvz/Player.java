@@ -8,7 +8,7 @@ import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
 import fr.tanchou.pvz.game.Partie;
 import fr.tanchou.pvz.game.SunManager;
 
-public class PlayerController {
+public class Player {
     private int sold;
     private PlantCard[] plantCards;
     private final String name;
@@ -20,7 +20,7 @@ public class PlayerController {
 
     private int lastCollectSun = 0;
 
-    public PlayerController(String name) {
+    public Player(String name) {
         this.name = name;
         this.sold = 100;
         this.plantCards = new PlantCard[5];
@@ -29,14 +29,6 @@ public class PlayerController {
                 new PlantCard(240, new PeaShooter(-1, -1)),
                 new PlantCard(240, new SunFlower(-1, -2))
         });
-    }
-
-    public void setSunManager(SunManager sunManager) {
-        this.sunManager = sunManager;
-    }
-
-    public void setPartie(Partie partie) {
-        this.partie = partie;
     }
 
     public void tick() {
@@ -62,19 +54,25 @@ public class PlayerController {
         return sold;
     }
 
-    public void preBuyPlant(PlantCard plantCard) {
-        this.sold -= plantCard.getPlant().getCost();
-        this.activPlantCard = plantCard;
+    public boolean preBuyPlant(PlantCard plantCard) {
+        if (plantCard.canBuy() && (this.sold - plantCard.getPlant().getCost()) >= 0) {
+            this.sold -= plantCard.getPlant().getCost();
+            this.activPlantCard = plantCard;
+            return true;
+        }
+        return false;
     }
 
-    public void buyPlant(int x, int y) {
-        if (activPlantCard != null) {
+    public boolean buyPlant(int x, int y) {
+        if (activPlantCard != null && partie.getOneRow(y).getPlantCase(x).isEmpty()) {
             Plant plant = activPlantCard.getNewPlant(x, y);
             if (plant != null) {
                 activPlantCard = null;
             }
             partie.getOneRow(plant.getY()).placePlantInCase(x, plant);
+            return true;
         }
+        return false;
     }
 
     public boolean cancelBuyPlant() {
@@ -94,8 +92,12 @@ public class PlayerController {
         this.activPlantCard = activPlantCard;
     }
 
-    public PlantCard[] getPlantCards() {
-        return plantCards;
+    public void setSunManager(SunManager sunManager) {
+        this.sunManager = sunManager;
+    }
+
+    public void setPartie(Partie partie) {
+        this.partie = partie;
     }
 
     public void setPlantCards(PlantCard[] plantCards) {
@@ -112,5 +114,9 @@ public class PlayerController {
 
     public SunManager getSunManager() {
         return sunManager;
+    }
+
+    public PlantCard[] getPlantCardsArray(){
+        return this.plantCards;
     }
 }

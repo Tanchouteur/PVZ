@@ -1,8 +1,8 @@
-package fr.tanchou.pvz.gui.layers;
+package fr.tanchou.pvz.gui.layers.game;
 
 import fr.tanchou.pvz.entityRealisation.ObjectOfPlant.Sun;
 import fr.tanchou.pvz.game.SunManager;
-import fr.tanchou.pvz.gui.props.SunView;
+import fr.tanchou.pvz.gui.layers.game.props.SunView;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 

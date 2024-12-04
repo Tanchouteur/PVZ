@@ -40,4 +40,8 @@ public class PlantCase {
     public String toString(){
         return "|"+this.getPlant()+"| ";
     }
+
+    public boolean isEmpty() {
+        return plant == null;
+    }
 }

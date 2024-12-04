@@ -1,4 +1,4 @@
-package fr.tanchou.pvz.gui.layers;
+package fr.tanchou.pvz.gui.layers.game;
 
 import fr.tanchou.pvz.game.Partie;
 import fr.tanchou.pvz.game.rowComponent.PlantCase;
@@ -24,6 +24,7 @@ public class PlantLayer extends GridPane {
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 plantCasesView[row][col] = createCell(width / cols, height / rows, partie.getOneRow(row).getPlantCase(col));
+                plantCasesView[row][col].setOnMouseClicked();
                 this.add(plantCasesView[row][col], col, row);
             }
         }

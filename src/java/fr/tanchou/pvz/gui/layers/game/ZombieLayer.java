@@ -1,8 +1,8 @@
-package fr.tanchou.pvz.gui.layers;
+package fr.tanchou.pvz.gui.layers.game;
 
 import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
 import fr.tanchou.pvz.game.rowComponent.Row;
-import fr.tanchou.pvz.gui.props.EntityView;
+import fr.tanchou.pvz.gui.layers.game.props.EntityView;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 

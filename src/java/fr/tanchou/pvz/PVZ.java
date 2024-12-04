@@ -5,23 +5,23 @@ import fr.tanchou.pvz.game.PartieController;
 import fr.tanchou.pvz.game.SunManager;
 
 public class PVZ {
-    private final PlayerController playerController;
+    private final Player player;
 
     private Partie partie;
     private PartieController gameController;
     private SunManager sunManager;
 
     public PVZ() {
-        this.playerController = new PlayerController("Louis");
+        this.player = new Player("Louis");
     }
 
     public void createPartie(boolean consoleLog){
         this.sunManager = new SunManager();
-        this.partie = new Partie(playerController, sunManager, consoleLog);
+        this.partie = new Partie(player, sunManager, consoleLog);
         this.gameController = new PartieController(partie);
 
-        playerController.setPartie(partie);
-        playerController.setSunManager(sunManager);
+        player.setPartie(partie);
+        player.setSunManager(sunManager);
     }
 
     public void startGame(boolean consoleLog) {
@@ -42,8 +42,8 @@ public class PVZ {
         return partie;
     }
 
-    public PlayerController getPlayerController() {
-        return playerController;
+    public Player getPlayerController() {
+        return player;
     }
 
     public SunManager getSunManager() {

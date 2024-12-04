@@ -1,6 +1,6 @@
 package fr.tanchou.pvz.game;
 
-import fr.tanchou.pvz.PlayerController;
+import fr.tanchou.pvz.Player;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.PeaShooter;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
 import fr.tanchou.pvz.game.rowComponent.Row;
@@ -8,7 +8,7 @@ import fr.tanchou.pvz.game.spawn.ZombieSpawner;
 
 public class Partie {
     private final Row[] rows;
-    private final PlayerController playerController;
+    private final Player player;
     private boolean defeated = false;
     private boolean victory = false;
 
@@ -19,8 +19,8 @@ public class Partie {
 
     private boolean consoleLog;
 
-    public Partie(PlayerController playerController, SunManager sunManager, boolean consoleLog) {
-        this.playerController = playerController;
+    public Partie(Player player, SunManager sunManager, boolean consoleLog) {
+        this.player = player;
         this.rows = new Row[5];
         this.sunManager = sunManager;
         this.consoleLog = consoleLog;
@@ -41,8 +41,8 @@ public class Partie {
         return rows;
     }
 
-    public PlayerController getPlayer() {
-        return playerController;
+    public Player getPlayer() {
+        return player;
     }
 
     public Row getOneRow(int index) {
@@ -64,7 +64,7 @@ public class Partie {
         sunManager.tick();
         //zombieSpawner.tick();
 
-        playerController.tick();
+        player.tick();
     }
 
     public boolean isDefeated() {

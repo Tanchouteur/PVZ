@@ -19,11 +19,15 @@ public class PlantCard {
     }
 
     public Plant getNewPlant(double x, int y) {
-        if (this.lastSelected == 0) {
+        if (this.canBuy()) {
             this.lastSelected = this.cooldown;
             return this.plant.clone(x, y);
         }
         return null;
+    }
+
+    public boolean canBuy(){
+        return this.lastSelected == 0;
     }
 
     public Plant getPlant() {
