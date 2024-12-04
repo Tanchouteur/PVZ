@@ -7,6 +7,7 @@ public class EntityLayer extends Pane {
     private final PlantLayer plantLayer;
     private final ZombieLayer zombieLayer;
     private final BulletLayer bulletLayer;
+    private final MawerPanel mawerLayer;
 
     public EntityLayer(int width, int height, Partie partie) {
         super();
@@ -23,16 +24,18 @@ public class EntityLayer extends Pane {
         this.plantLayer = new PlantLayer(width, height, partie);
         this.zombieLayer = new ZombieLayer(this.getPrefWidth(), this.getPrefHeight(), partie.getRows());
         this.bulletLayer = new BulletLayer(this.getPrefWidth(), this.getPrefHeight(), partie.getRows());
+        this.mawerLayer = new MawerPanel(this.getPrefWidth(), this.getPrefHeight(), partie.getRows());
 
         this.getChildren().add(plantLayer);
         this.getChildren().add(zombieLayer);
         this.getChildren().add(bulletLayer);
-        bulletLayer.toFront();
+        this.getChildren().add(mawerLayer);
     }
 
     public void update() {
         plantLayer.update();
         zombieLayer.update();
         bulletLayer.update();
+        mawerLayer.update();
     }
 }

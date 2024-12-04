@@ -26,7 +26,7 @@ public class Row {
 
     public Row(int rowIndex, SunManager sunManager) {
         this.rowIndex = rowIndex;
-        this.mower = new Mower();
+        this.mower = new Mower(rowIndex);
         this.sunManager = sunManager;
 
         // Initialiser les cases avec des positions fixes
@@ -216,5 +216,9 @@ public class Row {
 
     public PlantCase getPlantCase(int x) {
         return plantCasesArray[x];
+    }
+
+    public Mower getMower(){
+        return mower;
     }
 }

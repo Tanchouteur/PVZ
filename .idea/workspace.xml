@@ -1,25 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="PVZ:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a1fbda2-691b-482d-933f-9c7fd7f150d1" name="Changes" comment="sa marche">
-      <change afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/HudLayer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/SunLayer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/SunView.java" afterDir="false" />
+    <list default="true" id="2ad241d6-9784-4f1a-9790-f5a8f0ab1a8d" name="Changes" comment="jeux fonctionne">
+      <change afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/MawerPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/MowerView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/javafx_swt.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/PlayerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PVZ.iml" beforeDir="false" afterPath="$PROJECT_DIR$/PVZ.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ressources/assets/items/Lawn_Mower.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ressources/assets/plants/Cards/PeashooterCard.png" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/assets/Cards/PeashooterCard.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ressources/assets/plants/Cards/SunflowerCard.png" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/assets/Cards/SunflowerCard.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ressources/assets/plants/PeaShooter/PeaBullet.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ressources/assets/plants/PeaShooter/PeaShooter.gif" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/assets/plants/PeaShooter.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ressources/assets/plants/PeaShooter/Peashooteringamerender.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ressources/assets/plants/PeaShooter/Peashooteringamerender.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ressources/assets/plants/SunFlower/Sunflower.gif" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/assets/plants/Sunflower.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ressources/assets/plants/SunFlower/Sunflower.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ressources/assets/plants/SunFlower/SunflowerCard.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/rowComponent/Mower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/rowComponent/Mower.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/rowComponent/Row.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/rowComponent/Row.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/EntityLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/EntityLayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/PlayerLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/PlayerLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/EntityView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/EntityView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="ComposerSettings">
-    <execution />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -29,30 +44,12 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="main" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Tanchouteur&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Tanchouteur/PVZ.git&quot;,
-    &quot;accountId&quot;: &quot;4ee0ccae-7766-4653-a9cd-e284f8e497f2&quot;
-  }
-}</component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 6
-}</component>
-  <component name="ProjectId" id="2pDA4jMNHL4gEVzHpo6PACnZ7UJ" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="2pk1ZkfS5Hfi0NLGSBUe85DGHWa" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -60,26 +57,22 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.LauncherConsoleLog.executor": "Debug",
+    "Application.LauncherConsoleLog.executor": "Run",
     "Application.LauncherGUI.executor": "Run",
-    "Application.PVZ.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "Refonte",
-    "last_opened_file_path": "C:/Users/louis/IdeaProjects/PVZ/lib/javafx-23.0.1-javadoc/script-dir",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Libraries",
+    "last_opened_file_path": "/home/louis/IdeaProjects/PVZ/lib/javafx-sdk-23.0.1/lib",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "project.structure.side.proportion": "0.2"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\louis\IdeaProjects\PVZ\ressources\assets\bullets" />
+      <recent name="$PROJECT_DIR$/src/java/fr/tanchou/pvz" />
+      <recent name="$PROJECT_DIR$/ressources/assets" />
+      <recent name="$PROJECT_DIR$/ressources/assets/plants" />
     </key>
   </component>
   <component name="RunManager" selected="Application.LauncherGUI">
@@ -130,112 +123,17 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="6a1fbda2-691b-482d-933f-9c7fd7f150d1" name="Changes" comment="" />
-      <created>1732290082396</created>
+      <changelist id="2ad241d6-9784-4f1a-9790-f5a8f0ab1a8d" name="Changes" comment="jeux fonctionne" />
+      <created>1733295323616</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1732290082396</updated>
-      <workItem from="1732290084126" duration="443000" />
-      <workItem from="1732290652845" duration="1406000" />
-      <workItem from="1733206277106" duration="2372000" />
-      <workItem from="1733212438586" duration="1016000" />
-      <workItem from="1733213702057" duration="8689000" />
+      <updated>1733295323616</updated>
+      <workItem from="1733295329652" duration="3981000" />
     </task>
-    <task id="LOCAL-00001" summary="Model bien avancer">
-      <option name="closed" value="true" />
-      <created>1733219383166</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1733219383166</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Model bien avancer">
-      <option name="closed" value="true" />
-      <created>1733219726305</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1733219726305</updated>
-    </task>
-    <task id="LOCAL-00003" summary="jeux fonctionne">
-      <option name="closed" value="true" />
-      <created>1733222221997</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1733222221997</updated>
-    </task>
-    <task id="LOCAL-00004" summary="spawner upgrade">
-      <option name="closed" value="true" />
-      <created>1733234494842</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1733234494842</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Vue JavaFX commencement">
-      <option name="closed" value="true" />
-      <created>1733236758957</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1733236758957</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Vue JavaFX commencement">
-      <option name="closed" value="true" />
-      <created>1733237117279</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1733237117279</updated>
-    </task>
-    <task id="LOCAL-00007" summary="gameBoard">
-      <option name="closed" value="true" />
-      <created>1733238331219</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1733238331219</updated>
-    </task>
-    <task id="LOCAL-00008" summary="sa commence...">
-      <option name="closed" value="true" />
-      <created>1733245032214</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1733245032214</updated>
-    </task>
-    <task id="LOCAL-00009" summary="sa marche">
-      <option name="closed" value="true" />
-      <created>1733258806062</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1733258806062</updated>
-    </task>
-    <task id="LOCAL-00010" summary="sa marche">
-      <option name="closed" value="true" />
-      <created>1733263582686</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1733263582686</updated>
-    </task>
-    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Model bien avancer" />
     <MESSAGE value="jeux fonctionne" />
-    <MESSAGE value="spawner upgrade" />
-    <MESSAGE value="Vue JavaFX commencement" />
-    <MESSAGE value="gameBoard" />
-    <MESSAGE value="sa commence..." />
-    <MESSAGE value="sa marche" />
-    <option name="LAST_COMMIT_MESSAGE" value="sa marche" />
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
+    <option name="LAST_COMMIT_MESSAGE" value="jeux fonctionne" />
   </component>
 </project>

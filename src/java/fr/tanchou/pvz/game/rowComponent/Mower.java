@@ -4,12 +4,14 @@ import fr.tanchou.pvz.abstractEnity.Collider;
 import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
 
 public class Mower {
-    private final double x;
+    private double x;
+    private final int y;
     private final Collider collider;
 
-    public Mower() {
+    public Mower(int y) {
         this.x = -0.5;
         this.collider = new Collider(.2);
+        this.y = y;
     }
 
     public boolean collideWith(Zombie zombie) {
@@ -25,5 +27,9 @@ public class Mower {
     @Override
     public String toString(){
         return ""+this.getX();
+    }
+
+    public int getY() {
+        return y;
     }
 }
