@@ -10,7 +10,7 @@ import javafx.scene.image.ImageView;
 
 public class EntityView extends ImageView {
     private final Entity entity;
-    private final Image heatingAnimation;
+    private Image heatingAnimation;
     private final Image walkAnimation;
     private boolean heating = false;
 
@@ -31,19 +31,19 @@ public class EntityView extends ImageView {
         this.setFitWidth(width);
         this.setFitHeight(height);
 
-        this.heatingAnimation = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/zombies/"+entity.getName()+"/"+ entity.getName() +".png")));
+        //this.heatingAnimation = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/zombies/"+entity.getName()+"/ZombieAttack.gif")));
     }
 
     public void updateZombiePosition() {
         this.setLayoutX((entity.getX()*170) - 100);
         this.setLayoutY((entity.getY()*178) - 75);
-        if ((entity instanceof Zombie zombie && zombie.heating())&&!this.heating){
+        /*if ((entity instanceof Zombie zombie && zombie.heating())&&!this.heating){
             this.heating = true;
             this.setImage(heatingAnimation);
         }else if ((entity instanceof Zombie zombie && !zombie.heating())&&this.heating){
             this.heating = false;
             this.setImage(walkAnimation);
-        }
+        }*/
     }
 
     public Entity getEntity() {

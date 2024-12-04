@@ -10,7 +10,7 @@ public class MowerView extends ImageView {
     private final Mower mower;
 
     public MowerView(Mower mower){
-        Image image = new Image(Objects.requireNonNull(mower.getClass().getResourceAsStream("/assets/items/mower.png")));
+        Image image = new Image(Objects.requireNonNull(mower.getClass().getResourceAsStream("/assets/items/Mower.webp")));
         super(image);
 
         this.mower = mower;

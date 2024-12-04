@@ -9,10 +9,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ad241d6-9784-4f1a-9790-f5a8f0ab1a8d" name="Changes" comment="controller pour poser plant">
+    <list default="true" id="2ad241d6-9784-4f1a-9790-f5a8f0ab1a8d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ressources/assets/zombies/coneheadZombie/ZombieAttack.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/java/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PVZ.iml" beforeDir="false" afterPath="$PROJECT_DIR$/PVZ.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javafx-sdk-23.0.1/lib/javafx.properties" beforeDir="false" afterPath="$PROJECT_DIR$/lib/javafx-sdk-23.0.1/lib/javafx.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ressources/assets/zombies/NormalZombie/zombieAttack.gif" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/assets/zombies/NormalZombie/ZombieAttack.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/props/EntityView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/props/EntityView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/props/MowerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/props/MowerView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/props/PlantCardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/props/PlantCardView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/ihm/HudLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/ihm/HudLayer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,11 +33,16 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2pk1ZkfS5Hfi0NLGSBUe85DGHWa" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -45,13 +56,20 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "Refonte",
-    "last_opened_file_path": "/home/louis/IdeaProjects/PVZ/lib/javafx-sdk-23.0.1/lib",
-    "project.structure.last.edited": "Modules",
+    "last_opened_file_path": "C:/Users/alexi/IdeaProjects/PVZ/ressources/assets/zombies/coneheadZombie",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\alexi\IdeaProjects\PVZ\ressources\assets\zombies\coneheadZombie" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/java/fr/tanchou/pvz" />
       <recent name="$PROJECT_DIR$/ressources/assets" />
@@ -82,6 +100,19 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="PVZ" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="PVZ" />
+      <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -145,6 +176,6 @@
     <MESSAGE value="mowerView" />
     <MESSAGE value="hud" />
     <MESSAGE value="controller pour poser plant" />
-    <option name="LAST_COMMIT_MESSAGE" value="controller pour poser plant" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>

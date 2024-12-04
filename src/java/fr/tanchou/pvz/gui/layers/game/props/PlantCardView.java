@@ -10,8 +10,9 @@ import java.util.Objects;
 public class PlantCardView extends ImageView {
     private final PlantCard plantCard;
     private boolean canBuy = false;
+
     public PlantCardView(PlantCard plantCard, int indexOfPlantCard){
-        Image image = new Image(Objects.requireNonNull(plantCard.getClass().getResourceAsStream("/assets/card/" + plantCard.getPlant().getName() + "Card.png")));
+        Image image = new Image(Objects.requireNonNull(plantCard.getClass().getResourceAsStream("/assets/cards/" + plantCard.getPlant().getName() + "Card.png")));
         super(image);
         this.plantCard=plantCard;
         this.setCursor(Cursor.CROSSHAIR);
