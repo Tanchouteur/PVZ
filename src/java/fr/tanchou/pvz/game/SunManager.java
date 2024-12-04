@@ -21,13 +21,15 @@ public class SunManager {
     }
 
     public void tick() {
-        timeToLastSpawn++;
+        if (!sunLinkedList.isEmpty()) {
+            timeToLastSpawn++;
+        }
         spawnRandomSun();
     }
 
     // Faire apparaître un soleil à une position aléatoire
     private void spawnRandomSun() {
-        if (timeToLastSpawn >= 100) {
+        if (timeToLastSpawn >= 1000) {
             timeToLastSpawn = 0;
             double x = random.nextDouble(8); // Limite la zone de spawn
             int y = random.nextInt(5); // Limite la zone de spawn

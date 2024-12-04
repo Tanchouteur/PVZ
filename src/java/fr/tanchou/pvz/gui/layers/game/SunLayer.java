@@ -41,8 +41,7 @@ public class SunLayer extends Pane {
         for (Sun sun : sunManager.getSunLinkedList()) {
             boolean exists = false;
             for (Node node : this.getChildren()) {
-                if (node instanceof SunView) {
-                    SunView sunView = (SunView) node;
+                if (node instanceof SunView sunView) {
                     if (sunView.getSun() == sun) {
                         exists = true;
                         break;
@@ -58,8 +57,7 @@ public class SunLayer extends Pane {
 
         // Mettre à jour la position des soleils affichés
         for (Node node : this.getChildren()) {
-            if (node instanceof SunView) {
-                SunView sunView = (SunView) node;
+            if (node instanceof SunView sunView) {
                 sunView.updateSunPosition();
             }
         }

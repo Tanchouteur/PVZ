@@ -18,13 +18,17 @@ public class SunView extends ImageView {
         Image image = new Image(Objects.requireNonNull(sun.getClass().getResourceAsStream("/assets/items/Sun/SunAnimated.gif")));
         super(image);
 
-        this.setFitWidth(50);
-        this.setFitHeight(50);
+        this.setFitWidth(100);
+        this.setFitHeight(100);
+
+        System.err.println(this.getLayoutX() + "  " + this.getLayoutY());
     }
 
     public void updateSunPosition() {
-        this.setLayoutX(sun.getX() * 150 + 10);
-        this.setLayoutY(sun.getY()*190 - 10);
+        this.setLayoutX((sun.getX() * 100)+280);
+        this.setLayoutY(sun.getY()*100);
+
+        System.err.println(this.getLayoutX() + "  " + this.getLayoutY());
     }
 
     public Sun getSun() {

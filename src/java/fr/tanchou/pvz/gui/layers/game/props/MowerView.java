@@ -10,7 +10,7 @@ public class MowerView extends ImageView {
     private final Mower mower;
 
     public MowerView(Mower mower){
-        Image image = new Image(Objects.requireNonNull(mower.getClass().getResourceAsStream("/assets/items/Mower.webp")));
+        Image image = new Image(Objects.requireNonNull(mower.getClass().getResourceAsStream("/assets/items/Mower.png")));
         super(image);
 
         this.mower = mower;
@@ -21,8 +21,8 @@ public class MowerView extends ImageView {
     }
 
     public void update(){
-        this.setLayoutX((mower.getX()*100)+10);
-        this.setLayoutY(mower.getY()*50);
+        this.setLayoutX(mower.getX()-100);
+        this.setLayoutY((mower.getY()*185)+20);
     }
 
     public Mower getMower() {

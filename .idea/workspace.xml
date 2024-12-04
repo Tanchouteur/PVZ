@@ -9,16 +9,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ad241d6-9784-4f1a-9790-f5a8f0ab1a8d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ressources/assets/zombies/coneheadZombie/ZombieAttack.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/java/META-INF/MANIFEST.MF" afterDir="false" />
+    <list default="true" id="2ad241d6-9784-4f1a-9790-f5a8f0ab1a8d" name="Changes" comment="controller pour poser plant">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PVZ.iml" beforeDir="false" afterPath="$PROJECT_DIR$/PVZ.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-sdk-23.0.1/lib/javafx.properties" beforeDir="false" afterPath="$PROJECT_DIR$/lib/javafx-sdk-23.0.1/lib/javafx.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ressources/assets/zombies/NormalZombie/zombieAttack.gif" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/assets/zombies/NormalZombie/ZombieAttack.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/props/EntityView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/props/EntityView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ressources/assets/items/Mower.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/SunManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/SunManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/SunLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/SunLayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/props/MowerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/props/MowerView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/props/PlantCardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/props/PlantCardView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/props/SunView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/props/SunView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/ihm/HudLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/ihm/HudLayer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +167,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733303030753</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="controller pour poser plant">
+      <option name="closed" value="true" />
+      <created>1733305832629</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1733305832629</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -176,6 +183,17 @@
     <MESSAGE value="mowerView" />
     <MESSAGE value="hud" />
     <MESSAGE value="controller pour poser plant" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <option name="LAST_COMMIT_MESSAGE" value="controller pour poser plant" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/SunLayer.java</url>
+          <line>61</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

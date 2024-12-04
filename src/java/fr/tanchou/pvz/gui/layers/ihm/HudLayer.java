@@ -34,6 +34,8 @@ public class HudLayer extends Pane {
             listPlantCardView.add(plantCardView);
             i++;
         }
+
+        this.setOpacity(0.2);
     }
 
     public void update() {
