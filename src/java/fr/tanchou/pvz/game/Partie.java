@@ -32,8 +32,8 @@ public class Partie {
 
         zombieSpawner = new ZombieSpawner(this);
 
-        rows[1].placePlantInCase(new FreezePeaShooter(0,1));
-        rows[2].placePlantInCase(new SunFlower(1,2));
+        /*rows[1].placePlantInCase(new FreezePeaShooter(0,1));
+        rows[2].placePlantInCase(new SunFlower(1,2));*/
 
         /*zombieSpawner.spawnZombie(4);*/
     }

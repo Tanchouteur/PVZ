@@ -1,5 +1,7 @@
 # PVZ - Plants vs Zombies en Java
 
+![In game image](Conception/ingame.png);
+
 ## Description
 
 **PVZ** est une réécriture en Java du célèbre jeu *Plants vs Zombies*, développé à titre éducatif pour approfondir mes connaissances en programmation orientée objet et dans le développement de jeux en Java.
@@ -19,7 +21,7 @@ Les assets graphiques utilisés ne sont pas libres de droits et appartiennent à
 1. **Phase 1 : Développement du jeu**
     - Recréer les mécaniques de base de *Plants vs Zombies*.
     - Intégrer des classes pour les plantes, les zombies, et les projectiles.
-    - Ajouter un système de gestion des niveaux et une interface utilisateur simplifiée.
+    - Ajouter une interface utilisateur simplifiée.
 
 2. **Phase 2 : Intelligence artificielle**
     - Développer un modèle de réseau de neurones en Java (ou en Python).
@@ -47,36 +49,135 @@ Les assets graphiques utilisés ne sont pas libres de droits et appartiennent à
 Voici une vue simplifiée de l'architecture du projet :
 
 ```plaintext
-src/
-├── main/
-│   ├── model/          # Classes pour les plantes, zombies, projectiles, etc.
-│   ├── view/           # Interface utilisateur et rendu graphique.
-│   ├── controller/     # Gestion des interactions entre les modèles et la vue.
-├── assets/             # Fichiers d'images et sons (non libres de droits).
-└── README.md           # Documentation du projet.
+java
+    ├───fr
+    │   └───tanchou
+    │       └───pvz
+    │           │   Launcher.java
+    │           │   Player.java
+    │           │   PVZ.java
+    │           │
+    │           ├───abstractEnity
+    │           │   │   Collider.java
+    │           │   │   Effect.java
+    │           │   │   Entity.java
+    │           │   │
+    │           │   ├───abstracObjectOfPlant
+    │           │   │       Bullet.java
+    │           │   │       ObjectOfPlant.java
+    │           │   │
+    │           │   ├───abstractPlant
+    │           │   │       ObjectGeneratorsPlant.java
+    │           │   │       PassivePlant.java
+    │           │   │       Plant.java
+    │           │   │
+    │           │   └───abstractZombie
+    │           │           Zombie.java
+    │           │
+    │           ├───entityRealisation
+    │           │   ├───effect
+    │           │   │       FireEffect.java
+    │           │   │       FreezeEffect.java
+    │           │   │
+    │           │   ├───ObjectOfPlant
+    │           │   │       FreezePeaBullet.java
+    │           │   │       PeaBullet.java
+    │           │   │       Sun.java
+    │           │   │
+    │           │   ├───plants
+    │           │   │   │   PlantCard.java
+    │           │   │   │
+    │           │   │   ├───ObjectGeneratorPlant
+    │           │   │   │       DoublePeaShooter.java
+    │           │   │   │       FreezePeaShooter.java
+    │           │   │   │       PeaShooter.java
+    │           │   │   │       SunFlower.java
+    │           │   │   │
+    │           │   │   └───passive
+    │           │   │           WallNut.java
+    │           │   │
+    │           │   └───zombie
+    │           │           BukketHeadZombie.java
+    │           │           ConeHeadZombie.java
+    │           │           NormalZombie.java
+    │           │           ZombieCard.java
+    │           │
+    │           ├───game
+    │           │   │   Partie.java
+    │           │   │   PartieController.java
+    │           │   │   SunManager.java
+    │           │   │
+    │           │   ├───rowComponent
+    │           │   │       Mower.java
+    │           │   │       PlantCase.java
+    │           │   │       Row.java
+    │           │   │
+    │           │   └───spawn
+    │           │           WeightCalculator.java
+    │           │           ZombieSpawner.java
+    │           │
+    │           └───guiJavaFx
+    │               │   GameBoard.java
+    │               │   PartieControllerView.java
+    │               │   PVZGraphic.java
+    │               │
+    │               ├───controller
+    │               │       CellGridController.java
+    │               │       ExitCellController.java
+    │               │       HoverCellController.java
+    │               │       PlayerCardController.java
+    │               │
+    │               ├───layers
+    │               │   ├───game
+    │               │   │       BulletLayer.java
+    │               │   │       EntityLayer.java
+    │               │   │       MawerPanel.java
+    │               │   │       PlantLayer.java
+    │               │   │       SunLayer.java
+    │               │   │       ZombieLayer.java
+    │               │   │
+    │               │   └───ihm
+    │               │           HudLayer.java
+    │               │           PlayerLayer.java
+    │               │           SoldView.java
+    │               │
+    │               └───props
+    │                       BulletView.java
+    │                       CellView.java
+    │                       EntityView.java
+    │                       MowerView.java
+    │                       PlantCardView.java
+    │                       PlantView.java
+    │                       SunView.java
+    │                       ZombieView.java
+    └───META-INF
 ```
 ---
 
 ## Installation
 
 1. **Pré-requis :**
-   - Java 17 ou une version supérieure.
-   - Un IDE comme IntelliJ IDEA ou Eclipse (recommandé).
+   - Java 23 ou une version supérieure.
 
 2. **Étapes :**
    - Clonez le repository :
      git clone https://github.com/<ton-nom-d-utilisateur>/pvz-java.git
-   - Importez le projet dans votre IDE.
-   - Assurez-vous que tous les fichiers nécessaires (images, sons) sont bien présents dans le dossier `assets`.
-   - Compilez et exécutez le projet.
+   - Ou télécharger le JAR exécutable directement.
 
 ---
 
 ## Exécution
+avec interface graphique :
 
-Pour lancer le jeu, exécutez la classe principale (`Main.java`) dans votre IDE ou en ligne de commande :
+```bash
+java -jar pvz.jar gui
+```
 
+sans interface graphique :
+
+```bash
 java -jar pvz.jar
+```
 
 ---
 
@@ -85,7 +186,6 @@ java -jar pvz.jar
 - [x] Créer un diagramme de classes pour structurer le projet.
 - [x] Développer les mécaniques de base du jeu.
 - [ ] Intégrer des animations et des sons.
-- [ ] Ajouter un système de sauvegarde.
 - [ ] Entraîner un réseau de neurones à jouer au jeu.
 
 ---
@@ -103,7 +203,7 @@ Ce projet est avant tout un exercice personnel, mais si vous souhaitez contribue
 
 **Auteur :** Louis Tanchou  
 Étudiant en BUT Informatique, passionné par le développement logiciel et l’intelligence artificielle.  
-**Contact :** [ton_email@example.com] *(optionnel)*
+**Contact :** [louis.tanchou@example.com]
 
 ---
 
