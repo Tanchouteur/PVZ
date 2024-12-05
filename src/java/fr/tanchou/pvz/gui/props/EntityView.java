@@ -20,7 +20,7 @@ public class EntityView extends ImageView {
         }
         Image image;
         if (entity instanceof Zombie){
-            image = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/zombies/"+entity.getName()+"/"+ entity.getName() +".png")));
+            image = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/zombies/"+entity.getName()+"Zombie/"+ entity.getName() +"Zombie-walk.gif")));
         }else {
             image = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/plants/"+ entity.getName() +".gif")));
         }
@@ -35,8 +35,8 @@ public class EntityView extends ImageView {
     }
 
     public void updateZombiePosition() {
-        this.setLayoutX((entity.getX()*170) - 100);
-        this.setLayoutY((entity.getY()*178) - 75);
+        this.setLayoutX((entity.getX()*168) - 100);
+        this.setLayoutY((entity.getY()*178) - 155);
         /*if ((entity instanceof Zombie zombie && zombie.heating())&&!this.heating){
             this.heating = true;
             this.setImage(heatingAnimation);

@@ -2,9 +2,12 @@ package fr.tanchou.pvz;
 
 import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
 import fr.tanchou.pvz.entityRealisation.ObjectOfPlant.Sun;
+import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.DoublePeaShooter;
+import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.FreezePeaShooter;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.PeaShooter;
 import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
+import fr.tanchou.pvz.entityRealisation.plants.passive.WallNut;
 import fr.tanchou.pvz.game.Partie;
 import fr.tanchou.pvz.game.SunManager;
 
@@ -26,8 +29,11 @@ public class Player {
         this.plantCards = new PlantCard[5];
 
         this.setPlantCards(new PlantCard[]{
-                new PlantCard(240, new PeaShooter(-1, -1)),
-                new PlantCard(60, new SunFlower(-1, -2))
+                new PlantCard(60, new SunFlower(-1, -2)),
+                new PlantCard(230, new PeaShooter(-1, -1)),
+                new PlantCard(290, new FreezePeaShooter(-1, -2)),
+                new PlantCard(340, new DoublePeaShooter(-1, -2)),
+                new PlantCard(340, new WallNut(-1, -2))
         });
     }
 

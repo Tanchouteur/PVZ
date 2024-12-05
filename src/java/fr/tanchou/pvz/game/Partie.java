@@ -17,7 +17,7 @@ public class Partie {
 
     private int tick = 0;
 
-    private boolean consoleLog;
+    private final boolean consoleLog;
 
     public Partie(Player player, SunManager sunManager, boolean consoleLog) {
         this.player = player;
@@ -31,10 +31,10 @@ public class Partie {
 
         zombieSpawner = new ZombieSpawner(this);
 
-        /*rows[1].placePlantInCase(0, new PeaShooter(0,1));
-        rows[2].placePlantInCase(1, new SunFlower(1,2));*/
+        rows[1].placePlantInCase(0, new PeaShooter(0,1));
+        rows[2].placePlantInCase(1, new SunFlower(1,2));
 
-        //zombieSpawner.spawnZombie(1);
+        /*zombieSpawner.spawnZombie(4);*/
     }
 
     public Row[] getRows() {

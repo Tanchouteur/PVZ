@@ -2,10 +2,9 @@ package fr.tanchou.pvz.abstractEnity.abstractZombie;
 
 import fr.tanchou.pvz.abstractEnity.Effect;
 import fr.tanchou.pvz.abstractEnity.Entity;
-import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
 
 public abstract class Zombie extends Entity {
-    private int speed;
+    private final int speed;
     private Effect effect;
     private final int damage;
     protected int timeSinceLastAttack = 0;
@@ -23,7 +22,11 @@ public abstract class Zombie extends Entity {
     public abstract Zombie clone(double x, int y);
 
     private boolean canAttack() {
-        if (timeSinceLastAttack >= 24) {
+        int calculedAttackRate = attackRate;
+        if (effect != null){
+            calculedAttackRate = (int) (calculedAttackRate * effect.getSpeedToApply());
+        }
+        if (timeSinceLastAttack >= calculedAttackRate) {
             timeSinceLastAttack = 0; // Réinitialise le compteur après un tir
             return true;
         }
@@ -32,48 +35,39 @@ public abstract class Zombie extends Entity {
 
     public int attack(Entity entity) {
         if (canAttack()){
-            //System.err.println("Zombie attack : " + entity.getX());
             return entity.takeDamage(damage);
         }
         return 1001;
     }
 
     public void move() {
-        if (!heating) {
-            this.setX(this.getX() - speed * 0.02);
+        int calculatedSpeed = this.speed;
+        if (effect != null){
+            effect.tick();
+            calculatedSpeed = (int) (calculatedSpeed*effect.getSpeedToApply());
         }
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public Effect getEffect() {
-        return effect;
+        if (!heating) {
+            this.setX(this.getX() - calculatedSpeed * 0.02);
+        }
     }
 
     public void setEffect(Effect effect) {
         this.effect = effect;
     }
 
-    public int getDamage() {
-        return damage;
-    }
-
     public void tick() {
+        if (effect != null) {
+            effect.tick();
+
+            if (effect.getEffectDuration() <= 0){
+                this.effect = null;
+            }else {
+                if (effect.getEffectDuration()%10 == 0){
+                    this.takeDamage(effect.getDammagePer10Tick());
+                }
+            }
+        }
         timeSinceLastAttack++;
-    }
-
-    public int getAttackRate() {
-        return attackRate;
-    }
-
-    public boolean heating() {
-        return heating;
     }
 
     public void setHeating(boolean heating) {

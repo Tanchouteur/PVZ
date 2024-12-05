@@ -6,6 +6,7 @@ import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
 import fr.tanchou.pvz.entityRealisation.ObjectOfPlant.Sun;
 import fr.tanchou.pvz.abstractEnity.abstractPlant.ObjectGeneratorsPlant;
 import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
+import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
 import fr.tanchou.pvz.game.SunManager;
 
 import java.util.Iterator;
@@ -109,8 +110,12 @@ public class Row {
                 }
 
                 if (c.getPlant() instanceof ObjectGeneratorsPlant plant) {
-                    plant.setZombieInFront(haveZombie);
 
+                    if (!(plant instanceof SunFlower)) {
+                        plant.setNeedToCreate(this.haveZombie && firstZombie.getX() > plant.getX() && firstZombie.getX() < 9.0); // défini si la plante dois tiré
+                    }else {
+                        plant.setNeedToCreate(true);
+                    }
                     ObjectOfPlant object = plant.tick();
 
                     if (object != null) {
@@ -136,6 +141,11 @@ public class Row {
 
             if (bullet.collidesWith(firstZombie)) {
                 firstZombie.takeDamage(bullet.getDamage());
+
+                if (bullet.haveEffect()){
+                    firstZombie.setEffect(bullet.getEffect().clone());
+                }
+
                 iterator.remove();
                 System.out.println("Zombie take damage");
                 break;

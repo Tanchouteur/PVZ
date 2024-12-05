@@ -10,38 +10,59 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ad241d6-9784-4f1a-9790-f5a8f0ab1a8d" name="Changes" comment="controller pour poser plant">
-      <change afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/controller/ExitCellController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/controller/HoverCellController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/ihm/SoldView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/CellView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ressources/assets/cards/PeaShooterCard.png" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/assets/cards/PeaShooterCard.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ressources/assets/cards/SunFlowerCard.png" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/assets/cards/SunFlowerCard.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ressources/assets/zombies/NormalZombie/ZombieAttack.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ressources/assets/zombies/coneheadZombie/ConeheadZombie.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ressources/assets/zombies/coneheadZombie/ZombieAttack.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/Launcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/PVZ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/PVZ.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/Collider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/Collider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/Effect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/Effect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstracObjectOfPlant/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstracObjectOfPlant/Bullet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstracObjectOfPlant/ObjectOfPlant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstracObjectOfPlant/ObjectOfPlant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstractPlant/ObjectGeneratorsPlant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstractPlant/ObjectGeneratorsPlant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstractPlant/PassivePlant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstractPlant/PassivePlant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstractPlant/Plant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstractPlant/Plant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstractZombie/Zombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/abstractEnity/abstractZombie/Zombie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/ObjectOfPlant/PeaBullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/ObjectOfPlant/PeaBullet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/ObjectOfPlant/Sun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/ObjectOfPlant/Sun.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/plants/ObjectGeneratorPlant/PeaShooter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/plants/ObjectGeneratorPlant/PeaShooter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/plants/ObjectGeneratorPlant/SunFlower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/plants/ObjectGeneratorPlant/SunFlower.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/plants/PlantCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/plants/PlantCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/zombie/ConeheadZombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/zombie/ConeheadZombie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/zombie/NormalZombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/entityRealisation/zombie/NormalZombie.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/Partie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/Partie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/PartieController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/PartieController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/SunManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/SunManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/rowComponent/Mower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/rowComponent/Mower.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/rowComponent/PlantCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/rowComponent/PlantCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/rowComponent/Row.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/rowComponent/Row.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/spawn/ZombieSpawner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/game/spawn/ZombieSpawner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/GameBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/PVZGraphic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/PVZGraphic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/PartieControllerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/PartieControllerView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/controller/CellGridController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/controller/CellGridController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/controller/ExitCellController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/controller/ExitCellController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/controller/HoverCellController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/controller/HoverCellController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/controller/PlayerCardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/controller/PlayerCardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/BulletLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/BulletLayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/CellView.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/EntityLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/EntityLayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/MawerPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/MawerPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/PlantLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/PlantLayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/SunLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/SunLayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/ZombieLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/ZombieLayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/props/BulletView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/BulletView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/props/EntityView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/EntityView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/props/MowerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/MowerView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/props/PlantCardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/PlantCardView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/game/props/SunView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/SunView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/ihm/HudLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/ihm/HudLayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/ihm/PlayerLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/ihm/PlayerLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/ihm/SoldView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/layers/ihm/SoldView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/BulletView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/BulletView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/CellView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/CellView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/EntityView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/EntityView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/MowerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/MowerView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/PlantCardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/PlantCardView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/SunView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/fr/tanchou/pvz/gui/props/SunView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +87,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Tanchouteur"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Tanchouteur/PVZ.git",
+    "accountId": "270db548-408c-4dab-b018-7ce609743cb0"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -86,14 +119,19 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "Refonte",
+    "ignore.preview.features.used": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/louis/IdeaProjects/PVZ/lib/javafx-23.0.1-javadoc/script-dir",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -171,6 +209,7 @@
       <option name="presentableId" value="Default" />
       <updated>1733295323616</updated>
       <workItem from="1733295329652" duration="7980000" />
+      <workItem from="1733403673624" duration="3418000" />
     </task>
     <task id="LOCAL-00001" summary="mowerView">
       <option name="closed" value="true" />
@@ -209,6 +248,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="jeux fonctionne" />

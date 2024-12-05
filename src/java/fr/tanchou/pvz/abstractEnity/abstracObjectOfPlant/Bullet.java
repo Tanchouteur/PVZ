@@ -52,4 +52,8 @@ public abstract class Bullet extends ObjectOfPlant {
                 ", y=" + this.getY() +
                 '}';
     }
+
+    public boolean haveEffect(){
+        return this.effect != null;
+    }
 }

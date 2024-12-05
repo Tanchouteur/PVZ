@@ -7,7 +7,7 @@ public abstract class ObjectGeneratorsPlant extends Plant {
     private final int fireRate;
     private int timeSinceLastFire = 0;
     private final ObjectOfPlant objectOfPlant;
-    private boolean zombieInFront = false;
+    private boolean needToCreate;
 
     protected ObjectGeneratorsPlant(int healthPoint, double colliderRadius, double x, int y,String name, int cost, int fireRate, ObjectOfPlant objectOfPlant) {
         super(healthPoint,colliderRadius,x,y, name, cost);
@@ -24,7 +24,14 @@ public abstract class ObjectGeneratorsPlant extends Plant {
         return null;
     }
 
-    protected abstract boolean canCreate();
+    protected boolean canCreate(){
+        if (this.getTimeSinceLastFire() >= this.getFireRate() && this.isNeedToCreate()) {
+            this.setTimeSinceLastFire(); // Réinitialise le compteur après un tir
+
+            return true;
+        }
+        return false;
+    }
 
     public ObjectOfPlant tick() {
         timeSinceLastFire++;
@@ -33,10 +40,6 @@ public abstract class ObjectGeneratorsPlant extends Plant {
     }
 
     public abstract ObjectGeneratorsPlant clone(double x, int y);
-
-    public ObjectOfPlant getObjectOfPlant() {
-        return objectOfPlant;
-    }
 
     public int getFireRate() {
         return fireRate;
@@ -50,11 +53,11 @@ public abstract class ObjectGeneratorsPlant extends Plant {
         this.timeSinceLastFire = 0;
     }
 
-    public boolean isZombieInFront() {
-        return zombieInFront;
+    public boolean isNeedToCreate() {
+        return needToCreate;
     }
 
-    public void setZombieInFront(boolean zombieInFront) {
-        this.zombieInFront = zombieInFront;
+    public void setNeedToCreate(boolean needToCreate) {
+        this.needToCreate = needToCreate;
     }
 }

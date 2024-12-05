@@ -47,17 +47,18 @@ public class ZombieLayer extends Pane {
 
             for (Zombie zombie : row.getListZombies()) {
                 boolean found = false;
-                Iterator<Node> iterator = this.getChildren().iterator();
-                while (iterator.hasNext()) {
-                    EntityView entityView = (EntityView) iterator.next();
+
+                for (Node node : this.getChildren()) {
+                    EntityView entityView = (EntityView) node;
                     if (entityView.getEntity().equals(zombie)) {
                         entityView.updateZombiePosition();
                         found = true;
                         break;
                     }
                 }
+
                 if (!found) {
-                    EntityView entityView = new EntityView(zombie, 175, 262.5);
+                    EntityView entityView = new EntityView(zombie, 275, 330);
                     entityView.updateZombiePosition();
                     this.getChildren().add(entityView);
                 }

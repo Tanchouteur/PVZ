@@ -10,16 +10,6 @@ public class PeaShooter extends ObjectGeneratorsPlant {
     }
 
     @Override
-    protected boolean canCreate() {
-        if (this.getTimeSinceLastFire() >= this.getFireRate() && this.isZombieInFront()) {
-            this.setTimeSinceLastFire(); // Réinitialise le compteur après un tir
-
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public ObjectGeneratorsPlant clone(double x, int y) {
         return new PeaShooter(x, y);
     }
