@@ -1,6 +1,7 @@
 package fr.tanchou.pvz.game;
 
 import fr.tanchou.pvz.Player;
+import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.FreezePeaShooter;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.PeaShooter;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
 import fr.tanchou.pvz.game.rowComponent.Row;
@@ -31,8 +32,8 @@ public class Partie {
 
         zombieSpawner = new ZombieSpawner(this);
 
-        rows[1].placePlantInCase(0, new PeaShooter(0,1));
-        rows[2].placePlantInCase(1, new SunFlower(1,2));
+        rows[1].placePlantInCase(new FreezePeaShooter(0,1));
+        rows[2].placePlantInCase(new SunFlower(1,2));
 
         /*zombieSpawner.spawnZombie(4);*/
     }
@@ -63,7 +64,6 @@ public class Partie {
 
         sunManager.tick();
         zombieSpawner.tick();
-
         player.tick();
     }
 

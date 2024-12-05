@@ -5,6 +5,7 @@ import javafx.scene.layout.Pane;
 
 public class CellView extends Pane {
     private final PlantCase plantCase;
+    private boolean isHovered = false;
 
     public CellView(double width, double height, PlantCase plantCase) {
         super();
@@ -13,11 +14,12 @@ public class CellView extends Pane {
         this.plantCase = plantCase;
         this.setPrefSize(width, height);
         this.setStyle("-fx-border-color: rgba(246,0,0,0.76); -fx-border-width: 1; -fx-background-color: rgba(6,82,255,0.53);"); // Bordure pour visualiser les cellules
-        this.setOpacity(0.999);
     }
 
     public void update() {
-        if (plantCase.getPlant() != null && this.getOpacity() < 1) {
+        //si la case n'est pas vide et que le panel n'est pas déjà rempli
+
+        if (!plantCase.isEmpty() && this.getChildren().isEmpty()) {
 
                 EntityView entityView = new EntityView(plantCase.getPlant(), 150, 150);
                 entityView.setMouseTransparent(true);
@@ -25,15 +27,19 @@ public class CellView extends Pane {
                 System.out.println("Plant added");
                 setOpacity(1);
 
-        }else {
-            if (!this.getChildren().isEmpty() && this.getOpacity() == 1) {
-                //this.getChildren().clear();
-                //System.out.println("Plant removed");
-            }
+        }else if (plantCase.isEmpty() && !isHovered && !this.getChildren().isEmpty()) {
+
+                this.getChildren().clear();
+                System.out.println("Plant removed");
+
         }
     }
 
     public PlantCase getPlantCase(){
         return this.plantCase;
+    }
+
+    public void setHovered(boolean hovered) {
+        isHovered = hovered;
     }
 }

@@ -8,6 +8,7 @@ public abstract class Bullet extends ObjectOfPlant {
     private final int speed;
     private final Effect effect;
     private final String name;
+    private boolean dead = false;
 
     public Bullet(int damage, int speed, Double x, int y, double colliderRadius, Effect effect, String name) {
         super(x, y, colliderRadius);
@@ -55,5 +56,13 @@ public abstract class Bullet extends ObjectOfPlant {
 
     public boolean haveEffect(){
         return this.effect != null;
+    }
+
+    public void setDead(boolean dead) {
+        this.dead = dead;
+    }
+
+    public boolean isDead() {
+        return dead;
     }
 }

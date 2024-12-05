@@ -4,6 +4,7 @@ import fr.tanchou.pvz.Player;
 import fr.tanchou.pvz.gui.props.CellView;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.layout.*;
 
 public class CellGridController implements EventHandler {
     private final Player player;
@@ -16,9 +17,10 @@ public class CellGridController implements EventHandler {
 
     @Override
     public void handle(Event event) {
-        System.err.println("cell cliqued x = " + cellView.getPlantCase().getX() + " - y = " + cellView.getPlantCase().getY());
-
-        player.buyPlant(cellView.getPlantCase().getX(), cellView.getPlantCase().getY());
         cellView.setOpacity(1);
+        player.buyPlant(cellView.getPlantCase().getX(), cellView.getPlantCase().getY());
+
+
+        System.err.println("cell cliqued x = " + cellView.getPlantCase().getX() + " - y = " + cellView.getPlantCase().getY());
     }
 }

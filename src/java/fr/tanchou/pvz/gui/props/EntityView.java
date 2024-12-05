@@ -26,6 +26,7 @@ public class EntityView extends ImageView {
         }
         this.walkAnimation = image;
         super(image);
+
         this.entity = entity;
 
         this.setFitWidth(width);

@@ -11,6 +11,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class PVZGraphic extends Application {
     private static PVZ pvzInstance;
 
@@ -38,7 +40,7 @@ public class PVZGraphic extends Application {
         startButton.setLayoutX(880);
         startButton.setLayoutY(400);
 
-        Image image = new Image(getClass().getResourceAsStream("/assets/Pvz_logo_stacked_rgb.webp"));
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/assets/bg.png")));
         ImageView imageView = new ImageView(image);
 
         imageView.setFitWidth(1920);
@@ -60,7 +62,7 @@ public class PVZGraphic extends Application {
 
     private void startGame(Stage primaryStage) {
         // Passer à l'écran de jeu
-        pvzInstance.startGame(false);
+        pvzInstance.startGame(true);
         PartieControllerView controllerView = new PartieControllerView(pvzInstance);
         controllerView.start(primaryStage);
     }

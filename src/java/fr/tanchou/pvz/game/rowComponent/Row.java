@@ -1,5 +1,6 @@
 package fr.tanchou.pvz.game.rowComponent;
 
+import fr.tanchou.pvz.abstractEnity.Entity;
 import fr.tanchou.pvz.abstractEnity.abstracObjectOfPlant.Bullet;
 import fr.tanchou.pvz.abstractEnity.abstracObjectOfPlant.ObjectOfPlant;
 import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
@@ -22,6 +23,10 @@ public class Row {
     private final LinkedList<Bullet> listBullets = new LinkedList<>();
     private final LinkedList<Zombie> listZombie = new LinkedList<>();
 
+    private final LinkedList<Plant> listPlantToAdd = new LinkedList<>();
+    private final LinkedList<Bullet> listBulletsToAdd = new LinkedList<>();
+    private final LinkedList<Zombie> listZombieToAdd = new LinkedList<>();
+
     private final SunManager sunManager;
     private boolean defeat = false;
 
@@ -37,13 +42,41 @@ public class Row {
     }
 
     public void tick() {
+
+        updateChange();
         updateZombies();
         updatePlants();
         updateBullets();
         updateMawer();
     }
 
-    public void updateMawer() {
+    private void updateChange(){
+        if (!listZombieToAdd.isEmpty()) {
+            listZombie.addAll(listZombieToAdd);
+            listZombieToAdd.clear();
+        }
+
+        if (!listPlantToAdd.isEmpty()) {
+
+            for (Plant plant : listPlantToAdd) {
+                plantCasesArray[(int) plant.getX()].placePlant(plant);
+            }
+            listPlantToAdd.clear();
+        }
+
+        if (!listBulletsToAdd.isEmpty()) {
+            listBullets.addAll(listBulletsToAdd);
+            listBulletsToAdd.clear();
+        }
+
+        listZombie.removeIf(Entity::isDead);
+
+        listBullets.removeIf(Bullet::isDead);
+
+        listPlantToAdd.removeIf(Entity::isDead);
+    }
+
+    private void updateMawer() {
         if (haveZombie && mower != null) {
             if (mower.collideWith(firstZombie)) {
                 mower = null;
@@ -55,14 +88,13 @@ public class Row {
         }
     }
 
-    public void updateZombies() {
+    private void updateZombies() {
+
         this.haveZombie = !listZombie.isEmpty();
-        
-        Iterator<Zombie> iterator = listZombie.iterator();
-        while (iterator.hasNext()) {
-            Zombie zombie = iterator.next();
+
+        for (Zombie zombie : listZombie) {
             if (zombie.getHealthPoint() <= 0) {
-                iterator.remove();
+                zombie.setHeating(false);
                 System.out.println("Zombie mort");
                 continue;
             }
@@ -77,7 +109,7 @@ public class Row {
                 if (zombie.getX() < firstZombie.getX()) {
                     firstZombie = zombie;
                 }
-            }else {
+            } else {
                 firstZombie = zombie;
             }
 
@@ -100,11 +132,12 @@ public class Row {
         }
     }
 
-    public void updatePlants() {
+    private void updatePlants() {
+
         for (PlantCase c : plantCasesArray) {
             if (c.getPlant() != null) {
                 if (c.getPlant().getHealthPoint() <= 0) {
-                    c.removePlant(); // Retire la plante morte de la case
+                    c.getPlant().setDead(true); // Retire la plante morte de la case
                     System.out.println("Plant mort : x = " + c.getX() + " y = " + c.getY());
                     continue;
                 }
@@ -124,35 +157,33 @@ public class Row {
                             this.addBullet(bullet);
                         } else if (object instanceof Sun sun) {
                             sunManager.addSun(sun);
+                            System.err.println("Sun create and add");
                         }
-                        System.err.println("Plant create object : x = " + c.getX() + " y = " + c.getY() + " object = " + plant.getName()+"object");
+                        System.err.println(plant.getName()+" create");
                     }
                 }
             }
         }
     }
 
-    public void updateBullets() {
-        Iterator<Bullet> iterator = listBullets.iterator();
+    private void updateBullets() {
 
-        while (iterator.hasNext()) {
-            Bullet bullet = iterator.next();
+        for (Bullet bullet : listBullets) {
             bullet.move();
 
             if (bullet.collidesWith(firstZombie)) {
                 firstZombie.takeDamage(bullet.getDamage());
 
-                if (bullet.haveEffect()){
+                if (bullet.haveEffect()) {
                     firstZombie.setEffect(bullet.getEffect().clone());
                 }
 
-                iterator.remove();
-                System.out.println("Zombie take damage");
+                bullet.setDead(true);
                 break;
-            }
 
-            if (bullet.getX() > 11) {
-                iterator.remove();
+            }else if (bullet.getX() > 11) {
+
+                bullet.setDead(true);
             }
         }
     }
@@ -166,14 +197,14 @@ public class Row {
     }
 
     public void addZombie(Zombie zombie) {
-        listZombie.add(zombie);
+        listZombieToAdd.add(zombie);
         if (!haveZombie) {
             haveZombie = true;
         }
     }
 
     public void addBullet(Bullet bullet) {
-        listBullets.add(bullet);
+        listBulletsToAdd.add(bullet);
     }
 
     public Zombie getFirstZombie() {
@@ -192,9 +223,10 @@ public class Row {
         return defeat;
     }
 
-    public void placePlantInCase(int x, Plant plant) {
-        plantCasesArray[x].placePlant(plant);
-        System.out.println("Plant place : x = " + plantCasesArray[x].getX() + " y = " + plantCasesArray[x].getY());
+    public void placePlantInCase(Plant plant) {
+        listPlantToAdd.add(plant);
+
+        System.out.println("Plant place : x = " + plant.getX() + " y = " + plant.getY());
     }
 
     @Override

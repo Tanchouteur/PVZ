@@ -25,21 +25,21 @@ public class Player {
 
     public Player(String name) {
         this.name = name;
-        this.sold = 100;
+        this.sold = 300;
         this.plantCards = new PlantCard[5];
 
         this.setPlantCards(new PlantCard[]{
-                new PlantCard(60, new SunFlower(-1, -2)),
-                new PlantCard(230, new PeaShooter(-1, -1)),
-                new PlantCard(290, new FreezePeaShooter(-1, -2)),
-                new PlantCard(340, new DoublePeaShooter(-1, -2)),
-                new PlantCard(340, new WallNut(-1, -2))
+                new PlantCard(60, new SunFlower(-1, -2), this.sold),
+                new PlantCard(230, new PeaShooter(-1, -1), this.sold),
+                new PlantCard(290, new FreezePeaShooter(-1, -2), this.sold),
+                new PlantCard(340, new DoublePeaShooter(-1, -2), this.sold),
+                new PlantCard(340, new WallNut(-1, -2), this.sold)
         });
     }
 
     public void tick() {
         for (PlantCard plantCard : plantCards) {
-            plantCard.tick();
+            plantCard.tick(this.sold);
         }
         this.collectSun();
     }
@@ -61,10 +61,12 @@ public class Player {
     }
 
     public boolean preBuyPlant(PlantCard plantCard) {
-        if (this.activPlantCard != null && this.activPlantCard == plantCard) {
+        if (this.activPlantCard != null) {
+
             cancelBuyPlant();
+
         }else if (plantCard.canBuy() && (this.sold - plantCard.getPlant().getCost()) >= 0) {
-            this.sold -= plantCard.getPlant().getCost();
+            //this.sold -= plantCard.getPlant().getCost();
             this.activPlantCard = plantCard;
             return true;
         }
@@ -73,18 +75,23 @@ public class Player {
 
     public boolean buyPlant(int x, int y) {
         if (activPlantCard != null && partie.getOneRow(y).getPlantCase(x).isEmpty()) {
-            Plant plant = activPlantCard.getNewPlant(x, y);
-            if (plant != null) {
+            //this.sold += activPlantCard.getPlant().getCost();
+            if (activPlantCard.canBuy()) {
+
+                Plant plant = activPlantCard.getNewPlant(x, y);
+                partie.getOneRow(y).placePlantInCase(plant);
                 activPlantCard = null;
+                this.sold -= plant.getCost();
+
+                return true;
             }
-            partie.getOneRow(plant.getY()).placePlantInCase(x, plant);
-            return true;
+
         }
         return false;
     }
 
     public void cancelBuyPlant() {
-        this.sold += activPlantCard.getPlant().getCost();
+        //this.sold += activPlantCard.getPlant().getCost();
         this.activPlantCard = null;
     }
 
@@ -92,7 +99,7 @@ public class Player {
         return activPlantCard;
     }
 
-    public void setActivPlantCard(PlantCard activPlantCard) {
+    private void setActivPlantCard(PlantCard activPlantCard) {
         this.activPlantCard = activPlantCard;
     }
 

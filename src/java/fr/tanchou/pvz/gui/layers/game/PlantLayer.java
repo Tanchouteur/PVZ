@@ -46,8 +46,4 @@ public class PlantLayer extends GridPane {
             }
         }
     }
-
-    public CellView[][] getPlantCasesView() {
-        return plantCasesView;
-    }
 }

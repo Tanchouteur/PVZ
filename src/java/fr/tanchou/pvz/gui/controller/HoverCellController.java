@@ -30,6 +30,7 @@ public class HoverCellController implements EventHandler {
             imageView.setLayoutX(0);
             imageView.setLayoutY(0);
             cellView.getChildren().add(imageView);
+            cellView.setHovered(true);
             cellView.setOpacity(0.8);
             //System.err.println("cell hovered x = " + cellView.getPlantCase().getX() + " - y = " + cellView.getPlantCase().getY());
         }

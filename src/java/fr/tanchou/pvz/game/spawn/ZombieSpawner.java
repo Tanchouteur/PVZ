@@ -16,7 +16,7 @@ public class ZombieSpawner {
     private int spawnRate;       // Intervalle entre les spawns
     private boolean inWave;      // Indique si une vague est en cours
     private int zombiesToSpawn;  // Nombre de zombies à spawn dans une vague
-    private int totalTick;
+    private int totalTick = 0;
 
     private final ZombieCard[] zombiesCardArray;
 
@@ -43,6 +43,7 @@ public class ZombieSpawner {
     public void tick() {
         tickCount++;
         totalTick++;
+
         switch (currentState) {
             case INIT -> handleInitPhase();
             case CRESCENDO -> handleCrescendoPhase();
@@ -55,7 +56,7 @@ public class ZombieSpawner {
     }
 
     private void handleEndGame() {
-        System.out.println("Partie terminée : Victoire !");
+        System.err.println("Partie terminée : Victoire !");
         partie.setVictory(true);
     }
 
@@ -73,7 +74,7 @@ public class ZombieSpawner {
             spawnRate = Math.max(20, spawnRate - 1);  // Augmenter progressivement la vitesse de spawn
         }
 
-        if (tickCount > 800) {
+        if (tickCount > 600) {
             currentState = State.WAVE1;
             zombiesToSpawn = 20;
             tickCount = 0;
@@ -121,6 +122,7 @@ public class ZombieSpawner {
 
         ZombieCard zombieCard = getRandomZombieCard();
 
+        assert zombieCard != null;
         partie.getOneRow(rowIndex).addZombie(zombieCard.getZombie().clone(9.0, rowIndex));
 
         System.out.println(zombieCard.getZombie().getName() + " Spawned in row: " + rowIndex);
@@ -181,7 +183,7 @@ public class ZombieSpawner {
 
     private boolean allZombiesDead() {
         for (int i = 0; i < 5; i++) {
-            if (!partie.getOneRow(i).haveZombie()) {
+            if (partie.getOneRow(i).haveZombie()) {
                 return false;
             }
         }

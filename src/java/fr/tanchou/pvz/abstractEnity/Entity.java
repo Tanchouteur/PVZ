@@ -6,6 +6,7 @@ public abstract class Entity {
     private double x;
     private final int y;
     private final String name;
+    private boolean isDead = false;
 
     public Entity(int healthPoint, double colliderRadius, double x, int y, String name) {
         this.healthPoint = healthPoint;
@@ -54,5 +55,13 @@ public abstract class Entity {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
     }
 }

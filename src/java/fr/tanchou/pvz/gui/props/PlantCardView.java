@@ -22,8 +22,10 @@ public class PlantCardView extends ImageView {
 
         this.setLayoutX(20);
         this.setLayoutY(indexOfPlantCard*110 + 100);
+
+        this.setDisable(true);
         this.setMouseTransparent(false);
-        this.update();
+        this.setOpacity(0.7);
     }
 
     public void update(){

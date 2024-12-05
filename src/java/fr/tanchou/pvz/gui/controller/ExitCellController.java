@@ -18,7 +18,7 @@ public class ExitCellController implements EventHandler {
     public void handle(Event event) {
         if (player.getActivPlantCard() != null && cellView.getPlantCase().isEmpty()) {
             cellView.getChildren().clear();
-            cellView.setOpacity(1);
+            cellView.setHovered(false);
         }
         //System.err.println("cell exited x = " + cellView.getPlantCase().getX() + " - y = " + cellView.getPlantCase().getY());
     }
