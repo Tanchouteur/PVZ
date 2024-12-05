@@ -203,7 +203,7 @@ Ce projet est avant tout un exercice personnel, mais si vous souhaitez contribue
 
 **Auteur :** Louis Tanchou  
 Étudiant en BUT Informatique, passionné par le développement logiciel et l’intelligence artificielle.  
-**Contact :** [louis.tanchou@example.com]
+**Contact :** [louis.tanchou@gmail.com]
 
 ---
 
