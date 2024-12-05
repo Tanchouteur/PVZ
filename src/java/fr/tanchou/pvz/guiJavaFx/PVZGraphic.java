@@ -1,4 +1,4 @@
-package fr.tanchou.pvz.gui;
+package fr.tanchou.pvz.guiJavaFx;
 
 import fr.tanchou.pvz.PVZ;
 import javafx.application.Application;
@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.Objects;

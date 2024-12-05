@@ -1,4 +1,4 @@
-package fr.tanchou.pvz.gui.props;
+package fr.tanchou.pvz.guiJavaFx.props;
 
 import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
 import javafx.scene.Cursor;

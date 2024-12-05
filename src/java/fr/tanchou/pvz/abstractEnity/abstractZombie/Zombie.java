@@ -33,20 +33,19 @@ public abstract class Zombie extends Entity {
         return false;
     }
 
-    public int attack(Entity entity) {
+    public void attack(Entity entity) {
         if (canAttack()){
-            return entity.takeDamage(damage);
+            entity.takeDamage(damage);
         }
-        return 1001;
     }
 
     public void move() {
-        int calculatedSpeed = this.speed;
-        if (effect != null){
-            effect.tick();
-            calculatedSpeed = (int) (calculatedSpeed*effect.getSpeedToApply());
-        }
         if (!heating) {
+            int calculatedSpeed = this.speed;
+            if (effect != null) {
+                effect.tick();
+                calculatedSpeed = (int) (calculatedSpeed * effect.getSpeedToApply());
+            }
             this.setX(this.getX() - calculatedSpeed * 0.02);
         }
     }
@@ -76,6 +75,6 @@ public abstract class Zombie extends Entity {
 
     @Override
     public String toString() {
-        return this.getName() + "{ hp=" + this.getHealthPoint() + ", position="+this.getX()+","+this.getY()+" heating ="+heating+" }";
+        return this.getName() + "{ hp=" + this.getHealthPoint() + ", position="+this.getX()+" effect = "+ this.effect +" heating ="+heating+" }";
     }
 }

@@ -1,10 +1,10 @@
-package fr.tanchou.pvz.gui.layers.game;
+package fr.tanchou.pvz.guiJavaFx.layers.game;
 
 import fr.tanchou.pvz.game.Partie;
-import fr.tanchou.pvz.gui.controller.CellGridController;
-import fr.tanchou.pvz.gui.controller.ExitCellController;
-import fr.tanchou.pvz.gui.controller.HoverCellController;
-import fr.tanchou.pvz.gui.props.CellView;
+import fr.tanchou.pvz.guiJavaFx.controller.CellGridController;
+import fr.tanchou.pvz.guiJavaFx.controller.ExitCellController;
+import fr.tanchou.pvz.guiJavaFx.controller.HoverCellController;
+import fr.tanchou.pvz.guiJavaFx.props.CellView;
 import javafx.scene.layout.GridPane;
 
 public class PlantLayer extends GridPane {

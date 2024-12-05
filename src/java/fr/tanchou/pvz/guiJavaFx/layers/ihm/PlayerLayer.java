@@ -1,8 +1,8 @@
-package fr.tanchou.pvz.gui.layers.ihm;
+package fr.tanchou.pvz.guiJavaFx.layers.ihm;
 
 import fr.tanchou.pvz.Player;
 import fr.tanchou.pvz.game.Partie;
-import fr.tanchou.pvz.gui.layers.game.SunLayer;
+import fr.tanchou.pvz.guiJavaFx.layers.game.SunLayer;
 import javafx.scene.layout.Pane;
 
 public class PlayerLayer extends Pane {

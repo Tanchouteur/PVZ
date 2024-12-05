@@ -1,8 +1,8 @@
-package fr.tanchou.pvz.gui;
+package fr.tanchou.pvz.guiJavaFx;
 
 import fr.tanchou.pvz.game.Partie;
-import fr.tanchou.pvz.gui.layers.game.EntityLayer;
-import fr.tanchou.pvz.gui.layers.ihm.PlayerLayer;
+import fr.tanchou.pvz.guiJavaFx.layers.game.EntityLayer;
+import fr.tanchou.pvz.guiJavaFx.layers.ihm.PlayerLayer;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

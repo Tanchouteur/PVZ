@@ -1,4 +1,4 @@
-package fr.tanchou.pvz.gui.props;
+package fr.tanchou.pvz.guiJavaFx.props;
 
 import fr.tanchou.pvz.entityRealisation.ObjectOfPlant.Sun;
 import javafx.scene.image.Image;
@@ -22,14 +22,18 @@ public class SunView extends ImageView {
         this.setFitHeight(100);
 
         this.setMouseTransparent(false);
+        this.toFront();
 
     }
 
     public void updateSunPosition() {
-        this.setLayoutX((sun.getX() * 100)+280);
-        this.setLayoutY(sun.getY()*100);
 
-        System.err.println(this.getLayoutX() + "  " + this.getLayoutY());
+        this.toFront();
+
+        /*this.setLayoutX((sun.getX() * 100)+280);
+        this.setLayoutY(sun.getY()*100);*/
+
+        //System.err.println(this.getLayoutX() + "  " + this.getLayoutY());
     }
 
     public Sun getSun() {

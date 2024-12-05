@@ -1,7 +1,7 @@
 package fr.tanchou.pvz.abstractEnity;
 
 public abstract class Effect {
-    private double speedToApply;
+    private final double speedToApply;
     private int effectDuration;
     private final int dammagePer10Tick;
 
@@ -28,4 +28,9 @@ public abstract class Effect {
     }
 
     public abstract Effect clone();
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

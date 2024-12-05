@@ -24,9 +24,11 @@ public abstract class Entity {
         return distance <= this.getCollider().getRadius()+entity.getCollider().getRadius();
     }
 
-    public int takeDamage(int damage) {
+    public void takeDamage(int damage) {
         this.healthPoint -= damage;
-        return this.healthPoint;
+        if (this.healthPoint <= 0) {
+            this.isDead = true;
+        }
     }
 
     public int getHealthPoint() {
@@ -58,10 +60,9 @@ public abstract class Entity {
     }
 
     public boolean isDead() {
+        if (this.healthPoint <= 0) {
+            this.isDead = true;
+        }
         return isDead;
-    }
-
-    public void setDead(boolean dead) {
-        isDead = dead;
     }
 }

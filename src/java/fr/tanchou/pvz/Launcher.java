@@ -1,6 +1,6 @@
 package fr.tanchou.pvz;
 
-import fr.tanchou.pvz.gui.PVZGraphic;
+import fr.tanchou.pvz.guiJavaFx.PVZGraphic;
 
 public class Launcher {
     public static void main(String[] args) {

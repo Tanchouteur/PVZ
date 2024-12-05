@@ -1,9 +1,8 @@
-package fr.tanchou.pvz.gui;
+package fr.tanchou.pvz.guiJavaFx;
 
 import fr.tanchou.pvz.PVZ;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class PartieControllerView {

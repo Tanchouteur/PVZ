@@ -1,4 +1,4 @@
-package fr.tanchou.pvz.gui.layers.ihm;
+package fr.tanchou.pvz.guiJavaFx.layers.ihm;
 
 import fr.tanchou.pvz.Player;
 import javafx.scene.image.Image;

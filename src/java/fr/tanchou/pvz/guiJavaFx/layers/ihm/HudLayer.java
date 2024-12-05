@@ -1,9 +1,9 @@
-package fr.tanchou.pvz.gui.layers.ihm;
+package fr.tanchou.pvz.guiJavaFx.layers.ihm;
 
 import fr.tanchou.pvz.Player;
 import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
-import fr.tanchou.pvz.gui.controller.PlayerCardController;
-import fr.tanchou.pvz.gui.props.PlantCardView;
+import fr.tanchou.pvz.guiJavaFx.controller.PlayerCardController;
+import fr.tanchou.pvz.guiJavaFx.props.PlantCardView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;

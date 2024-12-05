@@ -49,7 +49,7 @@ public class Player {
         if (lastCollectSun > 54 && !sunManager.getSunLinkedList().isEmpty()) {
             for (Sun sun : sunManager.getSunLinkedList()){
                 sold += sun.getValue();
-                sunManager.getSunLinkedList().remove(sun);
+                sunManager.removeSun(sun);
             }
             lastCollectSun = 0;
             System.err.println("sold : " + sold);

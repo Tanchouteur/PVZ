@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class SunManager {
     private final LinkedList<Sun> sunToAdd; // Liste des soleils a ajouter
+    private final LinkedList<Sun> sunToRemove; // Liste des soleils a supprimer
     private final LinkedList<Sun> sunLinkedList; // Liste des soleils actifs
     private final Random random;
 
@@ -14,6 +15,7 @@ public class SunManager {
     public SunManager() {
         this.sunLinkedList = new LinkedList<>();
         this.sunToAdd = new LinkedList<>();
+        this.sunToRemove = new LinkedList<>();
         this.random = new Random();
     }
 
@@ -27,6 +29,10 @@ public class SunManager {
         if (!sunToAdd.isEmpty()) {
             sunLinkedList.addAll(sunToAdd);
             sunToAdd.clear();
+        }
+        if (!sunToRemove.isEmpty()) {
+            sunLinkedList.removeAll(sunToRemove);
+            sunToRemove.clear();
         }
 
         spawnRandomSun();
@@ -49,5 +55,9 @@ public class SunManager {
 
     public LinkedList<Sun> getSunLinkedList() {
         return this.sunLinkedList;
+    }
+
+    public void removeSun(Sun sun) {
+        this.sunToRemove.add(sun);
     }
 }

@@ -1,12 +1,11 @@
-package fr.tanchou.pvz.gui.layers.game;
+package fr.tanchou.pvz.guiJavaFx.layers.game;
 
 import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
 import fr.tanchou.pvz.game.rowComponent.Row;
-import fr.tanchou.pvz.gui.props.EntityView;
+import fr.tanchou.pvz.guiJavaFx.props.EntityView;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public class ZombieLayer extends Pane {

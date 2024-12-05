@@ -73,18 +73,23 @@ public class Row {
 
         listBullets.removeIf(Bullet::isDead);
 
-        listPlantToAdd.removeIf(Entity::isDead);
+        for (PlantCase plantCase : plantCasesArray) {
+            if (!plantCase.isEmpty() && plantCase.getPlant().isDead()) {
+                plantCase.removePlant();
+            }
+        }
     }
 
     private void updateMawer() {
-        if (haveZombie && mower != null) {
-            if (mower.collideWith(firstZombie)) {
-                mower = null;
-                for (Zombie zombie : listZombie) {
-                    zombie.takeDamage(1000);
-                }
-                System.err.println("Mower");
+        if (haveZombie && mower != null && mower.collideWith(firstZombie)) {
+
+            mower = null;
+
+            for (Zombie zombie : listZombie) {
+
+                zombie.takeDamage(1000);
             }
+            System.err.println("Mower of row " + rowIndex);
         }
     }
 
@@ -93,11 +98,6 @@ public class Row {
         this.haveZombie = !listZombie.isEmpty();
 
         for (Zombie zombie : listZombie) {
-            if (zombie.getHealthPoint() <= 0) {
-                zombie.setHeating(false);
-                System.out.println("Zombie mort");
-                continue;
-            }
 
             zombie.move();
             zombie.tick();
@@ -113,36 +113,27 @@ public class Row {
                 firstZombie = zombie;
             }
 
-            for (PlantCase c : plantCasesArray) {
-                if (c.getPlant() != null) {
-                    Plant plant = c.getPlant();
-                    int attackResult = 1000;
-                    if (zombie.collideWith(plant)) {
-                        attackResult = zombie.attack(plant);
-                        zombie.setHeating(true);
+            PlantCase plantCase = plantCasesArray[(int) zombie.getX()];
+            if (!plantCase.isEmpty()) {
+                Plant plant = plantCase.getPlant();
 
-                    }
-                    if (attackResult <= 0) {
-                        zombie.setHeating(false);
-                        plantCasesArray[(int) Math.round(plant.getX())].removePlant();
-                        System.err.println("Zombie Kill " + plant.getName());
-                    }
+                if (zombie.collideWith(plant)) {
+                    zombie.attack(plant);
+                    zombie.setHeating(true);
                 }
+
+            }else {
+                zombie.setHeating(false);
             }
         }
     }
 
     private void updatePlants() {
 
-        for (PlantCase c : plantCasesArray) {
-            if (c.getPlant() != null) {
-                if (c.getPlant().getHealthPoint() <= 0) {
-                    c.getPlant().setDead(true); // Retire la plante morte de la case
-                    System.out.println("Plant mort : x = " + c.getX() + " y = " + c.getY());
-                    continue;
-                }
+        for (PlantCase plantCase : plantCasesArray) {
+            if (!plantCase.isEmpty()) {
 
-                if (c.getPlant() instanceof ObjectGeneratorsPlant plant) {
+                if (plantCase.getPlant() instanceof ObjectGeneratorsPlant plant) {
 
                     if (!(plant instanceof SunFlower)) {
                         plant.setNeedToCreate(this.haveZombie && firstZombie.getX() > plant.getX() && firstZombie.getX() < 9.0); // défini si la plante dois tiré
