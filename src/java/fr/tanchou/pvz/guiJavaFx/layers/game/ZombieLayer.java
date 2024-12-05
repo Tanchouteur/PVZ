@@ -3,6 +3,7 @@ package fr.tanchou.pvz.guiJavaFx.layers.game;
 import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
 import fr.tanchou.pvz.game.rowComponent.Row;
 import fr.tanchou.pvz.guiJavaFx.props.EntityView;
+import fr.tanchou.pvz.guiJavaFx.props.ZombieView;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
@@ -50,15 +51,15 @@ public class ZombieLayer extends Pane {
                 for (Node node : this.getChildren()) {
                     EntityView entityView = (EntityView) node;
                     if (entityView.getEntity().equals(zombie)) {
-                        entityView.updateZombiePosition();
+                        entityView.update();
                         found = true;
                         break;
                     }
                 }
 
                 if (!found) {
-                    EntityView entityView = new EntityView(zombie, 275, 330);
-                    entityView.updateZombiePosition();
+                    ZombieView entityView = new ZombieView(zombie, 275, 330);
+                    entityView.update();
                     this.getChildren().add(entityView);
                 }
             }

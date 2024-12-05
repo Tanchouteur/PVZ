@@ -8,46 +8,23 @@ import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class EntityView extends ImageView {
-    private final Entity entity;
-    private Image heatingAnimation;
-    private final Image walkAnimation;
-    private boolean heating = false;
+public abstract class EntityView extends ImageView {
+    private Entity entity;
 
-    public EntityView(Entity entity, double width, double height) {
-        if (entity == null) {
-            throw new IllegalArgumentException("entity cannot be null");
-        }
-        Image image;
-        if (entity instanceof Zombie){
-            image = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/zombies/"+entity.getName()+"Zombie/"+ entity.getName() +"Zombie-walk.gif")));
-        }else {
-            image = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/plants/"+ entity.getName() +".gif")));
-        }
-        this.walkAnimation = image;
+    public EntityView(Image image, double width, double height) {
         super(image);
-
-        this.entity = entity;
 
         this.setFitWidth(width);
         this.setFitHeight(height);
-
-        //this.heatingAnimation = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/zombies/"+entity.getName()+"/ZombieAttack.gif")));
     }
 
-    public void updateZombiePosition() {
-        this.setLayoutX((entity.getX()*168) - 100);
-        this.setLayoutY((entity.getY()*178) - 155);
-        /*if ((entity instanceof Zombie zombie && zombie.heating())&&!this.heating){
-            this.heating = true;
-            this.setImage(heatingAnimation);
-        }else if ((entity instanceof Zombie zombie && !zombie.heating())&&this.heating){
-            this.heating = false;
-            this.setImage(walkAnimation);
-        }*/
-    }
+    public abstract void update();
 
     public Entity getEntity() {
         return entity;
+    }
+
+    public void setEntity(Entity entity) {
+        this.entity = entity;
     }
 }

@@ -41,12 +41,12 @@ public abstract class Zombie extends Entity {
 
     public void move() {
         if (!heating) {
-            int calculatedSpeed = this.speed;
+            double calculatedSpeed = this.speed;
             if (effect != null) {
                 effect.tick();
-                calculatedSpeed = (int) (calculatedSpeed * effect.getSpeedToApply());
+                calculatedSpeed = calculatedSpeed * effect.getSpeedToApply();
             }
-            this.setX(this.getX() - calculatedSpeed * 0.02);
+            this.setX(this.getX() - (calculatedSpeed * 0.02));
         }
     }
 
@@ -76,5 +76,13 @@ public abstract class Zombie extends Entity {
     @Override
     public String toString() {
         return this.getName() + "{ hp=" + this.getHealthPoint() + ", position="+this.getX()+" effect = "+ this.effect +" heating ="+heating+" }";
+    }
+
+    public boolean heating() {
+        return heating;
+    }
+
+    public Object getEffect() {
+        return effect;
     }
 }

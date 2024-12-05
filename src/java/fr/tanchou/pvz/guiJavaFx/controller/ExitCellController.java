@@ -9,7 +9,7 @@ public class ExitCellController implements EventHandler {
     private final Player player;
     private final CellView cellView;
 
-    public ExitCellController(Player player, CellView cellView){
+    public ExitCellController(Player player, CellView cellView) {
         this.player = player;
         this.cellView = cellView;
     }
@@ -17,9 +17,11 @@ public class ExitCellController implements EventHandler {
     @Override
     public void handle(Event event) {
         if (player.getActivPlantCard() != null && cellView.getPlantCase().isEmpty()) {
-            cellView.getChildren().clear();
+
+            cellView.getChildren().removeIf(node -> node.getId() != null && node.getId().equals("hoverPreview"));
             cellView.setHovered(false);
         }
-        //System.err.println("cell exited x = " + cellView.getPlantCase().getX() + " - y = " + cellView.getPlantCase().getY());
+        // déboguer
+        // System.err.println("cell exited x = " + cellView.getPlantCase().getX() + " - y = " + cellView.getPlantCase().getY());
     }
 }
