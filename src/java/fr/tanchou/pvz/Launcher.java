@@ -6,7 +6,7 @@ public class Launcher {
     public static void main(String[] args) {
 
         boolean useGraphicalUI = args.length > 0 && args[0].equalsIgnoreCase("gui");
-        PVZ pvz = new PVZ();
+        PVZ pvz = new PVZ(new Player("Louis"));
 
         if (useGraphicalUI) {
             PVZGraphic.launchView(pvz);

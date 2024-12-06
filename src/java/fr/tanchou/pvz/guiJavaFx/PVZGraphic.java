@@ -19,13 +19,12 @@ public class PVZGraphic extends Application {
     public static void launchView(PVZ pvz) {
         pvzInstance = pvz;
         launch();
-        AssetsLoader assetsLoader = new AssetsLoader();
     }
 
     @Override
     public void start(Stage primaryStage) {
         BorderPane root = new BorderPane();
-
+        AssetsLoader assetsLoader = new AssetsLoader(pvzInstance.getPlayer());
         // Menu principal
         Pane menu = new Pane();
         menu.setPrefSize(1920, 1080);
@@ -58,11 +57,12 @@ public class PVZGraphic extends Application {
         //primaryStage.setMaximized(false);
 
         primaryStage.show();
+
     }
 
     private void startGame(Stage primaryStage) {
         // Passer à l'écran de jeu
-        pvzInstance.startGame(true);
+        pvzInstance.startGame(false);
         PartieControllerView controllerView = new PartieControllerView(pvzInstance);
         controllerView.start(primaryStage);
     }

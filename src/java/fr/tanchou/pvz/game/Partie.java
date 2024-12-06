@@ -1,9 +1,6 @@
 package fr.tanchou.pvz.game;
 
 import fr.tanchou.pvz.Player;
-import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.FreezePeaShooter;
-import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.PeaShooter;
-import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
 import fr.tanchou.pvz.game.rowComponent.Row;
 import fr.tanchou.pvz.game.spawn.ZombieSpawner;
 
@@ -35,7 +32,7 @@ public class Partie {
         /*rows[1].placePlantInCase(new FreezePeaShooter(0,1));
         rows[2].placePlantInCase(new SunFlower(1,2));*/
 
-        /*zombieSpawner.spawnZombie(4);*/
+        zombieSpawner.spawnZombie(4);
     }
 
     public Row[] getRows() {
@@ -51,6 +48,7 @@ public class Partie {
     }
 
     public void update() {
+
         if (consoleLog) {
             consoleLog();
         }

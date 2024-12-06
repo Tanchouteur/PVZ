@@ -5,7 +5,7 @@ import fr.tanchou.pvz.abstractEnity.Entity;
 public abstract class Plant extends Entity {
     private final int cost;
 
-    protected Plant(int healthPoint, double colliderRadius, double x, int y,String name, int cost) {
+    protected Plant(int healthPoint, double colliderRadius, int x, int y,String name, int cost) {
         super(healthPoint,colliderRadius,x,y, name);
         this.cost = cost;
     }

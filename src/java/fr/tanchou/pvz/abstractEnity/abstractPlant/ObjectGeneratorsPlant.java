@@ -9,7 +9,7 @@ public abstract class ObjectGeneratorsPlant extends Plant {
     private final ObjectOfPlant objectOfPlant;
     private boolean needToCreate;
 
-    protected ObjectGeneratorsPlant(int healthPoint, double colliderRadius, double x, int y,String name, int cost, int fireRate, ObjectOfPlant objectOfPlant) {
+    protected ObjectGeneratorsPlant(int healthPoint, double colliderRadius, int x, int y,String name, int cost, int fireRate, ObjectOfPlant objectOfPlant) {
         super(healthPoint,colliderRadius,x,y, name, cost);
         this.fireRate = fireRate;
         this.timeSinceLastFire = fireRate/2;

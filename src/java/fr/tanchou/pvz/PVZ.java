@@ -11,8 +11,8 @@ public class PVZ {
     private PartieController gameController;
     private SunManager sunManager;
 
-    public PVZ() {
-        this.player = new Player("Louis");
+    public PVZ(Player player) {
+        this.player = player;
     }
 
     public void createPartie(boolean consoleLog){
@@ -26,7 +26,7 @@ public class PVZ {
 
     public void startGame(boolean consoleLog) {
         this.createPartie(consoleLog);
-        gameController.startGame(consoleLog);
+        gameController.startGame();
     }
 
     public void stopGame() {
@@ -48,5 +48,9 @@ public class PVZ {
 
     public SunManager getSunManager() {
         return sunManager;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

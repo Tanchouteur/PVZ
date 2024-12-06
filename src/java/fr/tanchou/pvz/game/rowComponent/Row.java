@@ -10,7 +10,6 @@ import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
 import fr.tanchou.pvz.game.SunManager;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Row {
@@ -19,7 +18,7 @@ public class Row {
     private boolean haveZombie = false;
     private Zombie firstZombie;
 
-    private final PlantCase[] plantCasesArray = new PlantCase[9];
+    private final PlantCase[] plantCasesArray;
     private final LinkedList<Bullet> listBullets = new LinkedList<>();
     private final LinkedList<Zombie> listZombie = new LinkedList<>();
 
@@ -34,7 +33,7 @@ public class Row {
         this.rowIndex = rowIndex;
         this.mower = new Mower(rowIndex);
         this.sunManager = sunManager;
-
+        plantCasesArray = new PlantCase[9];
         // Initialiser les cases avec des positions fixes
         for (int i = 0; i < 9; i++) {
             plantCasesArray[i] = new PlantCase(i, rowIndex);
@@ -42,7 +41,6 @@ public class Row {
     }
 
     public void tick() {
-
         updateChange();
         updateZombies();
         updatePlants();
@@ -66,6 +64,7 @@ public class Row {
         if (!listPlantToAdd.isEmpty()) {
 
             for (Plant plant : listPlantToAdd) {
+
                 plantCasesArray[(int) plant.getX()].placePlant(plant);
             }
             listPlantToAdd.clear();
@@ -93,17 +92,17 @@ public class Row {
         if (haveZombie && mower != null && mower.collideWith(firstZombie)) {
 
             mower = null;
-
+            System.err.println("Mower ");
             for (Zombie zombie : listZombie) {
 
                 zombie.takeDamage(1000);
+
             }
-            System.err.println("Mower of row " + rowIndex);
+            System.err.println("Mower end ");
         }
     }
 
     private void updateZombies() {
-
         for (Zombie zombie : listZombie) {
 
             zombie.move();
@@ -113,7 +112,16 @@ public class Row {
                 this.defeat = true;
             }
 
-            PlantCase plantCase = plantCasesArray[(int) zombie.getX()];
+            //wich case choose :
+
+            int index = (int) zombie.getX();
+
+            if ((int) zombie.getX() >8){
+                index = 8;
+            }else if ((int) zombie.getX() < 0){
+                index = 0;
+            }
+            PlantCase plantCase = plantCasesArray[index];
             if (!plantCase.isEmpty()) {
                 Plant plant = plantCase.getPlant();
 
@@ -217,8 +225,6 @@ public class Row {
 
     public void placePlantInCase(Plant plant) {
         listPlantToAdd.add(plant);
-
-        System.out.println("Plant place : x = " + plant.getX() + " y = " + plant.getY());
     }
 
     @Override

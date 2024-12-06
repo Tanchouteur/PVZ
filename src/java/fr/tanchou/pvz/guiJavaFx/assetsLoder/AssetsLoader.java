@@ -1,9 +1,15 @@
 package fr.tanchou.pvz.guiJavaFx.assetsLoder;
 
+import fr.tanchou.pvz.Player;
 import fr.tanchou.pvz.abstractEnity.Entity;
 import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
 import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
+import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
 import fr.tanchou.pvz.entityRealisation.plants.passive.WallNut;
+import fr.tanchou.pvz.entityRealisation.zombie.BucketHeadZombie;
+import fr.tanchou.pvz.entityRealisation.zombie.ConeHeadZombie;
+import fr.tanchou.pvz.entityRealisation.zombie.NormalZombie;
+import fr.tanchou.pvz.entityRealisation.zombie.ZombieCard;
 import javafx.scene.image.Image;
 
 import java.util.HashMap;
@@ -14,16 +20,30 @@ public class AssetsLoader {
 
     private final Map<String,Map<String, Image>> assetsLoaded = new HashMap<>();
 
-    public AssetsLoader(){
+    public AssetsLoader(Player player){
         loadAssetsItems();
         loadAssetsBullet();
+
+        for (PlantCard plantCard : player.getPlantCardsArray()){
+            loadAssetsEntity(plantCard.getPlant());
+        }
+
+        ZombieCard[] zombiesCardArray = new ZombieCard[]{
+                new ZombieCard(new NormalZombie(11.0,0), 40),
+                new ZombieCard(new ConeHeadZombie(11.0,0), 25),
+                new ZombieCard(new BucketHeadZombie(11.0,0), 10)
+        };
+
+        for (ZombieCard zombieCard : zombiesCardArray){
+            loadAssetsEntity(zombieCard.getZombie());
+        }
     }
 
     public Map<String, Image> getAssetEntity(Entity entity){
         if (assetsLoaded.containsKey(entity.getName())){
             return assetsLoaded.get(entity.getName());
         }else {
-            return loadAssetsEntity(entity.getName(), entity);
+            return loadAssetsEntity(entity);
         }
     }
 
@@ -35,7 +55,7 @@ public class AssetsLoader {
         return assetsLoaded.get(name);
     }
 
-    private Map<String, Image> loadAssetsEntity(String name, Entity entity){
+    private Map<String, Image> loadAssetsEntity(Entity entity){
         HashMap<String, Image> assets = new HashMap<>();
 
         if (entity instanceof Plant){
@@ -54,7 +74,7 @@ public class AssetsLoader {
             assets.put("Zombie-heating", image);
         }
 
-        assetsLoaded.put(name, assets);
+        assetsLoaded.put(entity.getName(), assets);
         return assets;
     }
 

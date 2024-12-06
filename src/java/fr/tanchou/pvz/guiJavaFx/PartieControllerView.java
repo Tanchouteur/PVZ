@@ -11,14 +11,17 @@ public class PartieControllerView {
     private  GameBoard gameBoard;
     private AnimationTimer graphicGameLoop;
 
+    private Stage primaryStage;
+
     public PartieControllerView(PVZ gameInstance) {
         this.gameInstance = gameInstance;
     }
 
     public void start(Stage primaryStage) {
+        this.primaryStage = primaryStage;
         int width = 1920;
         int height = 1080;
-        AssetsLoader assetsLoader = new AssetsLoader();
+        AssetsLoader assetsLoader = new AssetsLoader(gameInstance.getPlayer());
         gameBoard = new GameBoard(width, height, gameInstance.getPartie(), assetsLoader);
         Scene scene = new Scene(gameBoard, width, height);
 
@@ -26,7 +29,7 @@ public class PartieControllerView {
 
         primaryStage.setScene(scene);
         primaryStage.show();
-        primaryStage.setOnCloseRequest(event -> stop());
+        primaryStage.setOnCloseRequest(event -> stop("Vous avez quitté la partie"));
         primaryStage.setResizable(false);
         primaryStage.setMaximized(true);
         startViewLoop();
@@ -45,11 +48,18 @@ public class PartieControllerView {
     //uniquement des observeur on ne touche pas au model on le regarde
     private void updateView() {
         gameBoard.update();
+        if (gameInstance.getPartie().isDefeated()) {
+            stop("Vous avez perdu !");
+        } else if (gameInstance.getPartie().isVictory()) {
+            stop("Vous avez gagné !");
+        }
     }
 
-    public void stop() {
+    public void stop(String message) {
         if (graphicGameLoop != null) {
             graphicGameLoop.stop();
+            primaryStage.setScene(new Scene(new EndScene(message)));
+            primaryStage.show();
         }
     }
 }
