@@ -123,10 +123,8 @@ public class ZombieSpawner {
 
         ZombieCard zombieCard = getRandomZombieCard();
 
-        System.out.println(zombieCard.getZombie().getName() + " ca va etre placer : " + rowIndex);
+        assert zombieCard != null;
         partie.getOneRow(rowIndex).addZombie(zombieCard.getZombie().clone(9.0, rowIndex));
-
-        System.out.println(zombieCard.getZombie().getName() + " Spawned in row: " + rowIndex);
     }
 
     public void spawnZombie(int rowIndex) {
@@ -138,7 +136,6 @@ public class ZombieSpawner {
         zombie.setHeating(true);
         partie.getOneRow(rowIndex).addZombie(zombie);
 
-        System.out.println(zombieCard.getZombie().getName() + " Spawned in row: " + rowIndex);
     }
 
     private ZombieCard getRandomZombieCard() {
@@ -148,17 +145,13 @@ public class ZombieSpawner {
         int maxWeight = 75;
 
         int cumulativeWeight = 0;
-        System.out.println("get Random zc total tick : " + totalTick + " maxWeight : " + maxWeight);
         int reach = rand.nextInt(maxWeight);
-        System.out.println("rand zc reache total tick : " + totalTick);
         for (ZombieCard zombieCard : zombiesCardArray){
             cumulativeWeight += zombieCard.getWeight();
             if (cumulativeWeight > reach){
-                System.out.println("return zm card : " + zombieCard.getZombie().getName());
                 return zombieCard;
             }
         }
-        System.out.println("rand zc reache total tick : " + totalTick);
 
         System.err.println("\n Probleme avec les poids de zombie \n max " + maxWeight + " reach " + reach + " cumulative " + cumulativeWeight);
         return null;

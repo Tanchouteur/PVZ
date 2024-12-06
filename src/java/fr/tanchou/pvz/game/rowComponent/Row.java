@@ -92,13 +92,11 @@ public class Row {
         if (haveZombie && mower != null && mower.collideWith(firstZombie)) {
 
             mower = null;
-            System.err.println("Mower ");
             for (Zombie zombie : listZombie) {
 
                 zombie.takeDamage(1000);
 
             }
-            System.err.println("Mower end ");
         }
     }
 
@@ -156,9 +154,9 @@ public class Row {
                             this.addBullet(bullet);
                         } else if (object instanceof Sun sun) {
                             sunManager.addSun(sun);
-                            System.err.println("Sun create and add");
+                            //System.err.println("Sun create and add");
                         }
-                        System.err.println(plant.getName()+" create");
+                        //System.err.println(plant.getName()+" create");
                     }
                 }
             }
