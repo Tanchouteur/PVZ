@@ -10,10 +10,10 @@ import javafx.scene.image.ImageView;
 
 public abstract class EntityView extends ImageView {
     private Entity entity;
+    private int lastHealth;
 
     public EntityView(Image image, double width, double height) {
         super(image);
-
         this.setFitWidth(width);
         this.setFitHeight(height);
     }
@@ -26,5 +26,13 @@ public abstract class EntityView extends ImageView {
 
     public void setEntity(Entity entity) {
         this.entity = entity;
+    }
+
+    public int getLastHealth() {
+        return lastHealth;
+    }
+
+    public void setLastHealth(int lastHealth) {
+        this.lastHealth = lastHealth;
     }
 }

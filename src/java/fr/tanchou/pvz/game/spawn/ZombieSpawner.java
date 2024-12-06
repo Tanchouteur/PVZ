@@ -157,14 +157,12 @@ public class ZombieSpawner {
 
     public int calculateWeights() {
         int totalWeight = 0; // Somme des poids pour la normalisation
-        double k = Math.log(2) / 900; // Contrôle la vitesse de transition
-        double factor = Math.exp(-k * totalTick); // Facteur exponentiel basé sur totalTick
 
         // Calcul des nouveaux poids
         int[] newWeights = new int[zombiesCardArray.length];
-        newWeights[0] = (int) Math.round(zombiesCardArray[0].getWeight() * factor);
-        newWeights[1] = (int) Math.round(zombiesCardArray[1].getWeight() * (1 - factor));
-        newWeights[2] = (int) Math.round(zombiesCardArray[2].getWeight() * (1 - factor));
+        newWeights[0] = (int) Math.round(zombiesCardArray[0].getWeight() * (totalTick / 140.0));
+        newWeights[1] = (int) Math.round(zombiesCardArray[1].getWeight() * (totalTick / 120.0));
+        newWeights[2] = (int) Math.round(zombiesCardArray[2].getWeight() * (totalTick / 100.0));
 
         // Calcul du poids total
         for (int weight : newWeights) {
@@ -173,8 +171,7 @@ public class ZombieSpawner {
 
         // Normalisation pour éviter la perte de précision
         for (int i = 0; i < zombiesCardArray.length; i++) {
-            int normalizedWeight = (int) Math.round((newWeights[i] * 100.0) / totalWeight); // Poids en pourcentage
-            zombiesCardArray[i].setWeight(normalizedWeight);
+            zombiesCardArray[i].setWeight(newWeights[i]);
         }
 
         return totalWeight; // Facultatif, si tu n'en as pas besoin, tu peux supprimer ce retour

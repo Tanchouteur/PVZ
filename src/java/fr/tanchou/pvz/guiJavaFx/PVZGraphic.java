@@ -53,7 +53,7 @@ public class PVZGraphic extends Application {
         Scene scene = new Scene(root, 1920, 1080);
         primaryStage.setTitle("Plants vs Zombies");
         primaryStage.setScene(scene);
-        primaryStage.setMaximized(false);
+        //primaryStage.setMaximized(false);
 
         primaryStage.show();
 
