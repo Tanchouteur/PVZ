@@ -17,6 +17,8 @@ public class ZombieView extends EntityView {
         this.setEntity(entity);
         this.walkAnimation = image;
         this.heatingAnimation = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/zombies/"+entity.getName()+"Zombie/"+ entity.getName() +"Zombie-heating.gif")));
+
+        this.setLastHealth(this.getEntity().getHealthPoint());
     }
 
     @Override

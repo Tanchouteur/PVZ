@@ -2,9 +2,6 @@ package fr.tanchou.pvz.guiJavaFx.props;
 
 import fr.tanchou.pvz.abstractEnity.Entity;
 
-import java.util.Objects;
-
-import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
