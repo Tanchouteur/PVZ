@@ -131,7 +131,7 @@ public class ZombieSpawner {
 
         //ZombieCard zombieCard = getRandomZombieCard();
 
-        ZombieCard zombieCard = new ZombieCard(new BucketHeadZombie(22.0,0), 40);
+        ZombieCard zombieCard = new ZombieCard(new ConeHeadZombie(22.0,0), 40);
         Zombie zombie = zombieCard.getZombie().clone(10.0, rowIndex);
         zombie.setHeating(true);
         partie.getOneRow(rowIndex).addZombie(zombie);

@@ -20,7 +20,7 @@ public abstract class EntityView extends ImageView {
     public void update(){
         individualUpdate();
         if (getLastHealth()>getEntity().getHealthPoint()){
-            this.hitEffect = 10;
+            this.hitEffect = 20;
             this.setLastHealth(getEntity().getHealthPoint());
         }
 

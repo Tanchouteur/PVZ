@@ -6,11 +6,9 @@ import fr.tanchou.pvz.guiJavaFx.assetsLoder.AssetsLoader;
 import fr.tanchou.pvz.guiJavaFx.props.EntityView;
 import fr.tanchou.pvz.guiJavaFx.props.ZombieView;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
 import java.util.LinkedList;
-import java.util.Map;
 
 public class ZombieLayer extends Pane {
     private final Row[] rows;

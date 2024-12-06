@@ -1,6 +1,7 @@
 package fr.tanchou.pvz.game;
 
 import fr.tanchou.pvz.Player;
+import fr.tanchou.pvz.entityRealisation.plants.passive.WallNut;
 import fr.tanchou.pvz.game.rowComponent.Row;
 import fr.tanchou.pvz.game.spawn.ZombieSpawner;
 
@@ -28,11 +29,15 @@ public class Partie {
         }
 
         zombieSpawner = new ZombieSpawner(this);
+        /*WallNut wallNut = new WallNut(0, 1);
+        wallNut.takeDamage(170);
+        rows[1].placePlantInCase(wallNut);*/
+
 
         /*rows[1].placePlantInCase(new FreezePeaShooter(0,1));
         rows[2].placePlantInCase(new SunFlower(1,2));*/
 
-        zombieSpawner.spawnZombie(4);
+        /*zombieSpawner.spawnZombie(4);*/
     }
 
     public Row[] getRows() {

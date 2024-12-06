@@ -22,8 +22,8 @@ public class SunView extends ImageView {
         this.setFitWidth(100);
         this.setFitHeight(100);
 
-        this.setLayoutX((sun.getX() * 100)+280);
-        this.setLayoutY(sun.getY()*100);
+        this.setLayoutX((this.sun.getX()*168) + 250);
+        this.setLayoutY((this.sun.getY()*178) - 130);
 
         this.setMouseTransparent(false);
         this.toFront();

@@ -30,8 +30,8 @@ public class Player {
 
         this.setPlantCards(new PlantCard[]{
                 new PlantCard(60, new SunFlower(-1, -2), this.sold),
-                new PlantCard(230, new PeaShooter(-1, -1), this.sold),
-                new PlantCard(290, new FreezePeaShooter(-1, -2), this.sold),
+                new PlantCard(180, new PeaShooter(-1, -1), this.sold),
+                new PlantCard(230, new FreezePeaShooter(-1, -2), this.sold),
                 new PlantCard(340, new DoublePeaShooter(-1, -2), this.sold),
                 new PlantCard(340, new WallNut(-1, -2), this.sold)
         });

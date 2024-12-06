@@ -32,10 +32,11 @@ public class EntityLayer extends Pane {
         mawerLayer.setMouseTransparent(true);
         plantLayer.setMouseTransparent(false);
 
+        this.getChildren().add(mawerLayer);
         this.getChildren().add(plantLayer);
         this.getChildren().add(zombieLayer);
         this.getChildren().add(bulletLayer);
-        this.getChildren().add(mawerLayer);
+
     }
 
     public void update() {

@@ -4,60 +4,78 @@ import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import java.util.Objects;
 
-public class PlantCardView extends ImageView {
+public class PlantCardView extends StackPane { // StackPane permet de superposer facilement les éléments
     private final PlantCard plantCard;
+    private final ImageView cardImageView;
+    private final Rectangle cooldownBar;
     private boolean canBuy = false;
 
-    public PlantCardView(PlantCard plantCard, int indexOfPlantCard){
+    public PlantCardView(PlantCard plantCard, int indexOfPlantCard) {
+        this.plantCard = plantCard;
+
+        // Image de la carte
         Image image = new Image(Objects.requireNonNull(plantCard.getClass().getResourceAsStream("/assets/cards/" + plantCard.getPlant().getName() + "Card.png")));
-        super(image);
-        this.plantCard=plantCard;
+        this.cardImageView = new ImageView(image);
+        this.cardImageView.setFitWidth(160);
+        this.cardImageView.setFitHeight(100);
+
+        // Barre de cooldown
+        this.cooldownBar = new Rectangle(160, 100); // Même taille que la carte
+        this.cooldownBar.setFill(Color.color(0, 0, 0, 0.5)); // Semi-transparent
+        this.cooldownBar.setHeight(0); // Commence invisible
+        this.cooldownBar.setMouseTransparent(true); // Ne bloque pas les clics
+
+        // Ajout des éléments au StackPane
+        this.getChildren().addAll(cardImageView, cooldownBar);
+
+        // Positionnement global
         this.setCursor(Cursor.CROSSHAIR);
-
-        this.setFitWidth(160);
-        this.setFitHeight(100);
-
         this.setLayoutX(20);
-        this.setLayoutY(indexOfPlantCard*110 + 100);
-
+        this.setLayoutY(indexOfPlantCard * 110 + 100);
         this.setDisable(true);
         this.setMouseTransparent(false);
         this.setOpacity(0.7);
     }
 
-    public void update(){
-        if (plantCard.canBuy() && !this.canBuy){
+    public void update() {
+        // Gestion de l'achat possible
+        if (plantCard.canBuy() && !this.canBuy) {
             this.setDisable(false);
             this.setCursor(Cursor.HAND);
-
             this.canBuy = true;
-
             this.setOpacity(1);
-
-        }else if (!plantCard.canBuy() && this.canBuy){
+        } else if (!plantCard.canBuy() && this.canBuy) {
             this.setDisable(true);
             this.setCursor(Cursor.CROSSHAIR);
-
             this.canBuy = false;
-
             this.setOpacity(0.7);
         }
 
-        if (plantCard.getCooldown() > 0){
-            //en fonction du temps restant avant de pouvoir acheter la plante, on fait un bar qui se rempli sur la card comme dans le vrais plante versus zombie
-            //Le cooldown est fixe (valeur de référence)
-            //On peut faire un calcul pour avoir une barre qui se rempli en fonction du temps restant
-            //peut etre utiliser un object visuel qui se superpose a la card et se rogne au fur a mesure
+        // Gestion du cooldown
+        if (plantCard.getLastSelected() > 0) {
+            double totalCooldown = plantCard.getCooldown(); // Exemple : cooldown de référence
+            double cooldownRemaining = plantCard.getLastSelected();
 
-        }else if (this.getStyle() != null){
-            this.setStyle(null);
+            // Calcul de la hauteur de la barre
+            double percentage = cooldownRemaining / totalCooldown;
+            cooldownBar.setHeight(100 * percentage); // Ajuste la hauteur
+
+            cooldownBar.setTranslateY((100 * (1 - percentage)) / 2); // Centre la barre
+
+            // Couleur ou style pour visualiser le cooldown
+            cooldownBar.setFill(Color.color(0.1, 0.1, 0.1, 0.5 + (0.5 * (1 - percentage))));
+        } else {
+            cooldownBar.setHeight(0); // Réinitialise la barre quand il n'y a plus de cooldown
         }
     }
 
-    public PlantCard getPlantCard(){
+    public PlantCard getPlantCard() {
         return plantCard;
     }
 }

@@ -1,6 +1,7 @@
 package fr.tanchou.pvz.abstractEnity;
 
 public abstract class Entity {
+    private int originalHealth;
     private int healthPoint;
     private final Collider collider;
     private double x;
@@ -10,6 +11,7 @@ public abstract class Entity {
 
     public Entity(int healthPoint, double colliderRadius, double x, int y, String name) {
         this.healthPoint = healthPoint;
+        this.originalHealth = healthPoint;
         this.collider = new Collider(colliderRadius);
         this.x = x;
         this.y = y;
@@ -64,5 +66,13 @@ public abstract class Entity {
             this.isDead = true;
         }
         return isDead;
+    }
+
+    public int getOriginalHealth() {
+        return originalHealth;
+    }
+
+    public void setOriginalHealth(int originalHealth) {
+        this.originalHealth = originalHealth;
     }
 }
