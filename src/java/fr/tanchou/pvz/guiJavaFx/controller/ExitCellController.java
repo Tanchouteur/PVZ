@@ -4,6 +4,7 @@ import fr.tanchou.pvz.Player;
 import fr.tanchou.pvz.guiJavaFx.props.CellView;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 
 public class ExitCellController implements EventHandler {
     private final Player player;
@@ -20,7 +21,7 @@ public class ExitCellController implements EventHandler {
 
             cellView.getChildren().removeIf(node -> node.getId() != null && node.getId().equals("hoverPreview"));
             cellView.setHovered(false);
-            cellView.setCursor(javafx.scene.Cursor.DEFAULT);
+            cellView.setCursor(Cursor.HAND);
         }
         // déboguer
         // System.err.println("cell exited x = " + cellView.getPlantCase().getX() + " - y = " + cellView.getPlantCase().getY());

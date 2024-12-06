@@ -25,13 +25,13 @@ public class Player {
 
     public Player(String name) {
         this.name = name;
-        this.sold = 300;
+        this.sold = 50;
         this.plantCards = new PlantCard[5];
 
         this.setPlantCards(new PlantCard[]{
                 new PlantCard(60, new SunFlower(-1, -2), this.sold),
-                new PlantCard(180, new PeaShooter(-1, -1), this.sold),
-                new PlantCard(230, new FreezePeaShooter(-1, -2), this.sold),
+                new PlantCard(160, new PeaShooter(-1, -1), this.sold),
+                new PlantCard(210, new FreezePeaShooter(-1, -2), this.sold),
                 new PlantCard(340, new DoublePeaShooter(-1, -2), this.sold),
                 new PlantCard(340, new WallNut(-1, -2), this.sold)
         });
@@ -46,7 +46,7 @@ public class Player {
 
     public void collectSun() {
         lastCollectSun++;
-        if (lastCollectSun > 54 && !sunManager.getSunLinkedList().isEmpty()) {
+        if (lastCollectSun > 35 && !sunManager.getSunLinkedList().isEmpty()) {
             for (Sun sun : sunManager.getSunLinkedList()){
                 sold += sun.getValue();
                 sunManager.removeSun(sun);

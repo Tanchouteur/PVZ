@@ -4,6 +4,7 @@ import fr.tanchou.pvz.Player;
 import fr.tanchou.pvz.guiJavaFx.props.CellView;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -36,7 +37,7 @@ public class HoverCellController implements EventHandler {
             cellView.getChildren().add(imageView);
             cellView.setHovered(true);
 
-            cellView.setCursor(javafx.scene.Cursor.HAND);
+            cellView.setCursor(Cursor.DEFAULT);
         }
     }
 }

@@ -13,9 +13,11 @@ public class GameInfoLayer extends Pane {
     private final Label waveLabel;
     private final Label zombiesLabel;
 
+    private final ZombieSpawner zombieSpawner;
+
     public GameInfoLayer(ZombieSpawner zombieSpawner) {
         super();
-
+        this.zombieSpawner = zombieSpawner;
         // Dimensions et positionnement du panneau
         this.setPrefHeight(50); // Hauteur de la barre
         this.setPrefWidth(600); // Largeur ajustée (centrée plus tard par le parent)
@@ -32,9 +34,9 @@ public class GameInfoLayer extends Pane {
     }
 
     // Méthode pour mettre à jour les informations dynamiques
-    public void update(ZombieSpawner zombieSpawner) {
+    public void update() {
         stateLabel.setText("State: " + zombieSpawner.getCurrentState());
-        tickLabel.setText("Ticks: " + zombieSpawner.getTickCount());
+        tickLabel.setText(" Ticks: " + zombieSpawner.getTickCount() + " / " + zombieSpawner.getTotalTick());
         waveLabel.setText("Wave: " + (zombieSpawner.isInWave() ? "Active" : "Inactive"));
         zombiesLabel.setText("Zombies Left: " + zombieSpawner.getZombiesToSpawn());
     }

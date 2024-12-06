@@ -43,6 +43,7 @@ public class GameBoard extends Pane {
     }
 
     public void update() {
+        gameInfoLayer.update();
         playerLayer.update();
         entityLayer.update();
     }

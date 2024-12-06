@@ -28,14 +28,14 @@ public class ZombieSpawner {
         this.partie = partie;
         this.rand = new Random();
         this.tickCount = 0;
-        this.spawnRate = 70;
+        this.spawnRate = 80;
         this.inWave = false;
         this.zombiesToSpawn = 0;
 
         this.zombiesCardArray = new ZombieCard[]{
                 new ZombieCard(new NormalZombie(11.0,0), 40),
-                new ZombieCard(new ConeHeadZombie(11.0,0), 25),
-                new ZombieCard(new BucketHeadZombie(11.0,0), 10)
+                new ZombieCard(new ConeHeadZombie(11.0,0), 15),
+                new ZombieCard(new BucketHeadZombie(11.0,0), 5)
         };
 
         this.currentState = State.INIT;
@@ -44,6 +44,10 @@ public class ZombieSpawner {
     public void tick() {
         tickCount++;
         totalTick++;
+
+        if (totalTick % 50 == 0) {
+            spawnRate -= 2;
+        }
 
         switch (currentState) {
             case INIT -> handleInitPhase();
@@ -70,14 +74,14 @@ public class ZombieSpawner {
     }
 
     private void handleCrescendoPhase() {
-        if (tickCount % spawnRate == 0) {
+        if (tickCount % (spawnRate + rand.nextInt(10)) == 0) {
+            System.out.println("Zombie demandé ");
             spawnZombie();
-            spawnRate = Math.max(20, spawnRate - 1);  // Augmenter progressivement la vitesse de spawn
         }
 
         if (tickCount > 600) {
             currentState = State.WAVE1;
-            zombiesToSpawn = 20;
+            zombiesToSpawn = 15 + rand.nextInt(11);
             tickCount = 0;
             System.out.println("first Wave commence");
             inWave = true;
@@ -98,7 +102,7 @@ public class ZombieSpawner {
                 inWave = false;
                 System.out.println("interlude apres la premiere vague");
 
-            } else if (waveNumber == 2) {
+            } else if (waveNumber == 2 && allZombiesDead()) {
                 currentState = State.FINISHED;
             }
         }
@@ -121,13 +125,29 @@ public class ZombieSpawner {
     private void spawnZombie() {
         int rowIndex = rand.nextInt(5);
 
+        System.out.println("row " + rowIndex);
+
+        if (partie.getOneRow(rowIndex).getListZombies().size() > 2 || (partie.getOneRow(rowIndex).haveZombie() && partie.getOneRow(rowIndex).getListZombies().getLast().getX() > 7.5)) {
+            if (rand.nextBoolean()){
+                rowIndex += rand.nextInt(2);
+            }else {
+                rowIndex -= rand.nextInt(2);
+            }
+
+            rowIndex = rowIndex%4;
+
+            System.out.println("Zombie déplacé à la ligne " + rowIndex);
+        }
+
         ZombieCard zombieCard = getRandomZombieCard();
 
         assert zombieCard != null;
         partie.getOneRow(rowIndex).addZombie(zombieCard.getZombie().clone(9.0, rowIndex));
+
+        rand.setSeed(System.currentTimeMillis());
     }
 
-    public void spawnZombie(int rowIndex) {
+    public void manualSpawnZombie(int rowIndex) {
 
         //ZombieCard zombieCard = getRandomZombieCard();
 
@@ -139,46 +159,47 @@ public class ZombieSpawner {
     }
 
     private ZombieCard getRandomZombieCard() {
+        int totalWeight = calculateTotalWeight(); // Somme des poids actuels
+        int randomValue = rand.nextInt(totalWeight); // Générer un nombre aléatoire jusqu'à totalWeight
 
-        //int maxWeight = calculateWeights();
+        int currentSum = 0;
+        for (ZombieCard card : zombiesCardArray) {
+            currentSum += getDynamicWeight(card); // Ajoute le poids dynamique de la carte
+            if (randomValue < currentSum) {
+                return card; // Retourne la carte si randomValue tombe dans son intervalle
+            }
+        }
+        return null; // Sécurité (ne devrait pas arriver si les poids sont correctement définis)
+    }
 
-        int maxWeight = 75;
+    private int calculateTotalWeight() {
+        int total = 0;
+        for (ZombieCard card : zombiesCardArray) {
+            total += getDynamicWeight(card);
+        }
+        return total;
+    }
 
-        int cumulativeWeight = 0;
-        int reach = rand.nextInt(maxWeight);
-        for (ZombieCard zombieCard : zombiesCardArray){
-            cumulativeWeight += zombieCard.getWeight();
-            if (cumulativeWeight > reach){
-                return zombieCard;
+    private int getDynamicWeight(ZombieCard card) {
+        int baseWeight = card.getWeight();
+
+        if (tickCount > 500) {
+            if (card.getZombie() instanceof ConeHeadZombie) {
+                baseWeight += 9; // ConeHead plus fréquent
+            } else if (card.getZombie() instanceof BucketHeadZombie) {
+                baseWeight += 10; // BucketHead plus fréquent
             }
         }
 
-        System.err.println("\n Probleme avec les poids de zombie \n max " + maxWeight + " reach " + reach + " cumulative " + cumulativeWeight);
-        return null;
-    }
-
-    public int calculateWeights() {
-        int totalWeight = 0; // Somme des poids pour la normalisation
-        System.out.println("begin calculate Weight total tick : " + totalTick);
-        // Calcul des nouveaux poids
-        double[] newWeights = new double[zombiesCardArray.length];
-        newWeights[0] =  Math.round(zombiesCardArray[0].getWeight() * (totalTick / 140.0));
-        newWeights[1] =  Math.round(zombiesCardArray[1].getWeight() * (totalTick / 120.0));
-        newWeights[2] =  Math.round(zombiesCardArray[2].getWeight() * (totalTick / 100.0));
-        System.out.println("1 calculate Weight total tick : " + totalTick);
-        // Calcul du poids total
-        for (double weight : newWeights) {
-            totalWeight += (int) weight;
+        // Si en vague, doublez les poids des zombies solides
+        if (isInWave()) {
+            if (card.getZombie() instanceof ConeHeadZombie || card.getZombie() instanceof BucketHeadZombie) {
+                baseWeight *= 2;
+            }
         }
-        System.out.println("2 calculate Weight total tick : " + totalTick);
-        // Normalisation pour éviter la perte de précision
-        for (int i = 0; i < zombiesCardArray.length; i++) {
-            zombiesCardArray[i].setWeight((int) newWeights[i]);
-        }
-        System.out.println("end calculate Weight total tick : " + totalTick);
-        return totalWeight; // Facultatif, si tu n'en as pas besoin, tu peux supprimer ce retour
-    }
 
+        return baseWeight;
+    }
 
     private boolean allZombiesDead() {
         for (int i = 0; i < 5; i++) {
@@ -203,5 +224,9 @@ public class ZombieSpawner {
 
     public String getCurrentState() {
         return currentState.toString();
+    }
+
+    public String getTotalTick() {
+        return String.valueOf(totalTick);
     }
 }

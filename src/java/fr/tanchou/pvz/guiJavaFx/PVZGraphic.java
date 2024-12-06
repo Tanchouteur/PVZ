@@ -40,7 +40,7 @@ public class PVZGraphic extends Application {
         startButton.setLayoutX(880);
         startButton.setLayoutY(400);
 
-        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/assets/bg.png")));
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/bg.png")));
         ImageView imageView = new ImageView(image);
 
         imageView.setFitWidth(1920);
