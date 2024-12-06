@@ -35,5 +35,6 @@ replay_pid*
 /.idea
 /out
 /lib
+/libs/
 /.idea/
 /PVZ.iml
