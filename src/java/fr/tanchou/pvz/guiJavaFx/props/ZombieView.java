@@ -2,21 +2,28 @@ package fr.tanchou.pvz.guiJavaFx.props;
 
 import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
 import fr.tanchou.pvz.entityRealisation.effect.FreezeEffect;
+import fr.tanchou.pvz.guiJavaFx.assetsLoder.AssetsLoader;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 
-import java.util.Objects;
+import java.util.Map;
 
 public class ZombieView extends EntityView {
     private final Image heatingAnimation;
     private final Image walkAnimation;
 
     public ZombieView(Zombie entity, double width, double height) {
-        Image image = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/zombies/"+entity.getName()+"Zombie/"+ entity.getName() +"Zombie-walk.gif")));
-        super(image, width, height);
+        if (entity == null) {
+            throw new IllegalArgumentException("entity cannot be null");
+        }
+
+        Map<String, Image> assets = AssetsLoader.getAssetEntity(entity, entity.getName());
+
+        super(assets.get("Zombie-walk"), width, height);
+
+        this.walkAnimation = assets.get("Zombie-walk");
+        this.heatingAnimation = assets.get("Zombie-heating");
         this.setEntity(entity);
-        this.walkAnimation = image;
-        this.heatingAnimation = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/zombies/"+entity.getName()+"Zombie/"+ entity.getName() +"Zombie-heating.gif")));
 
         this.setLastHealth(this.getEntity().getHealthPoint());
     }

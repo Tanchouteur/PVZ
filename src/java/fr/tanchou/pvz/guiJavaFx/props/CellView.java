@@ -38,6 +38,9 @@ public class CellView extends Pane {
             setOpacity(0.7);
         } else {
             setOpacity(1);
+            if (!this.plantCase.isEmpty()){
+                ((EntityView) this.getChildren().getFirst()).update();
+            }
         }
     }
 

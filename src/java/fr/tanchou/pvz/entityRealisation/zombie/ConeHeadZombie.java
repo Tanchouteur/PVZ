@@ -5,7 +5,7 @@ import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
 public class ConeHeadZombie extends Zombie {
 
     public ConeHeadZombie(Double x, int y) {
-        super(200, .2,x, y, 1, 10, 24, "ConeHead");
+        super(200, .2,x, y, 1, 10, 10, "ConeHead");
     }
 
     @Override
