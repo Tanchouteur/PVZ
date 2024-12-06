@@ -7,7 +7,7 @@ public class WallNut extends PassivePlant {
 
 
     public WallNut(double x, int y) {
-        super(500, .1, x, y, "WallNut", 50);
+        super(500, .2, x, y, "WallNut", 50);
     }
 
     @Override

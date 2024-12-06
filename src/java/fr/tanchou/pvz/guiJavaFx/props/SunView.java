@@ -1,6 +1,7 @@
 package fr.tanchou.pvz.guiJavaFx.props;
 
 import fr.tanchou.pvz.entityRealisation.ObjectOfPlant.Sun;
+import fr.tanchou.pvz.guiJavaFx.assetsLoder.AssetsLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -9,14 +10,14 @@ import java.util.Objects;
 public class SunView extends ImageView {
     private final Sun sun;
 
-    public SunView(Sun sun) {
+    public SunView(Sun sun, Image asset) {
+        super(asset);
         if (sun == null) {
             throw new IllegalArgumentException("sun cannot be null");
         }
         this.sun = sun;
 
-        Image image = new Image(Objects.requireNonNull(sun.getClass().getResourceAsStream("/assets/items/Sun/SunAnimated.gif")));
-        super(image);
+
 
         this.setFitWidth(100);
         this.setFitHeight(100);

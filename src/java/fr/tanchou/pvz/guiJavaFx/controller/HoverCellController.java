@@ -26,9 +26,8 @@ public class HoverCellController implements EventHandler {
 
         // Ajoute une prévisualisation si la case est vide et une plante active est sélectionnée
         if (player.getActivPlantCard() != null && cellView.getPlantCase().isEmpty()) {
-            System.err.println("/assets/plants/" + player.getActivPlantCard().getPlant().getName() + ".gif");
-            Image image = new Image(Objects.requireNonNull(player.getClass().getResourceAsStream(
-                    "/assets/plants/" + player.getActivPlantCard().getPlant().getName() + ".gif")));
+
+            Image image = cellView.getAssetsLoader().getAssetEntity(player.getActivPlantCard().getPlant()).get("normal");
             ImageView imageView = new ImageView(image);
             imageView.setFitWidth(150);
             imageView.setFitHeight(150);

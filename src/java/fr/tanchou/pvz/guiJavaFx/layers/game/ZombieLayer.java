@@ -2,18 +2,23 @@ package fr.tanchou.pvz.guiJavaFx.layers.game;
 
 import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
 import fr.tanchou.pvz.game.rowComponent.Row;
+import fr.tanchou.pvz.guiJavaFx.assetsLoder.AssetsLoader;
 import fr.tanchou.pvz.guiJavaFx.props.EntityView;
 import fr.tanchou.pvz.guiJavaFx.props.ZombieView;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
 import java.util.LinkedList;
+import java.util.Map;
 
 public class ZombieLayer extends Pane {
     private final Row[] rows;
+    private final AssetsLoader assetsLoader;
 
-    public ZombieLayer(double width, double height, Row[] rows) {
+    public ZombieLayer(double width, double height, Row[] rows, AssetsLoader assetsLoader) {
         super();
+        this.assetsLoader = assetsLoader;
         this.setPrefSize(width, height);
         this.setLayoutX(0);
         this.setLayoutY(0);
@@ -58,7 +63,7 @@ public class ZombieLayer extends Pane {
                 }
 
                 if (!found) {
-                    ZombieView entityView = new ZombieView(zombie, 275, 330);
+                    ZombieView entityView = new ZombieView(zombie, 275, 330, assetsLoader.getAssetEntity(zombie));
                     entityView.update();
                     this.getChildren().add(entityView);
                 }

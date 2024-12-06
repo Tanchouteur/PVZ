@@ -1,25 +1,30 @@
 package fr.tanchou.pvz.guiJavaFx.props;
 
-import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
 import fr.tanchou.pvz.game.rowComponent.PlantCase;
+import fr.tanchou.pvz.guiJavaFx.assetsLoder.AssetsLoader;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+
+import java.util.Map;
 
 public class CellView extends Pane {
     private final PlantCase plantCase;
     private boolean isHovered = false;
+    private final AssetsLoader assetsLoader;
 
-    public CellView(double width, double height, PlantCase plantCase) {
+    public CellView(double width, double height, PlantCase plantCase, AssetsLoader assetsLoader) {
         super();
         this.setLayoutX(0);
         this.setLayoutY(0);
         this.plantCase = plantCase;
         this.setPrefSize(width, height);
+        this.assetsLoader = assetsLoader;
     }
 
     public void update() {
         // Gère l'ajout d'une plante
         if (!plantCase.isEmpty() && this.getChildren().stream().noneMatch(node -> node instanceof EntityView)) {
-            PlantView entityView = new PlantView(plantCase.getPlant(), 150, 150);
+            PlantView entityView = new PlantView(plantCase.getPlant(), 150, 150, assetsLoader.getAssetEntity(plantCase.getPlant()));
             entityView.setMouseTransparent(true);
             this.getChildren().add(entityView);
             System.out.println("Plant added");
@@ -50,5 +55,9 @@ public class CellView extends Pane {
 
     public void setHovered(boolean hovered) {
         isHovered = hovered;
+    }
+
+    public AssetsLoader getAssetsLoader() {
+        return assetsLoader;
     }
 }

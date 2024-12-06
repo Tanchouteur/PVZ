@@ -1,6 +1,7 @@
 package fr.tanchou.pvz.guiJavaFx.layers.game;
 
 import fr.tanchou.pvz.game.Partie;
+import fr.tanchou.pvz.guiJavaFx.assetsLoder.AssetsLoader;
 import javafx.scene.layout.Pane;
 
 public class EntityLayer extends Pane {
@@ -9,7 +10,7 @@ public class EntityLayer extends Pane {
     private final BulletLayer bulletLayer;
     private final MawerPanel mawerLayer;
 
-    public EntityLayer(double width, double height, Partie partie) {
+    public EntityLayer(double width, double height, Partie partie, AssetsLoader assetsLoader) {
         super();
         //0.771w 0.919h
         // decalage x 0.1739 par rapprt a la largeur du panel parent
@@ -21,10 +22,10 @@ public class EntityLayer extends Pane {
 
         //this.setStyle("-fx-background-color: rgba(202,22,22,0.37);");
 
-        this.plantLayer = new PlantLayer(width, height, partie);
-        this.zombieLayer = new ZombieLayer(this.getPrefWidth(), this.getPrefHeight(), partie.getRows());
-        this.bulletLayer = new BulletLayer(this.getPrefWidth(), this.getPrefHeight(), partie.getRows());
-        this.mawerLayer = new MawerPanel(this.getPrefWidth(), this.getPrefHeight(), partie.getRows());
+        this.plantLayer = new PlantLayer(width, height, partie, assetsLoader);
+        this.zombieLayer = new ZombieLayer(this.getPrefWidth(), this.getPrefHeight(), partie.getRows(), assetsLoader);
+        this.bulletLayer = new BulletLayer(this.getPrefWidth(), this.getPrefHeight(), partie.getRows(), assetsLoader.getAssetsLoaded());
+        this.mawerLayer = new MawerPanel(this.getPrefWidth(), this.getPrefHeight(), partie.getRows(), assetsLoader.getAssetsLoaded().get("mower"));
 
         zombieLayer.setMouseTransparent(true);
         bulletLayer.setMouseTransparent(true);

@@ -1,6 +1,7 @@
 package fr.tanchou.pvz.guiJavaFx;
 
 import fr.tanchou.pvz.PVZ;
+import fr.tanchou.pvz.guiJavaFx.assetsLoder.AssetsLoader;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,6 +19,7 @@ public class PVZGraphic extends Application {
     public static void launchView(PVZ pvz) {
         pvzInstance = pvz;
         launch();
+        AssetsLoader assetsLoader = new AssetsLoader();
     }
 
     @Override
@@ -56,7 +58,6 @@ public class PVZGraphic extends Application {
         //primaryStage.setMaximized(false);
 
         primaryStage.show();
-
     }
 
     private void startGame(Stage primaryStage) {

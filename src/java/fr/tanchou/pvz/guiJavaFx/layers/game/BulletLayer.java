@@ -4,19 +4,24 @@ import fr.tanchou.pvz.abstractEnity.abstracObjectOfPlant.Bullet;
 import fr.tanchou.pvz.game.rowComponent.Row;
 import fr.tanchou.pvz.guiJavaFx.props.BulletView;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class BulletLayer extends Pane {
     private final Row[] rows;
+    private final Map<String, Map<String, Image>> assetsLoaded;
 
-    public BulletLayer(double width, double height, Row[] rows) {
+    public BulletLayer(double width, double height, Row[] rows, Map<String, Map<String, Image>> assetsLoaded) {
         super();
         this.setPrefSize(width, height);
         this.setLayoutX(0);
         this.setLayoutY(0);
+
+        this.assetsLoaded = assetsLoaded;
 
         //this.setStyle("-fx-background-color: rgba(213,12,255,0.7);");
 
@@ -64,7 +69,7 @@ public class BulletLayer extends Pane {
         // Appliquer les modifications : suppression et ajout
         this.getChildren().removeAll(viewsToRemove);
         for (Bullet bullet : bulletsToAdd) {
-            this.getChildren().add(new BulletView(bullet));
+            this.getChildren().add(new BulletView(bullet, assetsLoaded.get(bullet.getName()).get("normal")));
         }
 
         // Mettre à jour les positions des BulletViews existants

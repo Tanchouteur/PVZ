@@ -1,17 +1,21 @@
 package fr.tanchou.pvz.guiJavaFx.layers.game;
 
 import fr.tanchou.pvz.game.Partie;
+import fr.tanchou.pvz.guiJavaFx.assetsLoder.AssetsLoader;
 import fr.tanchou.pvz.guiJavaFx.controller.CellGridController;
 import fr.tanchou.pvz.guiJavaFx.controller.ExitCellController;
 import fr.tanchou.pvz.guiJavaFx.controller.HoverCellController;
 import fr.tanchou.pvz.guiJavaFx.props.CellView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
+
+import java.util.Map;
 
 public class PlantLayer extends GridPane {
 
     private final CellView[][] plantCasesView = new CellView[5][9];
 
-    public PlantLayer(double width, double height, Partie partie) {
+    public PlantLayer(double width, double height, Partie partie, AssetsLoader assetsLoader) {
         super();
         this.setPrefSize(width*(0.771), height*0.84);
 
@@ -26,7 +30,7 @@ public class PlantLayer extends GridPane {
         // Créer et ajouter les cellules
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
-                CellView cell = new CellView(width / cols, height / rows, partie.getOneRow(row).getPlantCase(col));
+                CellView cell = new CellView(width / cols, height / rows, partie.getOneRow(row).getPlantCase(col), assetsLoader);
                 cell.setOnMouseClicked(new CellGridController(partie.getPlayer(), cell));
                 cell.setOnMouseEntered(new HoverCellController(partie.getPlayer() , cell));
                 cell.setOnMouseExited(new ExitCellController(partie.getPlayer() , cell));

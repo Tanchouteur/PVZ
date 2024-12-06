@@ -11,9 +11,31 @@ import java.util.Map;
 import java.util.Objects;
 
 public class AssetsLoader {
-    private static final Map<String,Map<String, Image>> assetsLoaded = new HashMap<>();
 
-    private static Map<String, Image> loadAssetsEntity(String name, Entity entity){
+    private final Map<String,Map<String, Image>> assetsLoaded = new HashMap<>();
+
+    public AssetsLoader(){
+        loadAssetsItems();
+        loadAssetsBullet();
+    }
+
+    public Map<String, Image> getAssetEntity(Entity entity){
+        if (assetsLoaded.containsKey(entity.getName())){
+            return assetsLoaded.get(entity.getName());
+        }else {
+            return loadAssetsEntity(entity.getName(), entity);
+        }
+    }
+
+    public Map<String, Image> getAssetItems(String name){
+        return assetsLoaded.get(name);
+    }
+
+    public Map<String, Image> getAssetBullet(String name){
+        return assetsLoaded.get(name);
+    }
+
+    private Map<String, Image> loadAssetsEntity(String name, Entity entity){
         HashMap<String, Image> assets = new HashMap<>();
 
         if (entity instanceof Plant){
@@ -36,24 +58,31 @@ public class AssetsLoader {
         return assets;
     }
 
-    public static Map<String, Image> getAssetEntity(Entity entity, String name){
-        if (assetsLoaded.containsKey(name)){
-            return assetsLoaded.get(name);
-        }else {
-            return loadAssetsEntity(name, entity);
-        }
-    }
-
-    public static Map<String, Image> getAssetItems(String name){
-        if (assetsLoaded.containsKey(name)){
-            return assetsLoaded.get(name);
-        }else {
-            return loadAssetsItems();
-        }
-    }
-
-    private static Map<String, Image> loadAssetsItems() {
+    public void loadAssetsItems(){
         HashMap<String, Image> assets = new HashMap<>();
-        Image image = new Image(Objects.requireNonNull(bullet.getClass().getResourceAsStream("/assets/bullets/"+ bullet.getName() +".png")));
+        Image image = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/assets/items/Sun/SunAnimated.gif")));
+        assets.put("normal", image);
+        assetsLoaded.put("sun", assets);
+
+        assets = new HashMap<>();
+        image = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/assets/items/Mower.png")));
+        assets.put("normal", image);
+        assetsLoaded.put("mower", assets);
+    }
+
+    public void loadAssetsBullet(){
+        HashMap<String, Image> assets = new HashMap<>();
+        Image image = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/assets/bullets/PeaBullet.png")));
+        assets.put("normal", image);
+        assetsLoaded.put("PeaBullet", assets);
+
+        assets = new HashMap<>();
+        image = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/assets/bullets/FreezePeaBullet.png")));
+        assets.put("normal", image);
+        assetsLoaded.put("FreezePeaBullet", assets);
+    }
+
+    public Map<String, Map<String, Image>> getAssetsLoaded() {
+        return assetsLoaded;
     }
 }

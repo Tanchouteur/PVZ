@@ -56,6 +56,13 @@ public class Row {
             listZombieToAdd.clear();
         }
 
+        //first zombie update first zombie is not de first in linkedlist but the first in the row on x axis
+        for (Zombie zombie : listZombie) {
+            if (firstZombie == null || zombie.getX() < firstZombie.getX() || firstZombie.isDead()) {
+                firstZombie = zombie;
+            }
+        }
+
         if (!listPlantToAdd.isEmpty()) {
 
             for (Plant plant : listPlantToAdd) {
@@ -78,6 +85,8 @@ public class Row {
                 plantCase.removePlant();
             }
         }
+
+        this.haveZombie = !(listZombie.isEmpty());
     }
 
     private void updateMawer() {
@@ -95,8 +104,6 @@ public class Row {
 
     private void updateZombies() {
 
-        this.haveZombie = !listZombie.isEmpty();
-
         for (Zombie zombie : listZombie) {
 
             zombie.move();
@@ -104,13 +111,6 @@ public class Row {
 
             if (zombie.getX() < 0 && mower == null) {
                 this.defeat = true;
-            }
-            if (firstZombie != null) {
-                if (zombie.getX() < firstZombie.getX()) {
-                    firstZombie = zombie;
-                }
-            } else {
-                firstZombie = zombie;
             }
 
             PlantCase plantCase = plantCasesArray[(int) zombie.getX()];
@@ -162,7 +162,7 @@ public class Row {
         for (Bullet bullet : listBullets) {
             bullet.move();
 
-            if (bullet.collidesWith(firstZombie)) {
+            if (this.haveZombie && bullet.collidesWith(firstZombie)) {
                 firstZombie.takeDamage(bullet.getDamage());
 
                 if (bullet.haveEffect()) {
@@ -173,8 +173,9 @@ public class Row {
                 break;
 
             }else if (bullet.getX() > 11) {
-
                 bullet.setDead(true);
+                System.err.println("Bullet dead");
+                break;
             }
         }
     }

@@ -2,7 +2,6 @@ package fr.tanchou.pvz.guiJavaFx.props;
 
 import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
 import fr.tanchou.pvz.entityRealisation.plants.passive.WallNut;
-import fr.tanchou.pvz.guiJavaFx.assetsLoder.AssetsLoader;
 import javafx.scene.image.Image;
 
 import java.util.Map;
@@ -12,15 +11,15 @@ public class PlantView extends EntityView {
     private Image imageUsed;
     private boolean dammagedAssets = false;
 
-    public PlantView(Plant entity, double width, double height) {
+    public PlantView(Plant entity, double width, double height, Map<String, Image> assetsLoaded) {
         if (entity == null) {
             throw new IllegalArgumentException("entity cannot be null");
         }
 
-        super(AssetsLoader.getAssetEntity(entity, entity.getName()).get("normal"), width, height);
+        super(assetsLoaded.get("normal"), width, height);
         this.setEntity(entity);
 
-        assets = AssetsLoader.getAssetEntity(entity, entity.getName());
+        assets = assetsLoaded;
         this.imageUsed = assets.get("normal");
         this.setLastHealth(this.getEntity().getHealthPoint());
 

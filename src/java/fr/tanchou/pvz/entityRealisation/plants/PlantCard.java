@@ -30,7 +30,7 @@ public class PlantCard {
     }
 
     public boolean canBuy(){
-        return this.lastSelected >= 0 && this.sold >= this.plant.getCost();
+        return this.lastSelected <= 0 && this.sold >= this.plant.getCost();
     }
 
     public Plant getPlant() {

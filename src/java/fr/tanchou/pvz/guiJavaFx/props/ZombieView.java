@@ -12,12 +12,10 @@ public class ZombieView extends EntityView {
     private final Image heatingAnimation;
     private final Image walkAnimation;
 
-    public ZombieView(Zombie entity, double width, double height) {
+    public ZombieView(Zombie entity, double width, double height, Map<String, Image> assets) {
         if (entity == null) {
             throw new IllegalArgumentException("entity cannot be null");
         }
-
-        Map<String, Image> assets = AssetsLoader.getAssetEntity(entity, entity.getName());
 
         super(assets.get("Zombie-walk"), width, height);
 
