@@ -46,7 +46,7 @@ public abstract class Zombie extends Entity {
                 effect.tick();
                 calculatedSpeed = calculatedSpeed * effect.getSpeedToApply();
             }
-            this.setX(this.getX() - (calculatedSpeed * 0.02));
+            this.setX(this.getX() - (calculatedSpeed * 0.024));
         }
     }
 

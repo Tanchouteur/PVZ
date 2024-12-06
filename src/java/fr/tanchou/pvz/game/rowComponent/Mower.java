@@ -7,6 +7,7 @@ public class Mower {
     private double x;
     private final int y;
     private final Collider collider;
+    private boolean active = false;
 
     public Mower(int y) {
         this.x = -0.5;
@@ -31,5 +32,19 @@ public class Mower {
 
     public int getY() {
         return y;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void move() {
+        if (this.x < 10) {
+            this.x += 0.3;
+        }
     }
 }

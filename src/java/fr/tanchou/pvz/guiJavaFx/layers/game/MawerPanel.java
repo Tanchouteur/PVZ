@@ -30,7 +30,9 @@ public class MawerPanel extends Pane {
         for (Row row : rows){
             if (row.getMower() == null){
                 this.getChildren().remove(mowerViewsArray[row.getRowIndex()]);
+                continue;
             }
+            mowerViewsArray[row.getRowIndex()].update();
         }
     }
 }

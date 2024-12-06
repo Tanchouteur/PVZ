@@ -132,7 +132,7 @@ public class ZombieSpawner {
         //ZombieCard zombieCard = getRandomZombieCard();
 
         ZombieCard zombieCard = new ZombieCard(new ConeHeadZombie(22.0,0), 40);
-        Zombie zombie = zombieCard.getZombie().clone(10.0, rowIndex);
+        Zombie zombie = zombieCard.getZombie().clone(1.0, rowIndex);
         zombie.setHeating(true);
         partie.getOneRow(rowIndex).addZombie(zombie);
 
@@ -191,5 +191,17 @@ public class ZombieSpawner {
 
     public boolean isInWave() {
         return inWave;
+    }
+
+    public String getTickCount() {
+        return String.valueOf(tickCount);
+    }
+
+    public String getZombiesToSpawn() {
+        return String.valueOf(zombiesToSpawn);
+    }
+
+    public String getCurrentState() {
+        return currentState.toString();
     }
 }

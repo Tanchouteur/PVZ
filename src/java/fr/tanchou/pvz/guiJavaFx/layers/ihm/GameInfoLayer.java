@@ -1,44 +1,51 @@
 package fr.tanchou.pvz.guiJavaFx.layers.ihm;
 
-import fr.tanchou.pvz.Player;
-import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
-import fr.tanchou.pvz.guiJavaFx.controller.PlayerCardController;
-import fr.tanchou.pvz.guiJavaFx.props.PlantCardView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-
-import java.util.LinkedList;
-import java.util.Objects;
+import fr.tanchou.pvz.game.spawn.ZombieSpawner;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class GameInfoLayer extends Pane {
 
-    private final SoldView soldView;
+    private final Label stateLabel;
+    private final Label tickLabel;
+    private final Label waveLabel;
+    private final Label zombiesLabel;
 
-    public GameInfoLayer(Player player) {
+    public GameInfoLayer(ZombieSpawner zombieSpawner) {
         super();
-        //0.146w 0.56h
-        /*this.setPrefSize(width*0.1, height*0.56);
-        this.setLayoutX(width*0.00625);
-        this.setLayoutY(((double) height /2) - this.getPrefHeight()/2);*/
 
+        // Dimensions et positionnement du panneau
+        this.setPrefHeight(50); // Hauteur de la barre
+        this.setPrefWidth(600); // Largeur ajustée (centrée plus tard par le parent)
+        this.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-border-color: white;");
 
+        // Labels pour afficher les informations
+        stateLabel = createLabel("State: " + zombieSpawner.getCurrentState(), 10);
+        tickLabel = createLabel("Ticks: " + zombieSpawner.getTickCount(), 150);
+        waveLabel = createLabel("Wave: " + (zombieSpawner.isInWave() ? "Active" : "Inactive"), 300);
+        zombiesLabel = createLabel("Zombies Left: " + zombieSpawner.getZombiesToSpawn(), 450);
 
-        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/assets/player/panelCard.png")));
-        ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(200);
-        imageView.setFitHeight(this.getPrefHeight());
-        imageView.setOpacity(0.5);
-        imageView.setMouseTransparent(true);
-        this.getChildren().add(imageView);
-
-        this.soldView = new SoldView(400, 400, player);
-        this.soldView.setLayoutX(10);
-        this.getChildren().add(soldView);
-
+        // Ajouter les labels au panneau
+        this.getChildren().addAll(stateLabel, tickLabel, waveLabel, zombiesLabel);
     }
 
-    public void update() {
+    // Méthode pour mettre à jour les informations dynamiques
+    public void update(ZombieSpawner zombieSpawner) {
+        stateLabel.setText("State: " + zombieSpawner.getCurrentState());
+        tickLabel.setText("Ticks: " + zombieSpawner.getTickCount());
+        waveLabel.setText("Wave: " + (zombieSpawner.isInWave() ? "Active" : "Inactive"));
+        zombiesLabel.setText("Zombies Left: " + zombieSpawner.getZombiesToSpawn());
+    }
 
+    // Méthode utilitaire pour créer un label avec un style cohérent
+    private Label createLabel(String text, double x) {
+        Label label = new Label(text);
+        label.setFont(new Font("Arial", 16));
+        label.setTextFill(Color.WHITE);
+        label.setLayoutX(x);
+        label.setLayoutY(10); // Centré verticalement dans le panneau
+        return label;
     }
 }

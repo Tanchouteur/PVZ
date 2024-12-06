@@ -100,4 +100,8 @@ public class Partie {
     public void setVictory(boolean victory) {
         this.victory = victory;
     }
+
+    public ZombieSpawner getZombieSpawner() {
+        return zombieSpawner;
+    }
 }

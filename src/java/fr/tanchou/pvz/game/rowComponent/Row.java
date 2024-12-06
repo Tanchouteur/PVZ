@@ -90,13 +90,19 @@ public class Row {
 
     private void updateMawer() {
         if (haveZombie && mower != null && mower.collideWith(firstZombie)) {
-
-            mower = null;
-            for (Zombie zombie : listZombie) {
-
-                zombie.takeDamage(1000);
-
+            if (mower.isActive()) {
+                firstZombie.takeDamage(1000);
+            }else {
+                mower.setActive(true);
             }
+        }
+
+        if (mower != null && mower.isActive()) {
+            mower.move();
+        }
+
+        if (mower != null && mower.getX() >= 10.5) {
+            mower = null;
         }
     }
 
@@ -180,7 +186,6 @@ public class Row {
 
             }else if (bullet.getX() > 11) {
                 bullet.setDead(true);
-                System.err.println("Bullet dead");
                 break;
             }
         }

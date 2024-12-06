@@ -13,12 +13,11 @@ public class MowerView extends ImageView {
         this.mower = mower;
         this.setFitWidth(130);
         this.setFitHeight(130);
-
-        update();
     }
 
     public void update(){
-        this.setLayoutX(mower.getX()-100);
+        this.setLayoutX(mower.getX()*175-60);
         this.setLayoutY((mower.getY()*185)+20);
+
     }
 }

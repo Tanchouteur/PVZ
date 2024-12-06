@@ -16,7 +16,7 @@ public class HudLayer extends Pane {
     private final LinkedList<PlantCardView> listPlantCardView = new LinkedList<>();
     private final SoldView soldView;
 
-    public HudLayer( Player player) {
+    public HudLayer(Player player, double width, double height) {
         super();
         //0.146w 0.56h
         /*this.setPrefSize(width*0.1, height*0.56);
@@ -28,7 +28,7 @@ public class HudLayer extends Pane {
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/assets/player/panelCard.png")));
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(200);
-        imageView.setFitHeight(this.getPrefHeight());
+        imageView.setFitHeight(height);
         imageView.setOpacity(0.5);
         imageView.setMouseTransparent(true);
         this.getChildren().add(imageView);
