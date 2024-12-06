@@ -3,6 +3,7 @@ package fr.tanchou.pvz.guiJavaFx.layers.ihm;
 import fr.tanchou.pvz.Player;
 import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
 import fr.tanchou.pvz.guiJavaFx.controller.PlayerCardController;
+import fr.tanchou.pvz.guiJavaFx.controller.PlayerCardHoverController;
 import fr.tanchou.pvz.guiJavaFx.props.PlantCardView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -39,9 +40,10 @@ public class HudLayer extends Pane {
         int i = 0;
         for (PlantCard plantCard : player.getPlantCardsArray()){
             PlantCardView plantCardView = new PlantCardView(plantCard, i);
-
+            PlayerCardHoverController playerCardHoverController = new PlayerCardHoverController(plantCardView, player);
             plantCardView.setOnMouseClicked(new PlayerCardController(player, plantCardView));
-
+            plantCardView.setOnMouseEntered(playerCardHoverController);
+            plantCardView.setOnMouseExited(playerCardHoverController);
 
             listPlantCardView.add(plantCardView);
             this.getChildren().add(plantCardView);

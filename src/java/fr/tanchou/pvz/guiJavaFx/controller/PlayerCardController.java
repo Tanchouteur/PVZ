@@ -18,7 +18,5 @@ public class PlayerCardController implements EventHandler {
     @Override
     public void handle(Event event) {
         player.preBuyPlant(plantCardView.getPlantCard());
-
-        System.err.println("plant card cliqued = ");
     }
 }
