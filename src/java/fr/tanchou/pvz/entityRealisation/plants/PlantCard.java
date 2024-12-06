@@ -36,4 +36,14 @@ public class PlantCard {
     public Plant getPlant() {
         return plant;
     }
+
+    //getCooldown
+    public int getCooldown() {
+        return cooldown;
+    }
+
+    //getLastSelected
+    public int getLastSelected() {
+        return lastSelected;
+    }
 }

@@ -39,7 +39,10 @@ public class HudLayer extends Pane {
         int i = 0;
         for (PlantCard plantCard : player.getPlantCardsArray()){
             PlantCardView plantCardView = new PlantCardView(plantCard, i);
+
             plantCardView.setOnMouseClicked(new PlayerCardController(player, plantCardView));
+
+
             listPlantCardView.add(plantCardView);
             this.getChildren().add(plantCardView);
             plantCardView.setMouseTransparent(false);

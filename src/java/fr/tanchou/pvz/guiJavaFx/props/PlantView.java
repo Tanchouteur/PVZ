@@ -30,13 +30,13 @@ public class PlantView extends EntityView {
 
     public void individualUpdate() {
         if (dammagedAssets){
-            if (getEntity().getHealthPoint() < (getEntity().getHealthPoint()/3)*2 && this.getImage() != assets.get("damaged-1")){
+            if (getEntity().getHealthPoint() < (getEntity().getHealthPoint()/3)*2 && this.imageUsed != assets.get("damaged-1")){
                 this.imageUsed = assets.get("damaged-1");
                 this.setImage(imageUsed);
-            }else if (getEntity().getHealthPoint() < (getEntity().getHealthPoint()/3)  && this.getImage() != assets.get("damaged-2")){
+            }else if (getEntity().getHealthPoint() < (getEntity().getHealthPoint()/3)  && this.imageUsed != assets.get("damaged-2")){
                 this.imageUsed = assets.get("damaged-2");
                 this.setImage(imageUsed);
-            }else if (getEntity().getHealthPoint() >= (getEntity().getHealthPoint()/3)*2 && this.getImage() != assets.get("normal")){
+            }else if (getEntity().getHealthPoint() >= (getEntity().getHealthPoint()/3)*2 && this.imageUsed != assets.get("normal")){
                 this.imageUsed = assets.get("normal");
                 this.setImage(imageUsed);
             }

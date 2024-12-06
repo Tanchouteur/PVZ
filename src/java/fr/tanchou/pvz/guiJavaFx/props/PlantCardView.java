@@ -45,6 +45,15 @@ public class PlantCardView extends ImageView {
 
             this.setOpacity(0.7);
         }
+
+        if (plantCard.getCooldown() > 0){
+            //en fonction du temps restant avant de pouvoir acheter la plante, on fait un bar qui se rempli sur la card comme dans le vrais plante versus zombie
+            //Le cooldown est fixe (valeur de référence)
+            //On peut faire un calcul pour avoir une barre qui se rempli en fonction du temps restant
+
+        }else if (this.getStyle() != null){
+            this.setStyle(null);
+        }
     }
 
     public PlantCard getPlantCard(){

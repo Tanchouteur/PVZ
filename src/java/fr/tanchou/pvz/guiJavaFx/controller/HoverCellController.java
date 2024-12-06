@@ -35,6 +35,8 @@ public class HoverCellController implements EventHandler {
             imageView.setId("hoverPreview"); // Identifiant pour distinguer les prévisualisations
             cellView.getChildren().add(imageView);
             cellView.setHovered(true);
+
+            cellView.setCursor(javafx.scene.Cursor.HAND);
         }
     }
 }

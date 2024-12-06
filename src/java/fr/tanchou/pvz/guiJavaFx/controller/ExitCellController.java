@@ -20,6 +20,7 @@ public class ExitCellController implements EventHandler {
 
             cellView.getChildren().removeIf(node -> node.getId() != null && node.getId().equals("hoverPreview"));
             cellView.setHovered(false);
+            cellView.setCursor(javafx.scene.Cursor.DEFAULT);
         }
         // déboguer
         // System.err.println("cell exited x = " + cellView.getPlantCase().getX() + " - y = " + cellView.getPlantCase().getY());
