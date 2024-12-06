@@ -20,7 +20,7 @@ public class ZombieView extends EntityView {
     }
 
     @Override
-    public void update() {
+    public void individualUpdate() {
         this.setLayoutX((this.getEntity().getX()*168) - 100);
         this.setLayoutY((this.getEntity().getY()*178) - 155);
 

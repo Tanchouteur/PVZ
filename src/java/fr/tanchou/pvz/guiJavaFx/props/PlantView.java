@@ -16,9 +16,11 @@ public class PlantView extends EntityView {
 
         super(image, width, height);
         this.setEntity(entity);
+
+        this.setLastHealth(this.getEntity().getHealthPoint());
     }
 
-    public void update() {
+    public void individualUpdate() {
 
 
         /*this.setLayoutX((this.getEntity().getX()*168) - 100);
