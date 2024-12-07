@@ -5,6 +5,7 @@ import fr.tanchou.pvz.game.rowComponent.Row;
 import fr.tanchou.pvz.guiJavaFx.assetsLoder.AssetsLoader;
 import fr.tanchou.pvz.guiJavaFx.props.EntityView;
 import fr.tanchou.pvz.guiJavaFx.props.ZombieView;
+import fr.tanchou.pvz.guiJavaFx.sound.SoundManager;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
@@ -13,13 +14,16 @@ import java.util.LinkedList;
 public class ZombieLayer extends Pane {
     private final Row[] rows;
     private final AssetsLoader assetsLoader;
+    private final SoundManager soundManager;
 
-    public ZombieLayer(double width, double height, Row[] rows, AssetsLoader assetsLoader) {
+    public ZombieLayer(double width, double height, Row[] rows, AssetsLoader assetsLoader, SoundManager soundManager) {
         super();
         this.assetsLoader = assetsLoader;
         this.setPrefSize(width, height);
         this.setLayoutX(0);
         this.setLayoutY(0);
+
+        this.soundManager = soundManager;
 
         //this.setStyle("-fx-background-color: rgba(241,7,7,0.3);");
 
@@ -61,7 +65,7 @@ public class ZombieLayer extends Pane {
                 }
 
                 if (!found) {
-                    ZombieView entityView = new ZombieView(zombie, 260, 275, assetsLoader.getAssetEntity(zombie));
+                    ZombieView entityView = new ZombieView(zombie, 260, 275, assetsLoader.getAssetEntity(zombie), soundManager);
                     entityView.update();
                     this.getChildren().add(entityView);
                 }

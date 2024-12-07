@@ -11,8 +11,10 @@ public class PVZ {
     private PartieController gameController;
     private SunManager sunManager;
 
+
     public PVZ(Player player) {
         this.player = player;
+
     }
 
     public void createPartie(boolean consoleLog){

@@ -52,6 +52,9 @@ public class ZombieSelector {
 
         // Récupère une carte zombie aléatoire
         ZombieCard zombieCard = getRandomZombieCard();
+
+        System.out.println("zombie card récupéré : " + zombieCard.getZombie().getName());
+
         zombieCard.removeWeight(1);
 
         // Clone et ajoute le zombie sur la ligne
@@ -65,6 +68,7 @@ public class ZombieSelector {
 
     private ZombieCard getRandomZombieCard() {
         int totalWeight = calculateTotalWeight(); // Somme des poids actuels
+        System.out.println("Total weight : " + totalWeight);
         int randomValue = rand.nextInt(totalWeight); // Générer un nombre aléatoire jusqu'à totalWeight
 
         for (ZombieCard card : zombiesCardArray) {
@@ -74,7 +78,7 @@ public class ZombieSelector {
         int currentSum = 0;
         for (ZombieCard card : zombiesCardArray) {
             currentSum += card.getWeight(); // Ajoute le poids dynamique de la carte
-            System.err.println(card.getZombie().getName() + " weight : " + card.getWeight());
+            System.err.println(card.getZombie().getName() + " choose with weight : " + card.getWeight());
             if (randomValue < currentSum) {
                 return card;
             }

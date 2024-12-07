@@ -2,6 +2,7 @@ package fr.tanchou.pvz.guiJavaFx.layers.game;
 
 import fr.tanchou.pvz.game.rowComponent.Row;
 import fr.tanchou.pvz.guiJavaFx.props.MowerView;
+import fr.tanchou.pvz.guiJavaFx.sound.SoundManager;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
@@ -11,7 +12,7 @@ public class MawerPanel extends Pane {
     private final MowerView[] mowerViewsArray = new MowerView[5];
     private final Row[] rows;
 
-    public MawerPanel(double prefWidth, double prefHeight, Row[] rows, Map<String, Image> assetsLoaded) {
+    public MawerPanel(double prefWidth, double prefHeight, Row[] rows, Map<String, Image> assetsLoaded, SoundManager soundManager) {
         super();
         this.rows = rows;
         this.setPrefSize(prefWidth, prefHeight);
@@ -20,7 +21,7 @@ public class MawerPanel extends Pane {
 
         for (Row row : rows){
             if (row.getMower() != null){
-                mowerViewsArray[row.getRowIndex()] = new MowerView(row.getMower(), assetsLoaded.get("normal"));
+                mowerViewsArray[row.getRowIndex()] = new MowerView(row.getMower(), assetsLoaded.get("normal"), soundManager);
                 this.getChildren().add(mowerViewsArray[row.getRowIndex()]);
             }
         }

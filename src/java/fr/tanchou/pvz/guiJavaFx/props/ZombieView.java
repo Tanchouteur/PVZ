@@ -2,7 +2,7 @@ package fr.tanchou.pvz.guiJavaFx.props;
 
 import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
 import fr.tanchou.pvz.entityRealisation.effect.FreezeEffect;
-import fr.tanchou.pvz.guiJavaFx.assetsLoder.AssetsLoader;
+import fr.tanchou.pvz.guiJavaFx.sound.SoundManager;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 
@@ -13,12 +13,12 @@ public class ZombieView extends EntityView {
     private final Image walkAnimation;
     private final Image walkDamagedAnimation;
 
-    public ZombieView(Zombie entity, double width, double height, Map<String, Image> assets) {
+    public ZombieView(Zombie entity, double width, double height, Map<String, Image> assets, SoundManager soundManager) {
         if (entity == null) {
             throw new IllegalArgumentException("entity cannot be null");
         }
 
-        super(assets.get("Zombie-walk"), width, height);
+        super(assets.get("Zombie-walk"), width, height, soundManager);
 
         this.walkAnimation = assets.get("Zombie-walk");
         this.heatingAnimation = assets.get("Zombie-heating");

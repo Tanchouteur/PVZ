@@ -3,6 +3,7 @@ package fr.tanchou.pvz.guiJavaFx.layers.game;
 import fr.tanchou.pvz.abstractEnity.abstracObjectOfPlant.Bullet;
 import fr.tanchou.pvz.game.rowComponent.Row;
 import fr.tanchou.pvz.guiJavaFx.props.BulletView;
+import fr.tanchou.pvz.guiJavaFx.sound.SoundManager;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -15,13 +16,17 @@ public class BulletLayer extends Pane {
     private final Row[] rows;
     private final Map<String, Map<String, Image>> assetsLoaded;
 
-    public BulletLayer(double width, double height, Row[] rows, Map<String, Map<String, Image>> assetsLoaded) {
+    private final SoundManager soundManager;
+
+    public BulletLayer(double width, double height, Row[] rows, Map<String, Map<String, Image>> assetsLoaded, SoundManager soundManager) {
         super();
         this.setPrefSize(width, height);
         this.setLayoutX(0);
         this.setLayoutY(0);
 
         this.assetsLoaded = assetsLoaded;
+
+        this.soundManager = soundManager;
 
         //this.setStyle("-fx-background-color: rgba(213,12,255,0.7);");
 
@@ -70,6 +75,7 @@ public class BulletLayer extends Pane {
         this.getChildren().removeAll(viewsToRemove);
         for (Bullet bullet : bulletsToAdd) {
             this.getChildren().add(new BulletView(bullet, assetsLoaded.get(bullet.getName()).get("normal")));
+            soundManager.playSound("throw");
         }
 
         // Mettre à jour les positions des BulletViews existants

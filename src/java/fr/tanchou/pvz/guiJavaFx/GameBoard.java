@@ -6,6 +6,7 @@ import fr.tanchou.pvz.guiJavaFx.layers.game.EntityLayer;
 import fr.tanchou.pvz.guiJavaFx.layers.ihm.GameInfoLayer;
 import fr.tanchou.pvz.guiJavaFx.layers.ihm.PlayerLayer;
 
+import fr.tanchou.pvz.guiJavaFx.sound.SoundManager;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -17,14 +18,15 @@ public class GameBoard extends Pane {
     private final EntityLayer entityLayer;
     private final GameInfoLayer gameInfoLayer;
 
-    public GameBoard(int width, int height, Partie partie, AssetsLoader assetsLoader) {
+    public GameBoard(int width, int height, Partie partie, AssetsLoader assetsLoader, SoundManager soundManager) {
         super();
         this.setPrefSize(width, height);
 
         addBackground();
+
         this.gameInfoLayer = new GameInfoLayer(partie.getZombieSpawner());
         this.playerLayer = new PlayerLayer(width, height, partie, assetsLoader);
-        this.entityLayer = new EntityLayer(width, height, partie, assetsLoader);
+        this.entityLayer = new EntityLayer(width, height, partie, assetsLoader, soundManager);
 
         this.getChildren().add(gameInfoLayer);
         this.getChildren().add(playerLayer);

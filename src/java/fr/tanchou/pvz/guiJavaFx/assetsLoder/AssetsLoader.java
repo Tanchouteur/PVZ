@@ -17,94 +17,97 @@ import java.util.Map;
 import java.util.Objects;
 
 public class AssetsLoader {
+    private final Map<String, Map<String, Image>> assetsLoaded = new HashMap<>();
 
-    private final Map<String,Map<String, Image>> assetsLoaded = new HashMap<>();
-
-    public AssetsLoader(Player player){
+    public AssetsLoader(Player player) {
         loadAssetsItems();
         loadAssetsBullet();
 
-        for (PlantCard plantCard : player.getPlantCardsArray()){
+        // Charger les plantes du joueur
+        for (PlantCard plantCard : player.getPlantCardsArray()) {
             loadAssetsEntity(plantCard.getPlant());
         }
 
-        ZombieCard[] zombiesCardArray = new ZombieCard[]{
-                new ZombieCard(new NormalZombie(11.0,0), 40, 1),
-                new ZombieCard(new ConeHeadZombie(11.0,0), 25, 2),
-                new ZombieCard(new BucketHeadZombie(11.0,0), 10, 3)
+        // Charger les zombies disponibles
+        ZombieCard[] zombiesCardArray = {
+                new ZombieCard(new NormalZombie(11.0, 0), 40, 1),
+                new ZombieCard(new ConeHeadZombie(11.0, 0), 25, 2),
+                new ZombieCard(new BucketHeadZombie(11.0, 0), 10, 3)
         };
 
-        for (ZombieCard zombieCard : zombiesCardArray){
+        for (ZombieCard zombieCard : zombiesCardArray) {
             loadAssetsEntity(zombieCard.getZombie());
         }
     }
 
-    public Map<String, Image> getAssetEntity(Entity entity){
-        if (assetsLoaded.containsKey(entity.getName())){
-            return assetsLoaded.get(entity.getName());
-        }else {
-            return loadAssetsEntity(entity);
-        }
+    public Map<String, Image> getAssetEntity(Entity entity) {
+        return assetsLoaded.computeIfAbsent(entity.getName(), k -> loadAssetsEntity(entity));
     }
 
-    public Map<String, Image> getAssetItems(String name){
-        return assetsLoaded.get(name);
-    }
+    private Map<String, Image> loadAssetsEntity(Entity entity) {
+        Map<String, Image> assets = new HashMap<>();
 
-    public Map<String, Image> getAssetBullet(String name){
-        return assetsLoaded.get(name);
-    }
-
-    private Map<String, Image> loadAssetsEntity(Entity entity){
-        HashMap<String, Image> assets = new HashMap<>();
-
-        if (entity instanceof Plant){
-            Image image = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/plants/"+ entity.getName() +".gif")));
-            assets.put("normal", image);
-            if (entity instanceof WallNut) {
-                image = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/plants/" + entity.getName() + "-damaged-1.png")));
-                assets.put("damaged-1", image);
-                image = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/plants/" + entity.getName() + "-damaged-2.png")));
-                assets.put("damaged-2", image);
-            }
-        }else if (entity instanceof Zombie){
-            Image image = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/zombies/"+entity.getName()+"Zombie/"+ entity.getName() +"Zombie-walk.gif")));
-            assets.put("Zombie-walk", image);
-            image = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/zombies/"+entity.getName()+"Zombie/"+ entity.getName() +"Zombie-heating.gif")));
-            assets.put("Zombie-heating", image);
-            image = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/zombies/"+entity.getName()+"Zombie/"+ entity.getName() +"Zombie-walk-damaged.gif")));
-            assets.put("Zombie-walk-damaged", image);
+        if (entity instanceof Plant) {
+            loadPlantAssets((Plant) entity, assets);
+        } else if (entity instanceof Zombie) {
+            loadZombieAssets((Zombie) entity, assets);
         }
 
         assetsLoaded.put(entity.getName(), assets);
         return assets;
     }
 
-    public void loadAssetsItems(){
-        HashMap<String, Image> assets = new HashMap<>();
-        Image image = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/assets/items/Sun/SunAnimated.gif")));
-        assets.put("normal", image);
-        assetsLoaded.put("sun", assets);
+    private void loadPlantAssets(Plant plant, Map<String, Image> assets) {
+        // Charger l'image principale de la plante
+        assets.put("normal", loadImage("/assets/plants/" + plant.getName() + ".gif"));
 
-        assets = new HashMap<>();
-        image = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/assets/items/Mower.png")));
-        assets.put("normal", image);
-        assetsLoaded.put("mower", assets);
+        // Charger les images spécifiques aux noix
+        if (plant instanceof WallNut) {
+            assets.put("damaged-1", loadImage("/assets/plants/" + plant.getName() + "-damaged-1.png"));
+            assets.put("damaged-2", loadImage("/assets/plants/" + plant.getName() + "-damaged-2.png"));
+        }
     }
 
-    public void loadAssetsBullet(){
-        HashMap<String, Image> assets = new HashMap<>();
-        Image image = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/assets/bullets/PeaBullet.png")));
-        assets.put("normal", image);
-        assetsLoaded.put("PeaBullet", assets);
+    private void loadZombieAssets(Zombie zombie, Map<String, Image> assets) {
+        String basePath = "/assets/zombies/" + zombie.getName() + "Zombie/";
+        assets.put("Zombie-walk", loadImage(basePath + zombie.getName() + "Zombie-walk.gif"));
+        assets.put("Zombie-heating", loadImage(basePath + zombie.getName() + "Zombie-heating.gif"));
+        assets.put("Zombie-walk-damaged", loadImage(basePath + zombie.getName() + "Zombie-walk-damaged.gif"));
+    }
 
-        assets = new HashMap<>();
-        image = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/assets/bullets/FreezePeaBullet.png")));
-        assets.put("normal", image);
-        assetsLoaded.put("FreezePeaBullet", assets);
+    public void loadAssetsItems() {
+        assetsLoaded.put("sun", createAsset("/assets/items/Sun/SunAnimated.gif"));
+        assetsLoaded.put("mower", createAsset("/assets/items/Mower.png"));
+    }
+
+    public void loadAssetsBullet() {
+        assetsLoaded.put("PeaBullet", createAsset("/assets/bullets/PeaBullet.png"));
+        assetsLoaded.put("FreezePeaBullet", createAsset("/assets/bullets/FreezePeaBullet.png"));
+    }
+
+    private Map<String, Image> createAsset(String path) {
+        Map<String, Image> assets = new HashMap<>();
+        assets.put("normal", loadImage(path));
+        return assets;
+    }
+
+    private Image loadImage(String path) {
+        try {
+            return new Image(Objects.requireNonNull(getClass().getResourceAsStream(path)));
+        } catch (NullPointerException e) {
+            throw new RuntimeException("Asset not found: " + path, e);
+        }
     }
 
     public Map<String, Map<String, Image>> getAssetsLoaded() {
         return assetsLoaded;
+    }
+
+    public Map<String, Image> getAssetsItems(String itemName) {
+        return assetsLoaded.get(itemName);
+    }
+
+    public Map<String, Image> getAssetsBullet(String bulletName) {
+        return assetsLoaded.get(bulletName);
     }
 }

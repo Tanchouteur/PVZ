@@ -2,6 +2,7 @@ package fr.tanchou.pvz.guiJavaFx;
 
 import fr.tanchou.pvz.PVZ;
 import fr.tanchou.pvz.guiJavaFx.assetsLoder.AssetsLoader;
+import fr.tanchou.pvz.guiJavaFx.sound.SoundManager;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -13,8 +14,11 @@ public class PartieControllerView {
 
     private Stage primaryStage;
 
-    public PartieControllerView(PVZ gameInstance) {
+    private final SoundManager soundManager;
+
+    public PartieControllerView(PVZ gameInstance, SoundManager soundManager) {
         this.gameInstance = gameInstance;
+        this.soundManager = soundManager;
     }
 
     public void start(Stage primaryStage) {
@@ -22,7 +26,7 @@ public class PartieControllerView {
         int width = 1920;
         int height = 1080;
         AssetsLoader assetsLoader = new AssetsLoader(gameInstance.getPlayer());
-        gameBoard = new GameBoard(width, height, gameInstance.getPartie(), assetsLoader);
+        gameBoard = new GameBoard(width, height, gameInstance.getPartie(), assetsLoader, soundManager);
         Scene scene = new Scene(gameBoard, width, height);
 
         primaryStage.setTitle("Plants vs Zombies");
