@@ -1,6 +1,6 @@
 # PVZ - Plants vs Zombies en Java 
 
-![In game image](Conception/ingame.png);
+![In game image](Conception/InGameImage.png)
 
 ## Description
 
