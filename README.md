@@ -1,17 +1,18 @@
-[![ingameBanner](Conception/InGameImage.png)](https://github.com/Tanchouteur/PVZ)
-
 <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
   <h1 style="text-align: center; color: #2c3e50;">PVZ - Plants vs Zombies en Java</h1>
+  <p style="text-align: center;">
+    <img src="Conception/InGameImage.png" alt="In-game image" style="width: 80%; border: 2px solid #2c3e50; border-radius: 8px;">
+  </p>
 
-<h2>📜 Sommaire</h2>
+<h2 style="font-size: 2em;">📜 Sommaire</h2>
   <ol style="margin-left: 20px;">
-    <li><a href="#description" style="color: #2980b9;">Description</a></li>
-    <li><a href="#objectifs-du-projet" style="color: #2980b9;">Objectifs</a></li>
-    <li><a href="#structure-du-projet" style="color: #2980b9;">Structure</a></li>
-    <li><a href="#installation" style="color: #2980b9;">Installation</a></li>
-    <li><a href="#exécution" style="color: #2980b9;">Exécution</a></li>
-    <li><a href="#contributions" style="color: #2980b9;">Contributions</a></li>
-    <li><a href="#licence" style="color: #2980b9;">Licence</a></li>
+    <li><a href="#description" style="color: #2980b9;font-size: 1.2em;">Description</a></li>
+    <li><a href="#objectifs-du-projet" style="color: #2980b9;font-size: 1.2em;">Objectifs</a></li>
+    <li><a href="#structure-du-projet" style="color: #2980b9;font-size: 1.2em;">Structure</a></li>
+    <li><a href="#installation" style="color: #2980b9;font-size: 1.2em;">Installation</a></li>
+    <li><a href="#exécution" style="color: #2980b9;font-size: 1.2em;">Exécution</a></li>
+    <li><a href="#contributions" style="color: #2980b9;font-size: 1.2em;">Contributions</a></li>
+    <li><a href="#licence" style="color: #2980b9;font-size: 1.2em;">Licence</a></li>
   </ol>
 
 <h2 id="description" style="color: #2c3e50;">Description</h2>
@@ -58,13 +59,108 @@
 
 <h2 id="structure-du-projet" style="color: #2c3e50;">Structure du projet</h2>
   <pre style="background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; border-radius: 4px; overflow-x: auto;">
-java
-    ├───fr
-    │   └───tanchou
-    │       └───pvz
-    │           ├───game
-    │           │   └───rowComponent
-    │           └───guiJavaFx
+
+java───fr
+       └───tanchou
+           └───pvz
+               │   Launcher.java
+               │   Player.java
+               │   PVZ.java
+               │
+               ├───abstractEnity
+               │   │   Collider.java
+               │   │   Effect.java
+               │   │   Entity.java
+               │   │
+               │   ├───abstracObjectOfPlant
+               │   │       Bullet.java
+               │   │       ObjectOfPlant.java
+               │   │
+               │   ├───abstractPlant
+               │   │       ObjectGeneratorsPlant.java
+               │   │       PassivePlant.java
+               │   │       Plant.java
+               │   │
+               │   └───abstractZombie
+               │           Zombie.java
+               │
+               ├───entityRealisation
+               │   ├───effect
+               │   │       FireEffect.java
+               │   │       FreezeEffect.java
+               │   │
+               │   ├───ObjectOfPlant
+               │   │       FreezePeaBullet.java
+               │   │       PeaBullet.java
+               │   │       Sun.java
+               │   │
+               │   ├───plants
+               │   │   │   PlantCard.java
+               │   │   │
+               │   │   ├───ObjectGeneratorPlant
+               │   │   │       DoublePeaShooter.java
+               │   │   │       FreezePeaShooter.java
+               │   │   │       PeaShooter.java
+               │   │   │       SunFlower.java
+               │   │   │
+               │   │   └───passive
+               │   │           WallNut.java
+               │   │
+               │   └───zombie
+               │           BukketHeadZombie.java
+               │           ConeHeadZombie.java
+               │           NormalZombie.java
+               │           ZombieCard.java
+               │
+               ├───game
+               │   │   Partie.java
+               │   │   PartieController.java
+               │   │   SunManager.java
+               │   │
+               │   ├───rowComponent
+               │   │       Mower.java
+               │   │       PlantCase.java
+               │   │       Row.java
+               │   │
+               │   └───spawn
+               │           WeightCalculator.java
+               │           ZombieSpawner.java
+               │
+               └───guiJavaFx
+                   │   GameBoard.java
+                   │   PartieControllerView.java
+                   │   PVZGraphic.java
+                   │
+                   ├───controller
+                   │       CellGridController.java
+                   │       ExitCellController.java
+                   │       HoverCellController.java
+                   │       PlayerCardController.java
+                   │
+                   ├───layers
+                   │   ├───game
+                   │   │       BulletLayer.java
+                   │   │       EntityLayer.java
+                   │   │       MawerPanel.java
+                   │   │       PlantLayer.java
+                   │   │       SunLayer.java
+                   │   │       ZombieLayer.java
+                   │   │
+                   │   └───ihm
+                   │           HudLayer.java
+                   │           PlayerLayer.java
+                   │           SoldView.java
+                   │
+                   └───props
+                           BulletView.java
+                           CellView.java
+                           EntityView.java
+                           MowerView.java
+                           PlantCardView.java
+                           PlantView.java
+                           SunView.java
+                           ZombieView.java
+
 </pre>
 
 <h2 id="installation" style="color: #2c3e50;">Installation</h2>
