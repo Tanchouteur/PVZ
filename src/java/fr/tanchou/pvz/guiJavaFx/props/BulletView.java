@@ -26,7 +26,7 @@ public class BulletView extends ImageView {
 
     public void updateBulletPosition() {
         this.setLayoutX(bullet.getX() * 150 + 10);
-        this.setLayoutY(bullet.getY()*190 - 10);
+        this.setLayoutY(bullet.getY()*185 - 10);
         //System.out.println("Bullet position: X=" + this.getLayoutX() + ", Y=" + this.getLayoutY());
     }
 

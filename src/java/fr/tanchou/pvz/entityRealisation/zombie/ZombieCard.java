@@ -5,11 +5,13 @@ import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
 public class ZombieCard {
     private final Zombie zombie;
     private int weight;
+    private final int difficultyScore;
 
-    public ZombieCard(Zombie zombie, int weight) {
+    public ZombieCard(Zombie zombie, int weight, int difficultyScore) {
         this.zombie = zombie;
         this.zombie.setHeating(true);
         this.weight = weight;
+        this.difficultyScore = difficultyScore;
     }
 
     public Zombie getZombie() {
@@ -29,8 +31,12 @@ public class ZombieCard {
     }
 
     public void removeWeight(int weight) {
-        if (this.weight - weight > 0) {
+        if (this.weight - weight > 1) {
             this.weight -= weight;
         }
+    }
+
+    public int getDifficultyScore() {
+        return difficultyScore;
     }
 }

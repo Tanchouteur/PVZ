@@ -11,6 +11,7 @@ import java.util.Map;
 public class ZombieView extends EntityView {
     private final Image heatingAnimation;
     private final Image walkAnimation;
+    private final Image walkDamagedAnimation;
 
     public ZombieView(Zombie entity, double width, double height, Map<String, Image> assets) {
         if (entity == null) {
@@ -21,6 +22,7 @@ public class ZombieView extends EntityView {
 
         this.walkAnimation = assets.get("Zombie-walk");
         this.heatingAnimation = assets.get("Zombie-heating");
+        this.walkDamagedAnimation = assets.get("Zombie-walk-damaged");
         this.setEntity(entity);
 
         this.setLastHealth(this.getEntity().getHealthPoint());
@@ -28,17 +30,18 @@ public class ZombieView extends EntityView {
 
     @Override
     public void individualUpdate() {
+
         this.setLayoutX((this.getEntity().getX()*168) - 80);
         this.setLayoutY((this.getEntity().getY()*178) - 80);
 
-        if (((Zombie) this.getEntity()).heating()){
+        if (((Zombie) this.getEntity()).heating() && this.getImage() != heatingAnimation){
             this.setImage(heatingAnimation);
-            this.setFitWidth(getFitWidth());
-            this.setFitHeight(getFitHeight());
         }else {
-            this.setImage(walkAnimation);
-            this.setFitWidth(getFitWidth());
-            this.setFitHeight(getFitHeight());
+            if (this.getEntity().getHealthPoint() <= 100 && this.getImage() != walkDamagedAnimation) {
+                this.setImage(walkDamagedAnimation);
+            }else if (this.getImage() != walkAnimation && this.getEntity().getHealthPoint() > 100){
+                this.setImage(walkAnimation);
+            }
         }
 
         if (((Zombie) this.getEntity()).getEffect() instanceof FreezeEffect){//Si le zombie est gelé

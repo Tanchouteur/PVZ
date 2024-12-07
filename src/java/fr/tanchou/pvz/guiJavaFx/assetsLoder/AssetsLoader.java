@@ -29,9 +29,9 @@ public class AssetsLoader {
         }
 
         ZombieCard[] zombiesCardArray = new ZombieCard[]{
-                new ZombieCard(new NormalZombie(11.0,0), 40),
-                new ZombieCard(new ConeHeadZombie(11.0,0), 25),
-                new ZombieCard(new BucketHeadZombie(11.0,0), 10)
+                new ZombieCard(new NormalZombie(11.0,0), 40, 1),
+                new ZombieCard(new ConeHeadZombie(11.0,0), 25, 2),
+                new ZombieCard(new BucketHeadZombie(11.0,0), 10, 3)
         };
 
         for (ZombieCard zombieCard : zombiesCardArray){
@@ -72,6 +72,8 @@ public class AssetsLoader {
             assets.put("Zombie-walk", image);
             image = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/zombies/"+entity.getName()+"Zombie/"+ entity.getName() +"Zombie-heating.gif")));
             assets.put("Zombie-heating", image);
+            image = new Image(Objects.requireNonNull(entity.getClass().getResourceAsStream("/assets/zombies/"+entity.getName()+"Zombie/"+ entity.getName() +"Zombie-walk-damaged.gif")));
+            assets.put("Zombie-walk-damaged", image);
         }
 
         assetsLoaded.put(entity.getName(), assets);
