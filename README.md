@@ -1,8 +1,7 @@
+[![ingameBanner](Conception/InGameImage.png)](https://github.com/Tanchouteur/PVZ)
+
 <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
   <h1 style="text-align: center; color: #2c3e50;">PVZ - Plants vs Zombies en Java</h1>
-  <p style="text-align: center;">
-    <img src="Conception/InGameImage.png" alt="In-game image" style="width: 80%; border: 2px solid #2c3e50; border-radius: 8px;">
-  </p>
 
 <h2>📜 Sommaire</h2>
   <ol style="margin-left: 20px;">
