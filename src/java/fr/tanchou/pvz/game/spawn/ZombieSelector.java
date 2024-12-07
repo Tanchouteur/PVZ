@@ -53,7 +53,7 @@ public class ZombieSelector {
         // Récupère une carte zombie aléatoire
         ZombieCard zombieCard = getRandomZombieCard();
 
-        System.out.println("zombie card récupéré : " + zombieCard.getZombie().getName());
+        System.err.println("zombie card récupéré : " + zombieCard.getZombie().getName());
 
         zombieCard.removeWeight(1);
 
@@ -77,9 +77,10 @@ public class ZombieSelector {
 
         int currentSum = 0;
         for (ZombieCard card : zombiesCardArray) {
-            currentSum += card.getWeight(); // Ajoute le poids dynamique de la carte
-            System.err.println(card.getZombie().getName() + " choose with weight : " + card.getWeight());
+            currentSum += card.getWeight();
+            System.err.println(card.getZombie().getName() + " can choosed with weight : " + card.getWeight());
             if (randomValue < currentSum) {
+                System.err.println(card.getZombie().getName() + " is choosed with weight : " + card.getWeight());
                 return card;
             }
         }
@@ -98,11 +99,11 @@ public class ZombieSelector {
 
         int baseWeight = card.getWeight();
         // Si en vague, doublez les poids des zombies solides
-        if (partie.getZombieSpawner().isInWave()) {
+        /*if (partie.getZombieSpawner().isInWave()) {
             if (card.getZombie() instanceof ConeHeadZombie || card.getZombie() instanceof BucketHeadZombie) {
                 baseWeight *= 2;
             }
-        }
+        }*/
 
         return baseWeight;
     }
