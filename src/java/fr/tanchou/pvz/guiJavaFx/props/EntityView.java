@@ -41,8 +41,8 @@ public abstract class EntityView extends ImageView {
         }
 
         if (hitSoundUsable){
-            if (this instanceof PlantView) {
-                soundManager.playSound("bit");
+            if (this instanceof PlantView){
+                soundManager.playSound("zombieBit");
             }else {
                 soundManager.playSound("splat");
             }

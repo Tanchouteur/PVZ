@@ -9,6 +9,7 @@ import fr.tanchou.pvz.guiJavaFx.sound.SoundManager;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class ZombieLayer extends Pane {
@@ -52,7 +53,9 @@ public class ZombieLayer extends Pane {
                 this.getChildren().remove(entityView);
             }
 
-            for (Zombie zombie : row.getListZombies()) {
+            Iterator<Zombie> zombieIterator = row.getListZombies().iterator();
+            while (zombieIterator.hasNext()) {
+                Zombie zombie = zombieIterator.next();
                 boolean found = false;
 
                 for (Node node : this.getChildren()) {
@@ -70,6 +73,7 @@ public class ZombieLayer extends Pane {
                     this.getChildren().add(entityView);
                 }
             }
+
         }
     }
 }
