@@ -42,7 +42,7 @@ public class SunManager {
     private void spawnRandomSun() {
         timeToLastSpawn++;
 
-        if (timeToLastSpawn >= 120) {
+        if (timeToLastSpawn >= (100+random.nextInt(10))) {
 
             timeToLastSpawn = 0;
             double x = random.nextDouble(7); // Limite la zone de spawn

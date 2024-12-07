@@ -7,7 +7,7 @@ import fr.tanchou.pvz.entityRealisation.effect.FreezeEffect;
 public class FreezePeaBullet extends Bullet {
 
     public FreezePeaBullet(Double x, int y) {
-        super(15, 1, x, y, .1, new FreezeEffect(), "FreezePeaBullet");
+        super(10, 1, x, y, .1, new FreezeEffect(), "FreezePeaBullet");
     }
 
     @Override

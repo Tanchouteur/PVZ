@@ -19,14 +19,19 @@ public class GameInfoLayer extends Pane {
         super();
         this.zombieSpawner = zombieSpawner;
         // Dimensions et positionnement du panneau
-        this.setPrefHeight(50); // Hauteur de la barre
-        this.setPrefWidth(600); // Largeur ajustée (centrée plus tard par le parent)
+
+        this.setPrefHeight(50);
+        this.setPrefWidth(600);
+
+        this.setLayoutX(((double) 1920 /2) - (this.getPrefWidth()/2));
+        this.setLayoutY(10);
+
         this.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-border-color: white;");
 
         // Labels pour afficher les informations
         stateLabel = createLabel("State: " + zombieSpawner.getCurrentState(), 10);
-        tickLabel = createLabel("Ticks: " + zombieSpawner.getTickCount(), 150);
-        waveLabel = createLabel("Wave: " + (zombieSpawner.isInWave() ? "Active" : "Inactive"), 300);
+        tickLabel = createLabel("Ticks: " + zombieSpawner.getTickCount(), 200);
+        waveLabel = createLabel("Wave: " + (zombieSpawner.isInWave() ? "Active" : "Inactive"), 320);
         zombiesLabel = createLabel("Zombies Left: " + zombieSpawner.getZombiesToSpawn(), 450);
 
         // Ajouter les labels au panneau

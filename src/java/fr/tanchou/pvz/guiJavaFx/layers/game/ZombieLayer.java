@@ -61,7 +61,7 @@ public class ZombieLayer extends Pane {
                 }
 
                 if (!found) {
-                    ZombieView entityView = new ZombieView(zombie, 275, 330, assetsLoader.getAssetEntity(zombie));
+                    ZombieView entityView = new ZombieView(zombie, 260, 275, assetsLoader.getAssetEntity(zombie));
                     entityView.update();
                     this.getChildren().add(entityView);
                 }

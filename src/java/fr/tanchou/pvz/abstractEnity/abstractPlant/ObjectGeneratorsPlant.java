@@ -12,7 +12,7 @@ public abstract class ObjectGeneratorsPlant extends Plant {
     protected ObjectGeneratorsPlant(int healthPoint, double colliderRadius, int x, int y,String name, int cost, int fireRate, ObjectOfPlant objectOfPlant) {
         super(healthPoint,colliderRadius,x,y, name, cost);
         this.fireRate = fireRate;
-        this.timeSinceLastFire = fireRate/2;
+        this.timeSinceLastFire = getTimeSinceLastFireAtSpawn();
         this.objectOfPlant = objectOfPlant;
     }
 
@@ -52,6 +52,8 @@ public abstract class ObjectGeneratorsPlant extends Plant {
     public void setTimeSinceLastFire() {
         this.timeSinceLastFire = 0;
     }
+
+    public abstract int getTimeSinceLastFireAtSpawn();
 
     public boolean isNeedToCreate() {
         return needToCreate;

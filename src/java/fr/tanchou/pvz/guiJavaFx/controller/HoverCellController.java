@@ -22,10 +22,8 @@ public class HoverCellController implements EventHandler {
 
     @Override
     public void handle(Event event) {
-        // Supprime toute prévisualisation existante pour éviter des doublons
         cellView.getChildren().removeIf(node -> node.getId() != null && node.getId().equals("hoverPreview"));
 
-        // Ajoute une prévisualisation si la case est vide et une plante active est sélectionnée
         if (player.getActivPlantCard() != null && cellView.getPlantCase().isEmpty()) {
 
             Image image = cellView.getAssetsLoader().getAssetEntity(player.getActivPlantCard().getPlant()).get("normal");
@@ -33,11 +31,11 @@ public class HoverCellController implements EventHandler {
             imageView.setFitWidth(150);
             imageView.setFitHeight(150);
             imageView.setMouseTransparent(true);
-            imageView.setId("hoverPreview"); // Identifiant pour distinguer les prévisualisations
+            imageView.setId("hoverPreview");
             cellView.getChildren().add(imageView);
             cellView.setHovered(true);
 
-            cellView.setCursor(Cursor.DEFAULT);
+            cellView.setCursor(Cursor.OPEN_HAND);
         }
     }
 }

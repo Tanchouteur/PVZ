@@ -20,7 +20,6 @@ public class Player {
     private  SunManager sunManager;
     private  Partie partie;
 
-
     private int lastCollectSun = 0;
 
     public Player(String name) {
@@ -29,11 +28,11 @@ public class Player {
         this.plantCards = new PlantCard[5];
 
         this.setPlantCards(new PlantCard[]{
-                new PlantCard(60, new SunFlower(-1, -2), this.sold),
-                new PlantCard(160, new PeaShooter(-1, -1), this.sold),
-                new PlantCard(210, new FreezePeaShooter(-1, -2), this.sold),
-                new PlantCard(340, new DoublePeaShooter(-1, -2), this.sold),
-                new PlantCard(340, new WallNut(-1, -2), this.sold)
+                new PlantCard(55, new SunFlower(-1, -2), this.sold),
+                new PlantCard(70, new PeaShooter(-1, -1), this.sold),
+                new PlantCard(200, new FreezePeaShooter(-1, -2), this.sold),
+                new PlantCard(320, new DoublePeaShooter(-1, -2), this.sold),
+                new PlantCard(330, new WallNut(-1, -2), this.sold)
         });
     }
 
@@ -46,7 +45,7 @@ public class Player {
 
     public void collectSun() {
         lastCollectSun++;
-        if (lastCollectSun > 35 && !sunManager.getSunLinkedList().isEmpty()) {
+        if (lastCollectSun > 24 && !sunManager.getSunLinkedList().isEmpty()) {
             for (Sun sun : sunManager.getSunLinkedList()){
                 sold += sun.getValue();
                 sunManager.removeSun(sun);

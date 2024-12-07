@@ -41,8 +41,8 @@ public class PlantView extends EntityView {
                 this.imageUsed = assets.get("normal");
                 this.setImage(imageUsed);
             }
-        }else if (getEntity() instanceof SunFlower sunFlower && sunFlower.getTimeSinceLastFire() > (sunFlower.getFireRate()/5)*4){
-            this.hitEffect = 35;
+        }else if (getEntity() instanceof SunFlower sunFlower && sunFlower.getTimeSinceLastFire() > (sunFlower.getFireRate()/10)*9){
+            this.hitEffect = 5;
         }
     }
 }

@@ -3,7 +3,7 @@ package fr.tanchou.pvz.entityRealisation.plants;
 import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
 
 public class PlantCard {
-    private int lastSelected = 50;
+    private int lastSelected = 5;
     private final int cooldown;
     private final Plant plant;
     private int sold;

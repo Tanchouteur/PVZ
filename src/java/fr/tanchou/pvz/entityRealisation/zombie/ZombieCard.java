@@ -20,7 +20,17 @@ public class ZombieCard {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    private void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    public void addWeight(int weight) {
+        this.weight += weight;
+    }
+
+    public void removeWeight(int weight) {
+        if (this.weight - weight > 0) {
+            this.weight -= weight;
+        }
     }
 }

@@ -6,7 +6,7 @@ import fr.tanchou.pvz.entityRealisation.ObjectOfPlant.Sun;
 public class SunFlower extends ObjectGeneratorsPlant {
 
     public SunFlower(double x, int y) {
-        super(100, .3 , (int) x, y, "SunFlower", 50, 80, new Sun(x + 0.5, y, 25));
+        super(100, .3 , (int) x, y, "SunFlower", 50, 230, new Sun(x + 0.5, y, 25));
     }
 
     @Override
@@ -21,5 +21,10 @@ public class SunFlower extends ObjectGeneratorsPlant {
     @Override
     public ObjectGeneratorsPlant clone(double x, int y) {
         return new SunFlower(x, y);
+    }
+
+    @Override
+    public int getTimeSinceLastFireAtSpawn() {
+        return getFireRate()-55;
     }
 }

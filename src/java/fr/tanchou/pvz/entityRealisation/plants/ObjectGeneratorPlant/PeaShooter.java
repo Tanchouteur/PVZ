@@ -13,5 +13,10 @@ public class PeaShooter extends ObjectGeneratorsPlant {
     public ObjectGeneratorsPlant clone(double x, int y) {
         return new PeaShooter(x, y);
     }
+
+    @Override
+    public int getTimeSinceLastFireAtSpawn() {
+        return getFireRate()-10;
+    }
 }
 

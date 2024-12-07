@@ -13,5 +13,10 @@ public class FreezePeaShooter extends ObjectGeneratorsPlant {
     public ObjectGeneratorsPlant clone(double x, int y) {
         return new FreezePeaShooter(x, y);
     }
+
+    @Override
+    public int getTimeSinceLastFireAtSpawn() {
+        return getFireRate()-10;
+    }
 }
 
