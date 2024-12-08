@@ -40,7 +40,7 @@ public class ZombieSpawner {
 
         if (totalTick % 50 == 0) {
             spawnRate -= 3;
-            System.out.println("Spawn rate : " + spawnRate + " - spawnTick : " + spawnTick);
+            //System.out.println("Spawn rate : " + spawnRate + " - spawnTick : " + spawnTick);
         }
 
         zombieSelector.tick();
@@ -72,14 +72,14 @@ public class ZombieSpawner {
 
     private void handleCrescendoPhase() {
         if (spawnTick > (spawnRate + rand.nextInt(25))) {
-            System.out.println("Zombie demandé + " + tickCount % (spawnRate));
+            //System.out.println("Zombie demandé + " + tickCount % (spawnRate));
             zombieSelector.spawnZombie();
             spawnTick = 0;
         }
 
         if (tickCount > 1200) {
             currentState = State.WAVE1;
-            zombiesToSpawn = 15 + rand.nextInt(11);
+            zombiesToSpawn = 15 + rand.nextInt(5);
             tickCount = 0;
             rand.setSeed(System.currentTimeMillis());
             System.out.println("first Wave commence");
@@ -88,7 +88,7 @@ public class ZombieSpawner {
     }
 
     private void handleWavePhase(int waveNumber) {
-        if (zombiesToSpawn > 0 && spawnTick > (15 + rand.nextInt(10))) {
+        if (zombiesToSpawn > 0 && spawnTick > (25 + rand.nextInt(15))) {
             zombieSelector.spawnZombie();
             zombiesToSpawn--;
             spawnTick = 0;
@@ -120,7 +120,7 @@ public class ZombieSpawner {
 
         if (tickCount > 600) {
             currentState = State.WAVE2;
-            zombiesToSpawn = 30;
+            zombiesToSpawn = 20;
             tickCount = 0;
             inWave = true;
             System.out.println("Deuxième vague commence !");

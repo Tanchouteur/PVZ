@@ -38,7 +38,7 @@ public class ZombieSelector {
             }
         }
 
-        System.out.println("Ligne choisie pour spawn : " + rowIndex);
+        //System.out.println("Ligne choisie pour spawn : " + rowIndex);
 
         // Vérifie également les conditions de présence des zombies
         if (partie.getOneRow(rowIndex).getListZombies().size() > 2 ||
@@ -47,13 +47,13 @@ public class ZombieSelector {
             // Essaye une ligne différente avec un décalage modulo
             int offset = rand.nextInt(4) + 1;
             rowIndex = (rowIndex + offset) % 5;
-            System.out.println("Ligne déjà occupée, déplacement à la ligne " + rowIndex);
+            //System.out.println("Ligne déjà occupée, déplacement à la ligne " + rowIndex);
         }
 
         // Récupère une carte zombie aléatoire
         ZombieCard zombieCard = getRandomZombieCard();
 
-        System.err.println("zombie card récupéré : " + zombieCard.getZombie().getName());
+        //System.err.println("zombie card récupéré : " + zombieCard.getZombie().getName());
 
         zombieCard.removeWeight(1);
 
@@ -63,24 +63,24 @@ public class ZombieSelector {
         // Met à jour le score de la ligne avec le score de difficulté du zombie
         rowScores[rowIndex] += zombieCard.getDifficultyScore();
 
-        System.out.println("Fin du spawn. Score de la ligne " + rowIndex + ": " + rowScores[rowIndex]);
+        //System.out.println("Fin du spawn. Score de la ligne " + rowIndex + ": " + rowScores[rowIndex]);
     }
 
     private ZombieCard getRandomZombieCard() {
         int totalWeight = calculateTotalWeight(); // Somme des poids actuels
-        System.out.println("Total weight : " + totalWeight);
+        //System.out.println("Total weight : " + totalWeight);
         int randomValue = rand.nextInt(totalWeight); // Générer un nombre aléatoire jusqu'à totalWeight
 
         for (ZombieCard card : zombiesCardArray) {
-            System.err.println(card.getZombie().getName() + " weight : " + card.getWeight());
+            //System.err.println(card.getZombie().getName() + " weight : " + card.getWeight());
         }
 
         int currentSum = 0;
         for (ZombieCard card : zombiesCardArray) {
             currentSum += card.getWeight();
-            System.err.println(card.getZombie().getName() + " can choosed with weight : " + card.getWeight());
+            //System.err.println(card.getZombie().getName() + " can choosed with weight : " + card.getWeight());
             if (randomValue < currentSum) {
-                System.err.println(card.getZombie().getName() + " is choosed with weight : " + card.getWeight());
+                //System.err.println(card.getZombie().getName() + " is choosed with weight : " + card.getWeight());
                 return card;
             }
         }

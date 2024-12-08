@@ -14,11 +14,11 @@ public class PlantView extends EntityView {
     private boolean dammagedAssets = false;
 
     public PlantView(Plant entity, double width, double height, Map<String, Image> assetsLoaded, SoundManager soundManager) {
+        super(assetsLoaded.get("normal"), width, height, soundManager);
         if (entity == null) {
             throw new IllegalArgumentException("entity cannot be null");
         }
 
-        super(assetsLoaded.get("normal"), width, height, soundManager);
         this.setEntity(entity);
 
         assets = assetsLoaded;

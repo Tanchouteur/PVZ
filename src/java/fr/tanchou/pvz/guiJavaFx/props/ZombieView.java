@@ -14,11 +14,11 @@ public class ZombieView extends EntityView {
     private final Image walkDamagedAnimation;
 
     public ZombieView(Zombie entity, double width, double height, Map<String, Image> assets, SoundManager soundManager) {
+        super(assets.get("Zombie-walk"), width, height, soundManager);
+
         if (entity == null) {
             throw new IllegalArgumentException("entity cannot be null");
         }
-
-        super(assets.get("Zombie-walk"), width, height, soundManager);
 
         this.walkAnimation = assets.get("Zombie-walk");
         this.heatingAnimation = assets.get("Zombie-heating");

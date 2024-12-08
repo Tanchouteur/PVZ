@@ -9,11 +9,10 @@ public class BulletView extends ImageView {
     private final Bullet bullet;
 
     public BulletView(Bullet bullet, Image asset) {
+        super(asset);
         if (bullet == null) {
             throw new IllegalArgumentException("bullet cannot be null");
         }
-
-        super(asset);
         this.setFitWidth(50);
         this.setFitHeight(50);
         this.setPreserveRatio(true);
