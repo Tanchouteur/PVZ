@@ -2,6 +2,7 @@ package fr.tanchou.pvz.guiJavaFx.props;
 
 import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
+import fr.tanchou.pvz.entityRealisation.plants.PotatoMine;
 import fr.tanchou.pvz.entityRealisation.plants.passive.WallNut;
 import fr.tanchou.pvz.guiJavaFx.sound.SoundManager;
 import javafx.scene.image.Image;
@@ -32,18 +33,22 @@ public class PlantView extends EntityView {
 
     public void individualUpdate() {
         if (dammagedAssets){
-            if (getEntity().getHealthPoint() < (this.getEntity().getOriginalHealth()/3)*2 && this.imageUsed != assets.get("damaged-1")){
+            if (getEntity().getHealthPoint() < (this.getEntity().getOriginalHealth()/3)*2){
                 this.imageUsed = assets.get("damaged-1");
-                this.setImage(imageUsed);
-            }else if (getEntity().getHealthPoint() < (this.getEntity().getOriginalHealth()/3)  && this.imageUsed != assets.get("damaged-2")){
+            }else if (getEntity().getHealthPoint() < (this.getEntity().getOriginalHealth()/3)){
                 this.imageUsed = assets.get("damaged-2");
-                this.setImage(imageUsed);
-            }else if (getEntity().getHealthPoint() >= (this.getEntity().getOriginalHealth()/3)*2 && this.imageUsed != assets.get("normal")){
+            }else if (getEntity().getHealthPoint() >= (this.getEntity().getOriginalHealth()/3)*2){
                 this.imageUsed = assets.get("normal");
-                this.setImage(imageUsed);
             }
         }else if (getEntity() instanceof SunFlower sunFlower && sunFlower.getTimeSinceLastFire() > (sunFlower.getFireRate()/10)*9){
             this.hitEffect = 5;
+        } else if (getEntity() instanceof PotatoMine potatoMine && potatoMine.getUsable() <= 0){
+            this.imageUsed = assets.get("ready");
+        }else if (getEntity() instanceof PotatoMine) {
+            this.imageUsed = assets.get("normal");
+        }
+        if (this.imageUsed != this.getImage()){
+            this.setImage(imageUsed);
         }
     }
 }

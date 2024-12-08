@@ -5,6 +5,7 @@ import fr.tanchou.pvz.abstractEnity.Entity;
 import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
 import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
 import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
+import fr.tanchou.pvz.entityRealisation.plants.PotatoMine;
 import fr.tanchou.pvz.entityRealisation.plants.passive.WallNut;
 import fr.tanchou.pvz.entityRealisation.zombie.BucketHeadZombie;
 import fr.tanchou.pvz.entityRealisation.zombie.ConeHeadZombie;
@@ -65,6 +66,8 @@ public class AssetsLoader {
         if (plant instanceof WallNut) {
             assets.put("damaged-1", loadImage("/assets/plants/" + plant.getName() + "-damaged-1.png"));
             assets.put("damaged-2", loadImage("/assets/plants/" + plant.getName() + "-damaged-2.png"));
+        }else if (plant instanceof PotatoMine){
+            assets.put("ready", loadImage("/assets/plants/PotatoMineReady.gif"));
         }
     }
 

@@ -36,7 +36,7 @@ public class ZombieView extends EntityView {
 
         if (((Zombie) this.getEntity()).heating() && this.getImage() != heatingAnimation){
             this.setImage(heatingAnimation);
-        }else {
+        }else if (!((Zombie) this.getEntity()).heating()){
             if (this.getEntity().getHealthPoint() <= 100 && this.getImage() != walkDamagedAnimation) {
                 this.setImage(walkDamagedAnimation);
             }else if (this.getImage() != walkAnimation && this.getEntity().getHealthPoint() > 100){

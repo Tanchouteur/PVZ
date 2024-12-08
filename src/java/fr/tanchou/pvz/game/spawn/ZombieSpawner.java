@@ -39,7 +39,7 @@ public class ZombieSpawner {
         spawnTick++;
 
         if (totalTick % 50 == 0) {
-            spawnRate -= 3;
+            spawnRate -= 4;
             //System.out.println("Spawn rate : " + spawnRate + " - spawnTick : " + spawnTick);
         }
 
@@ -77,7 +77,7 @@ public class ZombieSpawner {
             spawnTick = 0;
         }
 
-        if (tickCount > 1200) {
+        if (tickCount > 1300) {
             currentState = State.WAVE1;
             zombiesToSpawn = 15 + rand.nextInt(5);
             tickCount = 0;
@@ -88,14 +88,23 @@ public class ZombieSpawner {
     }
 
     private void handleWavePhase(int waveNumber) {
-        if (zombiesToSpawn > 0 && spawnTick > (25 + rand.nextInt(15))) {
-            zombieSelector.spawnZombie();
-            zombiesToSpawn--;
-            spawnTick = 0;
+        if (waveNumber == 1) {
+            if (zombiesToSpawn > 0 && spawnTick > (21 + rand.nextInt(15))) {
+                zombieSelector.spawnZombie();
+                zombiesToSpawn--;
+                spawnTick = 0;
+            }
+        }else if (waveNumber == 2) {
+            if (zombiesToSpawn > 0 && spawnTick > (14 + rand.nextInt(15))) {
+                zombieSelector.spawnZombie();
+                zombiesToSpawn--;
+                spawnTick = 0;
+            }
         }
 
+
         if (totalTick % 50 == 0) {
-            spawnRate -= 2;
+            spawnRate -= 3;
         }
 
         if (zombiesToSpawn == 0 && allZombiesDead() && spawnTick > 100) {

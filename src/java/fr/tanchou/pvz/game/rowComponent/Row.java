@@ -4,6 +4,7 @@ import fr.tanchou.pvz.abstractEnity.Entity;
 import fr.tanchou.pvz.abstractEnity.abstracObjectOfPlant.Bullet;
 import fr.tanchou.pvz.abstractEnity.abstracObjectOfPlant.ObjectOfPlant;
 import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
+import fr.tanchou.pvz.abstractEnity.abstractPlant.WaitingPlant;
 import fr.tanchou.pvz.entityRealisation.ObjectOfPlant.Sun;
 import fr.tanchou.pvz.abstractEnity.abstractPlant.ObjectGeneratorsPlant;
 import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
@@ -149,6 +150,7 @@ public class Row {
 
                     if (!(plant instanceof SunFlower)) {
                         plant.setNeedToCreate(this.haveZombie && firstZombie.getX() > plant.getX() && firstZombie.getX() < 9.0); // défini si la plante dois tiré
+
                     }else {
                         plant.setNeedToCreate(true);
                     }
@@ -163,6 +165,15 @@ public class Row {
                             //System.err.println("Sun create and add");
                         }
                         //System.err.println(plant.getName()+" create");
+                    }
+                }else if (plantCase.getPlant() instanceof WaitingPlant waitingPlant) {
+                    waitingPlant.tick();
+                    if (haveZombie) {
+                        waitingPlant.setNeedToCreate(waitingPlant.collideWith(firstZombie));
+                    }
+                    if (waitingPlant.canCreate()) {
+                        waitingPlant.attack(firstZombie);
+                        break;
                     }
                 }
             }

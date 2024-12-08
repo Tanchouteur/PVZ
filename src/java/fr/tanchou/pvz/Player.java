@@ -7,6 +7,7 @@ import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.FreezePeaSho
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.PeaShooter;
 import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
+import fr.tanchou.pvz.entityRealisation.plants.PotatoMine;
 import fr.tanchou.pvz.entityRealisation.plants.passive.WallNut;
 import fr.tanchou.pvz.game.Partie;
 import fr.tanchou.pvz.game.SunManager;
@@ -29,6 +30,7 @@ public class Player {
 
         this.setPlantCards(new PlantCard[]{
                 new PlantCard(55, new SunFlower(-1, -2), this.sold),
+                new PlantCard(200, new PotatoMine(-1, -2), this.sold),
                 new PlantCard(70, new PeaShooter(-1, -1), this.sold),
                 new PlantCard(200, new FreezePeaShooter(-1, -2), this.sold),
                 new PlantCard(320, new DoublePeaShooter(-1, -2), this.sold),
