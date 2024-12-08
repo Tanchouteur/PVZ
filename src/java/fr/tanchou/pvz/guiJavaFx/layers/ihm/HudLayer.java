@@ -16,7 +16,7 @@ public class HudLayer extends Pane {
     private final LinkedList<PlantCardView> listPlantCardView = new LinkedList<>();
     private final SoldView soldView;
 
-    public HudLayer(Player player, double width, double height) {
+    public HudLayer(Player player, double height) {
         super();
         //0.146w 0.56h
         /*this.setPrefSize(width*0.1, height*0.56);

@@ -12,7 +12,7 @@ public class ZombieSelector {
     private final Partie partie;
     private final ZombieCard[] zombiesCardArray;
     private Random rand;
-    private int[] rowScores = new int[5]; // Score de difficulté pour chaque ligne
+    private final int[] rowScores = new int[5]; // Score de difficulté pour chaque ligne
 
     public ZombieSelector(Partie partie) {
         this.partie = partie;
@@ -71,9 +71,9 @@ public class ZombieSelector {
         //System.out.println("Total weight : " + totalWeight);
         int randomValue = rand.nextInt(totalWeight); // Générer un nombre aléatoire jusqu'à totalWeight
 
-        for (ZombieCard card : zombiesCardArray) {
+        /*for (ZombieCard card : zombiesCardArray) {
             //System.err.println(card.getZombie().getName() + " weight : " + card.getWeight());
-        }
+        }*/
 
         int currentSum = 0;
         for (ZombieCard card : zombiesCardArray) {
@@ -109,11 +109,20 @@ public class ZombieSelector {
     }
 
     public void tick() {
-        if (partie.getZombieSpawner().getTickCount() % 250 == 0 && partie.getZombieSpawner().getTotalTick() > 500) {
+        if (partie.getZombieSpawner().getTickCount() % 200 == 0 && partie.getZombieSpawner().getTotalTick() > 600) {
             for (ZombieCard card : zombiesCardArray) {
                 if (card.getZombie() instanceof ConeHeadZombie) {
+                    if (partie.getZombieSpawner().getTotalTick() > 1500) {
+                        card.addWeight(1);
+                    }
                     card.addWeight(2);
                 } else if (card.getZombie() instanceof BucketHeadZombie) {
+                    if (partie.getZombieSpawner().isInWave()) {
+                        if (partie.getZombieSpawner().getTotalTick() > 1900) {
+                            card.addWeight(1);
+                        }
+                        card.addWeight(1);
+                    }
                     card.addWeight(1);
                 } else if (card.getZombie() instanceof NormalZombie) {
                     card.addWeight(1);

@@ -33,13 +33,19 @@ public class ZombieSpawner {
         this.currentState = State.INIT;
     }
 
+    private void decrementSpawnRate(int valueToDecrement) {
+        if (spawnRate - valueToDecrement < 0) {
+            spawnRate = 0;
+        }
+    }
+
     public void tick() {
         tickCount++;
         totalTick++;
         spawnTick++;
 
         if (totalTick % 50 == 0) {
-            spawnRate -= 4;
+            decrementSpawnRate(4);
             //System.out.println("Spawn rate : " + spawnRate + " - spawnTick : " + spawnTick);
         }
 
@@ -95,16 +101,19 @@ public class ZombieSpawner {
                 spawnTick = 0;
             }
         }else if (waveNumber == 2) {
-            if (zombiesToSpawn > 0 && spawnTick > (14 + rand.nextInt(15))) {
+            if (zombiesToSpawn > 0 && spawnTick > (10 + rand.nextInt(15))) {
                 zombieSelector.spawnZombie();
                 zombiesToSpawn--;
                 spawnTick = 0;
+            }
+            if (totalTick % 50 == 0) {
+                decrementSpawnRate(2);
             }
         }
 
 
         if (totalTick % 50 == 0) {
-            spawnRate -= 3;
+            decrementSpawnRate(1);
         }
 
         if (zombiesToSpawn == 0 && allZombiesDead() && spawnTick > 100) {
@@ -122,14 +131,14 @@ public class ZombieSpawner {
     }
 
     private void handleInterludePhase() {
-        if (spawnTick > (spawnRate + rand.nextInt(15))) {
+        if (spawnTick > ((spawnRate-15) + rand.nextInt(15))) {
             zombieSelector.spawnZombie();
             spawnTick = 0;
         }
 
         if (tickCount > 600) {
             currentState = State.WAVE2;
-            zombiesToSpawn = 20;
+            zombiesToSpawn = 35;
             tickCount = 0;
             inWave = true;
             System.out.println("Deuxième vague commence !");

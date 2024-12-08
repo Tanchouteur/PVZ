@@ -35,7 +35,7 @@ public class PartieControllerView {
         primaryStage.show();
         primaryStage.setOnCloseRequest(event -> stop("Vous avez quitté la partie"));
         primaryStage.setResizable(false);
-        primaryStage.setMaximized(true);
+        //primaryStage.setMaximized(true);
         startViewLoop();
     }
 
