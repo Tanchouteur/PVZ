@@ -60,106 +60,124 @@
 <h2 id="structure-du-projet" style="color: #2c3e50;">Structure du projet</h2>
   <pre style="background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; border-radius: 4px; overflow-x: auto;">
 
-java───fr
-       └───tanchou
-           └───pvz
-               │   Launcher.java
-               │   Player.java
-               │   PVZ.java
-               │
-               ├───abstractEnity
-               │   │   Collider.java
-               │   │   Effect.java
-               │   │   Entity.java
-               │   │
-               │   ├───abstracObjectOfPlant
-               │   │       Bullet.java
-               │   │       ObjectOfPlant.java
-               │   │
-               │   ├───abstractPlant
-               │   │       ObjectGeneratorsPlant.java
-               │   │       PassivePlant.java
-               │   │       Plant.java
-               │   │
-               │   └───abstractZombie
-               │           Zombie.java
-               │
-               ├───entityRealisation
-               │   ├───effect
-               │   │       FireEffect.java
-               │   │       FreezeEffect.java
-               │   │
-               │   ├───ObjectOfPlant
-               │   │       FreezePeaBullet.java
-               │   │       PeaBullet.java
-               │   │       Sun.java
-               │   │
-               │   ├───plants
-               │   │   │   PlantCard.java
-               │   │   │
-               │   │   ├───ObjectGeneratorPlant
-               │   │   │       DoublePeaShooter.java
-               │   │   │       FreezePeaShooter.java
-               │   │   │       PeaShooter.java
-               │   │   │       SunFlower.java
-               │   │   │
-               │   │   └───passive
-               │   │           WallNut.java
-               │   │
-               │   └───zombie
-               │           BukketHeadZombie.java
-               │           ConeHeadZombie.java
-               │           NormalZombie.java
-               │           ZombieCard.java
-               │
-               ├───game
-               │   │   Partie.java
-               │   │   PartieController.java
-               │   │   SunManager.java
-               │   │
-               │   ├───rowComponent
-               │   │       Mower.java
-               │   │       PlantCase.java
-               │   │       Row.java
-               │   │
-               │   └───spawn
-               │           WeightCalculator.java
-               │           ZombieSpawner.java
-               │
-               └───guiJavaFx
-                   │   GameBoard.java
-                   │   PartieControllerView.java
-                   │   PVZGraphic.java
-                   │
-                   ├───controller
-                   │       CellGridController.java
-                   │       ExitCellController.java
-                   │       HoverCellController.java
-                   │       PlayerCardController.java
-                   │
-                   ├───layers
-                   │   ├───game
-                   │   │       BulletLayer.java
-                   │   │       EntityLayer.java
-                   │   │       MawerPanel.java
-                   │   │       PlantLayer.java
-                   │   │       SunLayer.java
-                   │   │       ZombieLayer.java
-                   │   │
-                   │   └───ihm
-                   │           HudLayer.java
-                   │           PlayerLayer.java
-                   │           SoldView.java
-                   │
-                   └───props
-                           BulletView.java
-                           CellView.java
-                           EntityView.java
-                           MowerView.java
-                           PlantCardView.java
-                           PlantView.java
-                           SunView.java
-                           ZombieView.java
+java
+    ├───fr
+    │   └───tanchou
+    │       └───pvz
+    │           │   Launcher.java
+    │           │   Player.java
+    │           │   PVZ.java
+    │           │
+    │           ├───abstractEnity
+    │           │   │   Collider.java
+    │           │   │   Effect.java
+    │           │   │   Entity.java
+    │           │   │
+    │           │   ├───abstracObjectOfPlant
+    │           │   │       Bullet.java
+    │           │   │       ObjectOfPlant.java
+    │           │   │
+    │           │   ├───abstractPlant
+    │           │   │       ObjectGeneratorsPlant.java
+    │           │   │       PassivePlant.java
+    │           │   │       Plant.java
+    │           │   │       WaitingPlant.java
+    │           │   │
+    │           │   └───abstractZombie
+    │           │           Zombie.java
+    │           │
+    │           ├───entityRealisation
+    │           │   ├───effect
+    │           │   │       FireEffect.java
+    │           │   │       FreezeEffect.java
+    │           │   │
+    │           │   ├───ObjectOfPlant
+    │           │   │       FreezePeaBullet.java
+    │           │   │       PeaBullet.java
+    │           │   │       Sun.java
+    │           │   │
+    │           │   ├───plants
+    │           │   │   │   PlantCard.java
+    │           │   │   │   PotatoMine.java
+    │           │   │   │
+    │           │   │   ├───ObjectGeneratorPlant
+    │           │   │   │       DoublePeaShooter.java
+    │           │   │   │       FreezePeaShooter.java
+    │           │   │   │       PeaShooter.java
+    │           │   │   │       SunFlower.java
+    │           │   │   │
+    │           │   │   └───passive
+    │           │   │           WallNut.java
+    │           │   │
+    │           │   └───zombie
+    │           │           BucketHeadZombie.java
+    │           │           ConeHeadZombie.java
+    │           │           NormalZombie.java
+    │           │           ZombieCard.java
+    │           │
+    │           ├───game
+    │           │   │   Partie.java
+    │           │   │   PartieController.java
+    │           │   │   SunManager.java
+    │           │   │
+    │           │   ├───rowComponent
+    │           │   │       Mower.java
+    │           │   │       PlantCase.java
+    │           │   │       Row.java
+    │           │   │
+    │           │   └───spawn
+    │           │           ZombieSelector.java
+    │           │           ZombieSpawner.java
+    │           │
+    │           └───guiJavaFx
+    │               │   EndScene.java
+    │               │   GameBoard.java
+    │               │   PartieControllerView.java
+    │               │   PVZGraphic.java
+    │               │
+    │               ├───assetsLoder
+    │               │       AssetsLoader.java
+    │               │
+    │               ├───controller
+    │               │       CellGridController.java
+    │               │       ExitCellController.java
+    │               │       HoverCellController.java
+    │               │       PlayerCardController.java
+    │               │       PlayerCardHoverController.java
+    │               │
+    │               ├───layers
+    │               │   ├───game
+    │               │   │       BulletLayer.java
+    │               │   │       EntityLayer.java
+    │               │   │       MawerPanel.java
+    │               │   │       PlantLayer.java
+    │               │   │       SunLayer.java
+    │               │   │       ZombieLayer.java
+    │               │   │
+    │               │   └───ihm
+    │               │           GameInfoLayer.java
+    │               │           HudLayer.java
+    │               │           PlayerLayer.java
+    │               │           SoldView.java
+    │               │
+    │               ├───props
+    │               │       BulletView.java
+    │               │       CellView.java
+    │               │       EntityView.java
+    │               │       MowerView.java
+    │               │       PlantCardView.java
+    │               │       PlantView.java
+    │               │       SunView.java
+    │               │       ZombieView.java
+    │               │
+    │               └───sound
+    │                       BackgroundMusic.java
+    │                       SoundEffect.java
+    │                       SoundManager.java
+    │                       SoundType.java
+    │
+    └───META-INF
+            MANIFEST.MF
 
 </pre>
 
