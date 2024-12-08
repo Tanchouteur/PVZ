@@ -1,6 +1,5 @@
 Manifest-Version: 1.0
 Main-Class: fr.tanchou.pvz.Launcher
-
 Implementation-Title: Plants vs Zombies Clone
 Implementation-Version: 1.0.2
 Implementation-Vendor: Louis Tanchou
