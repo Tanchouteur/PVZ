@@ -50,30 +50,18 @@ public class ZombieSelector {
             //System.out.println("Ligne déjà occupée, déplacement à la ligne " + rowIndex);
         }
 
-        // Récupère une carte zombie aléatoire
         ZombieCard zombieCard = getRandomZombieCard();
-
-        //System.err.println("zombie card récupéré : " + zombieCard.getZombie().getName());
-
         zombieCard.removeWeight(1);
 
-        // Clone et ajoute le zombie sur la ligne
         partie.getOneRow(rowIndex).addZombie(zombieCard.getZombie().clone(9.0, rowIndex));
 
-        // Met à jour le score de la ligne avec le score de difficulté du zombie
         rowScores[rowIndex] += zombieCard.getDifficultyScore();
 
-        //System.out.println("Fin du spawn. Score de la ligne " + rowIndex + ": " + rowScores[rowIndex]);
     }
 
     private ZombieCard getRandomZombieCard() {
         int totalWeight = calculateTotalWeight(); // Somme des poids actuels
-        //System.out.println("Total weight : " + totalWeight);
         int randomValue = rand.nextInt(totalWeight); // Générer un nombre aléatoire jusqu'à totalWeight
-
-        /*for (ZombieCard card : zombiesCardArray) {
-            //System.err.println(card.getZombie().getName() + " weight : " + card.getWeight());
-        }*/
 
         int currentSum = 0;
         for (ZombieCard card : zombiesCardArray) {
@@ -96,29 +84,20 @@ public class ZombieSelector {
     }
 
     private int getDynamicWeight(ZombieCard card) {
-
-        int baseWeight = card.getWeight();
-        // Si en vague, doublez les poids des zombies solides
-        /*if (partie.getZombieSpawner().isInWave()) {
-            if (card.getZombie() instanceof ConeHeadZombie || card.getZombie() instanceof BucketHeadZombie) {
-                baseWeight *= 2;
-            }
-        }*/
-
-        return baseWeight;
+        return card.getWeight();
     }
 
     public void tick() {
         if (partie.getZombieSpawner().getTickCount() % 200 == 0 && partie.getZombieSpawner().getTotalTick() > 600) {
             for (ZombieCard card : zombiesCardArray) {
                 if (card.getZombie() instanceof ConeHeadZombie) {
-                    if (partie.getZombieSpawner().getTotalTick() > 1500) {
+                    if (partie.getZombieSpawner().getTotalTick() > 1400) {
                         card.addWeight(1);
                     }
                     card.addWeight(2);
                 } else if (card.getZombie() instanceof BucketHeadZombie) {
                     if (partie.getZombieSpawner().isInWave()) {
-                        if (partie.getZombieSpawner().getTotalTick() > 1900) {
+                        if (partie.getZombieSpawner().getTotalTick() > 1800) {
                             card.addWeight(1);
                         }
                         card.addWeight(1);

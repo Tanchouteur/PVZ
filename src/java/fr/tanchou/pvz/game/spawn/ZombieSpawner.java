@@ -131,7 +131,11 @@ public class ZombieSpawner {
     }
 
     private void handleInterludePhase() {
-        if (spawnTick > ((spawnRate-15) + rand.nextInt(15))) {
+        int tempSpawnRate = spawnRate;
+        if (tempSpawnRate > 45) {
+            tempSpawnRate -= 40;
+        }
+        if (spawnTick > (tempSpawnRate + rand.nextInt(20))) {
             zombieSelector.spawnZombie();
             spawnTick = 0;
         }

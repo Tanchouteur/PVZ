@@ -4,7 +4,7 @@ import fr.tanchou.pvz.abstractEnity.Effect;
 
 public class FreezeEffect extends Effect {
     public FreezeEffect() {
-        super(0.3, 40, 0);
+        super(0.4, 40, 0);
     }
 
     @Override
