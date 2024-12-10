@@ -31,7 +31,6 @@ public class CellView extends Pane {
             PlantView entityView = new PlantView(plantCase.getPlant(), 150, 150, assetsLoader.getAssetEntity(plantCase.getPlant()), soundManager);
             entityView.setMouseTransparent(true);
             this.getChildren().add(entityView);
-            System.out.println("Plant added");
             setOpacity(1);
             setHovered(false);
         }
@@ -39,7 +38,6 @@ public class CellView extends Pane {
         // Supprime la vue de la plante si la case est vide (mais pas la prévisualisation)
         if (plantCase.isEmpty() && this.getChildren().stream().anyMatch(node -> node instanceof EntityView)) {
             this.getChildren().removeIf(node -> node instanceof EntityView);
-            System.out.println("Plant removed");
         }
 
         // Gere la transparence pour l'effet hover

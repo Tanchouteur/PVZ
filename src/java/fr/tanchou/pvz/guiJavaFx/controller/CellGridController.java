@@ -23,6 +23,10 @@ public class CellGridController implements EventHandler {
 
         if (player.buyPlant(cellView.getPlantCase().getX(), cellView.getPlantCase().getY())){
             soundManager.playSound("plant");
+        }else if (player.canShovel() && !cellView.getPlantCase().isEmpty()) {
+            player.shovelPlant(cellView.getPlantCase().getX(), cellView.getPlantCase().getY());
+            soundManager.playSound("shovel");
+            cellView.getChildren().removeIf(node -> node.getId() != null && node.getId().equals("shovelPreview"));
         }
 
         // Débogage

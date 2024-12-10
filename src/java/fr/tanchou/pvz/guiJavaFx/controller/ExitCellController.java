@@ -22,7 +22,12 @@ public class ExitCellController implements EventHandler {
             cellView.getChildren().removeIf(node -> node.getId() != null && node.getId().equals("hoverPreview"));
             cellView.setHovered(false);
             cellView.setCursor(Cursor.DEFAULT);
+        }else if (player.canShovel() && !cellView.getPlantCase().isEmpty()) {
+            cellView.getChildren().removeIf(node -> node.getId() != null && node.getId().equals("shovelPreview"));
+            cellView.setHovered(false);
+            cellView.setCursor(Cursor.DEFAULT);
         }
+
         // déboguer
         // System.err.println("cell exited x = " + cellView.getPlantCase().getX() + " - y = " + cellView.getPlantCase().getY());
     }

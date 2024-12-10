@@ -99,5 +99,6 @@ public class PVZGraphic extends Application {
         soundManager.loadSound("inGame", "/sounds/InGame.mp3");
         soundManager.loadSound("throw", "/sounds/plant/Throw.mp3");
         soundManager.loadSound("splat", "/sounds/plant/Splat.mp3");
+        soundManager.loadSound("splat", "/sounds/game/Shovel.mp3");
     }
 }

@@ -4,6 +4,7 @@ import fr.tanchou.pvz.Player;
 import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
 import fr.tanchou.pvz.guiJavaFx.controller.PlayerCardController;
 import fr.tanchou.pvz.guiJavaFx.controller.PlayerCardHoverController;
+import fr.tanchou.pvz.guiJavaFx.controller.ShovelCardController;
 import fr.tanchou.pvz.guiJavaFx.props.PlantCardView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,6 +16,7 @@ import java.util.Objects;
 public class HudLayer extends Pane {
     private final LinkedList<PlantCardView> listPlantCardView = new LinkedList<>();
     private final SoldView soldView;
+    private final ImageView shovelView;
 
     public HudLayer(Player player, double height) {
         super();
@@ -22,8 +24,6 @@ public class HudLayer extends Pane {
         /*this.setPrefSize(width*0.1, height*0.56);
         this.setLayoutX(width*0.00625);
         this.setLayoutY(((double) height /2) - this.getPrefHeight()/2);*/
-
-
 
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/assets/player/panelCard.png")));
         ImageView imageView = new ImageView(image);
@@ -50,6 +50,19 @@ public class HudLayer extends Pane {
             plantCardView.setMouseTransparent(false);
             i++;
         }
+
+        shovelView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/assets/items/shovel.png"))));
+        shovelView.setFitWidth(100);
+        shovelView.setFitHeight(100);
+
+        shovelView.setLayoutX(10);
+        shovelView.setLayoutY(i * 110 + 120);
+
+        shovelView.setOnMouseClicked(new ShovelCardController(player));
+
+        shovelView.setCursor(javafx.scene.Cursor.HAND);
+
+        this.getChildren().add(shovelView);
     }
 
     public void update() {

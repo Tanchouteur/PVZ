@@ -35,7 +35,20 @@ public class HoverCellController implements EventHandler {
             cellView.getChildren().add(imageView);
             cellView.setHovered(true);
 
-            cellView.setCursor(Cursor.OPEN_HAND);
+        }else if (player.canShovel() && !cellView.getPlantCase().isEmpty()) {
+            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/assets/items/shovel.png")));
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(150);
+            imageView.setFitHeight(150);
+            imageView.setMouseTransparent(true);
+            imageView.setId("shovelPreview");
+            cellView.getChildren().add(imageView);
+            cellView.setHovered(true);
+
+
+        }else {
+            cellView.setHovered(false);
+            cellView.getChildren().removeIf(node -> node.getId() != null && node.getId().equals("shovelPreview"));
         }
     }
 }

@@ -18,6 +18,8 @@ public class Player {
     private final String name;
     private PlantCard activPlantCard;
 
+    private boolean isShovelActive = false;
+
     private  SunManager sunManager;
     private  Partie partie;
 
@@ -62,12 +64,12 @@ public class Player {
     }
 
     public boolean preBuyPlant(PlantCard plantCard) {
-        if (this.activPlantCard != null) {
+        if (this.activPlantCard != null && this.activPlantCard.equals(plantCard)) {
 
             cancelBuyPlant();
 
         }else if (plantCard.canBuy() && (this.sold - plantCard.getPlant().getCost()) >= 0) {
-            //this.sold -= plantCard.getPlant().getCost();
+            this.isShovelActive = false;
             this.activPlantCard = plantCard;
             return true;
         }
@@ -130,5 +132,26 @@ public class Player {
 
     public PlantCard[] getPlantCardsArray(){
         return this.plantCards;
+    }
+
+    public void setShovelActive(boolean shovelActive) {
+        this.isShovelActive = shovelActive;
+    }
+
+    public boolean canShovel() {
+        return isShovelActive && activPlantCard == null;
+    }
+
+    public void toggleShovel() {
+        this.cancelBuyPlant();
+        this.isShovelActive = !isShovelActive;
+    }
+
+    public boolean isShovelActive() {
+        return isShovelActive;
+    }
+
+    public void shovelPlant(int x, int y) {
+        partie.getOneRow(y).getPlantCase(x).removePlant();
     }
 }
