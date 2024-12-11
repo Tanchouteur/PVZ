@@ -9,28 +9,23 @@ public class ZombieSpawner {
     private final Partie partie;
     private final ZombieSelector zombieSelector;
 
-    private final Random rand;
-    private int tickCount;       // Compteur global de ticks
-    private int spawnRate;       // Intervalle entre les spawns
-    private boolean inWave;      // Indique si une vague est en cours
-    private int zombiesToSpawn;  // Nombre de zombies à spawn dans une vague
+    private final Random rand = new Random();
+
+    private int spawnRate = 220;       // Intervalle entre les spawns
+
+    private int tickCount = 0;
     private int totalTick = 0;
     private int spawnTick = 0;
 
+    private int zombiesToSpawn = 0;  // Nombre de zombies à spawn dans une vague
+    private boolean inWave = false;      // Indique si une vague est en cours
+
     private enum State { INIT, CRESCENDO, WAVE1, INTERLUDE, WAVE2, FINISHED }
-    private State currentState;
+    private State currentState = State.INIT;;
 
     public ZombieSpawner(Partie partie) {
         this.partie = partie;
-
-        this.rand = new Random();
-        this.tickCount = 0;
-        this.spawnRate = 220;
-        this.inWave = false;
-        this.zombiesToSpawn = 0;
-
         this.zombieSelector = new ZombieSelector(partie);
-        this.currentState = State.INIT;
     }
 
     private void decrementSpawnRate(int valueToDecrement) {

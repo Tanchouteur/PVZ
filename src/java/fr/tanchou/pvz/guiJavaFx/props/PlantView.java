@@ -42,7 +42,7 @@ public class PlantView extends EntityView {
             }
         }else if (getEntity() instanceof SunFlower sunFlower && sunFlower.getTimeSinceLastFire() > (sunFlower.getFireRate()/10)*9){
             this.hitEffect = 5;
-        } else if (getEntity() instanceof PotatoMine potatoMine && potatoMine.getUsable() <= 0){
+        } else if (getEntity() instanceof PotatoMine potatoMine && potatoMine.getUsableTick() <= 0){
             this.imageUsed = assets.get("ready");
         }else if (getEntity() instanceof PotatoMine) {
             this.imageUsed = assets.get("normal");

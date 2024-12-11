@@ -19,11 +19,6 @@ public class SunManager {
         this.random = new Random();
     }
 
-    // Ajouter un soleil à une position donnée
-    public void addSun(Sun sun) {
-        this.sunToAdd.add(sun);
-    }
-
     public void tick() {
         // Ajouter les soleils à ajouter
         if (!sunToAdd.isEmpty()) {
@@ -52,11 +47,16 @@ public class SunManager {
         }
     }
 
-    public LinkedList<Sun> getSunLinkedList() {
-        return this.sunLinkedList;
+    // Ajouter un soleil à une position donnée
+    public void addSun(Sun sun) {
+        this.sunToAdd.add(sun);
     }
 
     public void removeSun(Sun sun) {
         this.sunToRemove.add(sun);
+    }
+
+    public LinkedList<Sun> getSunLinkedList() {
+        return this.sunLinkedList;
     }
 }

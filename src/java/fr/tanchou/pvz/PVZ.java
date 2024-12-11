@@ -44,14 +44,6 @@ public class PVZ {
         return partie;
     }
 
-    public Player getPlayerController() {
-        return player;
-    }
-
-    public SunManager getSunManager() {
-        return sunManager;
-    }
-
     public Player getPlayer() {
         return player;
     }

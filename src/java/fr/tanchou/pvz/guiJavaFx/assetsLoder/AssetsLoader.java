@@ -4,7 +4,7 @@ import fr.tanchou.pvz.Player;
 import fr.tanchou.pvz.abstractEnity.Entity;
 import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
 import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
-import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
+import fr.tanchou.pvz.game.PlantCard;
 import fr.tanchou.pvz.entityRealisation.plants.PotatoMine;
 import fr.tanchou.pvz.entityRealisation.plants.passive.WallNut;
 import fr.tanchou.pvz.entityRealisation.zombie.BucketHeadZombie;

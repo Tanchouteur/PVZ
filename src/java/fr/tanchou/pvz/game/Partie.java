@@ -39,18 +39,6 @@ public class Partie {
         /*zombieSpawner.spawnZombie(4);*/
     }
 
-    public Row[] getRows() {
-        return rows;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public Row getOneRow(int index) {
-        return rows[index];
-    }
-
     public void update() {
 
         if (consoleLog) {
@@ -69,16 +57,28 @@ public class Partie {
         player.tick();
     }
 
-    public boolean isDefeated() {
-        return defeated;
-    }
-
     public void consoleLog(){
         this.tick++;
         if (tick >= 12) {
             System.out.println(this);
             tick = 0;
         }
+    }
+
+    public Row[] getRows() {
+        return rows;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Row getOneRow(int index) {
+        return rows[index];
+    }
+
+    public boolean isDefeated() {
+        return defeated;
     }
 
     @Override

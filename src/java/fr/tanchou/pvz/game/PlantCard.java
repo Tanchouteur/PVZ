@@ -1,4 +1,4 @@
-package fr.tanchou.pvz.entityRealisation.plants;
+package fr.tanchou.pvz.game;
 
 import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
 

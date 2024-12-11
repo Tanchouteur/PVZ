@@ -5,7 +5,7 @@ import fr.tanchou.pvz.entityRealisation.ObjectOfPlant.Sun;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.DoublePeaShooter;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.FreezePeaShooter;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.PeaShooter;
-import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
+import fr.tanchou.pvz.game.PlantCard;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
 import fr.tanchou.pvz.entityRealisation.plants.PotatoMine;
 import fr.tanchou.pvz.entityRealisation.plants.passive.WallNut;
@@ -94,16 +94,11 @@ public class Player {
     }
 
     public void cancelBuyPlant() {
-        //this.sold += activPlantCard.getPlant().getCost();
         this.activPlantCard = null;
     }
 
     public PlantCard getActivPlantCard() {
         return activPlantCard;
-    }
-
-    private void setActivPlantCard(PlantCard activPlantCard) {
-        this.activPlantCard = activPlantCard;
     }
 
     public void setSunManager(SunManager sunManager) {
@@ -118,10 +113,6 @@ public class Player {
         this.plantCards = plantCards;
     }
 
-    public void setPlantCard(int index, PlantCard plantCard) {
-        this.plantCards[index] = plantCard;
-    }
-
     public String getName() {
         return name;
     }
@@ -134,10 +125,6 @@ public class Player {
         return this.plantCards;
     }
 
-    public void setShovelActive(boolean shovelActive) {
-        this.isShovelActive = shovelActive;
-    }
-
     public boolean canShovel() {
         return isShovelActive && activPlantCard == null;
     }
@@ -145,10 +132,6 @@ public class Player {
     public void toggleShovel() {
         this.cancelBuyPlant();
         this.isShovelActive = !isShovelActive;
-    }
-
-    public boolean isShovelActive() {
-        return isShovelActive;
     }
 
     public void shovelPlant(int x, int y) {

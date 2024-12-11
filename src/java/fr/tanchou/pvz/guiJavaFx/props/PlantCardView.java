@@ -1,6 +1,6 @@
 package fr.tanchou.pvz.guiJavaFx.props;
 
-import fr.tanchou.pvz.entityRealisation.plants.PlantCard;
+import fr.tanchou.pvz.game.PlantCard;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

@@ -15,6 +15,3 @@ public class Launcher {
         }
     }
 }
-
-//sunflower 25 sec to spwn sun
-//peashooter 14 sec to kill zombie normal

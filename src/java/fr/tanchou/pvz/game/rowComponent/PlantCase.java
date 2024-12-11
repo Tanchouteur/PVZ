@@ -12,12 +12,10 @@ public class PlantCase {
         this.y = y;
     }
 
-    public boolean placePlant(Plant plant) {
+    public void placePlant(Plant plant) {
         if (this.plant == null) {
             this.plant = plant;
-            return true;
         }
-        return false;
     }
 
     public void removePlant() {

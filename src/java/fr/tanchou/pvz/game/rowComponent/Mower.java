@@ -15,6 +15,12 @@ public class Mower {
         this.y = y;
     }
 
+    public void move() {
+        if (this.x < 10) {
+            this.x += 0.3;
+        }
+    }
+
     public boolean collideWith(Zombie zombie) {
         double distance = Math.abs(this.getX() - zombie.getX());
 
@@ -23,11 +29,6 @@ public class Mower {
 
     public double getX() {
         return x;
-    }
-
-    @Override
-    public String toString(){
-        return ""+this.getX();
     }
 
     public int getY() {
@@ -42,9 +43,8 @@ public class Mower {
         this.active = active;
     }
 
-    public void move() {
-        if (this.x < 10) {
-            this.x += 0.3;
-        }
+    @Override
+    public String toString(){
+        return ""+this.getX();
     }
 }

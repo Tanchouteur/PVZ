@@ -19,7 +19,7 @@ public class Row {
     private boolean haveZombie = false;
     private Zombie firstZombie;
 
-    private final PlantCase[] plantCasesArray;
+    private final PlantCase[] plantCasesArray = new PlantCase[9];
     private final LinkedList<Bullet> listBullets = new LinkedList<>();
     private final LinkedList<Zombie> listZombie = new LinkedList<>();
 
@@ -34,7 +34,7 @@ public class Row {
         this.rowIndex = rowIndex;
         this.mower = new Mower(rowIndex);
         this.sunManager = sunManager;
-        plantCasesArray = new PlantCase[9];
+
         // Initialiser les cases avec des positions fixes
         for (int i = 0; i < 9; i++) {
             plantCasesArray[i] = new PlantCase(i, rowIndex);
