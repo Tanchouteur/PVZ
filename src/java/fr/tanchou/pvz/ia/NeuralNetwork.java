@@ -1,10 +1,10 @@
 package fr.tanchou.pvz.ia;
 
 public class NeuralNetwork {
-    private double[][] weightsInputHidden;
-    private double[] biasHidden;
-    private double[][] weightsHiddenOutput;
-    private double[] biasOutput;
+    private final double[][] weightsInputHidden;
+    private final double[] biasHidden;
+    private final double[][] weightsHiddenOutput;
+    private final double[] biasOutput;
 
     public NeuralNetwork(int inputSize, int hiddenSize, int outputSize) {
         weightsInputHidden = new double[inputSize][hiddenSize];
