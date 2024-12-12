@@ -23,20 +23,13 @@ public class NeuralNetwork {
         }
     }
 
+    public NeuralNetwork(List<List<Neuron>> layers) {
+        this.layers = layers;
+    }
+
     // Méthode pour faire passer les entrées à travers le réseau
     public void feedForward(double[] inputs) {
 
-        // Remplir la couche d'entrée avec les données
-        for (int i = 0; i < inputs.length; i++) {
-            layers.get(0).get(i).setValue(inputs[i]);
-        }
-
-        // Calculer les sorties pour chaque neurone (couche par couche)
-        for (int i = 1; i < layers.size(); i++) {
-            for (Neuron neuron : layers.get(i)) {
-                neuron.calculateOutput(); // Calcule la sortie du neurone
-            }
-        }
     }
 
     // Getter pour obtenir la sortie finale
@@ -50,5 +43,9 @@ public class NeuralNetwork {
         }
 
         return outputs;
+    }
+
+    public NeuralNetwork mutate() {
+        return this;
     }
 }

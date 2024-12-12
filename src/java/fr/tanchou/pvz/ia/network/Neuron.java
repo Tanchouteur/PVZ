@@ -4,19 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Neuron {
-    private double value; // La valeur d'entrée du neurone
     private double output; // La sortie du neurone
     private final List<Neuron> inputs; // Liste des neurones entrants
     private final List<Double> weights; // Liste des poids associés à chaque entrée
+
+    // Constructeur
+    public Neuron(List<Neuron> inputs, List<Double> weights) {
+        this.inputs = inputs;
+        this.weights = weights;
+    }
 
     // Constructeur
     public Neuron(List<Neuron> inputs) {
         this.inputs = inputs;
         this.weights = new ArrayList<>();
 
-        // Initialisation des poids aléatoirement
+        // Initialise les poids aléatoirement
         for (int i = 0; i < inputs.size(); i++) {
-            this.weights.add(Math.random()); // Poids initial aléatoire
+            this.weights.add(Math.random() * 2 - 1); // Poids aléatoires entre -1 et 1
         }
     }
 
@@ -37,9 +42,5 @@ public class Neuron {
     // Getter et setter
     public double getOutput() {
         return this.output;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
     }
 }

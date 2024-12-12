@@ -2,6 +2,7 @@ package fr.tanchou.pvz.ia;
 
 import fr.tanchou.pvz.game.PVZ;
 import fr.tanchou.pvz.game.Player;
+import fr.tanchou.pvz.ia.network.NeuralNetwork;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,18 +22,19 @@ public class IAEnvironmentManager {
     }
 
     // Initialise les jeux sans les démarrer
-    public void initializeGames() {
+    public void initializeGames(List<NeuralNetwork> models) {
         for (int i = 0; i < numberOfGames; i++) {
+
             Player iaPlayer = new Player("IA_Player_" + (i + 1));
-            PVZ pvz = new PVZ(iaPlayer);
+            PVZ pvz = new PVZ(iaPlayer, new GameAI(new NeuralNetwork(new int[]{270, 100, 52})));
 
             Callable<IAGameResult> simulationTask = () -> {
-                pvz.runManualGame(4500, true); // Limite de 280 ticks pour chaque simulation
+                pvz.runManualGame(4500);
 
                 IAGameResult result = new IAGameResult(
                         iaPlayer.getName(),
-                        pvz.getPartie().isVictory(),
-                        pvz.getPartieController().getTickCount()
+                        pvz.getPartieController().getGameAI().getNeuralNetwork(),
+                        pvz.getPartie()
                 );
 
                 completedGames.incrementAndGet();

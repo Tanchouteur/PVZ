@@ -13,14 +13,9 @@ public class PartieController {
 
     private int totalTick = 0;
 
-    public PartieController(Partie partie, Boolean ia) {
+    public PartieController(Partie partie, GameAI gameAI) {
         this.partie = partie;
-
-        if (ia) {
-            this.gameAI = new GameAI();
-        } else {
-            this.gameAI = null;
-        }
+        this.gameAI = gameAI;
 
         gameLoop = Executors.newSingleThreadScheduledExecutor();
     }
@@ -31,7 +26,7 @@ public class PartieController {
 
         //System.out.println("Tick: " + totalTick);
 
-        if (gameAI != null && totalTick % 2 == 0) {
+        if (gameAI != null && totalTick % 3 == 0) {
             gameAI.takeAction(partie);
         }
 
@@ -59,5 +54,9 @@ public class PartieController {
 
     public int getTickCount() {
         return totalTick;
+    }
+
+    public GameAI getGameAI() {
+        return gameAI;
     }
 }

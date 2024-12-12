@@ -13,9 +13,8 @@ import fr.tanchou.pvz.ia.network.NeuralNetwork;
 public class GameAI {
     private final NeuralNetwork neuralNetwork;
 
-    public GameAI() {
-        // Initialisation du réseau de neurones avec 270 entrées (plantes, zombies, tondeuses, soleil, cartes de plantes)
-        neuralNetwork = new NeuralNetwork(new int[]{270, 100, 52});  // Exemple de 100 neurones cachés
+    public GameAI(NeuralNetwork neuralNetwork) {
+        this.neuralNetwork = neuralNetwork;
     }
 
     // Convertir l'état du jeu en un tableau d'entrées
@@ -174,5 +173,9 @@ public class GameAI {
         }
 
         return maxIndex;
+    }
+
+    public NeuralNetwork getNeuralNetwork() {
+        return neuralNetwork;
     }
 }

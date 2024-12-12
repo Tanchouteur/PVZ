@@ -1,5 +1,8 @@
 package fr.tanchou.pvz.game;
 
+import fr.tanchou.pvz.ia.GameAI;
+import fr.tanchou.pvz.ia.network.NeuralNetwork;
+
 public class PVZ {
     private final Player player;
 
@@ -7,27 +10,34 @@ public class PVZ {
     private PartieController gameController;
     private SunManager sunManager;
 
+    private GameAI gameAI;
+
     public PVZ(Player player) {
         this.player = player;
-
     }
 
-    public void startGame(boolean consoleLog, boolean ia) {
-        this.createPartie(consoleLog, ia);
+    public PVZ(Player player, GameAI gameAI) {
+        this.player = player;
+
+        this.gameAI = gameAI;
+    }
+
+    public void startGame(boolean consoleLog) {
+        this.createPartie(consoleLog);
         gameController.startGame();
     }
 
-    public void createPartie(boolean consoleLog, boolean ia) {
+    public void createPartie(boolean consoleLog) {
         this.sunManager = new SunManager();
         this.partie = new Partie(player, sunManager, consoleLog);
-        this.gameController = new PartieController(partie, ia);
+        this.gameController = new PartieController(partie, gameAI);
 
         player.setPartie(partie);
         player.setSunManager(sunManager);
     }
 
-    public void runManualGame(int maxTicks, boolean iaEnabled) {
-        createPartie(false, iaEnabled);
+    public void runManualGame(int maxTicks) {
+        createPartie(false);
         while (gameController.getTickCount() < maxTicks &&
                 !partie.isDefeated() &&
                 !partie.isVictory()) {
