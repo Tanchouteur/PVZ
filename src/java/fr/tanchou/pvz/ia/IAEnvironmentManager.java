@@ -33,7 +33,7 @@ public class IAEnvironmentManager {
 
             Callable<IAGameResult> simulationTask = () -> {
                 pvz.runManualGame(4500);
-
+                System.out.println("completedGames : " + completedGames.get());
                 IAGameResult result = new IAGameResult(
                         iaPlayer.getName(),
                         pvz.getPartieController().getGameAI().getNeuralNetwork(),
@@ -41,7 +41,7 @@ public class IAEnvironmentManager {
                 );
 
                 completedGames.incrementAndGet();
-                //System.out.println("completedGames : " + completedGames.get());
+
                 return result;
             };
 
@@ -74,6 +74,6 @@ public class IAEnvironmentManager {
     }
 
     public boolean areAllSimulationsCompleted() {
-        return completedGames.get() == numberOfGames || completedGames.get() > 90;
+        return completedGames.get() == numberOfGames-1;
     }
 }

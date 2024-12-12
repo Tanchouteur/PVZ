@@ -7,7 +7,6 @@ public class PVZ {
 
     private Partie partie;
     private PartieController gameController;
-    private SunManager sunManager;
 
     private GameAI gameAI;
 
@@ -27,7 +26,7 @@ public class PVZ {
     }
 
     public void createPartie(boolean consoleLog) {
-        this.sunManager = new SunManager();
+        SunManager sunManager = new SunManager();
         this.partie = new Partie(player, sunManager, consoleLog);
         this.gameController = new PartieController(partie, gameAI);
 
@@ -41,12 +40,12 @@ public class PVZ {
                 !partie.isDefeated() &&
                 !partie.isVictory()) {
             gameController.update();
-            //System.out.println("Tick: " + gameController.getTickCount());
+            System.out.println("Tick: " + gameController.getTickCount());
         }
 
-        /*if (partie.isVictory()) {
-            //System.out.println("Victory!");
-        } else {
+        if (partie.isVictory()) {
+            System.out.println("Victory!");
+        } /*else {
             //System.out.println("Game Over.");
         }*/
     }
