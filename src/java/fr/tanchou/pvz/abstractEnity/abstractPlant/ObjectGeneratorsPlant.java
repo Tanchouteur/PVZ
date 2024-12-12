@@ -61,4 +61,8 @@ public abstract class ObjectGeneratorsPlant extends Plant {
     public void setNeedToCreate(boolean needToCreate) {
         this.needToCreate = needToCreate;
     }
+
+    public ObjectOfPlant getObjectOfPlant() {
+        return objectOfPlant;
+    }
 }

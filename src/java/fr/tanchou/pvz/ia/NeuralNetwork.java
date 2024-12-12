@@ -1,54 +1,56 @@
 package fr.tanchou.pvz.ia;
 
+import fr.tanchou.pvz.ia.network.Neuron;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class NeuralNetwork {
-    private final double[][] weightsInputHidden;
-    private final double[] biasHidden;
-    private final double[][] weightsHiddenOutput;
-    private final double[] biasOutput;
+    private final List<List<Neuron>> layers; // Liste des couches (chaque couche est une liste de neurones)
 
-    public NeuralNetwork(int inputSize, int hiddenSize, int outputSize) {
-        weightsInputHidden = new double[inputSize][hiddenSize];
-        biasHidden = new double[hiddenSize];
-        weightsHiddenOutput = new double[hiddenSize][outputSize];
-        biasOutput = new double[outputSize];
+    public NeuralNetwork(int[] neuronsPerLayer) {
+        layers = new ArrayList<>();
 
-        // Initialisation aléatoire des poids
-        initializeWeights(weightsInputHidden);
-        initializeWeights(weightsHiddenOutput);
+        // Créer les couches du réseau
+        for (int i = 0; i < neuronsPerLayer.length; i++) {
+            List<Neuron> layer = new ArrayList<>();
+
+            for (int j = 0; j < neuronsPerLayer[i]; j++) {
+
+                // Crée des neurones dans chaque couche
+                List<Neuron> inputs = i == 0 ? new ArrayList<>() : layers.get(i - 1); // Entrées provenant de la couche précédente
+                layer.add(new Neuron(inputs)); // Crée le neurone
+            }
+            layers.add(layer);
+        }
     }
 
-    private void initializeWeights(double[][] weights) {
-        for (int i = 0; i < weights.length; i++) {
-            for (int j = 0; j < weights[i].length; j++) {
-                weights[i][j] = Math.random() * 2 - 1; // Valeurs entre -1 et 1
+    // Méthode pour faire passer les entrées à travers le réseau
+    public void feedForward(double[] inputs) {
+
+        // Remplir la couche d'entrée avec les données
+        for (int i = 0; i < inputs.length; i++) {
+            layers.get(0).get(i).setValue(inputs[i]);
+        }
+
+        // Calculer les sorties pour chaque neurone (couche par couche)
+        for (int i = 1; i < layers.size(); i++) {
+            for (Neuron neuron : layers.get(i)) {
+                neuron.calculateOutput(); // Calcule la sortie du neurone
             }
         }
     }
 
-    public double[] predict(double[] inputs) {
-        // Propagation avant : input -> hidden
-        double[] hidden = new double[biasHidden.length];
-        for (int i = 0; i < hidden.length; i++) {
-            hidden[i] = biasHidden[i];
-            for (int j = 0; j < inputs.length; j++) {
-                hidden[i] += inputs[j] * weightsInputHidden[j][i];
-            }
-            hidden[i] = sigmoid(hidden[i]);
+    // Getter pour obtenir la sortie finale
+    public double[] getOutput() {
+
+        List<Neuron> outputLayer = layers.getLast(); // Récupère la dernière couche
+        double[] outputs = new double[outputLayer.size()];
+
+        for (int i = 0; i < outputLayer.size(); i++) {
+            outputs[i] = outputLayer.get(i).getOutput(); // Récupère les sorties des neurones de la dernière couche
         }
 
-        // Propagation avant : hidden -> output
-        double[] output = new double[biasOutput.length];
-        for (int i = 0; i < output.length; i++) {
-            output[i] = biasOutput[i];
-            for (int j = 0; j < hidden.length; j++) {
-                output[i] += hidden[j] * weightsHiddenOutput[j][i];
-            }
-            output[i] = sigmoid(output[i]);
-        }
-        return output;
-    }
-
-    private double sigmoid(double x) {
-        return 1 / (1 + Math.exp(-x));
+        return outputs;
     }
 }

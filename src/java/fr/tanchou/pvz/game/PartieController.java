@@ -1,6 +1,7 @@
 package fr.tanchou.pvz.game;
 
-import fr.tanchou.pvz.ia.IAPlayer;
+import fr.tanchou.pvz.ia.GameAI;
+import fr.tanchou.pvz.ia.NeuralNetwork;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -9,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class PartieController {
     private final ScheduledExecutorService gameLoop;
     private final Partie partie;
-    private final IAPlayer iaPlayer;
+    private final GameAI gameAI;
 
     private int totalTick = 0;
 
@@ -17,9 +18,9 @@ public class PartieController {
         this.partie = partie;
 
         if (ia) {
-            this.iaPlayer = new IAPlayer(partie);
+            this.gameAI = new GameAI();
         } else {
-            this.iaPlayer = null;
+            this.gameAI = null;
         }
 
         gameLoop = Executors.newSingleThreadScheduledExecutor();
@@ -31,8 +32,8 @@ public class PartieController {
 
         //System.out.println("Tick: " + totalTick);
 
-        if (iaPlayer != null && totalTick % 2 == 0) {
-            iaPlayer.makeDecision();
+        if (gameAI != null && totalTick % 2 == 0) {
+            gameAI.takeAction(partie);
         }
 
         partie.update();

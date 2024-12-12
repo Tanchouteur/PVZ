@@ -92,8 +92,8 @@ public class Player {
         return false;
     }
 
-    public boolean buyPlant(PlantCard plantCard,int x, int y) {
-
+    public boolean buyPlant(int plantCardIndex,int x, int y) {
+        PlantCard plantCard = plantCards[plantCardIndex];
         if (plantCard.canBuy() && (this.sold - plantCard.getPlant().getCost()) >= 0) {
             this.isShovelActive = false;
             this.activPlantCard = plantCard;
