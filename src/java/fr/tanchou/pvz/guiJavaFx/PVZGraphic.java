@@ -36,6 +36,7 @@ public class PVZGraphic extends Application {
 
         BorderPane root = new BorderPane();
         AssetsLoader assetsLoader = new AssetsLoader(pvzInstance.getPlayer());
+
         // Menu principal
         Pane menu = new Pane();
         menu.setPrefSize(1920, 1080);
@@ -75,6 +76,7 @@ public class PVZGraphic extends Application {
         // Passer à l'écran de jeu
         soundManager.playSound("buttonclick");
         pvzInstance.startGame(false);
+
         PartieControllerView controllerView = new PartieControllerView(pvzInstance, soundManager);
         controllerView.start(primaryStage);
         soundManager.playBackgroundMusic("/sounds/InGame.mp3");

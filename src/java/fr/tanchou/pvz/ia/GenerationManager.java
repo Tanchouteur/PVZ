@@ -52,21 +52,24 @@ public class GenerationManager {
 
         ModelSaver.saveModel(bestModels.getFirst(), "best_model.json");
 
-        // Appliquer des mutations et créer la prochaine génération
-        List<NeuralNetwork> nextGeneration = createNextGenerationFromList(bestModels);
-
         // Remplacer la génération actuelle avec la suivante
-        this.models = nextGeneration;
+        this.models = createNextGenerationFromList(bestModels);
     }
 
     // Sélectionne les meilleurs modèles en fonction de leurs performances
     private List<NeuralNetwork> selectBestModels(List<IAGameResult> results) {
         results.sort(Comparator.comparingDouble(IAGameResult::calculateScore).reversed());
 
+        for (int i = 0; i < results.size()/2; i++) {
+            System.out.println("Score du modèle " + i + " : " + results.get(i).calculateScore());
+        }
+
         List<NeuralNetwork> bestModels = new ArrayList<>();
-        for (int i = 0; i < 1; i++) {               // Par exemple, on garde les 50% meilleurs
+        for (int i = 0; i < 1; i++) {
             bestModels.add(this.models.get(i));     // Associer les résultats aux modèles
         }
+
+        System.out.println("Modèle sélectionné : " + results.getFirst().calculateScore());
         return bestModels;
     }
 
@@ -86,7 +89,7 @@ public class GenerationManager {
         List<NeuralNetwork> nextGeneration = new ArrayList<>();
 
         // Nombre de mutants à générer
-        int numberOfMutants = 10;
+        int numberOfMutants = 100;
 
         for (int i = 0; i < numberOfMutants; i++) {
             nextGeneration.add(bestModel.mutate()); // Clone et applique une mutation

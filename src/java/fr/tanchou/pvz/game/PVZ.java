@@ -44,11 +44,11 @@ public class PVZ {
             gameController.update();
         }
 
-        if (partie.isVictory()) {
+        /*if (partie.isVictory()) {
             //System.out.println("Victory!");
         } else {
             //System.out.println("Game Over.");
-        }
+        }*/
     }
 
     public void stopGame() {

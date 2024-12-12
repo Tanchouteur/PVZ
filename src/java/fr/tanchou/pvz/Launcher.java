@@ -3,7 +3,9 @@ package fr.tanchou.pvz;
 import fr.tanchou.pvz.game.PVZ;
 import fr.tanchou.pvz.game.Player;
 import fr.tanchou.pvz.guiJavaFx.PVZGraphic;
+import fr.tanchou.pvz.ia.GameAI;
 import fr.tanchou.pvz.ia.GenerationManager;
+import fr.tanchou.pvz.ia.ModelSaver;
 
 public class Launcher {
     public static void main(String[] args) {
@@ -13,14 +15,14 @@ public class Launcher {
         boolean iaMulti = args.length > 0 && args[0].equalsIgnoreCase("ia-multi");
 
         if (useGraphicalUI) {
-            PVZ pvz = new PVZ(new Player("Louis"));
+            PVZ pvz = new PVZ(new Player("Louis"), new GameAI(ModelSaver.loadModel("best_model.json")));
             PVZGraphic.launchView(pvz);
         } else if (iaSingle) {
             PVZ pvz = new PVZ(new Player("IA Single"));
             pvz.startGame(true);
         } else if (iaMulti) {
 
-            GenerationManager generationManager = new GenerationManager(false);
+            GenerationManager generationManager = new GenerationManager(true);
 
             generationManager.evolve();
 

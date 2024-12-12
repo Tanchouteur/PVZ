@@ -46,30 +46,6 @@ public class IAEnvironmentManager {
         }
     }
 
-    // Initialise les jeux
-    public void initializeGamesWithoutSavedModels() {
-        for (int i = 0; i < numberOfGames; i++) {
-
-            Player iaPlayer = new Player("IA_Player_" + (i + 1));
-            PVZ pvz = new PVZ(iaPlayer, new GameAI(new NeuralNetwork(new int[]{270, 100, 52})));
-
-            Callable<IAGameResult> simulationTask = () -> {
-                pvz.runManualGame(4500);
-
-                IAGameResult result = new IAGameResult(
-                        iaPlayer.getName(),
-                        pvz.getPartieController().getGameAI().getNeuralNetwork(),
-                        pvz.getPartie()
-                );
-
-                completedGames.incrementAndGet();
-                return result;
-            };
-
-            gameResults.add(executorService.submit(simulationTask));
-        }
-    }
-
     // Démarre les simulations
     public void startSimulations() {
         System.out.println("Début des simulations pour IA.");

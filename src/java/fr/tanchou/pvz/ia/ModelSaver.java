@@ -64,6 +64,7 @@ public class ModelSaver {
                 layers.add(layer);
             }
 
+            System.out.println("Modèle chargé avec succès. Couches : " + layers.size());
             return new NeuralNetwork(layers);
         }catch (IOException e) {
             System.err.println("Erreur lors de la lecture du fichier du modèle : " + e.getMessage());
