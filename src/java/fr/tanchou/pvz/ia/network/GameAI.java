@@ -121,11 +121,9 @@ public class GameAI {
     // Utiliser le réseau pour prendre une décision
     public void takeAction(Partie partie) {
         double[] inputs = getInputs(partie);
-
         neuralNetwork.feedForward(inputs);// utiliser le réseau pour obtenir les sorties
 
         double[] outputs = neuralNetwork.getOutput();
-
         //System.out.println("want plant Output : " + outputs[outputs.length - 1]);
 
         if (outputs[outputs.length - 1] > 0.5) {

@@ -58,7 +58,8 @@ public class ModelSaver {
 
                     // Récupérer les entrées (neurones de la couche précédente)
                     List<Neuron> inputs = i == 0 ? new ArrayList<>() : layers.get(i - 1);
-                    Neuron neuron = new Neuron(inputs, weights);
+                    Neuron neuron = new Neuron(inputs, weights, i);
+
                     neuron.setOutput(output);
                     layer.add(neuron);
                 }

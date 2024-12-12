@@ -14,7 +14,9 @@ public class GenerationManager {
     public GenerationManager(boolean loadBestModel) {
         NeuralNetwork bestModelLoaded;
         if (!loadBestModel) {
+
             bestModelLoaded = createInitialGeneration();  // Créer une génération initiale
+            ModelSaver.saveModel(bestModelLoaded, "best_model.json");
         }else {
             bestModelLoaded = ModelSaver.loadModel("best_model.json");
         }
@@ -34,7 +36,6 @@ public class GenerationManager {
     public void evolve() {
         this.environmentManager = new IAEnvironmentManager();
         this.environmentManager.initializeGames(this.models);  // Lancer les simulations avec les modèles actuels
-        this.environmentManager.startSimulations();
 
         while (!environmentManager.areAllSimulationsCompleted()) {
             try {

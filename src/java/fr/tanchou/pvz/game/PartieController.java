@@ -34,7 +34,7 @@ public class PartieController {
 
         if (partie.isDefeated()) {
             stopGame();
-            System.out.println("Game Over");
+            //System.out.println("Game Over");
         }else if (partie.isVictory()) {
             stopGame();
             System.out.println("Victory");

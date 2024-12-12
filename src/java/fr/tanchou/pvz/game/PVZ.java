@@ -41,6 +41,7 @@ public class PVZ {
                 !partie.isDefeated() &&
                 !partie.isVictory()) {
             gameController.update();
+            //System.out.println("Tick: " + gameController.getTickCount());
         }
 
         /*if (partie.isVictory()) {
