@@ -58,13 +58,6 @@ public class GenerationManager {
         this.models = createNextGenerationFromList(bestModels);
     }
 
-    // Sélectionne le meilleur modèle en fonction de leurs performances
-    public NeuralNetwork selectOneBestModel() {
-        results.sort(Comparator.comparingDouble(IAGameResult::calculateScore).reversed());
-
-        return this.models.getFirst();
-    }
-
     // Sélectionne les meilleurs modèles en fonction de leurs performances
     private List<NeuralNetwork> selectBestModels(List<IAGameResult> results) {
         results.sort(Comparator.comparingDouble(IAGameResult::calculateScore).reversed());
