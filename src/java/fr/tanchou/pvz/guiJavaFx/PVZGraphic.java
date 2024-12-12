@@ -1,6 +1,6 @@
 package fr.tanchou.pvz.guiJavaFx;
 
-import fr.tanchou.pvz.PVZ;
+import fr.tanchou.pvz.game.PVZ;
 import fr.tanchou.pvz.guiJavaFx.assetsLoder.AssetsLoader;
 import fr.tanchou.pvz.guiJavaFx.sound.SoundManager;
 import javafx.application.Application;
@@ -74,7 +74,7 @@ public class PVZGraphic extends Application {
     private void startGame(Stage primaryStage) {
         // Passer à l'écran de jeu
         soundManager.playSound("buttonclick");
-        pvzInstance.startGame(true, false);
+        pvzInstance.startGame(false, true);
         PartieControllerView controllerView = new PartieControllerView(pvzInstance, soundManager);
         controllerView.start(primaryStage);
         soundManager.playBackgroundMusic("/sounds/InGame.mp3");

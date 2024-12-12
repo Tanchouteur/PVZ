@@ -1,7 +1,7 @@
 package fr.tanchou.pvz.ia;
 
-import fr.tanchou.pvz.PVZ;
-import fr.tanchou.pvz.Player;
+import fr.tanchou.pvz.game.PVZ;
+import fr.tanchou.pvz.game.Player;
 
 import java.util.ArrayList;
 import java.util.List;

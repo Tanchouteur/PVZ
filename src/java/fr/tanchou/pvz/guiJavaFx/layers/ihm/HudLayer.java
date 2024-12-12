@@ -1,6 +1,6 @@
 package fr.tanchou.pvz.guiJavaFx.layers.ihm;
 
-import fr.tanchou.pvz.Player;
+import fr.tanchou.pvz.game.Player;
 import fr.tanchou.pvz.game.PlantCard;
 import fr.tanchou.pvz.guiJavaFx.controller.PlayerCardController;
 import fr.tanchou.pvz.guiJavaFx.controller.PlayerCardHoverController;

@@ -1,6 +1,6 @@
 package fr.tanchou.pvz.guiJavaFx.assetsLoder;
 
-import fr.tanchou.pvz.Player;
+import fr.tanchou.pvz.game.Player;
 import fr.tanchou.pvz.abstractEnity.Entity;
 import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
 import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;

@@ -1,16 +1,13 @@
-package fr.tanchou.pvz;
+package fr.tanchou.pvz.game;
 
 import fr.tanchou.pvz.abstractEnity.abstractPlant.Plant;
 import fr.tanchou.pvz.entityRealisation.ObjectOfPlant.Sun;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.DoublePeaShooter;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.FreezePeaShooter;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.PeaShooter;
-import fr.tanchou.pvz.game.PlantCard;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
 import fr.tanchou.pvz.entityRealisation.plants.PotatoMine;
 import fr.tanchou.pvz.entityRealisation.plants.passive.WallNut;
-import fr.tanchou.pvz.game.Partie;
-import fr.tanchou.pvz.game.SunManager;
 
 public class Player {
     private int sold;
@@ -63,7 +60,7 @@ public class Player {
         return sold;
     }
 
-    public boolean preBuyPlant(PlantCard plantCard) {
+    public void preBuyPlant(PlantCard plantCard) {
         if (this.activPlantCard != null && this.activPlantCard.equals(plantCard)) {
 
             cancelBuyPlant();
@@ -71,9 +68,7 @@ public class Player {
         }else if (plantCard.canBuy() && (this.sold - plantCard.getPlant().getCost()) >= 0) {
             this.isShovelActive = false;
             this.activPlantCard = plantCard;
-            return true;
         }
-        return false;
     }
 
     public boolean buyPlant(int x, int y) {
@@ -82,9 +77,11 @@ public class Player {
 
                 Plant plant = activPlantCard.getNewPlant(x, y);
                 partie.getOneRow(y).placePlantInCase(plant);
+
+                System.out.println("Plant placed at x: " + x + " y: " + y);
+
                 activPlantCard = null;
                 this.sold -= plant.getCost();
-
                 return true;
             }
 

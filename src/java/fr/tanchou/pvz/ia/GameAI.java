@@ -8,9 +8,10 @@ import fr.tanchou.pvz.game.Partie;
 import fr.tanchou.pvz.game.PlantCard;
 import fr.tanchou.pvz.game.rowComponent.Mower;
 import fr.tanchou.pvz.game.rowComponent.PlantCase;
+import fr.tanchou.pvz.ia.network.NeuralNetwork;
 
 public class GameAI {
-    private NeuralNetwork neuralNetwork;
+    private final NeuralNetwork neuralNetwork;
 
     public GameAI() {
         // Initialisation du réseau de neurones avec 270 entrées (plantes, zombies, tondeuses, soleil, cartes de plantes)
@@ -18,7 +19,7 @@ public class GameAI {
     }
 
     // Convertir l'état du jeu en un tableau d'entrées
-    public double[] getInputs(Partie partie) {
+    private double[] getInputs(Partie partie) {
         double[] inputs = new double[270];
 
         // Remplir les 225 entrées pour les plantes
@@ -115,6 +116,7 @@ public class GameAI {
             }
         }
 
+        //System.out.println("Inputs: " + inputs.length);
         return inputs;
     }
 
@@ -125,9 +127,16 @@ public class GameAI {
 
         double[] outputs = neuralNetwork.getOutput();
 
+        System.out.println("want plant : " + outputs[outputs.length - 1]);
+
         if (outputs[outputs.length - 1] > 0.5) {
             int plantCardIndex = choosePlantCard(outputs);
+
+            System.out.println("plantCardIndex : " + plantCardIndex);
+
             int[] position = choosePosition(outputs);  // Retourne un tableau de 2 entiers : [x, y]
+
+            System.out.println("position : " + position[0] + ", " + position[1]);
 
             // Appel à la méthode buyPlant avec x et y
             partie.getPlayer().buyPlant(plantCardIndex, position[0], position[1]);

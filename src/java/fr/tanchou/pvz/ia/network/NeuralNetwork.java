@@ -1,6 +1,4 @@
-package fr.tanchou.pvz.ia;
-
-import fr.tanchou.pvz.ia.network.Neuron;
+package fr.tanchou.pvz.ia.network;
 
 import java.util.ArrayList;
 import java.util.List;

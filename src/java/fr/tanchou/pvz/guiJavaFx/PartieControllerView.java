@@ -1,6 +1,6 @@
 package fr.tanchou.pvz.guiJavaFx;
 
-import fr.tanchou.pvz.PVZ;
+import fr.tanchou.pvz.game.PVZ;
 import fr.tanchou.pvz.guiJavaFx.assetsLoder.AssetsLoader;
 import fr.tanchou.pvz.guiJavaFx.sound.SoundManager;
 import javafx.animation.AnimationTimer;

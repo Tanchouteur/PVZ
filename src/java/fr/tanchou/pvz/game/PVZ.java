@@ -1,8 +1,4 @@
-package fr.tanchou.pvz;
-
-import fr.tanchou.pvz.game.Partie;
-import fr.tanchou.pvz.game.PartieController;
-import fr.tanchou.pvz.game.SunManager;
+package fr.tanchou.pvz.game;
 
 public class PVZ {
     private final Player player;

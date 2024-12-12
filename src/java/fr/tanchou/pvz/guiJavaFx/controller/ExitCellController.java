@@ -1,6 +1,6 @@
 package fr.tanchou.pvz.guiJavaFx.controller;
 
-import fr.tanchou.pvz.Player;
+import fr.tanchou.pvz.game.Player;
 import fr.tanchou.pvz.guiJavaFx.props.CellView;
 import javafx.event.Event;
 import javafx.event.EventHandler;

@@ -1,6 +1,5 @@
 package fr.tanchou.pvz.game;
 
-import fr.tanchou.pvz.Player;
 import fr.tanchou.pvz.game.rowComponent.Row;
 import fr.tanchou.pvz.game.spawn.ZombieSpawner;
 

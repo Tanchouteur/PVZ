@@ -1,5 +1,7 @@
 package fr.tanchou.pvz;
 
+import fr.tanchou.pvz.game.PVZ;
+import fr.tanchou.pvz.game.Player;
 import fr.tanchou.pvz.guiJavaFx.PVZGraphic;
 import fr.tanchou.pvz.ia.IAEnvironmentManager;
 import fr.tanchou.pvz.ia.IAGameResult;
