@@ -68,7 +68,11 @@ public class NeuralNetwork {
                 for (int j = 0; j < weights.size(); j++) {
                     if (Math.random() < 0.1) { // 10% de chance de mutation
                         double mutation = (Math.random() * 2 - 1) * 0.5; // Variation entre -0.5 et 0.5
+                        //avant mutation
+                        //System.out.println("avant mutation : " + weights.get(j));
                         weights.set(j, weights.get(j) + mutation); // Modifie le poids
+                        //après mutation
+                        //System.out.println("après mutation : " + weights.get(j));
                     }
                 }
             }

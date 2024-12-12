@@ -29,7 +29,7 @@ public class Launcher {
                 System.out.println("Génération " + i + " terminée");
             }
 
-            ModelSaver.saveModel(generationManager.selectOneBestModel(), "best_model.json");
+            //ModelSaver.saveModel(generationManager.selectOneBestModel(), "best_model.json");
 
         } else {
             System.out.println("Usage: gui | ia | ia-multi");
