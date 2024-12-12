@@ -53,6 +53,6 @@ public class IAGameResult {
                 mowers *= 2;
             }
         }
-        return ticksSurvived*100 + (victory ? 1000 : 0) + mowers * 100;
+        return ticksSurvived*10 + (victory ? 1000 : 0) + mowers * 10;
     }
 }
