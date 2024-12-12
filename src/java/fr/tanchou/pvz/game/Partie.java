@@ -103,4 +103,8 @@ public class Partie {
     public ZombieSpawner getZombieSpawner() {
         return zombieSpawner;
     }
+
+    public SunManager getSunManager() {
+        return sunManager;
+    }
 }

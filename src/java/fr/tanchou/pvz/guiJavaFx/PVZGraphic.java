@@ -19,6 +19,8 @@ public class PVZGraphic extends Application {
 
     private SoundManager soundManager;
 
+    private boolean ia = true;
+
     public static void launchView(PVZ pvz) {
         pvzInstance = pvz;
         launch();
@@ -72,7 +74,7 @@ public class PVZGraphic extends Application {
     private void startGame(Stage primaryStage) {
         // Passer à l'écran de jeu
         soundManager.playSound("buttonclick");
-        pvzInstance.startGame(false);
+        pvzInstance.startGame(true, false);
         PartieControllerView controllerView = new PartieControllerView(pvzInstance, soundManager);
         controllerView.start(primaryStage);
         soundManager.playBackgroundMusic("/sounds/InGame.mp3");

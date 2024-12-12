@@ -1,5 +1,7 @@
 package fr.tanchou.pvz.game;
 
+import fr.tanchou.pvz.ia.IAPlayer;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -7,11 +9,41 @@ import java.util.concurrent.TimeUnit;
 public class PartieController {
     private final ScheduledExecutorService gameLoop;
     private final Partie partie;
+    private final IAPlayer iaPlayer;
 
-    public PartieController(Partie partie) {
+    private int totalTick = 0;
+
+    public PartieController(Partie partie, Boolean ia) {
         this.partie = partie;
-        // Initialiser le loop pour les ticks
+
+        if (ia) {
+            this.iaPlayer = new IAPlayer(partie);
+        } else {
+            this.iaPlayer = null;
+        }
+
         gameLoop = Executors.newSingleThreadScheduledExecutor();
+    }
+
+    // Mettre à jour le modèle
+    public void update() {
+        totalTick++;
+
+        //System.out.println("Tick: " + totalTick);
+
+        if (iaPlayer != null && totalTick % 2 == 0) {
+            iaPlayer.makeDecision();
+        }
+
+        partie.update();
+
+        if (partie.isDefeated()) {
+            stopGame();
+            System.out.println("Game Over");
+        }else if (partie.isVictory()) {
+            stopGame();
+            System.out.println("Victory");
+        }
     }
 
     // Démarrer le jeu
@@ -25,16 +57,7 @@ public class PartieController {
         gameLoop.shutdown();
     }
 
-    // Mettre à jour le modèle
-    private void update() {
-        partie.update();
-
-        if (partie.isDefeated()) {
-            stopGame();
-            System.out.println("Game Over");
-        }else if (partie.isVictory()) {
-            stopGame();
-            System.out.println("Victory");
-        }
+    public int getTickCount() {
+        return totalTick;
     }
 }

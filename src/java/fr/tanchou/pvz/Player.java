@@ -55,7 +55,7 @@ public class Player {
                 sunManager.removeSun(sun);
             }
             lastCollectSun = 0;
-            System.err.println("sold : " + sold);
+            //System.err.println("sold : " + sold);
         }
     }
 
@@ -78,7 +78,6 @@ public class Player {
 
     public boolean buyPlant(int x, int y) {
         if (activPlantCard != null && partie.getOneRow(y).getPlantCase(x).isEmpty()) {
-            //this.sold += activPlantCard.getPlant().getCost();
             if (activPlantCard.canBuy()) {
 
                 Plant plant = activPlantCard.getNewPlant(x, y);
@@ -91,6 +90,16 @@ public class Player {
 
         }
         return false;
+    }
+
+    public boolean buyPlant(PlantCard plantCard,int x, int y) {
+
+        if (plantCard.canBuy() && (this.sold - plantCard.getPlant().getCost()) >= 0) {
+            this.isShovelActive = false;
+            this.activPlantCard = plantCard;
+        }
+
+        return buyPlant(x, y);
     }
 
     public void cancelBuyPlant() {

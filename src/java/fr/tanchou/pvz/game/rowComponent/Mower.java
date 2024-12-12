@@ -16,9 +16,9 @@ public class Mower {
     }
 
     public void move() {
-        if (this.x < 10) {
-            this.x += 0.3;
-        }
+
+        this.x += 0.3;
+
     }
 
     public boolean collideWith(Zombie zombie) {

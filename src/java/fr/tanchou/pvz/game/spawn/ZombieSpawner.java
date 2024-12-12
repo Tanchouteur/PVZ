@@ -58,7 +58,7 @@ public class ZombieSpawner {
     }
 
     private void handleEndGame() {
-        System.err.println("Partie terminée : Victoire !");
+        //System.err.println("Partie terminée : Victoire !");
         partie.setVictory(true);
     }
 
@@ -67,7 +67,7 @@ public class ZombieSpawner {
             currentState = State.CRESCENDO;
             tickCount = 0;
             spawnTick /= 2;
-            System.out.println("Spawn commence");
+            //System.out.println("Spawn commence");
         }
     }
 
@@ -83,7 +83,7 @@ public class ZombieSpawner {
             zombiesToSpawn = 15 + rand.nextInt(5);
             tickCount = 0;
             rand.setSeed(System.currentTimeMillis());
-            System.out.println("first Wave commence");
+            //System.out.println("first Wave commence");
             inWave = true;
         }
     }
@@ -117,7 +117,7 @@ public class ZombieSpawner {
                 currentState = State.INTERLUDE;
                 tickCount = 0;
                 inWave = false;
-                System.out.println("interlude apres la premiere vague");
+                //System.out.println("interlude apres la premiere vague");
 
             } else if (waveNumber == 2 && allZombiesDead()) {
                 currentState = State.FINISHED;
@@ -140,7 +140,7 @@ public class ZombieSpawner {
             zombiesToSpawn = 35;
             tickCount = 0;
             inWave = true;
-            System.out.println("Deuxième vague commence !");
+            //System.out.println("Deuxième vague commence !");
         }
     }
 

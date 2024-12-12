@@ -11,24 +11,38 @@ public class PVZ {
     private PartieController gameController;
     private SunManager sunManager;
 
-
     public PVZ(Player player) {
         this.player = player;
 
     }
 
-    public void createPartie(boolean consoleLog){
+    public void startGame(boolean consoleLog, boolean ia) {
+        this.createPartie(consoleLog, ia);
+        gameController.startGame();
+    }
+
+    public void createPartie(boolean consoleLog, boolean ia) {
         this.sunManager = new SunManager();
         this.partie = new Partie(player, sunManager, consoleLog);
-        this.gameController = new PartieController(partie);
+        this.gameController = new PartieController(partie, ia);
 
         player.setPartie(partie);
         player.setSunManager(sunManager);
     }
 
-    public void startGame(boolean consoleLog) {
-        this.createPartie(consoleLog);
-        gameController.startGame();
+    public void runManualGame(int maxTicks, boolean iaEnabled) {
+        createPartie(false, iaEnabled);
+        while (gameController.getTickCount() < maxTicks &&
+                !partie.isDefeated() &&
+                !partie.isVictory()) {
+            gameController.update();
+        }
+
+        if (partie.isVictory()) {
+            //System.out.println("Victory!");
+        } else {
+            //System.out.println("Game Over.");
+        }
     }
 
     public void stopGame() {
@@ -46,5 +60,9 @@ public class PVZ {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public PartieController getPartieController() {
+        return gameController;
     }
 }
