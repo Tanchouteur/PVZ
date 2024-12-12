@@ -10,11 +10,26 @@ public class GenerationManager {
     private List<NeuralNetwork> models;  // Liste des modèles de réseaux neuronaux
     private final IAEnvironmentManager environmentManager;  // Gère les simulations d'IA
 
-    public GenerationManager(List<NeuralNetwork> initialModels, int numberOfGames) {
-        this.models = initialModels;
-        this.environmentManager = new IAEnvironmentManager(numberOfGames);
+    public GenerationManager(boolean loadBestModel) {
+        NeuralNetwork bestModelLoaded;
+        if (!loadBestModel) {
+            bestModelLoaded = createInitialGeneration();  // Créer une génération initiale
+        }else {
+            bestModelLoaded = ModelSaver.loadModel("best_model.json");
+        }
+
+        this.models = createNextGenerationFromOne(bestModelLoaded);
+
+        this.environmentManager = new IAEnvironmentManager();
     }
 
+    // Méthode pour créer une génération initiale
+    public NeuralNetwork createInitialGeneration() {
+        // Crée un modèle avec 3 couches
+        return new NeuralNetwork(new int[]{270, 100, 52});
+    }
+
+    // Méthode pour faire évoluer les modèles
     public void evolve() {
         this.environmentManager.initializeGames(this.models);  // Lancer les simulations avec les modèles actuels
         this.environmentManager.startSimulations();
@@ -35,8 +50,10 @@ public class GenerationManager {
         // Sélectionner les meilleurs modèles
         List<NeuralNetwork> bestModels = selectBestModels(results);
 
+        ModelSaver.saveModel(bestModels.getFirst(), "best_model.json");
+
         // Appliquer des mutations et créer la prochaine génération
-        List<NeuralNetwork> nextGeneration = createNextGeneration(bestModels);
+        List<NeuralNetwork> nextGeneration = createNextGenerationFromList(bestModels);
 
         // Remplacer la génération actuelle avec la suivante
         this.models = nextGeneration;
@@ -47,14 +64,14 @@ public class GenerationManager {
         results.sort(Comparator.comparingDouble(IAGameResult::calculateScore).reversed());
 
         List<NeuralNetwork> bestModels = new ArrayList<>();
-        for (int i = 0; i < results.size() / 3; i++) {  // Par exemple, on garde les 50% meilleurs
-            bestModels.add(this.models.get(i));  // Associer les résultats aux modèles
+        for (int i = 0; i < 1; i++) {               // Par exemple, on garde les 50% meilleurs
+            bestModels.add(this.models.get(i));     // Associer les résultats aux modèles
         }
         return bestModels;
     }
 
     // Crée la prochaine génération de modèles en appliquant des mutations
-    private List<NeuralNetwork> createNextGeneration(List<NeuralNetwork> bestModels) {
+    private List<NeuralNetwork> createNextGenerationFromList(List<NeuralNetwork> bestModels) {
         List<NeuralNetwork> nextGeneration = new ArrayList<>();
 
         for (NeuralNetwork model : bestModels) {
@@ -64,11 +81,17 @@ public class GenerationManager {
         return nextGeneration;
     }
 
-    public List<NeuralNetwork> getModels() {
-        return this.models;
-    }
+    // Crée la prochaine génération de modèles en appliquant des mutations
+    private List<NeuralNetwork> createNextGenerationFromOne(NeuralNetwork bestModel) {
+        List<NeuralNetwork> nextGeneration = new ArrayList<>();
 
-    public IAEnvironmentManager getEnvironmentManager() {
-        return this.environmentManager;
+        // Nombre de mutants à générer
+        int numberOfMutants = 10;
+
+        for (int i = 0; i < numberOfMutants; i++) {
+            nextGeneration.add(bestModel.mutate()); // Clone et applique une mutation
+        }
+
+        return nextGeneration;
     }
 }

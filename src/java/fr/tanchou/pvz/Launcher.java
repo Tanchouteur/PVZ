@@ -20,7 +20,7 @@ public class Launcher {
             pvz.startGame(true);
         } else if (iaMulti) {
 
-            GenerationManager generationManager = new GenerationManager(null, 10);
+            GenerationManager generationManager = new GenerationManager(false);
 
             generationManager.evolve();
 

@@ -74,7 +74,7 @@ public class PVZGraphic extends Application {
     private void startGame(Stage primaryStage) {
         // Passer à l'écran de jeu
         soundManager.playSound("buttonclick");
-        pvzInstance.startGame(false, true);
+        pvzInstance.startGame(false);
         PartieControllerView controllerView = new PartieControllerView(pvzInstance, soundManager);
         controllerView.start(primaryStage);
         soundManager.playBackgroundMusic("/sounds/InGame.mp3");
