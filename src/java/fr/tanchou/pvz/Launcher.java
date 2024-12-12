@@ -3,7 +3,7 @@ package fr.tanchou.pvz;
 import fr.tanchou.pvz.game.PVZ;
 import fr.tanchou.pvz.game.Player;
 import fr.tanchou.pvz.guiJavaFx.PVZGraphic;
-import fr.tanchou.pvz.ia.GameAI;
+import fr.tanchou.pvz.ia.network.GameAI;
 import fr.tanchou.pvz.ia.GenerationManager;
 import fr.tanchou.pvz.ia.ModelSaver;
 
@@ -24,7 +24,12 @@ public class Launcher {
 
             GenerationManager generationManager = new GenerationManager(true);
 
-            generationManager.evolve();
+            for (int i = 0; i < 10; i++) {
+                generationManager.evolve();
+                System.out.println("Génération " + i + " terminée");
+            }
+
+            ModelSaver.saveModel(generationManager.selectOneBestModel(), "best_model.json");
 
         } else {
             System.out.println("Usage: gui | ia | ia-multi");

@@ -1,7 +1,6 @@
 package fr.tanchou.pvz.game;
 
-import fr.tanchou.pvz.ia.GameAI;
-import fr.tanchou.pvz.ia.network.NeuralNetwork;
+import fr.tanchou.pvz.ia.network.GameAI;
 
 public class PVZ {
     private final Player player;

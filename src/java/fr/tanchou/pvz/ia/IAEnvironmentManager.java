@@ -2,6 +2,7 @@ package fr.tanchou.pvz.ia;
 
 import fr.tanchou.pvz.game.PVZ;
 import fr.tanchou.pvz.game.Player;
+import fr.tanchou.pvz.ia.network.GameAI;
 import fr.tanchou.pvz.ia.network.NeuralNetwork;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class IAEnvironmentManager {
     private final AtomicInteger completedGames = new AtomicInteger(0);
 
     public IAEnvironmentManager() {
-        this.executorService = Executors.newFixedThreadPool(32);
+        this.executorService = Executors.newFixedThreadPool(400);
         this.gameResults = new ArrayList<>();
     }
 

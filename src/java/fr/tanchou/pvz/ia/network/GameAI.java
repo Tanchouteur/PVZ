@@ -1,4 +1,4 @@
-package fr.tanchou.pvz.ia;
+package fr.tanchou.pvz.ia.network;
 
 import fr.tanchou.pvz.abstractEnity.abstracObjectOfPlant.Bullet;
 import fr.tanchou.pvz.abstractEnity.abstractPlant.ObjectGeneratorsPlant;
@@ -8,7 +8,6 @@ import fr.tanchou.pvz.game.Partie;
 import fr.tanchou.pvz.game.PlantCard;
 import fr.tanchou.pvz.game.rowComponent.Mower;
 import fr.tanchou.pvz.game.rowComponent.PlantCase;
-import fr.tanchou.pvz.ia.network.NeuralNetwork;
 
 public class GameAI {
     private final NeuralNetwork neuralNetwork;
@@ -127,16 +126,16 @@ public class GameAI {
 
         double[] outputs = neuralNetwork.getOutput();
 
-        System.out.println("want plant : " + outputs[outputs.length - 1]);
+        //System.out.println("want plant Output : " + outputs[outputs.length - 1]);
 
         if (outputs[outputs.length - 1] > 0.5) {
             int plantCardIndex = choosePlantCard(outputs);
 
-            System.out.println("plantCardIndex : " + plantCardIndex);
+            //System.out.println("plantCardIndex : " + plantCardIndex);
 
             int[] position = choosePosition(outputs);  // Retourne un tableau de 2 entiers : [x, y]
 
-            System.out.println("position : " + position[0] + ", " + position[1]);
+            //System.out.println("position : " + position[0] + ", " + position[1]);
 
             // Appel à la méthode buyPlant avec x et y
             partie.getPlayer().buyPlant(plantCardIndex, position[0], position[1]);

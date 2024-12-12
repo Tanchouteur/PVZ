@@ -1,6 +1,6 @@
 package fr.tanchou.pvz.game;
 
-import fr.tanchou.pvz.ia.GameAI;
+import fr.tanchou.pvz.ia.network.GameAI;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

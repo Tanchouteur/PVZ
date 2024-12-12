@@ -78,7 +78,7 @@ public class Player {
                 Plant plant = activPlantCard.getNewPlant(x, y);
                 partie.getOneRow(y).placePlantInCase(plant);
 
-                System.out.println("Plant placed at x: " + x + " y: " + y);
+                //System.out.println("Plant placed at x: " + x + " y: " + y);
 
                 activPlantCard = null;
                 this.sold -= plant.getCost();

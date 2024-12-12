@@ -11,6 +11,7 @@ public class ModelSaver {
     // Méthode pour sauvegarder un modèle
     public static void saveModel(NeuralNetwork network, String filePath) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        //ecrire la version du model au début du fichier (incrémentation à chaque sauvegarde)
 
         // Structure des couches et des poids
         List<List<Map<String, Object>>> layersData = new ArrayList<>();
