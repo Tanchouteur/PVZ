@@ -5,7 +5,7 @@ import fr.tanchou.pvz.ia.network.NeuralNetwork;
 import java.util.*;
 
 public class GenerationManager {
-    private List<NeuralNetwork> models = new  ArrayList<>();  // Liste des modèles de réseaux neuronaux
+
     private IAEnvironmentManager environmentManager;  // Gère les simulations d'IA
 
     private int generationNumber = 0;
@@ -13,34 +13,22 @@ public class GenerationManager {
 
     private int simulationPerGeneration = 4000;
 
-    public GenerationManager(boolean loadBestModel) {
-        NeuralNetwork bestModelLoaded;
-        if (!loadBestModel) {
+    private List<NeuralNetwork> bestModels = new ArrayList<>();
+    private List<NeuralNetwork> models = new  ArrayList<>();  // Liste des modèles de réseaux neuronaux
 
-
-            for (int i = 0; i < 8000; i++) {
-                this.models.add(new NeuralNetwork(new int[]{275, 180, 100, 52}));  // Créer une génération initiale
-            }
-            System.out.println("First random generation created");
-            //ModelSaver.saveModel(bestModelLoaded, "best_model.json");
-
-        }else {
-            bestModelLoaded = ModelSaver.loadModel("best_model.json");
-            this.models = createNextGenerationFromOne(bestModelLoaded);
-        }
-
-
-
+    // Constructeur
+    public GenerationManager(NeuralNetwork bestModel) {
+        createNextGenerationFromOne(bestModel);
         this.environmentManager = new IAEnvironmentManager();
-    }
-
-    // Méthode pour créer une génération initiale
-    public NeuralNetwork createInitialGeneration() {
-        return new NeuralNetwork(new int[]{275, 180, 100, 52});
     }
 
     // Méthode pour faire évoluer les modèles
     public void evolve() {
+        // Remplacer la génération actuelle avec la suivante
+        System.out.println("Evolution de la génération " + generationNumber);
+        this.createNextGenerationFromList();
+
+        System.out.println("Evolution de la génération " + generationNumber);
         this.environmentManager = new IAEnvironmentManager();
         this.environmentManager.initializeGames(this.models);
 
@@ -54,73 +42,78 @@ public class GenerationManager {
 
         this.environmentManager.stopSimulations();  // Arrêter les simulations
 
-
-        List<IAGameResult> results = this.environmentManager.collectResults();
-
         // Sélectionner les meilleurs modèles
-        List<NeuralNetwork> bestModels = selectBestModels(results);
-        System.out.println("Best model score: " + results.get(0).getScore() + " \n Best model score: " + results.get(1).getScore() + " \n Best model score: " + results.get(2).getScore() + " \n Best model score: " + results.get(3).getScore() + " \n Best model score: " + results.get(4).getScore());
+        this.selectBestModels();
 
-        ModelSaver.saveModel(bestModels.get(0), "best_model.json");
+        int i = 0;
+        System.out.println("\n=========== Best models ===========");
+        for (NeuralNetwork model : this.bestModels) {
+            System.out.println("Best model score: " + model.getScore() + " index: " + i);
+            i++;
+        }
+        System.out.println("===================================\n");
 
-        // Remplacer la génération actuelle avec la suivante
-        this.models = createNextGenerationFromList(bestModels);
-        System.out.println("Generation size " + models.size());
+        System.out.println("Generation size " + this.models.size());
 
         generationNumber++;
     }
 
-    private List<NeuralNetwork> selectBestModels(List<IAGameResult> results) {
-        System.out.println("Size of results list before sorting: " + results.size());
+    private void selectBestModels() {
+        System.out.println("Size of results list before sorting: " + this.models.size());
 
-        results.sort((r1, r2) -> Double.compare(r2.getScore(), r1.getScore())); // Tri décroissant
+        this.models.sort((r1, r2) -> Double.compare(r2.getScore(), r1.getScore())); // Tri décroissant
 
-        List<IAGameResult> topResults = results.stream()
+        this.bestModels = this.models.stream()
                 .limit(5)
-                .toList();
-
-
-        return topResults.stream()
-                .map(IAGameResult::getNeuralNetwork)
                 .toList();
     }
 
 
     // Crée la prochaine génération de modèles en appliquant des mutations
-    private List<NeuralNetwork> createNextGenerationFromList(List<NeuralNetwork> bestModels) {
-        List<NeuralNetwork> nextGeneration = new ArrayList<>();
-        int numberOfMutants = simulationPerGeneration /5;
-        int numberOfRandom = (int) Math.round(simulationPerGeneration *0.05); // 5% de la population
+    private void createNextGenerationFromList() {
+        int numberOfMutants = this.simulationPerGeneration /5;
+        int numberOfRandom = (int) Math.round(this.simulationPerGeneration *0.05); // 5% de la population
+
+        this.models.clear();
 
         for (int i = 0; i < numberOfMutants; i++) {
-            for (NeuralNetwork model : bestModels) {
-                nextGeneration.add(model.mutate(mutationAmplitude));
+            for (NeuralNetwork model : this.bestModels) {
+                this.models.add(model.mutate(this.mutationAmplitude));
             }
         }
 
         // Ajout de modèles aléatoires
         for (int i = 0; i < numberOfRandom; i++) {
-            nextGeneration.add(new NeuralNetwork(new int[]{275, 180, 100, 52}));
+            this.models.add(new NeuralNetwork(new int[]{275, 180, 100, 52}));
         }
-
-        return nextGeneration;
     }
 
     // Crée la prochaine génération de modèles en appliquant des mutations
-    private List<NeuralNetwork> createNextGenerationFromOne(NeuralNetwork bestModel) {
-        List<NeuralNetwork> nextGeneration = new ArrayList<>();
+    private void createNextGenerationFromOne(NeuralNetwork bestModel) {
+        this.models.clear();
 
-        // Nombre de mutants à générer
-        int numberOfMutants = simulationPerGeneration;
-
-        for (int i = 0; i < numberOfMutants; i++) {
-            nextGeneration.add(bestModel.mutate(mutationAmplitude +0.2)); // Clone et applique une mutation
+        for (int i = 0; i < simulationPerGeneration; i++) {
+            models.add(bestModel.mutate(mutationAmplitude)); // Clone et applique une mutation
         }
-
-        return nextGeneration;
     }
 
     public void setSimulationPerGeneration(int i) {
         this.simulationPerGeneration = i;
+    }
+
+    public void setMutationAmplitude(double mutationAmplitude) {
+        this.mutationAmplitude = mutationAmplitude;
+    }
+
+    public List<NeuralNetwork> getBestModels() {
+        return bestModels;
+    }
+
+    public List<NeuralNetwork> getAllModels() {
+        return this.models;
+    }
+
+    public int getMutationAmplitude() {
+        return (int) Math.round(mutationAmplitude*100);
     }
 }

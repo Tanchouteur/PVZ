@@ -5,6 +5,7 @@ import java.util.List;
 
 public class NeuralNetwork {
     private final List<List<Neuron>> layers;
+    private int score = 0;
 
     public NeuralNetwork(int[] neuronsPerLayer) {
         layers = new ArrayList<>();
@@ -122,8 +123,6 @@ public class NeuralNetwork {
         return mutatedNetwork;
     }
 
-
-
     public List<List<Neuron>> getLayers() {
         return layers;
     }
@@ -160,5 +159,13 @@ public class NeuralNetwork {
         return this.layers.get(1).stream()
                 .flatMap(neuron -> neuron.getWeights().stream())
                 .toArray(Double[]::new);
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }

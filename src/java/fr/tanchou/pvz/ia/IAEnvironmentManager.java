@@ -5,7 +5,6 @@ import fr.tanchou.pvz.game.Player;
 import fr.tanchou.pvz.ia.network.GameAI;
 import fr.tanchou.pvz.ia.network.NeuralNetwork;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -13,16 +12,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class IAEnvironmentManager {
     private int numberOfGames; // Nombre de jeux à simuler
     private final ExecutorService executorService; // Pool de threads pour les simulations
-    private final List<Future<IAGameResult>> gameResults;
     private final AtomicInteger completedGames = new AtomicInteger(0);
 
     public IAEnvironmentManager() {
         this.executorService = Executors.newFixedThreadPool(32);
-        this.gameResults = new ArrayList<>();
     }
 
     // Initialise les jeux
     public void initializeGames(List<NeuralNetwork> models) {
+        System.out.println("Init & Lancement des simulations...");
         this.numberOfGames = models.size();
 
         for (int i = 0; i < models.size(); i++) {
@@ -31,21 +29,15 @@ public class IAEnvironmentManager {
 
             PVZ pvz = new PVZ(iaPlayer, new GameAI(models.get(i))); // Attribution du modèle à l'IA
 
-            Callable<IAGameResult> simulationTask = () -> {
-
+            int finalI = i;
+            Runnable simulationTask = () -> {
                 pvz.runManualGame(4500);
-
-                //System.out.println("completedGames : " + completedGames.get());
-
-                IAGameResult result = new IAGameResult(pvz.getPartieController().getGameAI().getNeuralNetwork(), pvz.getPartie() );
-
+                models.get(finalI).setScore((int) Math.round(iaPlayer.calculateScore()));
                 completedGames.incrementAndGet();
-
-                return result;
             };
 
 
-            gameResults.add(executorService.submit(simulationTask));
+            executorService.submit(simulationTask);
         }
 
         System.out.println("Toutes les simulations sont lancées.");
@@ -55,22 +47,6 @@ public class IAEnvironmentManager {
     public void stopSimulations() {
         executorService.shutdownNow();
         System.out.println("Toutes les simulations sont arrêtées.");
-    }
-
-    // Collecte les résultats des simulations
-    public List<IAGameResult> collectResults() {
-        List<IAGameResult> results = new ArrayList<>();
-
-        for (Future<IAGameResult> future : gameResults) {
-            try {
-                results.add(future.get());
-            } catch (InterruptedException | ExecutionException e) {
-                System.err.println("Erreur lors de la récupération des résultats : " + e.getMessage());
-            }
-        }
-
-        executorService.shutdown();
-        return results;
     }
 
     public boolean areAllSimulationsCompleted() {

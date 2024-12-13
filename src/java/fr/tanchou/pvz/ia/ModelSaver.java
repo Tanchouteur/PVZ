@@ -11,6 +11,9 @@ import java.util.*;
 public class ModelSaver {
 
     public static void saveModel(NeuralNetwork network, String filePath) {
+
+        System.out.println("Saving "+ filePath +"...");
+
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         // Structure des couches, des poids et des biais
@@ -46,6 +49,7 @@ public class ModelSaver {
         // Écrire dans un fichier
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.write(json);
+            System.out.println("Modèle sauvegardé avec succès.");
         } catch (IOException e) {
             System.err.println("Erreur lors de l'écriture du fichier du modèle : " + e.getMessage());
         }
@@ -53,6 +57,7 @@ public class ModelSaver {
 
     // Méthode pour charger un modèle
     public static NeuralNetwork loadModel(String filePath) {
+        System.out.println("Loading "+ filePath +"...");
         Gson gson = new Gson();
 
         // Lire le fichier JSON
