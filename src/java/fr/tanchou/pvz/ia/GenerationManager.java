@@ -8,7 +8,10 @@ public class GenerationManager {
     private List<NeuralNetwork> models;  // Liste des modèles de réseaux neuronaux
     private IAEnvironmentManager environmentManager;  // Gère les simulations d'IA
 
-    private int generationNumber = 4000;
+    private int generationNumber = 0;
+    private double mutationAmplitude = 0.5;
+
+    private int simulationPerGeneration = 10000;
 
     public GenerationManager(boolean loadBestModel) {
         NeuralNetwork bestModelLoaded;
@@ -58,6 +61,8 @@ public class GenerationManager {
         // Remplacer la génération actuelle avec la suivante
         this.models = createNextGenerationFromList(bestModels);
         System.out.println("Generation size " + models.size());
+
+        generationNumber++;
     }
 
     private List<NeuralNetwork> selectBestModels(List<IAGameResult> results) {
@@ -79,12 +84,12 @@ public class GenerationManager {
     // Crée la prochaine génération de modèles en appliquant des mutations
     private List<NeuralNetwork> createNextGenerationFromList(List<NeuralNetwork> bestModels) {
         List<NeuralNetwork> nextGeneration = new ArrayList<>();
-        int numberOfMutants = generationNumber/5;
-        int numberOfRandom = (int) Math.round(generationNumber*0.05); // 5% de la population
+        int numberOfMutants = simulationPerGeneration /5;
+        int numberOfRandom = (int) Math.round(simulationPerGeneration *0.05); // 5% de la population
 
         for (int i = 0; i < numberOfMutants; i++) {
             for (NeuralNetwork model : bestModels) {
-                nextGeneration.add(model.mutate());
+                nextGeneration.add(model.mutate(mutationAmplitude - (mutationAmplitude / generationNumber)*0.8));
             }
         }
 
@@ -101,10 +106,10 @@ public class GenerationManager {
         List<NeuralNetwork> nextGeneration = new ArrayList<>();
 
         // Nombre de mutants à générer
-        int numberOfMutants = generationNumber;
+        int numberOfMutants = simulationPerGeneration;
 
         for (int i = 0; i < numberOfMutants; i++) {
-            nextGeneration.add(bestModel.mutate()); // Clone et applique une mutation
+            nextGeneration.add(bestModel.mutate(mutationAmplitude/((double) generationNumber /8))); // Clone et applique une mutation
         }
 
         return nextGeneration;

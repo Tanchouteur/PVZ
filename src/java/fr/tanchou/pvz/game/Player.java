@@ -31,7 +31,6 @@ public class Player {
     private int sunFlowersPlacedScore = -10;
 
     private final List<Integer> sunHistory = new ArrayList<>();  // Historique des valeurs de sold tous les 10 ticks
-    private static final int SUN_HISTORY_SIZE = 10;         // Taille de la fenêtre (10 ticks)
 
     public Player(String name) {
         this.name = name;
@@ -83,6 +82,18 @@ public class Player {
         }
     }
 
+    private double calculateAverageSun() {
+        if (sunHistory.isEmpty()) {
+            return 0; // Si aucun tick n'a eu lieu, retourner 0
+        }
+
+        double sum = 0;
+        for (int value : sunHistory) {
+            sum += value;
+        }
+        return sum / sunHistory.size(); // Moyenne des derniers SUN_HISTORY_SIZE ticks
+    }
+
     public void collectSun() {
         lastCollectSun++;
         if (lastCollectSun > 24 && !sunManager.getSunLinkedList().isEmpty()) {
@@ -98,18 +109,6 @@ public class Player {
 
     public int getSold() {
         return sold;
-    }
-
-    private double calculateAverageSun() {
-        if (sunHistory.isEmpty()) {
-            return 0; // Si aucun tick n'a eu lieu, retourner 0
-        }
-
-        double sum = 0;
-        for (int value : sunHistory) {
-            sum += value;
-        }
-        return sum / sunHistory.size(); // Moyenne des derniers SUN_HISTORY_SIZE ticks
     }
 
     public void preBuyPlant(PlantCard plantCard) {

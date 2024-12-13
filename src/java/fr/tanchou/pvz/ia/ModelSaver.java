@@ -10,7 +10,6 @@ import java.util.*;
 
 public class ModelSaver {
 
-    // Méthode pour sauvegarder un modèle
     public static void saveModel(NeuralNetwork network, String filePath) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -20,9 +19,22 @@ public class ModelSaver {
             List<Map<String, Object>> layerData = new ArrayList<>();
             for (Neuron neuron : layer) {
                 Map<String, Object> neuronData = new HashMap<>();
-                neuronData.put("weights", neuron.getWeights());
-                neuronData.put("bias", neuron.getBias()); // Ajouter le biais
-                neuronData.put("output", neuron.getOutput());
+
+                // Vérifier si les poids sont NaN avant de les ajouter
+                List<Double> sanitizedWeights = new ArrayList<>();
+                for (Double weight : neuron.getWeights()) {
+                    sanitizedWeights.add(Double.isNaN(weight) ? 0.0 : weight);
+                }
+
+                // Vérifier si le biais est NaN avant de l'ajouter
+                double sanitizedBias = Double.isNaN(neuron.getBias()) ? 0.0 : neuron.getBias();
+
+                // Vérifier si la sortie est NaN avant de l'ajouter
+                double sanitizedOutput = Double.isNaN(neuron.getOutput()) ? 0.0 : neuron.getOutput();
+
+                neuronData.put("weights", sanitizedWeights);
+                neuronData.put("bias", sanitizedBias);
+                neuronData.put("output", sanitizedOutput);
                 layerData.add(neuronData);
             }
             layersData.add(layerData);

@@ -5,7 +5,6 @@ import java.util.List;
 
 public class NeuralNetwork {
     private final List<List<Neuron>> layers;
-    private double mutationAmplitude = 0.5; // Amplitude par défaut de la mutation
 
     public NeuralNetwork(int[] neuronsPerLayer) {
         layers = new ArrayList<>();
@@ -55,7 +54,8 @@ public class NeuralNetwork {
         return outputs;
     }
 
-    public NeuralNetwork mutate() {
+    public NeuralNetwork mutate(double mutationAmplitude) {
+        System.out.println("Mutation amplitude : " + mutationAmplitude);
         NeuralNetwork mutatedNetwork = this.cloneNetwork();
 
         // Parcours chaque couche (sauf la couche d'entrée)
@@ -153,10 +153,6 @@ public class NeuralNetwork {
         }
 
         return new NeuralNetwork(clonedLayers);
-    }
-
-    public void setMutationAmplitude(double amplitude) {
-        this.mutationAmplitude = amplitude;
     }
 
     public Double[] getWeights() {
