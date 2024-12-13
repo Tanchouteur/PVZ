@@ -55,7 +55,7 @@ public class NeuralNetwork {
     }
 
     public NeuralNetwork mutate(double mutationAmplitude) {
-        System.out.println("Mutation amplitude : " + mutationAmplitude);
+        //System.out.println("Mutation amplitude : " + mutationAmplitude);
         NeuralNetwork mutatedNetwork = this.cloneNetwork();
 
         // Parcours chaque couche (sauf la couche d'entrée)

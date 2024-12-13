@@ -11,7 +11,7 @@ public class GenerationManager {
     private int generationNumber = 0;
     private double mutationAmplitude = 0.5;
 
-    private int simulationPerGeneration = 10000;
+    private int simulationPerGeneration = 8000;
 
     public GenerationManager(boolean loadBestModel) {
         NeuralNetwork bestModelLoaded;
@@ -89,7 +89,7 @@ public class GenerationManager {
 
         for (int i = 0; i < numberOfMutants; i++) {
             for (NeuralNetwork model : bestModels) {
-                nextGeneration.add(model.mutate(mutationAmplitude - (mutationAmplitude / generationNumber)*0.8));
+                nextGeneration.add(model.mutate(mutationAmplitude));
             }
         }
 
@@ -109,7 +109,7 @@ public class GenerationManager {
         int numberOfMutants = simulationPerGeneration;
 
         for (int i = 0; i < numberOfMutants; i++) {
-            nextGeneration.add(bestModel.mutate(mutationAmplitude/((double) generationNumber /8))); // Clone et applique une mutation
+            nextGeneration.add(bestModel.mutate(mutationAmplitude +0.2)); // Clone et applique une mutation
         }
 
         return nextGeneration;
