@@ -11,14 +11,14 @@ public class GenerationManager {
     private int generationNumber = 0;
     private double mutationAmplitude = 0.5;
 
-    private int simulationPerGeneration = 8000;
+    private int simulationPerGeneration = 5000;
 
     public GenerationManager(boolean loadBestModel) {
         NeuralNetwork bestModelLoaded;
         if (!loadBestModel) {
 
 
-            for (int i = 0; i < 5000; i++) {
+            for (int i = 0; i < 8000; i++) {
                 this.models.add(new NeuralNetwork(new int[]{275, 180, 100, 52}));  // Créer une génération initiale
             }
             System.out.println("First random generation created");
