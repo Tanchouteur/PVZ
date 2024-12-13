@@ -25,7 +25,7 @@ public class Statistics {
     // Méthode pour sauvegarder l'historique des scores pour une génération
     public void saveScoresHistory(GenerationManager generationManager) {
         scoresHistory.add(Map.of(
-                "scoreBestModel", generationManager.getBestModels().get(0).getScore(),
+                "scoreBestModel", generationManager.getBestModels().getFirst().getScore(),
                 "averageScore", computeAverageGenerationScore(generationManager.getAllModels()),
                 "mutationAmplitude", generationManager.getMutationAmplitude()
         ));
@@ -45,11 +45,6 @@ public class Statistics {
         return models.isEmpty() ? 0 : totalScore / models.size();
     }
 
-    // Méthode pour obtenir l'historique des scores
-    public List<Map<String, Integer>> getScoresHistory() {
-        return scoresHistory;
-    }
-
     // Méthode pour calculer la moyenne des scores des moyennes des générations
     public double computeAverageOfGenerationAverages() {
         return scoresHistory.stream()
@@ -61,7 +56,7 @@ public class Statistics {
     // Méthode pour vérifier si la dernière génération est meilleure que la précédente
     public boolean isCurrentGenerationBetter() {
         if (scoresHistory.size() < 2) return false;
-        int lastAverage = scoresHistory.get(scoresHistory.size() - 1).get("averageScore");
+        int lastAverage = scoresHistory.getLast().get("averageScore");
         int previousAverage = scoresHistory.get(scoresHistory.size() - 2).get("averageScore");
         return lastAverage > previousAverage;
     }

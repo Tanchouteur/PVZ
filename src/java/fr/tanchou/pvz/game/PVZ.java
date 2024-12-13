@@ -34,13 +34,12 @@ public class PVZ {
         player.setSunManager(sunManager);
     }
 
-    public void runManualGame(int maxTicks) {
+    public void runManualGame() {
         createPartie(false);
-        while (gameController.getTickCount() < maxTicks && !partie.isDefeated() && !partie.isVictory()) {
+        while (!partie.isDefeated() && !partie.isVictory()) {
 
             gameController.update();
             //System.out.println("Tick: " + gameController.getTickCount());
-
         }
 
         if (partie.isVictory()) {
@@ -65,9 +64,5 @@ public class PVZ {
 
     public Player getPlayer() {
         return player;
-    }
-
-    public PartieController getPartieController() {
-        return gameController;
     }
 }

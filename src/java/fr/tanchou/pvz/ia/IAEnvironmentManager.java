@@ -10,18 +10,16 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class IAEnvironmentManager {
-    private int numberOfGames; // Nombre de jeux à simuler
     private final ExecutorService executorService; // Pool de threads pour les simulations
     private final AtomicInteger completedGames = new AtomicInteger(0);
 
-    public IAEnvironmentManager() {
-        this.executorService = Executors.newFixedThreadPool(4);
+    public IAEnvironmentManager(ExecutorService executorService) {
+        this.executorService = executorService;
     }
 
     // Initialise les jeux
     public void initializeGames(List<NeuralNetwork> models) {
         System.out.println("Init & Lancement des simulations...");
-        this.numberOfGames = models.size();
 
         for (int i = 0; i < models.size(); i++) {
 
@@ -38,23 +36,12 @@ public class IAEnvironmentManager {
 
         return () -> {
             try {
-                pvz.runManualGame(4500);
+                pvz.runManualGame();
                 models.get(i).setScore((int) Math.round(iaPlayer.calculateScore()));
                 completedGames.incrementAndGet();
             } catch (Exception e) {
                 System.err.println("Erreur dans la simulation du modèle " + i + ": " + e.getMessage());
             }
         };
-    }
-
-    // Stoppe toutes les simulations en attente (si besoin)
-    public void stopSimulations() {
-        executorService.shutdownNow();
-        System.out.println("Toutes les simulations sont arrêtées.");
-    }
-
-    public boolean areAllSimulationsCompleted() {
-        //System.out.println("completedGames : " + completedGames.get() + " / " + numberOfGames);
-        return completedGames.get() == numberOfGames;
     }
 }

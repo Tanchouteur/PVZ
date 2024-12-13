@@ -19,27 +19,7 @@ public class ModelSaver {
         // Structure des couches, des poids et des biais
         List<List<Map<String, Object>>> layersData = new ArrayList<>();
         for (List<Neuron> layer : network.getLayers()) {
-            List<Map<String, Object>> layerData = new ArrayList<>();
-            for (Neuron neuron : layer) {
-                Map<String, Object> neuronData = new HashMap<>();
-
-                // Vérifier si les poids sont NaN avant de les ajouter
-                List<Double> sanitizedWeights = new ArrayList<>();
-                for (Double weight : neuron.getWeights()) {
-                    sanitizedWeights.add(Double.isNaN(weight) ? 0.0 : weight);
-                }
-
-                // Vérifier si le biais est NaN avant de l'ajouter
-                double sanitizedBias = Double.isNaN(neuron.getBias()) ? 0.0 : neuron.getBias();
-
-                // Vérifier si la sortie est NaN avant de l'ajouter
-                double sanitizedOutput = Double.isNaN(neuron.getOutput()) ? 0.0 : neuron.getOutput();
-
-                neuronData.put("weights", sanitizedWeights);
-                neuronData.put("bias", sanitizedBias);
-                neuronData.put("output", sanitizedOutput);
-                layerData.add(neuronData);
-            }
+            List<Map<String, Object>> layerData = getMapList(layer);
             layersData.add(layerData);
         }
 
@@ -53,6 +33,31 @@ public class ModelSaver {
         } catch (IOException e) {
             System.err.println("Erreur lors de l'écriture du fichier du modèle : " + e.getMessage());
         }
+    }
+
+    private static List<Map<String, Object>> getMapList(List<Neuron> layer) {
+        List<Map<String, Object>> layerData = new ArrayList<>();
+        for (Neuron neuron : layer) {
+            Map<String, Object> neuronData = new HashMap<>();
+
+            // Vérifier si les poids sont NaN avant de les ajouter
+            List<Double> sanitizedWeights = new ArrayList<>();
+            for (Double weight : neuron.getWeights()) {
+                sanitizedWeights.add(Double.isNaN(weight) ? 0.0 : weight);
+            }
+
+            // Vérifier si le biais est NaN avant de l'ajouter
+            double sanitizedBias = Double.isNaN(neuron.getBias()) ? 0.0 : neuron.getBias();
+
+            // Vérifier si la sortie est NaN avant de l'ajouter
+            double sanitizedOutput = Double.isNaN(neuron.getOutput()) ? 0.0 : neuron.getOutput();
+
+            neuronData.put("weights", sanitizedWeights);
+            neuronData.put("bias", sanitizedBias);
+            neuronData.put("output", sanitizedOutput);
+            layerData.add(neuronData);
+        }
+        return layerData;
     }
 
     // Méthode pour charger un modèle

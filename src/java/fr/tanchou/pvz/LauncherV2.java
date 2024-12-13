@@ -11,7 +11,7 @@ import fr.tanchou.pvz.ia.network.GameAI;
 import java.util.Scanner;
 public class LauncherV2 {
     private final Player player;
-    private GenerationManager generationManager;
+    private final GenerationManager generationManager;
     private final Statistics statistics;
     private final Scanner scanner;
 
@@ -38,14 +38,20 @@ public class LauncherV2 {
                 case 3 -> trainModelsFromFile();
                 case 4 -> evolveGeneration();
                 case 5 -> displayStatistics();
-                case 6 -> saveStatisticsToFile("statistics.csv");
-                case 7 -> loadStatisticsFromFile("statistics.csv");
-                case 8 -> exitProgram = true;
+                case 6 -> saveStatisticsToFile();
+                case 7 -> loadStatisticsFromFile();
+                case 8 -> exitProgram = exitProgram();
                 default -> System.out.println("Choix invalide. Veuillez réessayer.");
             }
         }
 
         System.out.println("Programme terminé. À bientôt !");
+    }
+
+    private boolean exitProgram() {
+        saveStatisticsToFile();
+        System.out.println("Programme terminé. À bientôt !");
+        return true;
     }
 
     private void printMainMenu() {
@@ -125,7 +131,8 @@ public class LauncherV2 {
         System.out.println("Sauvegarder le meilleur modèle ? (Oui/Non)");
         String save = scanner.next();
         if (save.equalsIgnoreCase("Oui")) {
-            ModelSaver.saveModel(this.generationManager.getBestModels().get(0), "best_model.json");
+            ModelSaver.saveModel(this.generationManager.getBestModels().getFirst(), "best_model.json");
+            saveStatisticsToFile();
         }
 
     }
@@ -147,14 +154,14 @@ public class LauncherV2 {
                 (statistics.isCurrentGenerationBetter() ? "Oui" : "Non"));
     }
 
-    private void saveStatisticsToFile(String filePath) {
-        statistics.saveHistoryToFile(filePath);
-        System.out.println("Statistiques sauvegardées dans " + filePath);
+    private void saveStatisticsToFile() {
+        statistics.saveHistoryToFile("statistics.csv");
+        System.out.println("Statistiques sauvegardées dans " + "statistics.csv");
     }
 
-    private void loadStatisticsFromFile(String filePath) {
-        statistics.loadScoresHistoryFromFile(filePath);
-        System.out.println("Statistiques chargées depuis " + filePath);
+    private void loadStatisticsFromFile() {
+        statistics.loadScoresHistoryFromFile("statistics.csv");
+        System.out.println("Statistiques chargées depuis " + "statistics.csv");
     }
 
     public static void main(String[] args) {

@@ -32,7 +32,7 @@ public class NeuralNetwork {
     public void feedForward(double[] inputs) {
 
         for (int i = 0; i < inputs.length; i++) {
-            layers.get(0).get(i).setOutput(inputs[i]);
+            layers.getFirst().get(i).setOutput(inputs[i]);
         }
 
 
@@ -68,7 +68,7 @@ public class NeuralNetwork {
                 for (int j = 0; j < weights.size(); j++) {
                     double currentWeight = weights.get(j);
 
-                    // Si la chance de mutation est remplie (10% ici)
+                    // Si la chance de mutation est remplie (10% ici).
                     if (Math.random() < 0.4) {
                         double mutation;
                         if (Math.random() < 0.8) {
@@ -81,7 +81,7 @@ public class NeuralNetwork {
 
                         double newWeight = currentWeight + mutation;
 
-                        // Limiter les poids entre -1 et 1
+                        // Limiter les poids entre -1 et 1.
                         newWeight = Math.max(-1, Math.min(1, newWeight));
 
                         // Pénalité si le poids devient trop extrême
@@ -111,7 +111,7 @@ public class NeuralNetwork {
                     double biasMutation = Math.random() * mutationAmplitude - mutationAmplitude / 2; // Mutation du biais
                     double newBias = currentBias + biasMutation;
 
-                    // Limiter le biais entre -1 et 1
+                    // Limiter le biais entre -1 et 1.
                     newBias = Math.max(-1, Math.min(1, newBias));
                     //System.out.println("Mutation du biais : " + currentBias + " -> " + newBias);
                     // Appliquer la mutation du biais
@@ -143,7 +143,7 @@ public class NeuralNetwork {
             clonedLayers.add(clonedLayer);
         }
 
-        // Relier les entrées des neurones (à partir de la 2ème couche)
+        // Relier les entrées des neurones (à partir de la 2ᵉ couche).
         for (int i = 1; i < clonedLayers.size(); i++) { // Commence à la 2e couche
             List<Neuron> prevLayer = clonedLayers.get(i - 1);
             for (Neuron neuron : clonedLayers.get(i)) {

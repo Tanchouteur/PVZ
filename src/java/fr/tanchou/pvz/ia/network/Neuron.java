@@ -26,11 +26,11 @@ public class Neuron {
 
         // Initialisation des poids aléatoires
         for (int i = 0; i < inputs.size(); i++) {
-            weights.add(Math.random() * 2 - 1); // Poids entre -1 et 1
+            weights.add(Math.random() * 2 - 1); // Poids entre -1 et 1.
         }
 
         // Initialisation du biais aléatoire
-        this.bias = Math.random() * 2 - 1; // Biais entre -1 et 1
+        this.bias = Math.random() * 2 - 1; // Biais entre -1 et 1.
     }
 
     // Fonction d'activation sigmoïde
