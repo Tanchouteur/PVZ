@@ -37,7 +37,7 @@ public class IAEnvironmentManager {
 
                 //System.out.println("completedGames : " + completedGames.get());
 
-                IAGameResult result = new IAGameResult( iaPlayer.getName(), pvz.getPartieController().getGameAI().getNeuralNetwork(), pvz.getPartie() );
+                IAGameResult result = new IAGameResult(pvz.getPartieController().getGameAI().getNeuralNetwork(), pvz.getPartie() );
 
                 completedGames.incrementAndGet();
 

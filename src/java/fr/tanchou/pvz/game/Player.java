@@ -22,6 +22,8 @@ public class Player {
 
     private int lastCollectSun = 0;
 
+    private int plantPlacedCount = 0;
+
     public Player(String name) {
         this.name = name;
         this.sold = 50;
@@ -72,15 +74,15 @@ public class Player {
     }
 
     public boolean buyPlant(int x, int y) {
-        if (activPlantCard != null && partie.getOneRow(y).getPlantCase(x).isEmpty()) {
+        if (activPlantCard != null && this.partie.getOneRow(y).getPlantCase(x).isEmpty()) {
             if (activPlantCard.canBuy()) {
 
-                Plant plant = activPlantCard.getNewPlant(x, y);
-                partie.getOneRow(y).placePlantInCase(plant);
-
+                Plant plant = this.activPlantCard.getNewPlant(x, y);
+                this.partie.getOneRow(y).placePlantInCase(plant);
+                this.plantPlacedCount++;
                 //System.out.println("Plant placed at x: " + x + " y: " + y);
 
-                activPlantCard = null;
+                this.activPlantCard = null;
                 this.sold -= plant.getCost();
                 return true;
             }
@@ -142,5 +144,9 @@ public class Player {
 
     public void shovelPlant(int x, int y) {
         partie.getOneRow(y).getPlantCase(x).removePlant();
+    }
+
+    public int getPlantPlacedCount() {
+        return plantPlacedCount;
     }
 }

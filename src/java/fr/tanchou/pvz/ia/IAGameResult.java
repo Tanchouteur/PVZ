@@ -5,14 +5,13 @@ import fr.tanchou.pvz.game.rowComponent.Row;
 import fr.tanchou.pvz.ia.network.NeuralNetwork;
 
 public class IAGameResult {
-    private final String iaName;
     private final NeuralNetwork neuralNetwork;
     private final boolean victory;
     private final int ticksSurvived;
     private final Partie partie;
 
-    public IAGameResult(String iaName, NeuralNetwork neuralNetwork, Partie partie) {
-        this.iaName = iaName;
+    public IAGameResult( NeuralNetwork neuralNetwork, Partie partie) {
+
         this.neuralNetwork = neuralNetwork;
 
         this.partie = partie;
@@ -21,21 +20,9 @@ public class IAGameResult {
         this.ticksSurvived = partie.getZombieSpawner().getTotalTick();
     }
 
-    public String getIaName() {
-        return iaName;
-    }
-
-    public boolean isVictory() {
-        return victory;
-    }
-
-    public int getTicksSurvived() {
-        return ticksSurvived;
-    }
-
     @Override
     public String toString() {
-        return "IA " + iaName + ": " + (victory ? "Victoire" : "Défaite") + ", Ticks: " + ticksSurvived;
+        return "IA : " + (victory ? "Victoire" : "Défaite") + ", Ticks: " + ticksSurvived;
     }
 
     public Partie getPartie() {
@@ -53,6 +40,16 @@ public class IAGameResult {
                 mowers *= 2;
             }
         }
-        return ticksSurvived*10 + (victory ? 1000 : 0) + mowers * 10;
+
+        // Scores individuels
+        int mowersScore = mowers * 50; // Conservation des tondeuses.
+        int survivalScore = ticksSurvived * 2; // Temps de survie avec un poids réduit.
+        //int zombieKillScore = zombiesKilled * 5; // Récompense pour chaque zombie tué.
+        //int penalty = zombiesPassed * -50; // Pénalité pour chaque zombie passé.
+        int plantPlacementScore = partie.getPlayer().getPlantPlacedCount() * 5; // Récompense pour les plantes posées.
+
+        // Score total
+        return survivalScore + mowersScore + plantPlacementScore + (victory ? 1000 : 0);
     }
+
 }
