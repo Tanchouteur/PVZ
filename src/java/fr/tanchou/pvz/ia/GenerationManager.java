@@ -64,7 +64,7 @@ public class GenerationManager {
         results.sort(Comparator.comparingDouble(IAGameResult::calculateScore).reversed());
 
         List<NeuralNetwork> bestModels = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 50; i++) {
             System.out.println("Score du modèle " + i + " : " + results.get(i).calculateScore());
             bestModels.add(this.models.get(i));     // Associer les résultats aux modèles
         }
@@ -77,7 +77,7 @@ public class GenerationManager {
         List<NeuralNetwork> nextGeneration = new ArrayList<>();
 
         // Nombre de mutants à générer
-        int numberOfMutants = 25;
+        int numberOfMutants = 200;
 
         for (int i = 0; i < numberOfMutants; i++) {
             for (NeuralNetwork model : bestModels) {
@@ -93,7 +93,7 @@ public class GenerationManager {
         List<NeuralNetwork> nextGeneration = new ArrayList<>();
 
         // Nombre de mutants à générer
-        int numberOfMutants = 100;
+        int numberOfMutants = 10000;
 
         for (int i = 0; i < numberOfMutants; i++) {
             nextGeneration.add(bestModel.mutate()); // Clone et applique une mutation
