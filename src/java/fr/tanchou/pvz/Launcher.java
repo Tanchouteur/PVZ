@@ -24,7 +24,7 @@ public class Launcher {
 
             GenerationManager generationManager = new GenerationManager(true);
 
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < 8; i++) {
                 generationManager.evolve();
                 System.out.println("Génération " + i + " terminée");
             }
