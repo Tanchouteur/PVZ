@@ -1,7 +1,6 @@
 package fr.tanchou.pvz.ia;
 
 import fr.tanchou.pvz.game.Partie;
-import fr.tanchou.pvz.game.rowComponent.Row;
 import fr.tanchou.pvz.ia.network.NeuralNetwork;
 
 public class IAGameResult {
@@ -33,23 +32,8 @@ public class IAGameResult {
         return neuralNetwork;
     }
 
-    public int calculateScore() {
-        int mowers = 1;
-        for (Row row : partie.getRows()) {
-            if (row.getMower() != null) {
-                mowers *= 2;
-            }
-        }
-
-        // Scores individuels
-        int mowersScore = mowers * 50; // Conservation des tondeuses.
-        int survivalScore = ticksSurvived * 2; // Temps de survie avec un poids réduit.
-        //int zombieKillScore = zombiesKilled * 5; // Récompense pour chaque zombie tué.
-        //int penalty = zombiesPassed * -50; // Pénalité pour chaque zombie passé.
-        int plantPlacementScore = partie.getPlayer().getPlantPlacedCount() * 5; // Récompense pour les plantes posées.
-
-        // Score total
-        return survivalScore + mowersScore + plantPlacementScore + (victory ? 1000 : 0);
+    public double getScore() {
+        return partie.getPlayer().calculateScore();
     }
 
 }

@@ -2,9 +2,8 @@ package fr.tanchou.pvz.ia;
 
 import fr.tanchou.pvz.ia.network.NeuralNetwork;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class GenerationManager {
     private List<NeuralNetwork> models;  // Liste des modèles de réseaux neuronaux
@@ -34,11 +33,11 @@ public class GenerationManager {
     // Méthode pour faire évoluer les modèles
     public void evolve() {
         this.environmentManager = new IAEnvironmentManager();
-        this.environmentManager.initializeGames(this.models);  // Lancer les simulations avec les modèles actuels
+        this.environmentManager.initializeGames(this.models);
 
         while (!environmentManager.areAllSimulationsCompleted()) {
             try {
-                Thread.sleep(1000); // Vérifie périodiquement si toutes les simulations sont terminées
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
@@ -46,12 +45,12 @@ public class GenerationManager {
 
         this.environmentManager.stopSimulations();  // Arrêter les simulations
 
-        // Collecter les résultats des jeux
-        // Résultats des simulations
+
         List<IAGameResult> results = this.environmentManager.collectResults();
 
         // Sélectionner les meilleurs modèles
         List<NeuralNetwork> bestModels = selectBestModels(results);
+        System.out.println("Best model score: " + results.get(0).getScore());
 
         ModelSaver.saveModel(bestModels.get(0), "best_model.json");
 
@@ -59,30 +58,32 @@ public class GenerationManager {
         this.models = createNextGenerationFromList(bestModels);
     }
 
-    // Sélectionne les meilleurs modèles en fonction de leurs performances
     private List<NeuralNetwork> selectBestModels(List<IAGameResult> results) {
-        results.sort(Comparator.comparingDouble(IAGameResult::calculateScore).reversed());
 
-        List<NeuralNetwork> bestModels = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
-            System.out.println("Score du modèle " + i + " : " + results.get(i).calculateScore());
-            bestModels.add(this.models.get(i));     // Associer les résultats aux modèles
-        }
-
-        return bestModels;
+        return results.stream()
+                .sorted((r1, r2) -> Double.compare(r2.getScore(), r1.getScore())) // Trie selon le score
+                .limit(5) // Garder les 5 meilleurs modèles
+                .map(IAGameResult::getNeuralNetwork) // Extraire le modèle associé à chaque résultat
+                .collect(Collectors.toList()); // Collecter les 5 meilleurs modèles dans une liste
     }
+
+
 
     // Crée la prochaine génération de modèles en appliquant des mutations
     private List<NeuralNetwork> createNextGenerationFromList(List<NeuralNetwork> bestModels) {
         List<NeuralNetwork> nextGeneration = new ArrayList<>();
-
-        // Nombre de mutants à générer
-        int numberOfMutants = 200;
+        int numberOfMutants = 800;
+        int numberOfRandom = 40; // 5% de la population
 
         for (int i = 0; i < numberOfMutants; i++) {
             for (NeuralNetwork model : bestModels) {
-                nextGeneration.add(model.mutate());  // Appliquer une mutation
+                nextGeneration.add(model.mutate());
             }
+        }
+
+        // Ajout de modèles aléatoires
+        for (int i = 0; i < numberOfRandom; i++) {
+            nextGeneration.add(new NeuralNetwork(new int[]{270, 100, 52}));
         }
 
         return nextGeneration;
@@ -93,7 +94,7 @@ public class GenerationManager {
         List<NeuralNetwork> nextGeneration = new ArrayList<>();
 
         // Nombre de mutants à générer
-        int numberOfMutants = 10000;
+        int numberOfMutants = 4000;
 
         for (int i = 0; i < numberOfMutants; i++) {
             nextGeneration.add(bestModel.mutate()); // Clone et applique une mutation

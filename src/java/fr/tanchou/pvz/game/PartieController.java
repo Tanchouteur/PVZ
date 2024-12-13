@@ -46,11 +46,12 @@ public class PartieController {
     // Démarrer le jeu
     public void startGame() {
         // Mettre à jour le modèle pour avoir 24 ticks par seconde
-        gameLoop.scheduleAtFixedRate(this::update, 0, 1000 / 80, TimeUnit.MILLISECONDS);
+        gameLoop.scheduleAtFixedRate(this::update, 0, 1000 / 15, TimeUnit.MILLISECONDS);
     }
 
     // Arrêter le jeu
     public void stopGame() {
+        //System.out.println("player Score : " + partie.getPlayer().calculateScore());
         gameLoop.shutdown();
     }
 

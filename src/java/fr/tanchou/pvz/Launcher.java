@@ -15,7 +15,7 @@ public class Launcher {
         boolean iaMulti = args.length > 0 && args[0].equalsIgnoreCase("ia-multi");
 
         if (useGraphicalUI) {
-            PVZ pvz = new PVZ(new Player("Louis"), new GameAI(ModelSaver.loadModel("best_model.json")));
+            PVZ pvz = new PVZ(new Player("Louis"));
             PVZGraphic.launchView(pvz);
         } else if (iaSingle) {
             PVZ pvz = new PVZ(new Player("IA Single"));
@@ -24,7 +24,7 @@ public class Launcher {
 
             GenerationManager generationManager = new GenerationManager(true);
 
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < 12; i++) {
                 generationManager.evolve();
                 System.out.println("Génération " + i + " terminée");
             }

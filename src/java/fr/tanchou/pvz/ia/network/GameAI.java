@@ -60,7 +60,7 @@ public class GameAI {
                 }
 
                 inputs[index++] = plantCase.getX() / 8.0; // Position x de la plante
-                inputs[index++] = plantCase.getY() / 5.0; // Position y de la plante
+                inputs[index++] = plantCase.getY() / 4.0; // Position y de la plante
                 inputs[index++] = plantCase.isEmpty() ? 1.0 : 0.0;  // 1 si occupée, 0 sinon
 
             }
@@ -77,8 +77,8 @@ public class GameAI {
 
             } else {
                 inputs[index++] = 0.0; // Pas de zombie
-                inputs[index++] = 10.0; // Pas de position x
-                inputs[index++] = i; // Pas de position y
+                inputs[index++] = 1.0; // Pas de position x
+                inputs[index++] = (double) i /4; // Pas de position y
             }
         }
 
@@ -113,6 +113,15 @@ public class GameAI {
                 inputs[index++] = 0.0;  // 1 si achetable
             }
         }
+
+        // Ajouter un print pour déboguer les entrées
+        /*System.out.println("Inputs: ");
+        for (int i = 0; i < inputs.length; i++) {
+            System.out.print(inputs[i] + " ");
+            if ((i + 1) % 10 == 0) {
+                System.out.println();  // Ajouter une nouvelle ligne toutes les 10 valeurs pour la lisibilité
+            }
+        }*/
 
         //System.out.println("Inputs: " + inputs.length);
         return inputs;

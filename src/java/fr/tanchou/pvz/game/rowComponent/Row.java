@@ -30,6 +30,8 @@ public class Row {
     private final SunManager sunManager;
     private boolean defeat = false;
 
+    private int killedZombieCount = 0;
+
     public Row(int rowIndex, SunManager sunManager) {
         this.rowIndex = rowIndex;
         this.mower = new Mower(rowIndex);
@@ -76,6 +78,12 @@ public class Row {
             listBulletsToAdd.clear();
         }
 
+        for (Zombie zombie : listZombie) {
+            if (zombie.isDead() && zombie.getHealthPoint() >= -200) {
+                killedZombieCount++;
+            }
+        }
+
         listZombie.removeIf(Entity::isDead);
 
         listBullets.removeIf(Bullet::isDead);
@@ -116,8 +124,6 @@ public class Row {
             if (zombie.getX() < 0 && mower == null) {
                 this.defeat = true;
             }
-
-            //wich case choose :
 
             int index = (int) zombie.getX();
 
@@ -274,5 +280,9 @@ public class Row {
 
     public Mower getMower(){
         return mower;
+    }
+
+    public int getKilledZombieCount() {
+        return killedZombieCount;
     }
 }

@@ -67,7 +67,8 @@ public class NeuralNetwork {
                 for (int j = 0; j < weights.size(); j++) {
                     double currentWeight = weights.get(j);
 
-                    if (Math.random() < 0.1) { // 10% de chance de mutation
+                    // Si la chance de mutation est remplie (10% ici)
+                    if (Math.random() < 0.1) {
                         double mutation;
                         if (Math.random() < 0.8) {
                             // Mutation gaussienne (petite variation)
@@ -82,10 +83,19 @@ public class NeuralNetwork {
                         // Limiter les poids entre -1 et 1
                         newWeight = Math.max(-1, Math.min(1, newWeight));
 
+                        // Pénalité si le poids devient trop extrême
+                        if (Math.abs(newWeight) > 0.9) {
+                            newWeight = Math.signum(newWeight) * 0.9; // Rapproche les poids extrêmes de 0.9 ou -0.9
+                        }
+
                         // Optionnel : conserver certains poids avec une probabilité
                         if (Math.random() < 0.2) {
-                            // Conserver le poids sans mutation
-                            newWeight = currentWeight;
+                            newWeight = currentWeight; // Pas de mutation
+                        }
+
+                        // Applique la pénalité si le poids devient trop faible
+                        if (Math.abs(newWeight) < 0.05) {
+                            newWeight = 0.05 * Math.signum(newWeight); // Pénaliser les poids trop faibles
                         }
 
                         weights.set(j, newWeight); // Met à jour le poids après mutation
@@ -99,6 +109,7 @@ public class NeuralNetwork {
 
         return mutatedNetwork;
     }
+
 
 
     public List<List<Neuron>> getLayers() {

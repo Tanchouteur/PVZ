@@ -8,6 +8,7 @@ import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.PeaShooter;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
 import fr.tanchou.pvz.entityRealisation.plants.PotatoMine;
 import fr.tanchou.pvz.entityRealisation.plants.passive.WallNut;
+import fr.tanchou.pvz.game.rowComponent.Row;
 
 public class Player {
     private int sold;
@@ -148,5 +149,33 @@ public class Player {
 
     public int getPlantPlacedCount() {
         return plantPlacedCount;
+    }
+
+    public int getKilledZombieCount() {
+        int killedZombieCount = 0;
+        for (Row row : partie.getRows()) {
+            killedZombieCount += row.getKilledZombieCount();
+        }
+        return killedZombieCount;
+    }
+
+    public double calculateScore() {
+        int mowers = 1;
+        for (Row row : partie.getRows()) {
+            if (row.getMower() != null) {
+                mowers *= 2;
+            }
+        }
+
+        // Scores individuels avec ajustements
+        int mowersScore = mowers * 50; // Conservation des tondeuses.
+        int survivalScore = partie.getZombieSpawner().getTotalTick() * 1; // Temps de survie avec un poids réduit.
+        int zombieKillScore = getKilledZombieCount() * 25; // Récompense augmentée pour chaque zombie tué.
+        int plantPlacementScore = getPlantPlacedCount() * 60; // Récompense augmentée pour les plantes posées.
+        int unusedSunPenalty = -getSold(); // Pénalité augmentée pour le soleil inutilisé.
+
+        // Score total
+        //System.out.println("Survival: " + survivalScore + ", Mowers: " + mowersScore + ", Plant Placement:" + getPlantPlacedCount() +  " " + plantPlacementScore + ", Zombie Kills: " + zombieKillScore + ", Unused Sun Penalty: " + unusedSunPenalty);
+        return survivalScore + mowersScore + plantPlacementScore + zombieKillScore + unusedSunPenalty + (partie.isVictory() ? 2000 : 0);
     }
 }
