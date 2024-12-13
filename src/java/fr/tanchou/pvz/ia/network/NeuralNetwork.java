@@ -5,7 +5,7 @@ import java.util.List;
 
 public class NeuralNetwork {
     private final List<List<Neuron>> layers; // Liste des couches (chaque couche est une liste de neurones)
-    private double mutationAmplitude = 0.1; // Amplitude par défaut de la mutation
+    private double mutationAmplitude = 0.5; // Amplitude par défaut de la mutation
 
     public NeuralNetwork(int[] neuronsPerLayer) {
         layers = new ArrayList<>();

@@ -30,7 +30,7 @@ public class Player {
 
     private int sunFlowersPlacedScore = -10;
 
-    private List<Integer> sunHistory = new ArrayList<>();  // Historique des valeurs de sold tous les 10 ticks
+    private final List<Integer> sunHistory = new ArrayList<>();  // Historique des valeurs de sold tous les 10 ticks
     private static final int SUN_HISTORY_SIZE = 10;         // Taille de la fenêtre (10 ticks)
 
     public Player(String name) {

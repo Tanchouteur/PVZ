@@ -15,7 +15,7 @@ public class Launcher {
         boolean iaMulti = args.length > 0 && args[0].equalsIgnoreCase("ia-multi");
 
         if (useGraphicalUI) {
-            PVZ pvz = new PVZ(new Player("Louis"));
+            PVZ pvz = new PVZ(new Player("Louis"), new GameAI(ModelSaver.loadModel("best_model.json")));
             PVZGraphic.launchView(pvz);
         } else if (iaSingle) {
             PVZ pvz = new PVZ(new Player("IA Single"));

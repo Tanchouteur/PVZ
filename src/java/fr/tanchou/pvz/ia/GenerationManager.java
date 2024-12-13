@@ -3,13 +3,12 @@ package fr.tanchou.pvz.ia;
 import fr.tanchou.pvz.ia.network.NeuralNetwork;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class GenerationManager {
     private List<NeuralNetwork> models;  // Liste des modèles de réseaux neuronaux
     private IAEnvironmentManager environmentManager;  // Gère les simulations d'IA
 
-    private int generationNumber = 100;
+    private int generationNumber = 2000;
 
     public GenerationManager(boolean loadBestModel) {
         NeuralNetwork bestModelLoaded;
@@ -58,16 +57,26 @@ public class GenerationManager {
 
         // Remplacer la génération actuelle avec la suivante
         this.models = createNextGenerationFromList(bestModels);
+        System.out.println("Generation size " + models.size());
     }
 
     private List<NeuralNetwork> selectBestModels(List<IAGameResult> results) {
+        System.out.println("Size of results list before sorting: " + results.size());
 
-        return results.stream()
-                .sorted((r1, r2) -> Double.compare(r2.getScore(), r1.getScore())) // Trie selon le score
-                .limit(5) // Garder les 5 meilleurs modèles
-                .map(IAGameResult::getNeuralNetwork) // Extraire le modèle associé à chaque résultat
-                .collect(Collectors.toList()); // Collecter les 5 meilleurs modèles dans une liste
+        results.sort((r1, r2) -> Double.compare(r2.getScore(), r1.getScore())); // Tri décroissant
+
+        List<IAGameResult> topResults = results.stream()
+                .limit(5)
+                .toList();
+
+
+        return topResults.stream()
+                .map(IAGameResult::getNeuralNetwork)
+                .toList();
     }
+
+
+
 
 
 
@@ -79,7 +88,7 @@ public class GenerationManager {
 
         for (int i = 0; i < numberOfMutants; i++) {
             for (NeuralNetwork model : bestModels) {
-                nextGeneration.add(model.cloneNetwork());
+                nextGeneration.add(model.mutate());
             }
         }
 
@@ -99,7 +108,7 @@ public class GenerationManager {
         int numberOfMutants = generationNumber;
 
         for (int i = 0; i < numberOfMutants; i++) {
-            nextGeneration.add(bestModel.cloneNetwork()); // Clone et applique une mutation
+            nextGeneration.add(bestModel.mutate()); // Clone et applique une mutation
         }
 
         return nextGeneration;
