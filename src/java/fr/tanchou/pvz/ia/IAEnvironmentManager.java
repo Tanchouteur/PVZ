@@ -15,7 +15,7 @@ public class IAEnvironmentManager {
     private final AtomicInteger completedGames = new AtomicInteger(0);
 
     public IAEnvironmentManager() {
-        this.executorService = Executors.newFixedThreadPool(31);
+        this.executorService = Executors.newFixedThreadPool(4);
     }
 
     // Initialise les jeux
@@ -27,20 +27,24 @@ public class IAEnvironmentManager {
 
             Player iaPlayer = new Player("IA_Player_" + (i + 1));
 
-            PVZ pvz = new PVZ(iaPlayer, new GameAI(models.get(i))); // Attribution du modèle à l'IA
-
-            int finalI = i;
-            Runnable simulationTask = () -> {
-                pvz.runManualGame(4500);
-                models.get(finalI).setScore((int) Math.round(iaPlayer.calculateScore()));
-                completedGames.incrementAndGet();
-            };
-
-
-            executorService.submit(simulationTask);
+            executorService.submit(getRunnableInstance(models, iaPlayer, i));
         }
 
         System.out.println("Toutes les simulations sont lancées.");
+    }
+
+    private Runnable getRunnableInstance(List<NeuralNetwork> models, Player iaPlayer, int i) {
+        PVZ pvz = new PVZ(iaPlayer, new GameAI(models.get(i))); // Attribution du modèle à l'IA
+
+        return () -> {
+            try {
+                pvz.runManualGame(4500);
+                models.get(i).setScore((int) Math.round(iaPlayer.calculateScore()));
+                completedGames.incrementAndGet();
+            } catch (Exception e) {
+                System.err.println("Erreur dans la simulation du modèle " + i + ": " + e.getMessage());
+            }
+        };
     }
 
     // Stoppe toutes les simulations en attente (si besoin)
