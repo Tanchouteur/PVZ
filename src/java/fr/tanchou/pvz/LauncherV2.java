@@ -9,6 +9,9 @@ import fr.tanchou.pvz.ia.data.Statistics;
 import fr.tanchou.pvz.ia.network.GameAI;
 
 import java.util.Scanner;
+
+import static java.lang.System.exit;
+
 public class LauncherV2 {
     private final Player player;
     private final GenerationManager generationManager;
@@ -40,7 +43,7 @@ public class LauncherV2 {
                 case 5 -> displayStatistics();
                 case 6 -> saveStatisticsToFile();
                 case 7 -> loadStatisticsFromFile();
-                case 8 -> exitProgram = exitProgram();
+                case 8 -> exitProgram();
                 default -> System.out.println("Choix invalide. Veuillez réessayer.");
             }
         }
@@ -48,10 +51,10 @@ public class LauncherV2 {
         System.out.println("Programme terminé. À bientôt !");
     }
 
-    private boolean exitProgram() {
+    private void exitProgram() {
         saveStatisticsToFile();
         System.out.println("Programme terminé. À bientôt !");
-        return true;
+        exit(0);
     }
 
     private void printMainMenu() {
