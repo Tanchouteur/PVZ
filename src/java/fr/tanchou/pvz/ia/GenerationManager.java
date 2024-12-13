@@ -14,19 +14,25 @@ public class GenerationManager {
     private int simulationPerGeneration = 4000;
 
     private List<NeuralNetwork> bestModels = new ArrayList<>();
-    private List<NeuralNetwork> models = new  ArrayList<>();  // Liste des modèles de réseaux neuronaux
+    private final List<NeuralNetwork> models = new  ArrayList<>();  // Liste des modèles de réseaux neuronaux
+
+    private boolean currentGenerationIsTrained = false;
 
     // Constructeur
-    public GenerationManager(NeuralNetwork bestModel) {
-        createNextGenerationFromOne(bestModel);
+    public GenerationManager(NeuralNetwork sourceModel) {
+        createNextGenerationFromOne(sourceModel);
         this.environmentManager = new IAEnvironmentManager();
     }
 
     // Méthode pour faire évoluer les modèles
     public void evolve() {
-        // Remplacer la génération actuelle avec la suivante
-        System.out.println("Evolution de la génération " + generationNumber);
-        this.createNextGenerationFromList();
+        if (currentGenerationIsTrained) {
+            // Remplacer la génération actuelle avec la suivante
+            System.out.println("Mutation de la génération " + generationNumber);
+            this.createNextGenerationFromList();
+            this.currentGenerationIsTrained = false;
+        }
+
 
         System.out.println("Evolution de la génération " + generationNumber);
         this.environmentManager = new IAEnvironmentManager();
@@ -54,7 +60,7 @@ public class GenerationManager {
         System.out.println("===================================\n");
 
         System.out.println("Generation size " + this.models.size());
-
+        this.currentGenerationIsTrained = true;
         generationNumber++;
     }
 
@@ -89,11 +95,10 @@ public class GenerationManager {
     }
 
     // Crée la prochaine génération de modèles en appliquant des mutations
-    private void createNextGenerationFromOne(NeuralNetwork bestModel) {
-        this.models.clear();
-
-        for (int i = 0; i < simulationPerGeneration; i++) {
-            models.add(bestModel.mutate(mutationAmplitude)); // Clone et applique une mutation
+    private void createNextGenerationFromOne(NeuralNetwork sourceModel) {
+        System.out.println("Création de la première génération de cette session number of new sourceModel mutation : " + this.simulationPerGeneration);
+        for (int i = 0; i < this.simulationPerGeneration; i++) {
+            this.models.add(sourceModel.mutate(this.mutationAmplitude)); // Clone et applique une mutation
         }
     }
 

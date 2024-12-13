@@ -99,24 +99,33 @@ public class Statistics {
 
     public void loadScoresHistoryFromFile(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
+            String line = br.readLine(); // Lire et ignorer la première ligne (en-tête)
+            if (line == null) {
+                System.out.println("Le fichier est vide ou corrompu.");
+                return;
+            }
+
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (values.length == 3) {
-                    String key1 = values[0].split("=")[0];
-                    int value1 = Integer.parseInt(values[0].split("=")[1]);
-                    String key2 = values[1].split("=")[0];
-                    int value2 = Integer.parseInt(values[1].split("=")[1]);
-                    String key3 = values[2].split("=")[0];
-                    int value3 = Integer.parseInt(values[2].split("=")[1]);
+                if (values.length == 4) { // Vérifier qu'il y a bien 4 colonnes
+                    int generation = Integer.parseInt(values[0].trim());
+                    int scoreBestModel = Integer.parseInt(values[1].trim());
+                    int averageScore = Integer.parseInt(values[2].trim());
+                    int mutationAmplitude = Integer.parseInt(values[3].trim());
 
+                    // Ajouter les scores au format attendu dans scoresHistory
                     scoresHistory.add(Map.of(
-                            key1, value1,
-                            key2, value2,
-                            key3, value3
+                            "generation", generation,
+                            "scoreBestModel", scoreBestModel,
+                            "averageScore", averageScore,
+                            "mutationAmplitude", mutationAmplitude
                     ));
+                } else {
+                    System.out.println("Ligne ignorée : format incorrect -> " + line);
                 }
             }
+
+            System.out.println("Historique chargé avec succès depuis " + filePath);
         } catch (IOException | NumberFormatException e) {
             System.err.println("Erreur lors du chargement de l'historique depuis le fichier : " + e.getMessage());
         }

@@ -15,7 +15,7 @@ public class IAEnvironmentManager {
     private final AtomicInteger completedGames = new AtomicInteger(0);
 
     public IAEnvironmentManager() {
-        this.executorService = Executors.newFixedThreadPool(32);
+        this.executorService = Executors.newFixedThreadPool(31);
     }
 
     // Initialise les jeux

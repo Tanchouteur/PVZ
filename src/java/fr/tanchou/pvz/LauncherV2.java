@@ -19,6 +19,8 @@ public class LauncherV2 {
         this.player = new Player("Louis");
         this.generationManager = new GenerationManager(ModelSaver.loadModel("best_model.json"));
         this.statistics = new Statistics();
+        this.statistics.loadScoresHistoryFromFile("statistics.csv");
+        this.statistics.printScoresHistory();
         this.scanner = new Scanner(System.in);
     }
 
@@ -117,6 +119,8 @@ public class LauncherV2 {
             statistics.saveScoresHistory(this.generationManager);
             System.out.println("\nGénération " + (i + 1) + " terminée\n");
         }
+
+        this.statistics.printGlobalStatistics();
 
         System.out.println("Sauvegarder le meilleur modèle ? (Oui/Non)");
         String save = scanner.next();
