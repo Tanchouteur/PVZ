@@ -5,6 +5,7 @@ import java.util.List;
 
 public class NeuralNetwork {
     private final List<List<Neuron>> layers; // Liste des couches (chaque couche est une liste de neurones)
+    private double mutationAmplitude = 0.1; // Amplitude par défaut de la mutation
 
     public NeuralNetwork(int[] neuronsPerLayer) {
         layers = new ArrayList<>();
@@ -72,10 +73,10 @@ public class NeuralNetwork {
                         double mutation;
                         if (Math.random() < 0.8) {
                             // Mutation gaussienne (petite variation)
-                            mutation = Math.random() * 0.2 - 0.1; // Variation entre -0.1 et 0.1
+                            mutation = Math.random() * mutationAmplitude - mutationAmplitude / 2; // Variation contrôlée par l'amplitude
                         } else {
                             // Mutation radicale (plus rare)
-                            mutation = (Math.random() * 2 - 1) * Math.abs(currentWeight); // Variation radicale réduite par la valeur actuelle du poids
+                            mutation = (Math.random() * 2 - 1) * Math.abs(currentWeight) * mutationAmplitude; // Variation radicale contrôlée par l'amplitude
                         }
 
                         double newWeight = currentWeight + mutation;
@@ -144,5 +145,7 @@ public class NeuralNetwork {
         return new NeuralNetwork(clonedLayers);
     }
 
-
+    public void setMutationAmplitude(double amplitude) {
+        this.mutationAmplitude = amplitude;
+    }
 }

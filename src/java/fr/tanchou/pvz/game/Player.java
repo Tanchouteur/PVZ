@@ -10,6 +10,9 @@ import fr.tanchou.pvz.entityRealisation.plants.PotatoMine;
 import fr.tanchou.pvz.entityRealisation.plants.passive.WallNut;
 import fr.tanchou.pvz.game.rowComponent.Row;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player {
     private int sold;
     private PlantCard[] plantCards;
@@ -24,6 +27,11 @@ public class Player {
     private int lastCollectSun = 0;
 
     private int plantPlacedCount = 0;
+
+    private int sunFlowersPlacedScore = -10;
+
+    private List<Integer> sunHistory = new ArrayList<>();  // Historique des valeurs de sold tous les 10 ticks
+    private static final int SUN_HISTORY_SIZE = 10;         // Taille de la fenêtre (10 ticks)
 
     public Player(String name) {
         this.name = name;
@@ -40,11 +48,39 @@ public class Player {
         });
     }
 
+    public double calculateScore() {
+        int mowers = 1;
+        for (Row row : partie.getRows()) {
+            if (row.getMower() != null) {
+                mowers *= 2;
+            }
+        }
+
+        // Scores individuels avec ajustements
+        int mowersScore = mowers * 45; // Conservation des tondeuses.
+        int survivalScore = partie.getZombieSpawner().getTotalTick() / 3; // Temps de survie avec un poids réduit.
+        int zombieKillScore = getKilledZombieCount() * 25; // Récompense augmentée pour chaque zombie tué.
+        int plantPlacementScore = getPlantPlacedCount() * 50; // Récompense augmentée pour les plantes posées.
+
+        // Calcul de la moyenne de soleil collecté et application d'une pénalité si > 50
+        double averageSun = calculateAverageSun();
+        int unusedSunPenalty = averageSun > 50 ? - (int)(sold / 2) : 0;
+
+        // Score total
+        //System.out.println("Survival: " + survivalScore + ", Mowers: " + mowersScore + ", Plant Placement:" + getPlantPlacedCount() +  " " + plantPlacementScore + ", Zombie Kills: " + zombieKillScore + ", Unused Sun Penalty: " + unusedSunPenalty + ", SunFlower Placement: " + sunFlowersPlacedScore*10 + ", Victory: " + (partie.isVictory() ? 2000 : 0));
+        return survivalScore + mowersScore + plantPlacementScore + zombieKillScore + unusedSunPenalty*0.8 + this.sunFlowersPlacedScore*10 + (partie.isVictory() ? 2000 : 0);
+    }
+
     public void tick() {
         for (PlantCard plantCard : plantCards) {
             plantCard.tick(this.sold);
         }
         this.collectSun();
+
+        // Enregistrer la valeur de sold dans l'historique tous les 10 ticks
+        if (lastCollectSun % 10 == 0) {
+            sunHistory.add(sold);
+        }
     }
 
     public void collectSun() {
@@ -57,10 +93,23 @@ public class Player {
             lastCollectSun = 0;
             //System.err.println("sold : " + sold);
         }
+
     }
 
     public int getSold() {
         return sold;
+    }
+
+    private double calculateAverageSun() {
+        if (sunHistory.isEmpty()) {
+            return 0; // Si aucun tick n'a eu lieu, retourner 0
+        }
+
+        double sum = 0;
+        for (int value : sunHistory) {
+            sum += value;
+        }
+        return sum / sunHistory.size(); // Moyenne des derniers SUN_HISTORY_SIZE ticks
     }
 
     public void preBuyPlant(PlantCard plantCard) {
@@ -82,6 +131,16 @@ public class Player {
                 this.partie.getOneRow(y).placePlantInCase(plant);
                 this.plantPlacedCount++;
                 //System.out.println("Plant placed at x: " + x + " y: " + y);
+
+                if (activPlantCard.getPlant() instanceof SunFlower) {
+                    if (x < 5){
+                        sunFlowersPlacedScore += 5;
+                    } else if (x >= 7) {
+                        sunFlowersPlacedScore -= 2;
+                    } else {
+                        sunFlowersPlacedScore += 1;
+                    }
+                }
 
                 this.activPlantCard = null;
                 this.sold -= plant.getCost();
@@ -159,23 +218,5 @@ public class Player {
         return killedZombieCount;
     }
 
-    public double calculateScore() {
-        int mowers = 1;
-        for (Row row : partie.getRows()) {
-            if (row.getMower() != null) {
-                mowers *= 2;
-            }
-        }
 
-        // Scores individuels avec ajustements
-        int mowersScore = mowers * 50; // Conservation des tondeuses.
-        int survivalScore = partie.getZombieSpawner().getTotalTick() * 1; // Temps de survie avec un poids réduit.
-        int zombieKillScore = getKilledZombieCount() * 25; // Récompense augmentée pour chaque zombie tué.
-        int plantPlacementScore = getPlantPlacedCount() * 60; // Récompense augmentée pour les plantes posées.
-        int unusedSunPenalty = -getSold(); // Pénalité augmentée pour le soleil inutilisé.
-
-        // Score total
-        //System.out.println("Survival: " + survivalScore + ", Mowers: " + mowersScore + ", Plant Placement:" + getPlantPlacedCount() +  " " + plantPlacementScore + ", Zombie Kills: " + zombieKillScore + ", Unused Sun Penalty: " + unusedSunPenalty);
-        return survivalScore + mowersScore + plantPlacementScore + zombieKillScore + unusedSunPenalty + (partie.isVictory() ? 2000 : 0);
-    }
 }
