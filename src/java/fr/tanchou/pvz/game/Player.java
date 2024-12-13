@@ -57,7 +57,7 @@ public class Player {
         }
 
         // Scores individuels avec ajustements
-        int mowersScore = mowers * 45; // Conservation des tondeuses.
+        int mowersScore = mowers * 35; // Conservation des tondeuses.
         int survivalScore = partie.getZombieSpawner().getTotalTick() / 3; // Temps de survie avec un poids réduit.
         int zombieKillScore = getKilledZombieCount() * 25; // Récompense augmentée pour chaque zombie tué.
         int plantPlacementScore = getPlantPlacedCount() * 50; // Récompense augmentée pour les plantes posées.
