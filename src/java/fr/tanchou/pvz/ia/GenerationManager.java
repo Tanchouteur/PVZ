@@ -11,7 +11,7 @@ public class GenerationManager {
     private int generationNumber = 0;
     private double mutationAmplitude = 0.5;
 
-    private int simulationPerGeneration = 5000;
+    private int simulationPerGeneration = 4000;
 
     public GenerationManager(boolean loadBestModel) {
         NeuralNetwork bestModelLoaded;

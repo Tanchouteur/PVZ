@@ -18,7 +18,7 @@ public class LauncherV2 {
             System.out.println("Que voulez-vous faire ?\n0. Lancer le jeu en mode graphique sans IA\n" +
                     "1. Lancer le jeu en mode graphique avec IA\n" +
                     "2. Lancer une premiere génération random\n" +
-                    "3. Lancer le jeu en mode IA train\n" +
+                    "3. Entrainer les models à partir du fichier\n" +
                     "4. Faire une evolution\n" +
                     "5. Quitter");
 
