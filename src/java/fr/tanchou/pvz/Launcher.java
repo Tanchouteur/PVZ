@@ -22,9 +22,9 @@ public class Launcher {
             pvz.startGame(true);
         } else if (iaMulti) {
 
-            GenerationManager generationManager = new GenerationManager(true);
+            GenerationManager generationManager = new GenerationManager(false);
 
-            for (int i = 0; i < 32; i++) {
+            for (int i = 0; i < 1; i++) {
                 generationManager.evolve();
                 System.out.println("Génération " + i + " terminée");
             }

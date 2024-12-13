@@ -5,7 +5,7 @@ import fr.tanchou.pvz.ia.network.NeuralNetwork;
 import java.util.*;
 
 public class GenerationManager {
-    private List<NeuralNetwork> models;  // Liste des modèles de réseaux neuronaux
+    private List<NeuralNetwork> models = new  ArrayList<>();  // Liste des modèles de réseaux neuronaux
     private IAEnvironmentManager environmentManager;  // Gère les simulations d'IA
 
     private int generationNumber = 0;
@@ -17,21 +17,26 @@ public class GenerationManager {
         NeuralNetwork bestModelLoaded;
         if (!loadBestModel) {
 
-            bestModelLoaded = createInitialGeneration();  // Créer une génération initiale
-            ModelSaver.saveModel(bestModelLoaded, "best_model.json");
+
+            for (int i = 0; i < 5000; i++) {
+                this.models.add(new NeuralNetwork(new int[]{275, 180, 100, 52}));  // Créer une génération initiale
+            }
+            System.out.println("First random generation created");
+            //ModelSaver.saveModel(bestModelLoaded, "best_model.json");
+
         }else {
             bestModelLoaded = ModelSaver.loadModel("best_model.json");
+            this.models = createNextGenerationFromOne(bestModelLoaded);
         }
 
-        this.models = createNextGenerationFromOne(bestModelLoaded);
+
 
         this.environmentManager = new IAEnvironmentManager();
     }
 
     // Méthode pour créer une génération initiale
     public NeuralNetwork createInitialGeneration() {
-        // Crée un modèle avec 3 couches
-        return new NeuralNetwork(new int[]{275, 100, 52});
+        return new NeuralNetwork(new int[]{275, 180, 100, 52});
     }
 
     // Méthode pour faire évoluer les modèles
@@ -95,7 +100,7 @@ public class GenerationManager {
 
         // Ajout de modèles aléatoires
         for (int i = 0; i < numberOfRandom; i++) {
-            nextGeneration.add(new NeuralNetwork(new int[]{275, 100, 52}));
+            nextGeneration.add(new NeuralNetwork(new int[]{275, 180, 100, 52}));
         }
 
         return nextGeneration;
@@ -113,5 +118,9 @@ public class GenerationManager {
         }
 
         return nextGeneration;
+    }
+
+    public void setSimulationPerGeneration(int i) {
+        this.simulationPerGeneration = i;
     }
 }

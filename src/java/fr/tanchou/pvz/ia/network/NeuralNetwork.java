@@ -68,7 +68,7 @@ public class NeuralNetwork {
                     double currentWeight = weights.get(j);
 
                     // Si la chance de mutation est remplie (10% ici)
-                    if (Math.random() < 0.1) {
+                    if (Math.random() < 0.4) {
                         double mutation;
                         if (Math.random() < 0.8) {
                             // Mutation gaussienne (petite variation)
