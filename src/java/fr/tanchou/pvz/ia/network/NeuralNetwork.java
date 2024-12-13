@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NeuralNetwork {
-    private final List<List<Neuron>> layers; // Liste des couches (chaque couche est une liste de neurones)
+    private final List<List<Neuron>> layers;
     private double mutationAmplitude = 0.5; // Amplitude par défaut de la mutation
 
     public NeuralNetwork(int[] neuronsPerLayer) {
@@ -30,23 +30,22 @@ public class NeuralNetwork {
 
     // Méthode pour faire passer les entrées à travers le réseau
     public void feedForward(double[] inputs) {
-        // Remplir la couche d'entrée avec les données
+
         for (int i = 0; i < inputs.length; i++) {
-            layers.get(0).get(i).setOutput(inputs[i]); // Accéder à la première couche avec get(0)
+            layers.get(0).get(i).setOutput(inputs[i]);
         }
 
-        // Calculer les sorties pour chaque neurone (couche par couche)
+
         for (int i = 1; i < layers.size(); i++) {
             for (Neuron neuron : layers.get(i)) {
-                neuron.calculateOutput(); // Calcule la sortie du neurone
+                neuron.calculateOutput();
             }
         }
     }
 
-    // Getter pour obtenir la sortie finale
     public double[] getOutput() {
 
-        List<Neuron> outputLayer = layers.getLast(); // Récupère la dernière couche
+        List<Neuron> outputLayer = layers.getLast();
         double[] outputs = new double[outputLayer.size()];
 
         for (int i = 0; i < outputLayer.size(); i++) {
@@ -57,7 +56,7 @@ public class NeuralNetwork {
     }
 
     public NeuralNetwork mutate() {
-        NeuralNetwork mutatedNetwork = this.cloneNetwork(); // Clone le réseau
+        NeuralNetwork mutatedNetwork = this.cloneNetwork();
 
         // Parcours chaque couche (sauf la couche d'entrée)
         for (int i = 1; i < mutatedNetwork.layers.size(); i++) {
@@ -98,13 +97,25 @@ public class NeuralNetwork {
                         if (Math.abs(newWeight) < 0.05) {
                             newWeight = 0.05 * Math.signum(newWeight); // Pénaliser les poids trop faibles
                         }
-
                         weights.set(j, newWeight); // Met à jour le poids après mutation
                     }
                 }
 
                 // Mise à jour des poids du neurone avec la nouvelle liste
                 neuron.setWeights(weights);
+
+                // Mutation du biais
+                if (Math.random() < 0.1) { // Chance de mutation du biais
+                    double currentBias = neuron.getBias(); // Obtenir le biais actuel
+                    double biasMutation = Math.random() * mutationAmplitude - mutationAmplitude / 2; // Mutation du biais
+                    double newBias = currentBias + biasMutation;
+
+                    // Limiter le biais entre -1 et 1
+                    newBias = Math.max(-1, Math.min(1, newBias));
+                    //System.out.println("Mutation du biais : " + currentBias + " -> " + newBias);
+                    // Appliquer la mutation du biais
+                    neuron.setBias(newBias); // Mettre à jour le biais
+                }
             }
         }
 
@@ -119,7 +130,6 @@ public class NeuralNetwork {
 
     public NeuralNetwork cloneNetwork() {
         List<List<Neuron>> clonedLayers = new ArrayList<>();
-        int l = 0;
 
         // Dupliquer chaque couche
         for (List<Neuron> layer : this.layers) {
@@ -128,10 +138,10 @@ public class NeuralNetwork {
                 // Copier les poids et les entrées
                 List<Double> clonedWeights = new ArrayList<>(neuron.getWeights()); // Copie des poids
                 List<Neuron> clonedInputs = new ArrayList<>(neuron.getInputs()); // Copie des entrées (neurones de la couche précédente)
-                clonedLayer.add(new Neuron(clonedInputs, clonedWeights, l)); // Crée le neurone cloné avec les poids et entrées
+                double bias = 0 + neuron.getBias(); // Copie du biais
+                clonedLayer.add(new Neuron(clonedInputs, clonedWeights, bias)); // Crée le neurone cloné avec les poids et entrées
             }
             clonedLayers.add(clonedLayer);
-            l++;
         }
 
         // Relier les entrées des neurones (à partir de la 2ème couche)
@@ -147,5 +157,12 @@ public class NeuralNetwork {
 
     public void setMutationAmplitude(double amplitude) {
         this.mutationAmplitude = amplitude;
+    }
+
+    public Double[] getWeights() {
+
+        return this.layers.get(1).stream()
+                .flatMap(neuron -> neuron.getWeights().stream())
+                .toArray(Double[]::new);
     }
 }

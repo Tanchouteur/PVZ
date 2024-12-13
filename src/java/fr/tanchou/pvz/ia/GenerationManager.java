@@ -8,7 +8,7 @@ public class GenerationManager {
     private List<NeuralNetwork> models;  // Liste des modèles de réseaux neuronaux
     private IAEnvironmentManager environmentManager;  // Gère les simulations d'IA
 
-    private int generationNumber = 2000;
+    private int generationNumber = 4000;
 
     public GenerationManager(boolean loadBestModel) {
         NeuralNetwork bestModelLoaded;
@@ -28,7 +28,7 @@ public class GenerationManager {
     // Méthode pour créer une génération initiale
     public NeuralNetwork createInitialGeneration() {
         // Crée un modèle avec 3 couches
-        return new NeuralNetwork(new int[]{270, 100, 52});
+        return new NeuralNetwork(new int[]{275, 100, 52});
     }
 
     // Méthode pour faire évoluer les modèles
@@ -76,10 +76,6 @@ public class GenerationManager {
     }
 
 
-
-
-
-
     // Crée la prochaine génération de modèles en appliquant des mutations
     private List<NeuralNetwork> createNextGenerationFromList(List<NeuralNetwork> bestModels) {
         List<NeuralNetwork> nextGeneration = new ArrayList<>();
@@ -94,7 +90,7 @@ public class GenerationManager {
 
         // Ajout de modèles aléatoires
         for (int i = 0; i < numberOfRandom; i++) {
-            nextGeneration.add(new NeuralNetwork(new int[]{270, 100, 52}));
+            nextGeneration.add(new NeuralNetwork(new int[]{275, 100, 52}));
         }
 
         return nextGeneration;

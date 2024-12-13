@@ -30,6 +30,9 @@ public class Row {
     private final SunManager sunManager;
     private boolean defeat = false;
 
+    private double maxHealthObserved = 0;
+    private double totalZombieHealth = 0;
+
     private int killedZombieCount = 0;
 
     public Row(int rowIndex, SunManager sunManager) {
@@ -116,6 +119,7 @@ public class Row {
     }
 
     private void updateZombies() {
+        this.totalZombieHealth = 0;
         for (Zombie zombie : listZombie) {
 
             zombie.move();
@@ -144,6 +148,7 @@ public class Row {
             }else {
                 zombie.setHeating(false);
             }
+            this.totalZombieHealth += zombie.getHealthPoint();
         }
     }
 
@@ -284,5 +289,14 @@ public class Row {
 
     public int getKilledZombieCount() {
         return killedZombieCount;
+    }
+
+    public double normalizeHealthOfZombies() {
+
+        if (this.totalZombieHealth > maxHealthObserved) {
+            maxHealthObserved = totalZombieHealth;
+        }
+
+        return totalZombieHealth / maxHealthObserved;
     }
 }

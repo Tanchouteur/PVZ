@@ -2,7 +2,9 @@ package fr.tanchou.pvz.ia;
 
 import fr.tanchou.pvz.ia.network.NeuralNetwork;
 import fr.tanchou.pvz.ia.network.Neuron;
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.*;
 import java.util.*;
 
@@ -11,15 +13,15 @@ public class ModelSaver {
     // Méthode pour sauvegarder un modèle
     public static void saveModel(NeuralNetwork network, String filePath) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        //ecrire la version du model au début du fichier (incrémentation à chaque sauvegarde)
 
-        // Structure des couches et des poids
+        // Structure des couches, des poids et des biais
         List<List<Map<String, Object>>> layersData = new ArrayList<>();
         for (List<Neuron> layer : network.getLayers()) {
             List<Map<String, Object>> layerData = new ArrayList<>();
             for (Neuron neuron : layer) {
                 Map<String, Object> neuronData = new HashMap<>();
                 neuronData.put("weights", neuron.getWeights());
+                neuronData.put("bias", neuron.getBias()); // Ajouter le biais
                 neuronData.put("output", neuron.getOutput());
                 layerData.add(neuronData);
             }
@@ -32,7 +34,7 @@ public class ModelSaver {
         // Écrire dans un fichier
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.write(json);
-        }catch (IOException e) {
+        } catch (IOException e) {
             System.err.println("Erreur lors de l'écriture du fichier du modèle : " + e.getMessage());
         }
     }
@@ -54,11 +56,12 @@ public class ModelSaver {
                 List<Neuron> layer = new ArrayList<>();
                 for (Map<String, Object> neuronData : layerData) {
                     List<Double> weights = (List<Double>) neuronData.get("weights");
+                    double bias = ((Number) neuronData.get("bias")).doubleValue(); // Charger le biais
                     double output = ((Number) neuronData.get("output")).doubleValue();
 
                     // Récupérer les entrées (neurones de la couche précédente)
                     List<Neuron> inputs = i == 0 ? new ArrayList<>() : layers.get(i - 1);
-                    Neuron neuron = new Neuron(inputs, weights, i);
+                    Neuron neuron = new Neuron(inputs, weights, bias); // Inclure le biais
 
                     neuron.setOutput(output);
                     layer.add(neuron);
@@ -68,7 +71,7 @@ public class ModelSaver {
 
             System.out.println("Modèle chargé avec succès. Couches : " + layers.size());
             return new NeuralNetwork(layers);
-        }catch (IOException e) {
+        } catch (IOException e) {
             System.err.println("Erreur lors de la lecture du fichier du modèle : " + e.getMessage());
             return null;
         }

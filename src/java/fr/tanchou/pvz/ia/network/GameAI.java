@@ -18,7 +18,7 @@ public class GameAI {
 
     // Convertir l'état du jeu en un tableau d'entrées
     private double[] getInputs(Partie partie) {
-        double[] inputs = new double[270];
+        double[] inputs = new double[275];
 
         // Remplir les 225 entrées pour les plantes
         int index = 0;
@@ -80,6 +80,11 @@ public class GameAI {
                 inputs[index++] = 1.0; // Pas de position x
                 inputs[index++] = (double) i /4; // Pas de position y
             }
+        }
+
+        // Remplir les 5 entrées pour le nombre de vie par ligne (additionner les points de vie de touts les zombies de la ligne)
+        for (int i = 0; i < 5; i++) {
+            inputs[index++] = partie.getOneRow(i).normalizeHealthOfZombies();
         }
 
         // Remplir les 5 entrées pour les tondeuses
