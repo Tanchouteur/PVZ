@@ -32,18 +32,18 @@ public class IAEnvironmentManager {
             PVZ pvz = new PVZ(iaPlayer, new GameAI(models.get(i))); // Attribution du modèle à l'IA
 
             Callable<IAGameResult> simulationTask = () -> {
+
                 pvz.runManualGame(4500);
-                System.out.println("completedGames : " + completedGames.get());
-                IAGameResult result = new IAGameResult(
-                        iaPlayer.getName(),
-                        pvz.getPartieController().getGameAI().getNeuralNetwork(),
-                        pvz.getPartie()
-                );
+
+                //System.out.println("completedGames : " + completedGames.get());
+
+                IAGameResult result = new IAGameResult( iaPlayer.getName(), pvz.getPartieController().getGameAI().getNeuralNetwork(), pvz.getPartie() );
 
                 completedGames.incrementAndGet();
 
                 return result;
             };
+
 
             gameResults.add(executorService.submit(simulationTask));
         }
@@ -74,6 +74,7 @@ public class IAEnvironmentManager {
     }
 
     public boolean areAllSimulationsCompleted() {
-        return completedGames.get() == numberOfGames-1;
+        //System.out.println("completedGames : " + completedGames.get() + " / " + numberOfGames);
+        return completedGames.get() == numberOfGames;
     }
 }

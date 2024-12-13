@@ -36,11 +36,11 @@ public class PVZ {
 
     public void runManualGame(int maxTicks) {
         createPartie(false);
-        while (gameController.getTickCount() < maxTicks &&
-                !partie.isDefeated() &&
-                !partie.isVictory()) {
+        while (gameController.getTickCount() < maxTicks && !partie.isDefeated() && !partie.isVictory()) {
+
             gameController.update();
-            System.out.println("Tick: " + gameController.getTickCount());
+            //System.out.println("Tick: " + gameController.getTickCount());
+
         }
 
         if (partie.isVictory()) {

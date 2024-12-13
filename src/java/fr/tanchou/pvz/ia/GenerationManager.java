@@ -9,7 +9,6 @@ import java.util.List;
 public class GenerationManager {
     private List<NeuralNetwork> models;  // Liste des modèles de réseaux neuronaux
     private IAEnvironmentManager environmentManager;  // Gère les simulations d'IA
-    private List<IAGameResult> results = new ArrayList<>();  // Résultats des simulations
 
     public GenerationManager(boolean loadBestModel) {
         NeuralNetwork bestModelLoaded;
@@ -48,12 +47,13 @@ public class GenerationManager {
         this.environmentManager.stopSimulations();  // Arrêter les simulations
 
         // Collecter les résultats des jeux
-        this.results = this.environmentManager.collectResults();
+        // Résultats des simulations
+        List<IAGameResult> results = this.environmentManager.collectResults();
 
         // Sélectionner les meilleurs modèles
         List<NeuralNetwork> bestModels = selectBestModels(results);
 
-        ModelSaver.saveModel(bestModels.getFirst(), "best_model.json");
+        ModelSaver.saveModel(bestModels.get(0), "best_model.json");
 
         // Remplacer la génération actuelle avec la suivante
         this.models = createNextGenerationFromList(bestModels);
@@ -64,7 +64,7 @@ public class GenerationManager {
         results.sort(Comparator.comparingDouble(IAGameResult::calculateScore).reversed());
 
         List<NeuralNetwork> bestModels = new ArrayList<>();
-        for (int i = 0; i < results.size()/4; i++) {
+        for (int i = 0; i < 4; i++) {
             System.out.println("Score du modèle " + i + " : " + results.get(i).calculateScore());
             bestModels.add(this.models.get(i));     // Associer les résultats aux modèles
         }
@@ -77,7 +77,7 @@ public class GenerationManager {
         List<NeuralNetwork> nextGeneration = new ArrayList<>();
 
         // Nombre de mutants à générer
-        int numberOfMutants = 4;
+        int numberOfMutants = 25;
 
         for (int i = 0; i < numberOfMutants; i++) {
             for (NeuralNetwork model : bestModels) {

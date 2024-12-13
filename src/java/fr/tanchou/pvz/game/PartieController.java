@@ -24,27 +24,29 @@ public class PartieController {
     public void update() {
         totalTick++;
 
-        //System.out.println("Tick: " + totalTick);
+        //System.out.println("Before take aktion: " + totalTick);
 
-        if (gameAI != null && totalTick % 3 == 0) {
+        if (gameAI != null && totalTick % 2 == 0) {
             gameAI.takeAction(partie);
         }
+
+        //System.out.println("After take aktion: " + totalTick);
 
         partie.update();
 
         if (partie.isDefeated()) {
             stopGame();
-            //System.out.println("Game Over");
+            //System.out.println("Game Over !");
         }else if (partie.isVictory()) {
             stopGame();
-            System.out.println("Victory");
+            System.out.println("Victory !");
         }
     }
 
     // Démarrer le jeu
     public void startGame() {
         // Mettre à jour le modèle pour avoir 24 ticks par seconde
-        gameLoop.scheduleAtFixedRate(this::update, 0, 1000 / 10, TimeUnit.MILLISECONDS);
+        gameLoop.scheduleAtFixedRate(this::update, 0, 1000 / 80, TimeUnit.MILLISECONDS);
     }
 
     // Arrêter le jeu

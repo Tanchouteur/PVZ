@@ -120,23 +120,30 @@ public class GameAI {
 
     // Utiliser le réseau pour prendre une décision
     public void takeAction(Partie partie) {
+
         double[] inputs = getInputs(partie);
+
         neuralNetwork.feedForward(inputs);// utiliser le réseau pour obtenir les sorties
 
         double[] outputs = neuralNetwork.getOutput();
+
+        //System.out.println("takeAction 3 ");
+
         //System.out.println("want plant Output : " + outputs[outputs.length - 1]);
 
         if (outputs[outputs.length - 1] > 0.5) {
             int plantCardIndex = choosePlantCard(outputs);
 
-            //System.out.println("plantCardIndex : " + plantCardIndex);
+            //System.out.println("4 plantCardIndex : " + plantCardIndex);
 
             int[] position = choosePosition(outputs);  // Retourne un tableau de 2 entiers : [x, y]
 
-            //System.out.println("position : " + position[0] + ", " + position[1]);
+            //System.out.println("5 position : " + position[0] + ", " + position[1]);
 
             // Appel à la méthode buyPlant avec x et y
             partie.getPlayer().buyPlant(plantCardIndex, position[0], position[1]);
+
+            //System.out.println("6 buyPlant : " + plantCardIndex + ", " + position[0] + ", " + position[1]);
         }
     }
 
@@ -148,13 +155,28 @@ public class GameAI {
 
     // Choisir une position en fonction des sorties
     private int[] choosePosition(double[] outputs) {
-        int positionIndex = getMaxIndex(outputs, 6, 51); // Les sorties pour les positions (6 à 51)
+        // Vérifie que la plage est correcte
+        if (outputs.length < 52) {
+            throw new IllegalArgumentException("La taille du tableau des sorties doit être au moins de 52.");
+        }
 
-        // Calculer les coordonnées x et y en fonction de l'index
-        int x = positionIndex % 9; // 9 colonnes
-        int y = positionIndex / 9; // 5 lignes
+        // Trouve l'index correspondant à la valeur maximale dans la plage 6 à 51
+        int positionIndex = getMaxIndex(outputs, 6, 51);
 
-        return new int[] {x, y}; // Retourne les coordonnées sous forme de tableau
+        // Vérifie que positionIndex est dans les limites prévues
+        if (positionIndex < 6 || positionIndex > 51) {
+            throw new IllegalStateException("L'index calculé pour la position est en dehors de la plage attendue.");
+        }
+
+        // Ajuste l'index pour le ramener entre 0 et 45 (6 à 51 correspond à 46 valeurs possibles)
+        positionIndex -= 6;
+
+        // Calculer les coordonnées x et y
+        int x = positionIndex % 9; // Reste de la division par 9 (0 à 8 inclus)
+        int y = positionIndex / 9; // Partie entière de la division par 9 (0 à 4 inclus)
+
+        // Retourne les coordonnées sous forme de tableau [x, y]
+        return new int[] {x, y};
     }
 
     // Trouver l'index de la sortie la plus élevée
