@@ -18,8 +18,8 @@ public class ModelSaver {
 
         // Structure des couches, des poids et des biais
         List<List<Map<String, Object>>> layersData = new ArrayList<>();
-        for (List<Neuron> layer : network.getLayers()) {
-            List<Map<String, Object>> layerData = getMapList(layer);
+        for (Neuron[] layer : network.getLayers()) {
+            List<Map<String, Object>> layerData = getMapList(List.of(layer));
             layersData.add(layerData);
         }
 
@@ -70,23 +70,27 @@ public class ModelSaver {
             // Convertir le JSON en structure de données Java
             List<List<Map<String, Object>>> layersData = gson.fromJson(reader, List.class);
 
-            List<List<Neuron>> layers = new ArrayList<>();
+            List<Neuron[]> layers = new ArrayList<>();
 
             // Reconstruire le réseau
             for (int i = 0; i < layersData.size(); i++) {
+
                 List<Map<String, Object>> layerData = layersData.get(i);
-                List<Neuron> layer = new ArrayList<>();
+                Neuron[] layer = new Neuron[layerData.size()];
+                int j = 0;
                 for (Map<String, Object> neuronData : layerData) {
-                    List<Double> weights = (List<Double>) neuronData.get("weights");
+
+                    double[] weights = (double[]) neuronData.get("weights");// soucis ici
                     double bias = ((Number) neuronData.get("bias")).doubleValue(); // Charger le biais
                     double output = ((Number) neuronData.get("output")).doubleValue();
 
                     // Récupérer les entrées (neurones de la couche précédente)
-                    List<Neuron> inputs = i == 0 ? new ArrayList<>() : layers.get(i - 1);
+                    Neuron[] inputs = i == 0 ? new Neuron[0] : layers.get(i - 1);
                     Neuron neuron = new Neuron(inputs, weights, bias); // Inclure le biais
 
                     neuron.setOutput(output);
-                    layer.add(neuron);
+                    layer[j] = neuron;
+                    j++;
                 }
                 layers.add(layer);
             }

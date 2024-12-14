@@ -7,6 +7,7 @@ import fr.tanchou.pvz.ia.GenerationManager;
 import fr.tanchou.pvz.ia.ModelSaver;
 import fr.tanchou.pvz.ia.data.Statistics;
 import fr.tanchou.pvz.ia.network.GameAI;
+import fr.tanchou.pvz.ia.network.NeuralNetwork;
 
 import java.util.Scanner;
 
@@ -20,7 +21,13 @@ public class LauncherV2 {
 
     public LauncherV2() {
         this.player = new Player("Louis");
-        this.generationManager = new GenerationManager(ModelSaver.loadModel("best_model.json"));
+        NeuralNetwork model = ModelSaver.loadModel("best_model.json");
+
+        if (model == null){
+            model = new NeuralNetwork(new int[]{275, 180, 100, 52});
+        }
+
+        this.generationManager = new GenerationManager(model);
         this.statistics = new Statistics();
         this.statistics.loadScoresHistoryFromFile("statistics.csv");
         this.statistics.printScoresHistory();
@@ -108,6 +115,8 @@ public class LauncherV2 {
         } else {
             System.out.println("Fin de la génération.");
         }
+
+        ModelSaver.saveModel(this.generationManager.getBestModels().getFirst(), "best_model.json");
 
     }
 

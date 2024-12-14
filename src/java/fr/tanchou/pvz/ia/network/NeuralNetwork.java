@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NeuralNetwork {
-    private final List<List<Neuron>> layers;
+    private final List<Neuron[]> layers;
     private int score = 0;
 
     public NeuralNetwork(int[] neuronsPerLayer) {
@@ -12,19 +12,19 @@ public class NeuralNetwork {
 
         // Créer les couches du réseau
         for (int i = 0; i < neuronsPerLayer.length; i++) {
-            List<Neuron> layer = new ArrayList<>();
+            Neuron[] layer = new Neuron[neuronsPerLayer[i]];
 
             for (int j = 0; j < neuronsPerLayer[i]; j++) {
 
                 // Crée des neurones dans chaque couche
-                List<Neuron> inputs = i == 0 ? new ArrayList<>() : layers.get(i - 1); // Entrées provenant de la couche précédente
-                layer.add(new Neuron(inputs)); // Crée le neurone
+                Neuron[] inputs = i == 0 ? new Neuron[neuronsPerLayer[i]] : layers.get(i - 1); // Entrées provenant de la couche précédente
+                layer[j] = new Neuron(inputs); // Crée le neurone avec les entrées
             }
             layers.add(layer);
         }
     }
 
-    public NeuralNetwork(List<List<Neuron>> layers) {
+    public NeuralNetwork(List<Neuron[]> layers) {
         this.layers = layers;
     }
 
@@ -32,7 +32,7 @@ public class NeuralNetwork {
     public void feedForward(double[] inputs) {
 
         for (int i = 0; i < inputs.length; i++) {
-            layers.getFirst().get(i).setOutput(inputs[i]);
+            layers.getFirst()[i].setOutput(inputs[i]);
         }
 
 
@@ -45,11 +45,11 @@ public class NeuralNetwork {
 
     public double[] getOutput() {
 
-        List<Neuron> outputLayer = layers.getLast();
-        double[] outputs = new double[outputLayer.size()];
+        Neuron[] outputLayer = layers.getLast();
+        double[] outputs = new double[outputLayer.length];
 
-        for (int i = 0; i < outputLayer.size(); i++) {
-            outputs[i] = outputLayer.get(i).getOutput(); // Récupère les sorties des neurones de la dernière couche
+        for (int i = 0; i < outputLayer.length; i++) {
+            outputs[i] = outputLayer[i].getOutput(); // Récupère les sorties des neurones de la dernière couche
         }
 
         return outputs;
@@ -62,11 +62,11 @@ public class NeuralNetwork {
         // Parcours chaque couche (sauf la couche d'entrée)
         for (int i = 1; i < mutatedNetwork.layers.size(); i++) {
             for (Neuron neuron : mutatedNetwork.layers.get(i)) {
-                List<Double> weights = new ArrayList<>(neuron.getWeights()); // Créer une nouvelle liste pour les poids
+                double[] weights = neuron.getWeights().clone(); // Créer une nouvelle liste pour les poids
 
                 // Applique une mutation aléatoire à chaque poids
-                for (int j = 0; j < weights.size(); j++) {
-                    double currentWeight = weights.get(j);
+                for (int j = 0; j < weights.length; j++) {
+                    double currentWeight = weights[j];
 
                     // Si la chance de mutation est remplie (10% ici).
                     if (Math.random() < 0.4) {
@@ -98,7 +98,7 @@ public class NeuralNetwork {
                         if (Math.abs(newWeight) < 0.05) {
                             newWeight = 0.05 * Math.signum(newWeight); // Pénaliser les poids trop faibles
                         }
-                        weights.set(j, newWeight); // Met à jour le poids après mutation
+                        weights[j] = newWeight; // Met à jour le poids après mutation
                     }
                 }
 
@@ -123,29 +123,33 @@ public class NeuralNetwork {
         return mutatedNetwork;
     }
 
-    public List<List<Neuron>> getLayers() {
+    public List<Neuron[]> getLayers() {
         return layers;
     }
 
     public NeuralNetwork cloneNetwork() {
-        List<List<Neuron>> clonedLayers = new ArrayList<>();
+        List<Neuron[]> clonedLayers = new ArrayList<>(this.layers.size());
 
         // Dupliquer chaque couche
-        for (List<Neuron> layer : this.layers) {
-            List<Neuron> clonedLayer = new ArrayList<>();
+
+        for (Neuron[] layer : this.layers) {
+            Neuron[] clonedLayer = new Neuron[layer.length];
+            int i = 0;
             for (Neuron neuron : layer) {
                 // Copier les poids et les entrées
-                List<Double> clonedWeights = new ArrayList<>(neuron.getWeights()); // Copie des poids
-                List<Neuron> clonedInputs = new ArrayList<>(neuron.getInputs()); // Copie des entrées (neurones de la couche précédente)
-                double bias = 0 + neuron.getBias(); // Copie du biais
-                clonedLayer.add(new Neuron(clonedInputs, clonedWeights, bias)); // Crée le neurone cloné avec les poids et entrées
+                double[] clonedWeights = neuron.getWeights().clone(); // Copie des poids
+                Neuron[] clonedInputs = neuron.getInputs().clone(); // Copie des entrées (neurones de la couche précédente)
+                double bias = neuron.getBias(); // Copie du biais
+                clonedLayer[i] = (new Neuron(clonedInputs, clonedWeights, bias)); // Crée le neurone cloné avec les poids et entrées
+                i++;
             }
             clonedLayers.add(clonedLayer);
+
         }
 
         // Relier les entrées des neurones (à partir de la 2ᵉ couche).
         for (int i = 1; i < clonedLayers.size(); i++) { // Commence à la 2e couche
-            List<Neuron> prevLayer = clonedLayers.get(i - 1);
+            Neuron[] prevLayer = clonedLayers.get(i - 1);
             for (Neuron neuron : clonedLayers.get(i)) {
                 neuron.setInputs(prevLayer); // Relie les entrées
             }
@@ -154,11 +158,29 @@ public class NeuralNetwork {
         return new NeuralNetwork(clonedLayers);
     }
 
-    public Double[] getWeights() {
+    public double[] getWeights() {
+        // Calcule le nombre total de poids dans toutes les couches, sauf la couche d'entrée
+        int totalWeights = 0;
+        for (int i = 1; i < layers.size(); i++) {
+            for (Neuron neuron : layers.get(i)) {
+                totalWeights += neuron.getWeights().length; // Nombre de poids dans chaque neurone
+            }
+        }
 
-        return this.layers.get(1).stream()
-                .flatMap(neuron -> neuron.getWeights().stream())
-                .toArray(Double[]::new);
+        // Crée un tableau pour contenir tous les poids
+        double[] weightsArray = new double[totalWeights];
+        int index = 0;
+
+        // Remplissage du tableau avec les poids de chaque neurone
+        for (int i = 1; i < layers.size(); i++) {
+            for (Neuron neuron : layers.get(i)) {
+                for (Double weight : neuron.getWeights()) {
+                    weightsArray[index++] = weight; // Ajoute chaque poids dans le tableau
+                }
+            }
+        }
+
+        return weightsArray; // Retourne le tableau de poids
     }
 
     public int getScore() {

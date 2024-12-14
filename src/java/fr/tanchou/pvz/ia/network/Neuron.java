@@ -1,18 +1,17 @@
 package fr.tanchou.pvz.ia.network;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Neuron {
-    private List<Neuron> inputs; // Liste des neurones entrants
-    private final List<Double> weights; // Liste des poids associés à chaque entrée
+    private Neuron[] inputs; // Liste des neurones entrants
+    private double[] weights; // Liste des poids associés à chaque entrée
     private double bias; // Biais du neurone
     private double output; // La sortie du neurone
 
     // Constructeur avec poids donnés et biais
-    public Neuron(List<Neuron> inputsNeuron, List<Double> weights, double bias) {
-        if (inputsNeuron.size() != weights.size() && !inputsNeuron.isEmpty()) {
-            throw new IllegalArgumentException("Le nombre de poids doit correspondre au nombre d'entrées : inputNeurone size " + inputsNeuron.size()+ ", weights size " + weights.size());
+    public Neuron(Neuron[] inputsNeuron, double[] weights, double bias) {
+        if (inputsNeuron.length != weights.length && !(inputsNeuron.length == 0)) {
+            throw new IllegalArgumentException("Le nombre de poids doit correspondre au nombre d'entrées : inputNeurone size " + inputsNeuron.length+ ", weights size " + weights.length);
         }
         this.inputs = inputsNeuron;
         this.weights = weights;
@@ -20,13 +19,13 @@ public class Neuron {
     }
 
     // Constructeur avec poids et biais aléatoires
-    public Neuron(List<Neuron> inputsNeuron) {
+    public Neuron(Neuron[] inputsNeuron) {
         this.inputs = inputsNeuron;
-        this.weights = new ArrayList<>();
+        this.weights = new double[inputsNeuron.length];
 
         // Initialisation des poids aléatoires
-        for (int i = 0; i < inputs.size(); i++) {
-            weights.add(Math.random() * 2 - 1); // Poids entre -1 et 1.
+        for (int i = 0; i < inputsNeuron.length; i++) {
+            weights[i] = (Math.random() * 2 - 1); // Poids entre -1 et 1.
         }
 
         // Initialisation du biais aléatoire
@@ -38,15 +37,17 @@ public class Neuron {
         return 1.0 / (1.0 + Math.exp(-x));
     }
 
-    // Calculer la sortie du neurone
+    // Optimisation : éviter d'appeler getOutput() à chaque itération
     public void calculateOutput() {
         double sum = 0;
-        for (int i = 0; i < inputs.size(); i++) {
-            sum += inputs.get(i).getOutput() * weights.get(i); // Somme pondérée des entrées
+        for (int i = 0; i < inputs.length; i++) {
+            double inputOutput = inputs[i].getOutput(); // Récupérer une fois la sortie du neurone
+            sum += inputOutput * weights[i]; // Somme pondérée des entrées
         }
-        sum += bias; // Ajout du biais
+        sum += this.bias; // Ajout du biais
         this.output = sigmoid(sum); // Applique la fonction d'activation
     }
+
 
     // Getter et setter
     public double getOutput() {
@@ -57,20 +58,19 @@ public class Neuron {
         this.output = output;
     }
 
-    public List<Double> getWeights() {
+    public double[] getWeights() {
         return this.weights;
     }
 
-    public void setInputs(List<Neuron> prevLayer) {
+    public void setInputs(Neuron[] prevLayer) {
         this.inputs = prevLayer;
     }
 
-    public void setWeights(List<Double> weights) {
-        if (weights.size() != this.inputs.size()) {
-            throw new IllegalArgumentException("Le nombre de poids doit correspondre au nombre d'entrées : inputNeurone size " + inputs.size()+ ", weights size " + weights.size());
+    public void setWeights(double[] weights) {
+        if (weights.length != this.inputs.length) {
+            throw new IllegalArgumentException("Le nombre de poids doit correspondre au nombre d'entrées : inputNeurone size " + inputs.length+ ", weights size " + weights.length);
         }
-        this.weights.clear();
-        this.weights.addAll(weights);
+        this.weights = weights;
     }
 
     public double getBias() {
@@ -81,7 +81,7 @@ public class Neuron {
         this.bias = bias;
     }
 
-    public List<Neuron> getInputs() {
+    public Neuron[] getInputs() {
         return this.inputs;
     }
 }
