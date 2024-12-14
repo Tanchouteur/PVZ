@@ -7,6 +7,12 @@ public class NeuralNetwork {
     private final List<Neuron[]> layers;
     private int score = 0;
 
+    // Constructeur pour créer un réseau de neurones à partir de couches données
+    public NeuralNetwork(List<Neuron[]> layers) {
+        this.layers = layers;
+    }
+
+    // Constructeur pour créer un réseau de neurones aléatoire
     public NeuralNetwork(int[] neuronsPerLayer) {
         layers = new ArrayList<>();
 
@@ -22,10 +28,6 @@ public class NeuralNetwork {
             }
             layers.add(layer);
         }
-    }
-
-    public NeuralNetwork(List<Neuron[]> layers) {
-        this.layers = layers;
     }
 
     // Méthode pour faire passer les entrées à travers le réseau

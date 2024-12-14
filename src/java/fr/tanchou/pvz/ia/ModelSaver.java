@@ -12,14 +12,14 @@ public class ModelSaver {
 
     public static void saveModel(NeuralNetwork network, String filePath) {
 
-        System.out.println("Saving "+ filePath +"...");
+        System.out.println("Saving " + filePath + "...");
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         // Structure des couches, des poids et des biais
         List<List<Map<String, Object>>> layersData = new ArrayList<>();
         for (Neuron[] layer : network.getLayers()) {
-            List<Map<String, Object>> layerData = getMapList(List.of(layer));
+            List<Map<String, Object>> layerData = getMapList(Arrays.asList(layer));  // Changement ici, conversion en liste
             layersData.add(layerData);
         }
 
@@ -35,34 +35,9 @@ public class ModelSaver {
         }
     }
 
-    private static List<Map<String, Object>> getMapList(List<Neuron> layer) {
-        List<Map<String, Object>> layerData = new ArrayList<>();
-        for (Neuron neuron : layer) {
-            Map<String, Object> neuronData = new HashMap<>();
-
-            // Vérifier si les poids sont NaN avant de les ajouter
-            List<Double> sanitizedWeights = new ArrayList<>();
-            for (Double weight : neuron.getWeights()) {
-                sanitizedWeights.add(Double.isNaN(weight) ? 0.0 : weight);
-            }
-
-            // Vérifier si le biais est NaN avant de l'ajouter
-            double sanitizedBias = Double.isNaN(neuron.getBias()) ? 0.0 : neuron.getBias();
-
-            // Vérifier si la sortie est NaN avant de l'ajouter
-            double sanitizedOutput = Double.isNaN(neuron.getOutput()) ? 0.0 : neuron.getOutput();
-
-            neuronData.put("weights", sanitizedWeights);
-            neuronData.put("bias", sanitizedBias);
-            neuronData.put("output", sanitizedOutput);
-            layerData.add(neuronData);
-        }
-        return layerData;
-    }
-
     // Méthode pour charger un modèle
     public static NeuralNetwork loadModel(String filePath) {
-        System.out.println("Loading "+ filePath +"...");
+        System.out.println("Loading " + filePath + "...");
         Gson gson = new Gson();
 
         // Lire le fichier JSON
@@ -80,7 +55,7 @@ public class ModelSaver {
                 int j = 0;
                 for (Map<String, Object> neuronData : layerData) {
 
-                    double[] weights = (double[]) neuronData.get("weights");// soucis ici
+                    double[] weights = convertToDoubleArray((List<Double>) neuronData.get("weights")); // Conversion correcte ici
                     double bias = ((Number) neuronData.get("bias")).doubleValue(); // Charger le biais
                     double output = ((Number) neuronData.get("output")).doubleValue();
 
@@ -101,5 +76,48 @@ public class ModelSaver {
             System.err.println("Erreur lors de la lecture du fichier du modèle : " + e.getMessage());
             return null;
         }
+    }
+
+    private static List<Map<String, Object>> getMapList(List<Neuron> layer) {
+        List<Map<String, Object>> layerData = new ArrayList<>();
+        for (Neuron neuron : layer) {
+            Map<String, Object> neuronData = new HashMap<>();
+
+            // Vérifier si les poids sont NaN avant de les ajouter
+            double[] sanitizedWeights = new double[neuron.getWeights().length];
+            for (int i = 0; i < neuron.getWeights().length; i++) {
+                sanitizedWeights[i] = Double.isNaN(neuron.getWeights()[i]) ? 0.0 : neuron.getWeights()[i];
+            }
+
+            // Vérifier si le biais est NaN avant de l'ajouter
+            double sanitizedBias = Double.isNaN(neuron.getBias()) ? 0.0 : neuron.getBias();
+
+            // Vérifier si la sortie est NaN avant de l'ajouter
+            double sanitizedOutput = Double.isNaN(neuron.getOutput()) ? 0.0 : neuron.getOutput();
+
+            neuronData.put("weights", convertToList(sanitizedWeights)); // Conversion en liste pour la sérialisation
+            neuronData.put("bias", sanitizedBias);
+            neuronData.put("output", sanitizedOutput);
+            layerData.add(neuronData);
+        }
+        return layerData;
+    }
+
+    // Conversion d'un tableau double[] en List<Double>
+    private static List<Double> convertToList(double[] array) {
+        List<Double> list = new ArrayList<>();
+        for (double d : array) {
+            list.add(d);
+        }
+        return list;
+    }
+
+    // Conversion d'une List<Double> en tableau double[]
+    private static double[] convertToDoubleArray(List<Double> list) {
+        double[] array = new double[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            array[i] = list.get(i);
+        }
+        return array;
     }
 }

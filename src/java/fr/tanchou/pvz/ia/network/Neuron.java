@@ -1,7 +1,5 @@
 package fr.tanchou.pvz.ia.network;
 
-import java.util.List;
-
 public class Neuron {
     private Neuron[] inputs; // Liste des neurones entrants
     private double[] weights; // Liste des poids associés à chaque entrée
