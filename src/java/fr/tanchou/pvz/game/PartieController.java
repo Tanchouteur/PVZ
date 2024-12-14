@@ -27,7 +27,11 @@ public class PartieController {
         //System.out.println("Before take aktion: " + totalTick);
 
         if (gameAI != null && totalTick % 2 == 0) {
-            gameAI.takeAction(partie);
+            try {
+                gameAI.takeAction(partie);
+            }catch (Exception e) {
+                System.err.println("Erreur lors de la prise d'action de l'IA: " + e.getMessage());
+            }
         }
 
         //System.out.println("After take aktion: " + totalTick);

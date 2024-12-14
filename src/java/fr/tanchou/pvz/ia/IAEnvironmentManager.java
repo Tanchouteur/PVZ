@@ -12,15 +12,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class IAEnvironmentManager {
     private final ExecutorService executorService; // Pool de threads pour les simulations
     private final AtomicInteger completedGames = new AtomicInteger(0);
+    private int numberOfGames; // Nombre de jeux à simuler
 
     public IAEnvironmentManager(ExecutorService executorService) {
         this.executorService = executorService;
+
     }
 
     // Initialise les jeux
     public void initializeGames(List<NeuralNetwork> models) {
         System.out.println("Init & Lancement des simulations...");
-
+        this.numberOfGames = models.size();
         for (int i = 0; i < models.size(); i++) {
 
             Player iaPlayer = new Player("IA_Player_" + (i + 1));
@@ -43,5 +45,10 @@ public class IAEnvironmentManager {
                 System.err.println("Erreur dans la simulation du modèle " + i + ": " + e.getMessage());
             }
         };
+    }
+
+    public boolean areAllSimulationsCompleted() {
+        //System.out.println("completedGames : " + completedGames.get() + " / " + numberOfGames);
+        return completedGames.get() == numberOfGames;
     }
 }

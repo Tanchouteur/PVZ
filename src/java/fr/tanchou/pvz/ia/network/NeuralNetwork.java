@@ -39,8 +39,9 @@ public class NeuralNetwork {
 
 
         for (int i = 1; i < layers.size(); i++) {
+            boolean isHiddenLayer = i != layers.size() - 1;
             for (Neuron neuron : layers.get(i)) {
-                neuron.calculateOutput();
+                neuron.calculateOutput(isHiddenLayer);
             }
         }
     }

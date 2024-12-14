@@ -40,11 +40,12 @@ public class GenerationManager {
         System.out.println("Evolution de la génération " + generationNumber);
         this.environmentManager.initializeGames(this.models);
 
-        // Attendre que toutes les simulations soient terminées
-        try {
-            this.executorService.awaitTermination(5, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            System.err.println("Erreur lors de l'attente de la fin des simulations: " + e.getMessage());
+        while (!environmentManager.areAllSimulationsCompleted()) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
 
         // Sélectionner les meilleurs modèles

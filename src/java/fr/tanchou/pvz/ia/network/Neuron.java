@@ -35,15 +35,23 @@ public class Neuron {
         return 1.0 / (1.0 + Math.exp(-x));
     }
 
+    // Fonction d'activation ReLU
+    public double relu(double x) {
+        return Math.max(0, x);
+    }
+
     // Optimisation : éviter d'appeler getOutput() à chaque itération
-    public void calculateOutput() {
+    public void calculateOutput(boolean isHiddenLayer) {
         double sum = 0;
         for (int i = 0; i < inputs.length; i++) {
             double inputOutput = inputs[i].getOutput(); // Récupérer une fois la sortie du neurone
             sum += inputOutput * weights[i]; // Somme pondérée des entrées
         }
         sum += this.bias; // Ajout du biais
-        this.output = sigmoid(sum); // Applique la fonction d'activation
+        if (isHiddenLayer) this.output = relu(sum); // Applique la fonction d'activation
+        else {
+            this.output = sigmoid(sum); // Applique la fonction d'activation
+        }
     }
 
 
