@@ -32,18 +32,84 @@ public class NeuralNetwork {
 
     // Méthode pour faire passer les entrées à travers le réseau
     public void feedForward(double[] inputs) {
+        //System.out.println("feedForward");
 
+        if (inputs.length != layers.getFirst().length) {
+            throw new IllegalArgumentException("Le nombre d'entrées ne correspond pas au nombre de neurones de la couche d'entrée");
+        }
+
+        // Étape 1 : Initialiser les sorties des neurones de la couche d'entrée
         for (int i = 0; i < inputs.length; i++) {
             layers.getFirst()[i].setOutput(inputs[i]);
         }
 
-
+        // Étape 2 : Propagation dans les couches cachées
         for (int i = 1; i < layers.size(); i++) {
-            boolean isHiddenLayer = i != layers.size() - 1;
-            for (Neuron neuron : layers.get(i)) {
-                neuron.calculateOutput(isHiddenLayer);
+            boolean isLastLayer = (i == layers.size() - 1);
+            Neuron[] currentLayer = layers.get(i);
+            Neuron[] previousLayer = layers.get(i - 1);
+
+            // Calcul des sorties pour la couche actuelle
+            double[] layerOutputs = new double[currentLayer.length];
+            for (int j = 0; j < currentLayer.length; j++) {
+                layerOutputs[j] = this.calculateNeuronOutput(currentLayer[j], previousLayer);
+            }
+
+            // Appliquer l'activation (Softmax uniquement sur la dernière couche)
+            if (isLastLayer) {
+                layerOutputs = this.softmax(layerOutputs);
+            } else {
+                for (int j = 0; j < layerOutputs.length; j++) {
+                    layerOutputs[j] = this.relu(layerOutputs[j]);
+                }
+            }
+
+            // Stocker les sorties dans les neurones de la couche actuelle
+            for (int j = 0; j < currentLayer.length; j++) {
+                currentLayer[j].setOutput(layerOutputs[j]);
             }
         }
+        //System.out.println("feedForward done");
+    }
+
+    // Méthode pour calculer la somme pondérée (avant activation) d'un neurone
+    private double calculateNeuronOutput(Neuron neuron, Neuron[] previousLayer) {
+        double sum = 0;
+        for (int i = 0; i < previousLayer.length; i++) {
+            sum += previousLayer[i].getOutput() * neuron.weights[i];
+        }
+        sum += neuron.bias; // Ajout du biais
+        return sum;
+    }
+
+    // Fonction d'activation Softmax (appliquée sur une couche entière)
+    public double[] softmax(double[] inputs) {
+        double max = Double.NEGATIVE_INFINITY;
+
+        // Étape 1 : Trouver le maximum pour éviter les dépassements (overflow)
+        for (double input : inputs) {
+            if (input > max) max = input;
+        }
+
+        // Étape 2 : Calculer les exponentielles en normalisant
+        double sum = 0;
+        double[] expValues = new double[inputs.length];
+        for (int i = 0; i < inputs.length; i++) {
+            expValues[i] = Math.exp(inputs[i] - max); // Soustraire max pour la stabilité numérique
+            sum += expValues[i];
+        }
+
+        // Étape 3 : Normaliser pour obtenir des probabilités
+        for (int i = 0; i < expValues.length; i++) {
+            expValues[i] /= sum;
+        }
+
+        return expValues;
+    }
+
+    // Fonction d'activation ReLU
+    public double relu(double x) {
+        return Math.max(0, x);
     }
 
     public double[] getOutput() {
@@ -60,7 +126,7 @@ public class NeuralNetwork {
 
     public NeuralNetwork mutate(double mutationAmplitude) {
         NeuralNetwork mutatedNetwork = this.cloneNetwork();
-        //System.out.println("Mutation avec une amplitude de " + mutationAmplitude);
+
         // Parcours chaque couche (sauf la couche d'entrée)
         for (int i = 1; i < mutatedNetwork.layers.size(); i++) {
             for (Neuron neuron : mutatedNetwork.layers.get(i)) {
@@ -103,56 +169,6 @@ public class NeuralNetwork {
                     //System.out.println("Mutation du biais : " + currentBias + " -> " + newBias);
 
                     neuron.setBias(newBias);
-                }
-            }
-        }
-
-        return mutatedNetwork;
-    }
-
-
-    public NeuralNetwork mutateOld(double mutationAmplitude) {
-        NeuralNetwork mutatedNetwork = this.cloneNetwork();
-
-        // Parcours chaque couche (sauf la couche d'entrée)
-        for (int i = 1; i < mutatedNetwork.layers.size(); i++) {
-            for (Neuron neuron : mutatedNetwork.layers.get(i)) {
-                double[] weights = neuron.getWeights().clone();
-
-                // Mutation des poids
-                for (int j = 0; j < weights.length; j++) {
-                    if (Math.random() < 0.4) { // Probabilité de mutation
-                        double mutation = (Math.random() < 0.8)
-                                ? Math.random() * mutationAmplitude - mutationAmplitude / 2 // Petite variation
-                                : (Math.random() * 2 - 1) * Math.abs(weights[j]) * mutationAmplitude; // Variation radicale
-
-                        double newWeight = weights[j] + mutation;
-                        newWeight = Math.max(-1, Math.min(1, newWeight)); // Contraindre entre -1 et 1
-
-                        // Appliquer des pénalités si nécessaire
-                        if (Math.abs(newWeight) > 0.9) {
-                            newWeight = Math.signum(newWeight) * 0.9;
-                        } else if (Math.abs(newWeight) < 0.05) {
-                            newWeight = 0.05 * Math.signum(newWeight);
-                        }
-
-                        if (Math.random() < 0.2) {
-                            newWeight = weights[j]; // Conserver certains poids
-                        }
-                        System.out.println("Mutation du poids : " + weights[j] + " -> " + newWeight);
-                        weights[j] = newWeight;
-                    }
-                }
-                neuron.setWeights(weights);
-
-                // Mutation du biais
-                if (Math.random() < 0.1) {
-                    double currentBias = neuron.getBias();
-                    double newBias = currentBias + neuron.getOutput() * mutationAmplitude * (Math.random() - 0.5);
-
-                    System.out.println("Mutation du biais : " + currentBias + " -> " + newBias);
-
-                    neuron.setBias(Math.max(-1, Math.min(1, newBias)));
                 }
             }
         }

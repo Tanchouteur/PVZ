@@ -30,7 +30,8 @@ public class PartieController {
             try {
                 gameAI.takeAction(partie);
             }catch (Exception e) {
-                System.err.println("Erreur lors de la prise d'action de l'IA: " + e.getMessage());
+                System.err.println("Erreur lors de la prise d'action de l'IA: " + e);
+                e.printStackTrace(); // Affiche la pile d'exécution complète
             }
         }
 

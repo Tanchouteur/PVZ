@@ -16,9 +16,9 @@ public class GameAI {
         this.neuralNetwork = neuralNetwork;
     }
 
-    // Convertir l'état du jeu en un tableau d'entrées 95
+    // Convertir l'état du jeu en un tableau d'entrées
     private double[] getInputs(Partie partie) {
-        double[] inputs = new double[245];  // Réduit la taille du tableau à 245 entrées
+        double[] inputs = new double[230];
         int index = 0;
 
         // Remplir les 45 entrées pour les plantes (5 lignes x 9 colonnes)
@@ -52,10 +52,10 @@ public class GameAI {
                             inputs[index++] = 0.0; break;
                     }
 
-                    // Positions normalisées (1-0)
-                    inputs[index++] = plantCase.getX() / 8.0; // Position x
-                    inputs[index++] = plantCase.getY() / 4.0; // Position y
                 }
+                // Positions normalisées (1-0)
+                inputs[index++] = plantCase.getX() / 8.0; // Position x
+                inputs[index++] = plantCase.getY() / 4.0; // Position y
             }
         }
 
@@ -81,7 +81,6 @@ public class GameAI {
             double dangerLevel = partie.getOneRow(i).calculateDangerLevel();
             inputs[index++] = dangerLevel; // Ajouter le score de dangerosité pour la ligne i
         }
-
 
         // Remplir les 5 entrées pour les tondeuses
         for (int i = 0; i < 5; i++) {
@@ -132,8 +131,13 @@ public class GameAI {
 
         double[] inputs = getInputs(partie);
 
-        neuralNetwork.feedForward(inputs);// utiliser le réseau pour obtenir les sorties
+        try {
+            neuralNetwork.feedForward(inputs);// utiliser le réseau pour obtenir les sorties
+        }catch (Exception e) {
+            System.err.println("Erreur lors du feedForward de l'IA: " + e.getMessage());
+        }
 
+        //System.out.println("getOutput");
         double[] outputs = neuralNetwork.getOutput();
 
         //System.out.println("takeAction 3 ");
@@ -154,6 +158,7 @@ public class GameAI {
 
             //System.out.println("6 buyPlant : " + plantCardIndex + ", " + position[0] + ", " + position[1]);
         }
+        //System.out.println("end takeAction");
     }
 
     // Choisir une carte de plante basée sur les sorties du réseau

@@ -2,8 +2,8 @@ package fr.tanchou.pvz.ia.network;
 
 public class Neuron {
     private Neuron[] inputs; // Liste des neurones entrants
-    private double[] weights; // Liste des poids associés à chaque entrée
-    private double bias; // Biais du neurone
+    protected double[] weights; // Liste des poids associés à chaque entrée
+    protected double bias; // Biais du neurone
     private double output; // La sortie du neurone
 
     // Constructeur avec poids donnés et biais
@@ -29,31 +29,6 @@ public class Neuron {
         // Initialisation du biais aléatoire
         this.bias = Math.random() * 2 - 1; // Biais entre -1 et 1.
     }
-
-    // Fonction d'activation sigmoïde
-    public double sigmoid(double x) {
-        return 1.0 / (1.0 + Math.exp(-x));
-    }
-
-    // Fonction d'activation ReLU
-    public double relu(double x) {
-        return Math.max(0, x);
-    }
-
-    // Optimisation : éviter d'appeler getOutput() à chaque itération
-    public void calculateOutput(boolean isHiddenLayer) {
-        double sum = 0;
-        for (int i = 0; i < inputs.length; i++) {
-            double inputOutput = inputs[i].getOutput(); // Récupérer une fois la sortie du neurone
-            sum += inputOutput * weights[i]; // Somme pondérée des entrées
-        }
-        sum += this.bias; // Ajout du biais
-        if (isHiddenLayer) this.output = relu(sum); // Applique la fonction d'activation
-        else {
-            this.output = sigmoid(sum); // Applique la fonction d'activation
-        }
-    }
-
 
     // Getter et setter
     public double getOutput() {

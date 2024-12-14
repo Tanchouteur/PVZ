@@ -24,7 +24,7 @@ public class LauncherV2 {
         NeuralNetwork model = ModelSaver.loadModel("best_model.json");
 
         if (model == null){
-            model = new NeuralNetwork(new int[]{275, 200, 120, 52});
+            model = new NeuralNetwork(new int[]{230, 512, 256, 128, 64, 52});
         }
 
         this.generationManager = new GenerationManager(model);
@@ -117,7 +117,7 @@ public class LauncherV2 {
             this.generationManager.resetGenerationNumber();
 
             for (int i = 0; i < nbGenerations; i++) {
-                this.generationManager.evolve(nbGenerations);
+                this.generationManager.evolve();
                 statistics.saveScoresHistory(this.generationManager);
                 System.out.println("\nGénération " + (i + 1) + " terminée\n");
             }
@@ -145,7 +145,7 @@ public class LauncherV2 {
         this.generationManager.resetGenerationNumber();
 
         for (int i = 0; i < nbGenerations; i++) {
-            this.generationManager.evolve(nbGenerations);
+            this.generationManager.evolve();
             statistics.saveScoresHistory(this.generationManager);
             System.out.println("\nGénération " + (i + 1) + " terminée\n");
         }
@@ -166,7 +166,7 @@ public class LauncherV2 {
             System.out.println("Veuillez d'abord lancer une génération.");
             return;
         }
-        generationManager.evolve(1);
+        generationManager.evolve();
         statistics.saveScoresHistory(generationManager);
         System.out.println("Génération évoluée avec succès.");
     }
