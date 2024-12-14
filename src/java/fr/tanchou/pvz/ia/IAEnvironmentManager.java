@@ -16,13 +16,13 @@ public class IAEnvironmentManager {
 
     public IAEnvironmentManager(ExecutorService executorService) {
         this.executorService = executorService;
-
     }
 
     // Initialise les jeux
     public void initializeGames(List<NeuralNetwork> models) {
         System.out.println("Init & Lancement des simulations...");
-        this.numberOfGames = models.size();
+        this.numberOfGames = models.size()-1;
+
         for (int i = 0; i < models.size(); i++) {
 
             Player iaPlayer = new Player("IA_Player_" + (i + 1));
@@ -48,7 +48,6 @@ public class IAEnvironmentManager {
     }
 
     public boolean areAllSimulationsCompleted() {
-        //System.out.println("completedGames : " + completedGames.get() + " / " + numberOfGames);
-        return completedGames.get() == numberOfGames;
+        return completedGames.get() >= numberOfGames ;
     }
 }

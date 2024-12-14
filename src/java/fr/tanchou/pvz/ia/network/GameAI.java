@@ -82,7 +82,7 @@ public class GameAI {
             }
         }
 
-        // Remplir les 5 entrées pour le nombre de vie par ligne (additionner les points de vie de touts les zombies de la ligne)
+        // Remplir les 5 entrées pour le nombre de vies par ligne (additionner les points de vie de tous les zombies de la ligne)
         for (int i = 0; i < 5; i++) {
             inputs[index++] = partie.getOneRow(i).normalizeHealthOfZombies();
         }
@@ -107,11 +107,11 @@ public class GameAI {
 
                 if (plant.getObjectOfPlant() instanceof Bullet bullet) {
                     inputs[index++] = bullet.getDamage() / 100.0; // Dégâts du projectile
-                    inputs[index++] = 0.0; // genere pas du soleil
+                    inputs[index++] = 0.0; // n'engendre pas du soleil
 
                 } else if (plant.getObjectOfPlant() instanceof Sun) {
                     inputs[index++] = 0.0; // 0 si c'est un soleil
-                    inputs[index++] = 1.0; // genere du soleil
+                    inputs[index++] = 1.0; // n'engendre du soleil
                 }
             } else {
                 inputs[index++] = 0.0; // 1 si génère du soleil
@@ -124,7 +124,7 @@ public class GameAI {
         for (int i = 0; i < inputs.length; i++) {
             System.out.print(inputs[i] + " ");
             if ((i + 1) % 10 == 0) {
-                System.out.println();  // Ajouter une nouvelle ligne toutes les 10 valeurs pour la lisibilité
+                System.out.println();  // Ajouter une nouvelle ligne toutes les 10 valeurs pour la lisibilité.
             }
         }*/
 
@@ -154,7 +154,7 @@ public class GameAI {
 
             //System.out.println("5 position : " + position[0] + ", " + position[1]);
 
-            // Appel à la méthode buyPlant avec x et y
+            // Appel à la méthode buyPlant avec x et y.
             partie.getPlayer().buyPlant(plantCardIndex, position[0], position[1]);
 
             //System.out.println("6 buyPlant : " + plantCardIndex + ", " + position[0] + ", " + position[1]);
@@ -185,7 +185,7 @@ public class GameAI {
         // Ajuste l'index pour le ramener entre 0 et 45 (6 à 51 correspond à 46 valeurs possibles)
         positionIndex -= 6;
 
-        // Calculer les coordonnées x et y
+        // Calculer les coordonnées x et y.
         int x = positionIndex % 9; // Reste de la division par 9 (0 à 8 inclus)
         int y = positionIndex / 9; // Partie entière de la division par 9 (0 à 4 inclus)
 
@@ -207,9 +207,5 @@ public class GameAI {
         }
 
         return maxIndex;
-    }
-
-    public NeuralNetwork getNeuralNetwork() {
-        return neuralNetwork;
     }
 }

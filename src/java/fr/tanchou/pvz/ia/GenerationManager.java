@@ -23,7 +23,7 @@ public class GenerationManager {
     // Constructeur
     public GenerationManager(NeuralNetwork sourceModel) {
 
-        this.executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()); // Pool de threads
+        this.executorService = Executors.newFixedThreadPool(/*Runtime.getRuntime().availableProcessors()*/4); // Pool de threads
         createNextGenerationFromOne(sourceModel);
         this.environmentManager = new IAEnvironmentManager(executorService);
     }
