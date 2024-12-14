@@ -10,7 +10,7 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class IAEnvironmentManager {
-    private final ExecutorService executorService; // Pool de threads pour les simulations
+    private ExecutorService executorService; // Pool de threads pour les simulations
     private final AtomicInteger completedGames = new AtomicInteger(0);
     private int numberOfGames; // Nombre de jeux à simuler
 
@@ -22,6 +22,7 @@ public class IAEnvironmentManager {
     public void initializeGames(List<NeuralNetwork> models) {
         System.out.println("Init & Lancement des simulations...");
         this.numberOfGames = models.size()-1;
+        this.completedGames.set(0);
 
         for (int i = 0; i < models.size(); i++) {
 
@@ -39,7 +40,6 @@ public class IAEnvironmentManager {
         return () -> {
             try {
                 pvz.runManualGame();
-                models.get(i).setScore((int) Math.round(iaPlayer.calculateScore()));
                 completedGames.incrementAndGet();
             } catch (Exception e) {
                 System.err.println("Erreur dans la simulation du modèle " + i + ": " + e.getMessage());
@@ -49,5 +49,9 @@ public class IAEnvironmentManager {
 
     public boolean areAllSimulationsCompleted() {
         return completedGames.get() >= numberOfGames ;
+    }
+
+    public void setExecutorService(ExecutorService executorService) {
+        this.executorService = executorService;
     }
 }

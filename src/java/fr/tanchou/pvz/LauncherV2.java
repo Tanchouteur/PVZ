@@ -50,7 +50,8 @@ public class LauncherV2 {
                 case 5 -> displayStatistics();
                 case 6 -> saveStatisticsToFile();
                 case 7 -> loadStatisticsFromFile();
-                case 8 -> exitProgram();
+                case 8 -> changeNumberOfThreads();
+                case 9 -> exitProgram();
                 default -> System.out.println("Choix invalide. Veuillez réessayer.");
             }
         }
@@ -58,16 +59,10 @@ public class LauncherV2 {
         System.out.println("Programme terminé. À bientôt !");
     }
 
-    private void exitProgram() {
-        saveStatisticsToFile();
-        System.out.println("Programme terminé. À bientôt !");
-        exit(0);
-    }
-
     private void printMainMenu() {
         System.out.println("""
 
-                Que voulez-vous faire ?
+                ============ Que voulez-vous faire ? ============
                 0. Lancer le jeu en mode graphique sans IA
                 1. Lancer le jeu en mode graphique avec IA
                 2. Lancer une première génération random
@@ -76,7 +71,8 @@ public class LauncherV2 {
                 5. Afficher les statistiques
                 6. Sauvegarder les statistiques dans un fichier
                 7. Charger les statistiques depuis un fichier
-                8. Quitter
+                8. Changer le nombre de threads
+                9. Quitter
                 
                 """);
     }
@@ -104,13 +100,28 @@ public class LauncherV2 {
     }
 
     private void createRandomGeneration() {
+
         System.out.println("\nCombien de simulations par génération ?");
         int simulations = scanner.nextInt();
         this.generationManager.setSimulationPerGeneration(simulations);
+
+        this.generationManager.createRandomGeneration();
+
         System.out.println("Faire évoluer la génération ? (Oui/Non)");
         String evolve = scanner.next();
+
         if (evolve.equalsIgnoreCase("Oui")) {
-            this.generationManager.evolve();
+            System.out.println("\nCombien de générations voulez-vous faire ?");
+            int nbGenerations = scanner.nextInt();
+
+            this.generationManager.resetGenerationNumber();
+
+            for (int i = 0; i < nbGenerations; i++) {
+                this.generationManager.evolve(nbGenerations);
+                statistics.saveScoresHistory(this.generationManager);
+                System.out.println("\nGénération " + (i + 1) + " terminée\n");
+            }
+
             statistics.saveScoresHistory(this.generationManager);
         } else {
             System.out.println("Fin de la génération.");
@@ -131,9 +142,10 @@ public class LauncherV2 {
         System.out.println("\nQuelle amplitude de mutation ? (entre 0.0 et 1.0)");
         double mutationAmplitude = scanner.nextDouble();
         this.generationManager.setMutationAmplitude(mutationAmplitude);
+        this.generationManager.resetGenerationNumber();
 
         for (int i = 0; i < nbGenerations; i++) {
-            this.generationManager.evolve();
+            this.generationManager.evolve(nbGenerations);
             statistics.saveScoresHistory(this.generationManager);
             System.out.println("\nGénération " + (i + 1) + " terminée\n");
         }
@@ -154,7 +166,7 @@ public class LauncherV2 {
             System.out.println("Veuillez d'abord lancer une génération.");
             return;
         }
-        generationManager.evolve();
+        generationManager.evolve(1);
         statistics.saveScoresHistory(generationManager);
         System.out.println("Génération évoluée avec succès.");
     }
@@ -174,6 +186,18 @@ public class LauncherV2 {
     private void loadStatisticsFromFile() {
         statistics.loadScoresHistoryFromFile("statistics.csv");
         System.out.println("Statistiques chargées depuis " + "statistics.csv");
+    }
+
+    private void changeNumberOfThreads() {
+        System.out.println("Combien de threads voulez-vous utiliser ?");
+        int nbThreads = scanner.nextInt();
+        this.generationManager.setNumberOfThreads(nbThreads);
+    }
+
+    private void exitProgram() {
+        saveStatisticsToFile();
+        System.out.println("Programme terminé. À bientôt !");
+        exit(0);
     }
 
     public static void main(String[] args) {

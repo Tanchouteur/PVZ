@@ -43,10 +43,15 @@ public class PVZ {
         }
 
         if (partie.isVictory()) {
-            System.out.println("Victory!");
-        } /*else {
-            //System.out.println("Game Over.");
-        }*/
+            System.err.println("Victory!");
+        }
+        this.gameAI.getNeuralNetwork().setScore((int) Math.round(player.calculateScore()));
+
+        if (player.calculateScore() <= 0) {
+            System.err.println("Score p: " + player.calculateScore() + " Score IA: " + this.gameAI.getNeuralNetwork().getScore());
+        }
+
+        //System.out.println("Score p: " + player.calculateScore() + " Score IA: " + this.gameAI.getNeuralNetwork().getScore());
     }
 
     public void stopGame() {

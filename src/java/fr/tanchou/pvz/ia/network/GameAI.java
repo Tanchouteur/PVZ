@@ -208,4 +208,8 @@ public class GameAI {
 
         return maxIndex;
     }
+
+    public NeuralNetwork getNeuralNetwork() {
+        return neuralNetwork;
+    }
 }

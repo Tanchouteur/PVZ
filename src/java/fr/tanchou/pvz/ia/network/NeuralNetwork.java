@@ -59,66 +59,100 @@ public class NeuralNetwork {
     }
 
     public NeuralNetwork mutate(double mutationAmplitude) {
-        //System.out.println("Mutation amplitude : " + mutationAmplitude);
+        NeuralNetwork mutatedNetwork = this.cloneNetwork();
+        //System.out.println("Mutation avec une amplitude de " + mutationAmplitude);
+        // Parcours chaque couche (sauf la couche d'entrée)
+        for (int i = 1; i < mutatedNetwork.layers.size(); i++) {
+            for (Neuron neuron : mutatedNetwork.layers.get(i)) {
+                double[] weights = neuron.getWeights().clone();
+
+                // Mutation des poids
+                for (int j = 0; j < weights.length; j++) {
+                    if (Math.random() < 0.5) { // Probabilité de mutation
+                        // Type de mutation : petite variation ou variation proportionnelle au poids actuel
+                        double mutation = (Math.random() < 0.8)
+                                ? (Math.random() - 0.5) * mutationAmplitude // Petite variation
+                                : (Math.random() * 2 - 1) * Math.abs(weights[j]) * mutationAmplitude; // Variation proportionnelle
+
+                        double newWeight = weights[j] + mutation;
+
+                        // Contraindre le poids dans la plage [-1, 1]
+                        newWeight = Math.max(-1, Math.min(1, newWeight));
+
+                        // Ajout d'une probabilité de conserver le poids initial (stabilité)
+                        if (Math.random() < 0.2) {
+                            newWeight = weights[j];
+                        }
+
+                        //System.out.println("Mutation du poids : " + weights[j] + " -> " + newWeight);
+                        weights[j] = newWeight;
+                    }
+                }
+                neuron.setWeights(weights);
+
+                // Mutation du biais
+                if (Math.random() < 0.2) { // Augmenter la probabilité de mutation des biais
+                    double currentBias = neuron.getBias();
+
+                    // Mutation basée sur l'activation et une variation aléatoire
+                    double newBias = currentBias + neuron.getOutput() * mutationAmplitude * (Math.random() - 0.5);
+
+                    // Contraindre le biais dans la plage [-1, 1]
+                    newBias = Math.max(-1, Math.min(1, newBias));
+
+                    //System.out.println("Mutation du biais : " + currentBias + " -> " + newBias);
+
+                    neuron.setBias(newBias);
+                }
+            }
+        }
+
+        return mutatedNetwork;
+    }
+
+
+    public NeuralNetwork mutateOld(double mutationAmplitude) {
         NeuralNetwork mutatedNetwork = this.cloneNetwork();
 
         // Parcours chaque couche (sauf la couche d'entrée)
         for (int i = 1; i < mutatedNetwork.layers.size(); i++) {
             for (Neuron neuron : mutatedNetwork.layers.get(i)) {
-                double[] weights = neuron.getWeights().clone(); // Créer une nouvelle liste pour les poids
+                double[] weights = neuron.getWeights().clone();
 
-                // Applique une mutation aléatoire à chaque poids
+                // Mutation des poids
                 for (int j = 0; j < weights.length; j++) {
-                    double currentWeight = weights[j];
+                    if (Math.random() < 0.4) { // Probabilité de mutation
+                        double mutation = (Math.random() < 0.8)
+                                ? Math.random() * mutationAmplitude - mutationAmplitude / 2 // Petite variation
+                                : (Math.random() * 2 - 1) * Math.abs(weights[j]) * mutationAmplitude; // Variation radicale
 
-                    // Si la chance de mutation est remplie (10% ici).
-                    if (Math.random() < 0.4) {
-                        double mutation;
-                        if (Math.random() < 0.8) {
-                            // Mutation gaussienne (petite variation)
-                            mutation = Math.random() * mutationAmplitude - mutationAmplitude / 2; // Variation contrôlée par l'amplitude
-                        } else {
-                            // Mutation radicale (plus rare)
-                            mutation = (Math.random() * 2 - 1) * Math.abs(currentWeight) * mutationAmplitude; // Variation radicale contrôlée par l'amplitude
-                        }
+                        double newWeight = weights[j] + mutation;
+                        newWeight = Math.max(-1, Math.min(1, newWeight)); // Contraindre entre -1 et 1
 
-                        double newWeight = currentWeight + mutation;
-
-                        // Limiter les poids entre -1 et 1.
-                        newWeight = Math.max(-1, Math.min(1, newWeight));
-
-                        // Pénalité si le poids devient trop extrême
+                        // Appliquer des pénalités si nécessaire
                         if (Math.abs(newWeight) > 0.9) {
-                            newWeight = Math.signum(newWeight) * 0.9; // Rapproche les poids extrêmes de 0.9 ou -0.9
+                            newWeight = Math.signum(newWeight) * 0.9;
+                        } else if (Math.abs(newWeight) < 0.05) {
+                            newWeight = 0.05 * Math.signum(newWeight);
                         }
 
-                        // Optionnel : conserver certains poids avec une probabilité
                         if (Math.random() < 0.2) {
-                            newWeight = currentWeight; // Pas de mutation
+                            newWeight = weights[j]; // Conserver certains poids
                         }
-
-                        // Applique la pénalité si le poids devient trop faible
-                        if (Math.abs(newWeight) < 0.05) {
-                            newWeight = 0.05 * Math.signum(newWeight); // Pénaliser les poids trop faibles
-                        }
-                        weights[j] = newWeight; // Met à jour le poids après mutation
+                        System.out.println("Mutation du poids : " + weights[j] + " -> " + newWeight);
+                        weights[j] = newWeight;
                     }
                 }
-
-                // Mise à jour des poids du neurone avec la nouvelle liste
                 neuron.setWeights(weights);
 
                 // Mutation du biais
-                if (Math.random() < 0.1) { // Chance de mutation du biais
-                    double currentBias = neuron.getBias(); // Obtenir le biais actuel
-                    double biasMutation = Math.random() * mutationAmplitude - mutationAmplitude / 2; // Mutation du biais
-                    double newBias = currentBias + biasMutation;
+                if (Math.random() < 0.1) {
+                    double currentBias = neuron.getBias();
+                    double newBias = currentBias + neuron.getOutput() * mutationAmplitude * (Math.random() - 0.5);
 
-                    // Limiter le biais entre -1 et 1.
-                    newBias = Math.max(-1, Math.min(1, newBias));
-                    //System.out.println("Mutation du biais : " + currentBias + " -> " + newBias);
-                    // Appliquer la mutation du biais
-                    neuron.setBias(newBias); // Mettre à jour le biais
+                    System.out.println("Mutation du biais : " + currentBias + " -> " + newBias);
+
+                    neuron.setBias(Math.max(-1, Math.min(1, newBias)));
                 }
             }
         }
@@ -159,31 +193,6 @@ public class NeuralNetwork {
         }
 
         return new NeuralNetwork(clonedLayers);
-    }
-
-    public double[] getWeights() {
-        // Calcule le nombre total de poids dans toutes les couches, sauf la couche d'entrée
-        int totalWeights = 0;
-        for (int i = 1; i < layers.size(); i++) {
-            for (Neuron neuron : layers.get(i)) {
-                totalWeights += neuron.getWeights().length; // Nombre de poids dans chaque neurone
-            }
-        }
-
-        // Crée un tableau pour contenir tous les poids
-        double[] weightsArray = new double[totalWeights];
-        int index = 0;
-
-        // Remplissage du tableau avec les poids de chaque neurone
-        for (int i = 1; i < layers.size(); i++) {
-            for (Neuron neuron : layers.get(i)) {
-                for (Double weight : neuron.getWeights()) {
-                    weightsArray[index++] = weight; // Ajoute chaque poids dans le tableau
-                }
-            }
-        }
-
-        return weightsArray; // Retourne le tableau de poids
     }
 
     public int getScore() {

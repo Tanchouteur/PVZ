@@ -8,7 +8,7 @@ import java.util.concurrent.*;
 public class GenerationManager {
 
     private final IAEnvironmentManager environmentManager;  // Gère les simulations d'IA
-    private final ExecutorService executorService;  // Pour exécuter les simulations en parallèle
+    private ExecutorService executorService;  // Pour exécuter les simulations en parallèle
 
     private int generationNumber = 0;
     private double mutationAmplitude = 0.5;
@@ -23,21 +23,27 @@ public class GenerationManager {
     // Constructeur
     public GenerationManager(NeuralNetwork sourceModel) {
 
-        this.executorService = Executors.newFixedThreadPool(/*Runtime.getRuntime().availableProcessors()*/4); // Pool de threads
-        createNextGenerationFromOne(sourceModel);
+        this.executorService = Executors.newFixedThreadPool(/*Runtime.getRuntime().availableProcessors()*/5); // Pool de threads
+        this.createNextGenerationFromOne(sourceModel);
         this.environmentManager = new IAEnvironmentManager(executorService);
     }
 
+    public void resetGenerationNumber() {
+        this.generationNumber = 0;
+    }
+
     // Méthode pour faire évoluer les modèles
-    public void evolve() {
+    public void evolve(int totalGenerations) {
+        /*double annealingFactor = Math.max(0.1, 1 - ((double) this.generationNumber / totalGenerations));
+        this.mutationAmplitude *= annealingFactor;*/
+        System.out.println("Mutation amplitude: " + this.mutationAmplitude);
+
         if (currentGenerationIsTrained) {
-            // Remplacer la génération actuelle avec la suivante
-            System.out.println("Mutation de la génération " + generationNumber);
             this.createNextGenerationFromList();
             this.currentGenerationIsTrained = false;
         }
 
-        System.out.println("Evolution de la génération " + generationNumber);
+        System.out.println("Evolution de la génération " + this.generationNumber);
         this.environmentManager.initializeGames(this.models);
 
         while (!environmentManager.areAllSimulationsCompleted()) {
@@ -60,11 +66,10 @@ public class GenerationManager {
 
         System.out.println("Generation size " + this.models.size());
         this.currentGenerationIsTrained = true;
-        generationNumber++;
+        this.generationNumber++;
     }
 
     private void selectBestModels() {
-        // Utilisation d'une PriorityQueue pour maintenir les meilleurs modèles sans trier à chaque fois
         System.out.println("Size of results list before sorting: " + this.models.size());
 
         PriorityQueue<NeuralNetwork> pq = new PriorityQueue<>(Comparator.comparingDouble(NeuralNetwork::getScore).reversed());
@@ -73,6 +78,11 @@ public class GenerationManager {
         this.bestModels.clear();
         for (int i = 0; i < 5 && !pq.isEmpty(); i++) {
             this.bestModels.add(pq.poll());
+        }
+
+        if (this.bestModels.getFirst().getScore() <= 1){
+            System.out.println("Best model score is too low, creating a new random generation");
+
         }
     }
 
@@ -121,6 +131,18 @@ public class GenerationManager {
     }
 
     public int getMutationAmplitude() {
-        return (int) Math.round(mutationAmplitude * 100);
+        return (int) (mutationAmplitude * 100);
+    }
+
+    public void createRandomGeneration() {
+        this.models.clear();
+        for (int i = 0; i < this.simulationPerGeneration; i++) {
+            this.models.add(new NeuralNetwork(new int[]{275, 180, 100, 52}));
+        }
+    }
+
+    public void setNumberOfThreads(int nbThreads) {
+       this.executorService = Executors.newFixedThreadPool(nbThreads);
+       this.environmentManager.setExecutorService(this.executorService);
     }
 }
