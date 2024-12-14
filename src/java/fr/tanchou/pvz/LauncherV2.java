@@ -24,7 +24,7 @@ public class LauncherV2 {
         NeuralNetwork model = ModelSaver.loadModel("best_model.json");
 
         if (model == null){
-            model = new NeuralNetwork(new int[]{275, 180, 100, 52});
+            model = new NeuralNetwork(new int[]{275, 200, 120, 52});
         }
 
         this.generationManager = new GenerationManager(model);

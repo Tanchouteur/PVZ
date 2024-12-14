@@ -9,6 +9,7 @@ import fr.tanchou.pvz.entityRealisation.ObjectOfPlant.Sun;
 import fr.tanchou.pvz.abstractEnity.abstractPlant.ObjectGeneratorsPlant;
 import fr.tanchou.pvz.abstractEnity.abstractZombie.Zombie;
 import fr.tanchou.pvz.entityRealisation.plants.ObjectGeneratorPlant.SunFlower;
+import fr.tanchou.pvz.entityRealisation.plants.passive.WallNut;
 import fr.tanchou.pvz.game.SunManager;
 
 import java.util.LinkedList;
@@ -211,6 +212,60 @@ public class Row {
                 break;
             }
         }
+    }
+
+    // Ajouter une entrée pour la dangerosité de chaque ligne
+    public double calculateDangerLevel() {
+        double dangerLevel = 0.0;
+
+        // Ajouter la dangerosité des zombies
+        for (Zombie zombie : listZombie) {
+            if (zombie != null) {
+                // On utilise la vie restante pour augmenter le danger
+                double zombieHealthPercentage = (double) zombie.getHealthPoint() / zombie.getOriginalHealth();
+                dangerLevel += zombieHealthPercentage;
+
+                // Ajouter un facteur en fonction de la proximité des zombies aux plantes
+                int zombieX = (int) zombie.getX();
+                if (zombieX >= 0 && zombieX < plantCasesArray.length) {
+                    PlantCase plantCase = plantCasesArray[zombieX];
+                    if (!plantCase.isEmpty()) {
+                        // Si le zombie est proche d'une plante, il devient plus dangereux
+                        dangerLevel += 0.5;  // Ajout d'un facteur de dangerosité selon la proximité
+                    }
+                }
+            }
+        }
+
+        // Ajouter un facteur en fonction de la présence et du type de plantes sur la ligne
+        for (PlantCase plantCase : this.plantCasesArray) {
+            if (plantCase.getPlant() != null) {
+                Plant plant = plantCase.getPlant();
+                // Si la plante est défensive, elle diminue la dangerosité
+                if (plant instanceof WallNut) {
+                    dangerLevel -= 0.3;  // Réduit le danger si la plante est défensive
+                }
+                // Les plantes offensives augmentent le danger, en fonction de leur type
+                else if (plant instanceof ObjectGeneratorsPlant) {
+                    dangerLevel += 0.2;  // Augmente le danger si la plante est offensive
+                }
+            }
+        }
+
+        // Calculer la dangerosité globale basée sur la somme de la santé des zombies
+        this.totalZombieHealth = 0;
+        for (Zombie zombie : listZombie) {
+            if (zombie != null) {
+                this.totalZombieHealth += zombie.getHealthPoint();
+            }
+        }
+
+        // Si la santé totale des zombies est élevée, augmenter la dangerosité de la ligne
+        if (this.totalZombieHealth > 500) {  // Seuil arbitraire pour augmenter la dangerosité
+            dangerLevel += 1.0;
+        }
+
+        return dangerLevel;
     }
 
     public LinkedList<Zombie> getListZombies() {

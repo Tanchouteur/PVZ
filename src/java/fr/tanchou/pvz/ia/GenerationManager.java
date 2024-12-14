@@ -13,7 +13,7 @@ public class GenerationManager {
     private int generationNumber = 0;
     private double mutationAmplitude = 0.5;
 
-    private int simulationPerGeneration = 1000;
+    private int simulationPerGeneration = 2000;
 
     private final List<NeuralNetwork> bestModels = new ArrayList<>();
     private final List<NeuralNetwork> models = new ArrayList<>();  // Liste des modèles de réseaux neuronaux
@@ -23,7 +23,7 @@ public class GenerationManager {
     // Constructeur
     public GenerationManager(NeuralNetwork sourceModel) {
 
-        this.executorService = Executors.newFixedThreadPool(/*Runtime.getRuntime().availableProcessors()*/5); // Pool de threads
+        this.executorService = Executors.newFixedThreadPool(/*Runtime.getRuntime().availableProcessors()*/8); // Pool de threads
         this.createNextGenerationFromOne(sourceModel);
         this.environmentManager = new IAEnvironmentManager(executorService);
     }
@@ -34,8 +34,8 @@ public class GenerationManager {
 
     // Méthode pour faire évoluer les modèles
     public void evolve(int totalGenerations) {
-        /*double annealingFactor = Math.max(0.1, 1 - ((double) this.generationNumber / totalGenerations));
-        this.mutationAmplitude *= annealingFactor;*/
+        /*double annealingFactor = Math.max(0.1, 1 - ((double) this.generationNumber / totalGenerations));*/
+        this.mutationAmplitude *= 0.9;
         System.out.println("Mutation amplitude: " + this.mutationAmplitude);
 
         if (currentGenerationIsTrained) {
@@ -102,7 +102,7 @@ public class GenerationManager {
 
         // Ajout de modèles aléatoires
         for (int i = 0; i < numberOfRandom; i++) {
-            this.models.add(new NeuralNetwork(new int[]{275, 180, 100, 52}));
+            this.models.add(new NeuralNetwork(new int[]{275, 200, 120, 52}));
         }
     }
 
@@ -137,7 +137,7 @@ public class GenerationManager {
     public void createRandomGeneration() {
         this.models.clear();
         for (int i = 0; i < this.simulationPerGeneration; i++) {
-            this.models.add(new NeuralNetwork(new int[]{275, 180, 100, 52}));
+            this.models.add(new NeuralNetwork(new int[]{275, 200, 120, 52}));
         }
     }
 
