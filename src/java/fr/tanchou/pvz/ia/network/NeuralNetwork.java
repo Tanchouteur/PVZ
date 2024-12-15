@@ -5,7 +5,7 @@ import java.util.List;
 
 public class NeuralNetwork {
     private final List<Neuron[]> layers;
-    private int score = 0;
+    private double score = 0;
 
     // Constructeur pour créer un réseau de neurones à partir de couches données
     public NeuralNetwork(List<Neuron[]> layers) {
@@ -142,7 +142,7 @@ public class NeuralNetwork {
 
                         double newWeight = weights[j] + mutation;
 
-                        // Contraindre le poids dans la plage [-1, 1]
+                        // Contraindre le poids dans la plage [-1, 1] avec plus de flexibilité
                         newWeight = Math.max(-1, Math.min(1, newWeight));
 
                         // Ajout d'une probabilité de conserver le poids initial (stabilité)
@@ -150,13 +150,12 @@ public class NeuralNetwork {
                             newWeight = weights[j];
                         }
 
-                        //System.out.println("Mutation du poids : " + weights[j] + " -> " + newWeight);
                         weights[j] = newWeight;
                     }
                 }
                 neuron.setWeights(weights);
 
-                // Mutation du biais
+                // Mutation du biais (augmentée en fonction du score)
                 if (Math.random() < 0.2) { // Augmenter la probabilité de mutation des biais
                     double currentBias = neuron.getBias();
 
@@ -165,8 +164,6 @@ public class NeuralNetwork {
 
                     // Contraindre le biais dans la plage [-1, 1]
                     newBias = Math.max(-1, Math.min(1, newBias));
-
-                    //System.out.println("Mutation du biais : " + currentBias + " -> " + newBias);
 
                     neuron.setBias(newBias);
                 }
@@ -211,11 +208,11 @@ public class NeuralNetwork {
         return new NeuralNetwork(clonedLayers);
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 }

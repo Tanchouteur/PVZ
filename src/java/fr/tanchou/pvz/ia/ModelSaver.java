@@ -10,21 +10,25 @@ import java.util.*;
 
 public class ModelSaver {
 
+    // Méthode pour sauvegarder un modèle
     public static void saveModel(NeuralNetwork network, String filePath) {
-
-        System.out.println("Saving " + filePath + "...");
-
+        System.out.println("Saving in " + filePath + " - NetworkScore : " + network.getScore());
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         // Structure des couches, des poids et des biais
         List<List<Map<String, Object>>> layersData = new ArrayList<>();
         for (Neuron[] layer : network.getLayers()) {
-            List<Map<String, Object>> layerData = getMapList(Arrays.asList(layer));  // Changement ici, conversion en liste
+            List<Map<String, Object>> layerData = getMapList(Arrays.asList(layer)); // Conversion en liste
             layersData.add(layerData);
         }
 
+        // Inclure le score dans les données JSON
+        Map<String, Object> data = new HashMap<>();
+        data.put("score", network.getScore());
+        data.put("layers", layersData);
+
         // Convertir en JSON
-        String json = gson.toJson(layersData);
+        String json = gson.toJson(data);
 
         // Écrire dans un fichier
         try (FileWriter writer = new FileWriter(filePath)) {
@@ -43,25 +47,27 @@ public class ModelSaver {
         // Lire le fichier JSON
         try (Reader reader = new FileReader(filePath)) {
             // Convertir le JSON en structure de données Java
-            List<List<Map<String, Object>>> layersData = gson.fromJson(reader, List.class);
+            Map<String, Object> data = gson.fromJson(reader, Map.class);
 
+            // Charger le score
+            double score = ((Number) data.get("score")).doubleValue();
+
+            // Charger les couches
+            List<List<Map<String, Object>>> layersData = (List<List<Map<String, Object>>>) data.get("layers");
             List<Neuron[]> layers = new ArrayList<>();
 
-            // Reconstruire le réseau
             for (int i = 0; i < layersData.size(); i++) {
-
                 List<Map<String, Object>> layerData = layersData.get(i);
                 Neuron[] layer = new Neuron[layerData.size()];
                 int j = 0;
                 for (Map<String, Object> neuronData : layerData) {
-
-                    double[] weights = convertToDoubleArray((List<Double>) neuronData.get("weights")); // Conversion correcte ici
-                    double bias = ((Number) neuronData.get("bias")).doubleValue(); // Charger le biais
+                    double[] weights = convertToDoubleArray((List<Double>) neuronData.get("weights"));
+                    double bias = ((Number) neuronData.get("bias")).doubleValue();
                     double output = ((Number) neuronData.get("output")).doubleValue();
 
                     // Récupérer les entrées (neurones de la couche précédente)
                     Neuron[] inputs = i == 0 ? new Neuron[0] : layers.get(i - 1);
-                    Neuron neuron = new Neuron(inputs, weights, bias); // Inclure le biais
+                    Neuron neuron = new Neuron(inputs, weights, bias);
 
                     neuron.setOutput(output);
                     layer[j] = neuron;
@@ -70,13 +76,17 @@ public class ModelSaver {
                 layers.add(layer);
             }
 
-            System.out.println("Modèle chargé avec succès. Couches : " + layers.size());
-            return new NeuralNetwork(layers);
+            System.out.println("Modèle chargé avec succès. Score : " + score + ", Couches : " + layers.size());
+
+            NeuralNetwork loadedNetwork = new NeuralNetwork(layers);
+            loadedNetwork.setScore(score); // Charger le score dans le modèle
+            return loadedNetwork;
         } catch (IOException e) {
             System.err.println("Erreur lors de la lecture du fichier du modèle : " + e.getMessage());
             return null;
         }
     }
+
 
     private static List<Map<String, Object>> getMapList(List<Neuron> layer) {
         List<Map<String, Object>> layerData = new ArrayList<>();

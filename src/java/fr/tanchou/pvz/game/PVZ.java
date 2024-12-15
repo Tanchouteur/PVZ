@@ -7,6 +7,7 @@ public class PVZ {
 
     private Partie partie;
     private PartieController gameController;
+    private double multiplicateurOfSpeed = 1;
 
     private GameAI gameAI;
 
@@ -16,13 +17,18 @@ public class PVZ {
 
     public PVZ(Player player, GameAI gameAI) {
         this.player = player;
-
         this.gameAI = gameAI;
+    }
+
+    public PVZ(Player player, GameAI gameAI, double multiplicateurOfSpeed) {
+        this.player = player;
+        this.gameAI = gameAI;
+        this.multiplicateurOfSpeed = multiplicateurOfSpeed;
     }
 
     public void startGame(boolean consoleLog) {
         this.createPartie(consoleLog);
-        gameController.startGame();
+        gameController.startGame(multiplicateurOfSpeed);
     }
 
     public void createPartie(boolean consoleLog) {
@@ -69,5 +75,9 @@ public class PVZ {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public PartieController getGameController() {
+        return gameController;
     }
 }

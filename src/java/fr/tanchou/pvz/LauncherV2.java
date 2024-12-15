@@ -87,16 +87,30 @@ public class LauncherV2 {
     }
 
     private void launchGameWithoutAI() {
-        PVZ pvz = new PVZ(player);
-        PVZGraphic.launchView(pvz);
-        System.out.println("Fin du jeu");
-        System.out.println("\nVotre score est de : " + player.calculateScore());
+        try {
+            PVZ pvz = new PVZ(player);
+            PVZGraphic.launchView(pvz);
+            System.out.println("\nVotre score est de : " + player.calculateScore());
+        }catch (Exception e) {
+            System.out.println("Problème dans le jeu sans IA : " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void launchGameWithAI() {
-        PVZ pvz = new PVZ(player, new GameAI(ModelSaver.loadModel("best_model.json")));
-        PVZGraphic.launchView(pvz);
-        System.out.println("\nVotre score est de : " + player.calculateScore());
+        System.out.println("A quel vitesse voulez-vous que le model joue ? (multiplicateur)");
+        double speed = scanner.nextDouble();
+
+        System.out.println("Lancement du jeu avec IA...");
+        try {
+            PVZ pvz = new PVZ(player, new GameAI(ModelSaver.loadModel("best_model.json")), speed);
+
+            PVZGraphic.launchView(pvz);
+            System.out.println("\nSont score est de : " + player.calculateScore());
+        }catch (Exception e){
+            System.out.println("Problème dans le menu de lancement du jeu avec IA : " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void createRandomGeneration() {
@@ -155,7 +169,7 @@ public class LauncherV2 {
         System.out.println("Sauvegarder le meilleur modèle ? (Oui/Non)");
         String save = scanner.next();
         if (save.equalsIgnoreCase("Oui")) {
-            ModelSaver.saveModel(this.generationManager.getBestModels().getFirst(), "best_model.json");
+            ModelSaver.saveModel(this.generationManager.getBestModelOverall(), "best_model.json");
             saveStatisticsToFile();
         }
 

@@ -25,7 +25,7 @@ public class Statistics {
     // Méthode pour sauvegarder l'historique des scores pour une génération
     public void saveScoresHistory(GenerationManager generationManager) {
         scoresHistory.add(Map.of(
-                "scoreBestModel", generationManager.getBestModels().getFirst().getScore(),
+                "scoreBestModel", (int) Math.round(generationManager.getBestModels().getFirst().getScore()),
                 "averageScore", computeAverageGenerationScore(generationManager.getAllModels()),
                 "mutationAmplitude", generationManager.getMutationAmplitude()
         ));

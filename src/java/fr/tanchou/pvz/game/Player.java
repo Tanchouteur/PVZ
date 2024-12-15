@@ -28,6 +28,7 @@ public class Player {
 
     private int plantPlacedCount = 0;
 
+    private int offensivePlantPlacedCount = 0;
     private int sunFlowersPlacedScore = -10;
 
     private final List<Integer> sunHistory = new ArrayList<>();  // Historique des valeurs de sold tous les 10 ticks
@@ -48,6 +49,9 @@ public class Player {
     }
 
     public double calculateScore() {
+        if (partie == null) {
+            return 0;
+        }
         int mowers = 1;
         for (Row row : partie.getRows()) {
             if (row.getMower() != null) {
@@ -55,20 +59,23 @@ public class Player {
             }
         }
 
-        // Scores individuels avec ajustements
-        int mowersScore = mowers * 35; // Conservation des tondeuses.
-        int survivalScore = partie.getZombieSpawner().getTotalTick() / 3; // Temps de survie avec un poids réduit.
-        int zombieKillScore = getKilledZombieCount() * 25; // Récompense augmentée pour chaque zombie tué.
-        int plantPlacementScore = getPlantPlacedCount() * 50; // Récompense augmentée pour les plantes posées.
-
-        // Calcul de la moyenne de soleil collecté et application d'une pénalité si > 50
+        // Scores individuels ajustés
+        int mowersScore = (int) (mowers * 20 * Math.sqrt(partie.getZombieSpawner().getTotalTick() / 100.0));
+        int survivalScore = (int) ((partie.getZombieSpawner().getTotalTick() * 1.5) + getKilledZombieCount() * 10);
+        int offensivePlantPlacementScore = getOffensivePlantPlacedCount() * 120; // Récompense augmentée.
+        int plantPlacementScore = offensivePlantPlacementScore + getPlantPlacedCount() * 30; // Bonus général.
         double averageSun = calculateAverageSun();
-        int unusedSunPenalty = averageSun > 50 ? - (int)(sold / 2) : 0;
+        int unusedSunPenalty = (int) ((averageSun > 100 ? (double) -sold / 2 : 0) * 0.5);
+        this.sunFlowersPlacedScore *= 2; // Récompense ajustée pour les tournesols
+        // Récompense ajustée pour une victoire
+        int victoryScore = partie.isVictory() ? (2000 + (getKilledZombieCount() * 10) + (partie.getZombieSpawner().getTotalTick() / 2)) : 0;
 
-        // Score total
-        //System.out.println("Survival: " + survivalScore + ", Mowers: " + mowersScore + ", Plant Placement:" + getPlantPlacedCount() +  " " + plantPlacementScore + ", Zombie Kills: " + zombieKillScore + ", Unused Sun Penalty: " + unusedSunPenalty + ", SunFlower Placement: " + sunFlowersPlacedScore*10 + ", Victory: " + (partie.isVictory() ? 2000 : 0));
-        return survivalScore + mowersScore + plantPlacementScore + zombieKillScore + unusedSunPenalty*0.8 + this.sunFlowersPlacedScore*10 + (partie.isVictory() ? 2000 : 0);
+        //System.out.println("Survival: " + survivalScore + ", Mowers: " + mowersScore + ", Plant Placement:" + getPlantPlacedCount() + " " + plantPlacementScore + ", sun " + this.sunFlowersPlacedScore + ", Zombie Kills: " + getKilledZombieCount() * 25 + ", Unused Sun Penalty: " + unusedSunPenalty + ", Victory: " + victoryScore);
+
+        // Score total final
+        return survivalScore + mowersScore + plantPlacementScore + unusedSunPenalty + victoryScore + this.sunFlowersPlacedScore;
     }
+
 
     public void tick() {
         for (PlantCard plantCard : plantCards) {
@@ -132,13 +139,15 @@ public class Player {
                 //System.out.println("Plant placed at x: " + x + " y: " + y);
 
                 if (activPlantCard.getPlant() instanceof SunFlower) {
-                    if (x < 5){
-                        sunFlowersPlacedScore += 5;
+                    if (x < 4){
+                        sunFlowersPlacedScore += 10;
                     } else if (x >= 7) {
-                        sunFlowersPlacedScore -= 2;
+                        sunFlowersPlacedScore -= 5;
                     } else {
                         sunFlowersPlacedScore += 1;
                     }
+                }else if (activPlantCard.getPlant() instanceof PeaShooter || activPlantCard.getPlant() instanceof FreezePeaShooter || activPlantCard.getPlant() instanceof DoublePeaShooter) {
+                    offensivePlantPlacedCount++;
                 }
 
                 this.activPlantCard = null;
@@ -217,5 +226,7 @@ public class Player {
         return killedZombieCount;
     }
 
-
+    public int getOffensivePlantPlacedCount() {
+        return offensivePlantPlacedCount;
+    }
 }

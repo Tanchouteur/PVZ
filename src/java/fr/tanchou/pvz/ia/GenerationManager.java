@@ -13,16 +13,18 @@ public class GenerationManager {
     private int generationNumber = 0;
     private double mutationAmplitude = 0.5;
 
-    private int simulationPerGeneration = 1000;
+    private int simulationPerGeneration = 50;
 
     private final List<NeuralNetwork> bestModels = new ArrayList<>();
     private final List<NeuralNetwork> models = new ArrayList<>();  // Liste des modèles de réseaux neuronaux
 
     private boolean currentGenerationIsTrained = false;
 
+    private NeuralNetwork bestModelOverall;
+
     // Constructeur
     public GenerationManager(NeuralNetwork sourceModel) {
-
+        this.bestModelOverall = sourceModel;
         this.executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()); // Pool de threads
         this.createNextGenerationFromOne(sourceModel);
         this.environmentManager = new IAEnvironmentManager(executorService);
@@ -34,10 +36,40 @@ public class GenerationManager {
 
     // Méthode pour faire évoluer les modèles
     public void evolve() {
-        /*double annealingFactor = Math.max(0.1, 1 - ((double) this.generationNumber / totalGenerations));*/
-        this.mutationAmplitude *= 0.9;
-        System.out.println("Mutation amplitude: " + this.mutationAmplitude);
 
+        // Calcul du score normalisé du meilleur modèle
+        double bestScore = this.bestModels.isEmpty() ? 0 : this.bestModels.get(0).getScore();
+        double maxScore = 17000;  // Score théorique maximal
+
+        // Calcul du score moyen des modèles
+        double averageScore = this.models.stream()
+                .mapToDouble(NeuralNetwork::getScore)
+                .average()
+                .orElse(0);
+
+        // Calcul de la mutation en fonction du score normalisé
+        double bestToAverageRatio = bestScore / averageScore;
+        System.out.println("Best Score: " + bestScore + ", Average Score: " + averageScore + ", Ratio: " + bestToAverageRatio);
+
+        // Ajustement dynamique de l'amplitude de mutation
+        if (this.generationNumber < 50) {
+            // Plus de mutation au début pour explorer plus largement
+            this.mutationAmplitude = Math.min(1.0, this.mutationAmplitude * 1.5);
+        } else {
+            // Réduire la mutation en fonction de l'amélioration des scores
+            if (bestToAverageRatio < 1.5) {
+                this.mutationAmplitude *= 1.2;  // Si les scores sont assez proches, augmenter la mutation
+            } else {
+                this.mutationAmplitude *= 0.9;  // Sinon, réduire pour mieux converger
+            }
+        }
+
+        // Limite de mutation (entre 0.1 et 1.0)
+        this.mutationAmplitude = Math.max(0.1, Math.min(1.0, this.mutationAmplitude));
+
+        System.out.println("Mutation amplitude ajustée: " + this.mutationAmplitude);
+
+        // Préparation de la génération suivante
         if (currentGenerationIsTrained) {
             this.createNextGenerationFromList();
             this.currentGenerationIsTrained = false;
@@ -46,6 +78,7 @@ public class GenerationManager {
         System.out.println("Evolution de la génération " + this.generationNumber);
         this.environmentManager.initializeGames(this.models);
 
+        // Attente de la fin de toutes les simulations
         while (!environmentManager.areAllSimulationsCompleted()) {
             try {
                 Thread.sleep(1000);
@@ -57,6 +90,7 @@ public class GenerationManager {
         // Sélectionner les meilleurs modèles
         this.selectBestModels();
 
+        // Affichage des meilleurs modèles
         int i = 0;
         System.out.println("\n=========== Best models ===========");
         for (NeuralNetwork model : this.bestModels) {
@@ -84,6 +118,10 @@ public class GenerationManager {
             System.out.println("Best model score is too low, creating a new random generation");
 
         }
+
+        if (this.bestModels.getFirst().getScore() > this.bestModelOverall.getScore()) {
+            this.bestModelOverall = this.bestModels.getFirst();
+        }
     }
 
     // Crée la prochaine génération de modèles en appliquant des mutations
@@ -103,6 +141,10 @@ public class GenerationManager {
         // Ajout de modèles aléatoires
         for (int i = 0; i < numberOfRandom; i++) {
             this.models.add(new NeuralNetwork(new int[]{230, 512, 256, 128, 64, 52}));
+        }
+
+        if (this.bestModels.getFirst().getScore() != this.bestModelOverall.getScore()){
+            this.models.add(this.bestModelOverall.cloneNetwork());
         }
     }
 
@@ -144,5 +186,9 @@ public class GenerationManager {
     public void setNumberOfThreads(int nbThreads) {
        this.executorService = Executors.newFixedThreadPool(nbThreads);
        this.environmentManager.setExecutorService(this.executorService);
+    }
+
+    public NeuralNetwork getBestModelOverall() {
+        return bestModelOverall;
     }
 }

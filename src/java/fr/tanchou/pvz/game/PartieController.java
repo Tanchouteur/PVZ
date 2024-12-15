@@ -49,22 +49,14 @@ public class PartieController {
     }
 
     // Démarrer le jeu
-    public void startGame() {
+    public void startGame(double multiplicateurOfSpeed) {
         // Mettre à jour le modèle pour avoir 24 ticks par seconde
-        gameLoop.scheduleAtFixedRate(this::update, 0, 1000 / 15, TimeUnit.MILLISECONDS);
+        gameLoop.scheduleAtFixedRate(this::update, 0, 1000 / Math.round(10*multiplicateurOfSpeed), TimeUnit.MILLISECONDS);
     }
 
     // Arrêter le jeu
     public void stopGame() {
         //System.out.println("player Score : " + partie.getPlayer().calculateScore());
         gameLoop.shutdown();
-    }
-
-    public int getTickCount() {
-        return totalTick;
-    }
-
-    public GameAI getGameAI() {
-        return gameAI;
     }
 }
