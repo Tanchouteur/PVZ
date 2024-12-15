@@ -61,21 +61,20 @@ public class Player {
 
         // Scores individuels ajustés
         int mowersScore = (int) (mowers * 20 * Math.sqrt(partie.getZombieSpawner().getTotalTick() / 100.0));
-        int survivalScore = (int) ((partie.getZombieSpawner().getTotalTick() * 1.5) + getKilledZombieCount() * 10);
-        int offensivePlantPlacementScore = getOffensivePlantPlacedCount() * 120; // Récompense augmentée.
-        int plantPlacementScore = offensivePlantPlacementScore + getPlantPlacedCount() * 30; // Bonus général.
+        int survivalScore = (int) ((partie.getZombieSpawner().getTotalTick() * 0.5) + getKilledZombieCount() * 10);
+        int offensivePlantPlacementScore = getOffensivePlantPlacedCount() * 200; // Récompense augmentée.
+        int plantPlacementScore = getPlantPlacedCount() * 30; // Bonus général.
         double averageSun = calculateAverageSun();
         int unusedSunPenalty = (int) ((averageSun > 100 ? (double) -sold / 2 : 0) * 0.5);
         this.sunFlowersPlacedScore *= 2; // Récompense ajustée pour les tournesols
         // Récompense ajustée pour une victoire
-        int victoryScore = partie.isVictory() ? (2000 + (getKilledZombieCount() * 10) + (partie.getZombieSpawner().getTotalTick() / 2)) : 0;
+        int victoryScore = partie.isVictory() ? 2000 : 0;
 
         //System.out.println("Survival: " + survivalScore + ", Mowers: " + mowersScore + ", Plant Placement:" + getPlantPlacedCount() + " " + plantPlacementScore + ", sun " + this.sunFlowersPlacedScore + ", Zombie Kills: " + getKilledZombieCount() * 25 + ", Unused Sun Penalty: " + unusedSunPenalty + ", Victory: " + victoryScore);
 
         // Score total final
-        return survivalScore + mowersScore + plantPlacementScore + unusedSunPenalty + victoryScore + this.sunFlowersPlacedScore;
+        return survivalScore + mowersScore + plantPlacementScore + offensivePlantPlacementScore + unusedSunPenalty + victoryScore + this.sunFlowersPlacedScore;
     }
-
 
     public void tick() {
         for (PlantCard plantCard : plantCards) {
@@ -140,7 +139,7 @@ public class Player {
 
                 if (activPlantCard.getPlant() instanceof SunFlower) {
                     if (x < 4){
-                        sunFlowersPlacedScore += 10;
+                        sunFlowersPlacedScore += 70;
                     } else if (x >= 7) {
                         sunFlowersPlacedScore -= 5;
                     } else {
