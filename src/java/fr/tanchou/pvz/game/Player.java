@@ -65,12 +65,14 @@ public class Player {
         int offensivePlantPlacementScore = getOffensivePlantPlacedCount() * 200; // Récompense augmentée.
         int plantPlacementScore = getPlantPlacedCount() * 70; // Bonus général.
         double averageSun = calculateAverageSun();
-        int unusedSunPenalty = (int) ((averageSun > 100 ? (double) -sold / 2 : 0) * 1);
-        this.sunFlowersPlacedScore *= 2; // Récompense ajustée pour les tournesols
+        int unusedSunPenalty = (int) ((averageSun > 150 ? (double) -sold / 2 : 0) * 1.1);
+        this.sunFlowersPlacedScore *= 4; // Récompense ajustée pour les tournesols
         // Récompense ajustée pour une victoire
         int victoryScore = partie.isVictory() ? 2000 : 0;
 
-        //System.out.println("Survival: " + survivalScore + ", Mowers: " + mowersScore + ", Plant Placement:" + getPlantPlacedCount() + " " + plantPlacementScore + ", sun " + this.sunFlowersPlacedScore + ", Zombie Kills: " + getKilledZombieCount() * 25 + ", Unused Sun Penalty: " + unusedSunPenalty + ", Victory: " + victoryScore);
+        //Rajouter la pénalité pour les plantes mangées
+
+        System.out.println("Survival: " + survivalScore + ", Mowers: " + mowersScore + ", Plant Placement:" + getPlantPlacedCount() + " " + plantPlacementScore + ", sunflower " + this.sunFlowersPlacedScore + ", offensive" + offensivePlantPlacementScore + ", Zombie Kills: " + getKilledZombieCount() * 25 + ", Unused Sun Penalty: " + unusedSunPenalty + ", Victory: " + victoryScore);
 
         // Score total final
         return survivalScore + mowersScore + plantPlacementScore + offensivePlantPlacementScore + unusedSunPenalty + victoryScore + this.sunFlowersPlacedScore + getKilledZombieCount() * 50;
