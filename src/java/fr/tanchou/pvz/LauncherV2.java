@@ -186,6 +186,9 @@ public class LauncherV2 {
             System.out.println("\nRemplacer la génération en la mutant ? (Oui 1/Non 0)");
             int newgen = scanner.nextInt();
 
+            System.out.println("Avec aléatoire ? (true/false)");
+            boolean random = scanner.nextBoolean();
+
             if (newgen == 1){
                 System.out.println("\nCombien de simulations par génération ? actuellement : " + generationManager.getSimulationPerGeneration());
                 int simulations = scanner.nextInt();
@@ -196,11 +199,7 @@ public class LauncherV2 {
                 this.generationManager.createNextGenerationFromList(mutationAmplitude);
             }
 
-            System.out.println("Avec aléatoire ? (true/false)");
-            boolean random = scanner.nextBoolean();
-
             generationManager.evolveSandbox(random);
-
 
             statistics.saveScoresHistory(generationManager);
             System.out.println("Génération évoluée avec succès.");

@@ -52,10 +52,6 @@ public class PVZ {
             //System.out.println("Tick: " + gameController.getTickCount());
         }
 
-        if (partie.isVictory()) {
-            System.err.println("Victory!");
-        }
-
         this.gameAI.getNeuralNetwork().setScore((int) Math.round(player.calculateScore()));
 
         if (player.calculateScore() <= 0) {

@@ -44,7 +44,7 @@ public class PartieController {
             //System.out.println("Game Over !");
         }else if (partie.isVictory()) {
             stopGame();
-            System.out.println("Victory !");
+            //System.out.println("Victory !");
         }
     }
 
