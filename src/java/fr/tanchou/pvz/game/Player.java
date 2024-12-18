@@ -72,7 +72,7 @@ public class Player {
 
         //Rajouter la pénalité pour les plantes mangées
 
-        System.out.println("Survival: " + survivalScore + ", Mowers: " + mowersScore + ", Plant Placement:" + getPlantPlacedCount() + " " + plantPlacementScore + ", sunflower " + this.sunFlowersPlacedScore + ", offensive" + offensivePlantPlacementScore + ", Zombie Kills: " + getKilledZombieCount() * 25 + ", Unused Sun Penalty: " + unusedSunPenalty + ", Victory: " + victoryScore);
+        //System.out.println("Survival: " + survivalScore + ", Mowers: " + mowersScore + ", Plant Placement:" + getPlantPlacedCount() + " " + plantPlacementScore + ", sunflower " + this.sunFlowersPlacedScore + ", offensive" + offensivePlantPlacementScore + ", Zombie Kills: " + getKilledZombieCount() * 25 + ", Unused Sun Penalty: " + unusedSunPenalty + ", Victory: " + victoryScore);
 
         // Score total final
         return survivalScore + mowersScore + plantPlacementScore + offensivePlantPlacementScore + unusedSunPenalty + victoryScore + this.sunFlowersPlacedScore + getKilledZombieCount() * 50;
