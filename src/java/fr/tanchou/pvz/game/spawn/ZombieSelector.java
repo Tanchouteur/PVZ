@@ -11,16 +11,18 @@ import java.util.Random;
 public class ZombieSelector {
     private final Partie partie;
     private final ZombieCard[] zombiesCardArray;
-    private final Random rand = new Random();
+    private Random rand = new Random();
     private final int[] rowScores = new int[5]; // Score de difficulté pour chaque ligne
 
-    ZombieSelector(Partie partie) {
+    ZombieSelector(Partie partie, Random rand) {
         this.partie = partie;
         this.zombiesCardArray = new ZombieCard[]{
                 new ZombieCard(new NormalZombie(11.0,0), 40, 1),
                 new ZombieCard(new ConeHeadZombie(11.0,0), 0, 2),
                 new ZombieCard(new BucketHeadZombie(11.0,0), 0, 3)
         };
+
+        this.rand = rand;
     }
 
     void spawnZombie() {

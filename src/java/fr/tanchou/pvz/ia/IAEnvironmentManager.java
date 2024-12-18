@@ -19,7 +19,7 @@ public class IAEnvironmentManager {
     }
 
     // Initialise les jeux
-    public void initializeGames(List<NeuralNetwork> models) {
+    public void initializeGames(List<NeuralNetwork> models, boolean random) {
         System.out.println("Init & Lancement des simulations...");
         this.numberOfGames = models.size()-1;
         this.completedGames.set(0);
@@ -28,14 +28,14 @@ public class IAEnvironmentManager {
 
             Player iaPlayer = new Player("IA_Player_" + (i + 1));
 
-            executorService.submit(getRunnableInstance(models, iaPlayer, i));
+            executorService.submit(getRunnableInstance(models, iaPlayer, i, random));
         }
 
         System.out.println("Toutes les simulations sont lancées.");
     }
 
-    private Runnable getRunnableInstance(List<NeuralNetwork> models, Player iaPlayer, int i) {
-        PVZ pvz = new PVZ(iaPlayer, new GameAI(models.get(i))); // Attribution du modèle à l'IA
+    private Runnable getRunnableInstance(List<NeuralNetwork> models, Player iaPlayer, int i, boolean random) {
+        PVZ pvz = new PVZ(iaPlayer, new GameAI(models.get(i)), random); // Attribution du modèle à l'IA
 
         return () -> {
             try {

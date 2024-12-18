@@ -16,7 +16,7 @@ public class Partie {
 
     private final boolean consoleLog;
 
-    public Partie(Player player, SunManager sunManager, boolean consoleLog) {
+    public Partie(Player player, SunManager sunManager, boolean consoleLog, boolean random) {
         this.player = player;
         this.rows = new Row[5];
         this.sunManager = sunManager;
@@ -26,16 +26,11 @@ public class Partie {
             this.rows[i] = new Row(i, sunManager);
         }
 
-        zombieSpawner = new ZombieSpawner(this);
-        /*WallNut wallNut = new WallNut(0, 1);
-        wallNut.takeDamage(170);
-        rows[1].placePlantInCase(wallNut);*/
-
-
-        /*rows[1].placePlantInCase(new FreezePeaShooter(0,1));
-        rows[2].placePlantInCase(new SunFlower(1,2));*/
-
-        /*zombieSpawner.spawnZombie(4);*/
+        if (random) {
+            this.zombieSpawner = new ZombieSpawner(this, 0);
+        } else {
+            this.zombieSpawner = new ZombieSpawner(this, 123456789);
+        }
     }
 
     public void update() {

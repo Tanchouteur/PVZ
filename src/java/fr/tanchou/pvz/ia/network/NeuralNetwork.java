@@ -156,7 +156,7 @@ public class NeuralNetwork {
                 neuron.setWeights(weights);
 
                 // Mutation du biais (augmentée en fonction du score)
-                if (Math.random() < 0.2) { // Augmenter la probabilité de mutation des biais
+                if (Math.random() < 0.1) { // Augmenter la probabilité de mutation des biais
                     double currentBias = neuron.getBias();
 
                     // Mutation basée sur l'activation et une variation aléatoire

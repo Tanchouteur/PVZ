@@ -21,11 +21,20 @@ public class ZombieSpawner {
     private boolean inWave = false;      // Indique si une vague est en cours
 
     private enum State { INIT, CRESCENDO, WAVE1, INTERLUDE, WAVE2, FINISHED }
-    private State currentState = State.INIT;;
+    private State currentState = State.INIT;
 
-    public ZombieSpawner(Partie partie) {
+    private int randomSeed = 0;
+
+    public ZombieSpawner(Partie partie, int random) {
         this.partie = partie;
-        this.zombieSelector = new ZombieSelector(partie);
+        this.zombieSelector = new ZombieSelector(partie, rand);
+
+        this.randomSeed = random;
+        if (random == 0) {
+            rand.setSeed(System.currentTimeMillis());
+        }else {
+            rand.setSeed(random);
+        }
     }
 
     private void decrementSpawnRate(int valueToDecrement) {
@@ -82,7 +91,11 @@ public class ZombieSpawner {
             currentState = State.WAVE1;
             zombiesToSpawn = 15 + rand.nextInt(5);
             tickCount = 0;
-            rand.setSeed(System.currentTimeMillis());
+            if (randomSeed == 0) {
+                rand.setSeed(System.currentTimeMillis());
+            }else {
+                rand.setSeed(randomSeed);
+            }
             //System.out.println("first Wave commence");
             inWave = true;
         }

@@ -63,9 +63,9 @@ public class Player {
         int mowersScore = (int) (mowers * 20 * Math.sqrt(partie.getZombieSpawner().getTotalTick() / 100.0));
         int survivalScore = (int) ((partie.getZombieSpawner().getTotalTick() * 0.5) + getKilledZombieCount() * 10);
         int offensivePlantPlacementScore = getOffensivePlantPlacedCount() * 200; // Récompense augmentée.
-        int plantPlacementScore = getPlantPlacedCount() * 30; // Bonus général.
+        int plantPlacementScore = getPlantPlacedCount() * 70; // Bonus général.
         double averageSun = calculateAverageSun();
-        int unusedSunPenalty = (int) ((averageSun > 100 ? (double) -sold / 2 : 0) * 0.5);
+        int unusedSunPenalty = (int) ((averageSun > 100 ? (double) -sold / 2 : 0) * 1);
         this.sunFlowersPlacedScore *= 2; // Récompense ajustée pour les tournesols
         // Récompense ajustée pour une victoire
         int victoryScore = partie.isVictory() ? 2000 : 0;
@@ -73,7 +73,7 @@ public class Player {
         //System.out.println("Survival: " + survivalScore + ", Mowers: " + mowersScore + ", Plant Placement:" + getPlantPlacedCount() + " " + plantPlacementScore + ", sun " + this.sunFlowersPlacedScore + ", Zombie Kills: " + getKilledZombieCount() * 25 + ", Unused Sun Penalty: " + unusedSunPenalty + ", Victory: " + victoryScore);
 
         // Score total final
-        return survivalScore + mowersScore + plantPlacementScore + offensivePlantPlacementScore + unusedSunPenalty + victoryScore + this.sunFlowersPlacedScore;
+        return survivalScore + mowersScore + plantPlacementScore + offensivePlantPlacementScore + unusedSunPenalty + victoryScore + this.sunFlowersPlacedScore + getKilledZombieCount() * 50;
     }
 
     public void tick() {
@@ -141,9 +141,9 @@ public class Player {
                     if (x < 4){
                         sunFlowersPlacedScore += 70;
                     } else if (x >= 7) {
-                        sunFlowersPlacedScore -= 5;
+                        sunFlowersPlacedScore -= 20;
                     } else {
-                        sunFlowersPlacedScore += 1;
+                        sunFlowersPlacedScore += 10;
                     }
                 }else if (activPlantCard.getPlant() instanceof PeaShooter || activPlantCard.getPlant() instanceof FreezePeaShooter || activPlantCard.getPlant() instanceof DoublePeaShooter) {
                     offensivePlantPlacedCount++;

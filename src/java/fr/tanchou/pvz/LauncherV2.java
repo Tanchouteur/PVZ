@@ -4,7 +4,7 @@ import fr.tanchou.pvz.game.PVZ;
 import fr.tanchou.pvz.game.Player;
 import fr.tanchou.pvz.guiJavaFx.PVZGraphic;
 import fr.tanchou.pvz.ia.GenerationManager;
-import fr.tanchou.pvz.ia.ModelSaver;
+import fr.tanchou.pvz.ia.data.ModelSaver;
 import fr.tanchou.pvz.ia.data.Statistics;
 import fr.tanchou.pvz.ia.network.GameAI;
 import fr.tanchou.pvz.ia.network.NeuralNetwork;
@@ -24,7 +24,7 @@ public class LauncherV2 {
         NeuralNetwork model = ModelSaver.loadModel("best_model.json");
 
         if (model == null){
-            model = new NeuralNetwork(new int[]{230, 512, 256, 128, 64, 52});
+            model = new NeuralNetwork(new int[]{230, 256, 128, 64, 52});
         }
 
         this.generationManager = new GenerationManager(model);
@@ -67,7 +67,7 @@ public class LauncherV2 {
                 1. Lancer le jeu en mode graphique avec IA
                 2. Lancer une première génération random
                 3. Entraîner les modèles à partir du fichier
-                4. Faire évoluer la génération
+                4. Evolve SandBox
                 5. Afficher les statistiques
                 6. Sauvegarder les statistiques dans un fichier
                 7. Charger les statistiques depuis un fichier
@@ -88,7 +88,9 @@ public class LauncherV2 {
 
     private void launchGameWithoutAI() {
         try {
-            PVZ pvz = new PVZ(player);
+            System.out.println("Avec aléatoire ? (true/false)");
+            boolean random = scanner.nextBoolean();
+            PVZ pvz = new PVZ(player, random);
             PVZGraphic.launchView(pvz);
             System.out.println("\nVotre score est de : " + player.calculateScore());
         }catch (Exception e) {
@@ -101,9 +103,12 @@ public class LauncherV2 {
         System.out.println("A quel vitesse voulez-vous que le model joue ? (multiplicateur)");
         double speed = scanner.nextDouble();
 
+        System.out.println("Avec aléatoire ? (true/false)");
+        boolean random = scanner.nextBoolean();
+
         System.out.println("Lancement du jeu avec IA...");
         try {
-            PVZ pvz = new PVZ(player, new GameAI(ModelSaver.loadModel("best_model.json")), speed);
+            PVZ pvz = new PVZ(player, new GameAI(ModelSaver.loadModel("best_model.json")), speed, random);
 
             PVZGraphic.launchView(pvz);
             System.out.println("\nSont score est de : " + player.calculateScore());
@@ -119,10 +124,10 @@ public class LauncherV2 {
         int simulations = scanner.nextInt();
         this.generationManager.setSimulationPerGeneration(simulations);
 
-        this.generationManager.createRandomGeneration();
-
         System.out.println("Faire évoluer la génération ? (Oui/Non)");
         String evolve = scanner.next();
+
+        this.generationManager.createRandomGeneration();
 
         if (evolve.equalsIgnoreCase("Oui")) {
             System.out.println("\nCombien de générations voulez-vous faire ?");
@@ -141,7 +146,7 @@ public class LauncherV2 {
             System.out.println("Fin de la génération.");
         }
 
-        ModelSaver.saveModel(this.generationManager.getBestModels().getFirst(), "best_model.json");
+        //ModelSaver.saveModel(this.generationManager.getBestModels().getFirst(), "best_model.json");
 
     }
 
@@ -176,13 +181,49 @@ public class LauncherV2 {
     }
 
     private void evolveGeneration() {
-        if (generationManager == null) {
-            System.out.println("Veuillez d'abord lancer une génération.");
-            return;
+        boolean continueEvolution = true;
+        while (continueEvolution){
+            System.out.println("\nRemplacer la génération en la mutant ? (Oui 1/Non 0)");
+            int newgen = scanner.nextInt();
+
+            if (newgen == 1){
+                System.out.println("\nCombien de simulations par génération ? actuellement : " + generationManager.getSimulationPerGeneration());
+                int simulations = scanner.nextInt();
+                this.generationManager.setSimulationPerGeneration(simulations);
+
+                System.out.println("\nQuelle amplitude de mutation ? (entre 0.0 et 1.0)");
+                double mutationAmplitude = scanner.nextDouble();
+                this.generationManager.createNextGenerationFromList(mutationAmplitude);
+            }
+
+            System.out.println("Avec aléatoire ? (true/false)");
+            boolean random = scanner.nextBoolean();
+
+            generationManager.evolveSandbox(random);
+
+
+            statistics.saveScoresHistory(generationManager);
+            System.out.println("Génération évoluée avec succès.");
+
+            //ask for save best model
+            System.out.println("Sauvegarder le meilleur modèle ? (Oui/Non)");
+            String save = scanner.next();
+            if (save.equalsIgnoreCase("Oui")) {
+                System.out.println("Nom du fichier (exemple : best_model) : ");
+                String fileName = scanner.next();
+                ModelSaver.saveModel(this.generationManager.getBestModelOverall(), fileName + ".json");
+
+                this.saveStatisticsToFile();
+            }
+
+            System.out.println("\nCréez une nouvelle génération ? (Oui 1/Non 0)");
+            int newEvolve = scanner.nextInt();
+
+            if (newEvolve == 0){
+                continueEvolution = false;
+            }
+
         }
-        generationManager.evolve();
-        statistics.saveScoresHistory(generationManager);
-        System.out.println("Génération évoluée avec succès.");
     }
 
     private void displayStatistics() {

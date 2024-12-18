@@ -1,4 +1,4 @@
-package fr.tanchou.pvz.ia;
+package fr.tanchou.pvz.ia.data;
 
 import fr.tanchou.pvz.ia.network.NeuralNetwork;
 import fr.tanchou.pvz.ia.network.Neuron;
