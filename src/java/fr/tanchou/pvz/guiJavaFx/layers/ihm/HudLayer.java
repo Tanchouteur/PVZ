@@ -51,7 +51,7 @@ public class HudLayer extends Pane {
             i++;
         }
 
-        shovelView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/assets/items/shovel.png"))));
+        shovelView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/assets/items/Shovel.png"))));
         shovelView.setFitWidth(100);
         shovelView.setFitHeight(100);
 
