@@ -17,30 +17,32 @@ import java.util.concurrent.Executors;
 public class WebSocketHandler extends WebSocketServer {
 
     private final GenerationManager generationManager; // Référence à votre backend principal
-    private final Statistics statistics; // Référence aux statistiques
     private boolean running = false;
-    private WebSocket webSocket;
+
+    private final MultiOutputStream multiOutputStream;
 
     // Constructeur
     public WebSocketHandler(int port, GenerationManager generationManager, Statistics statistics) throws KeyStoreException, IOException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyManagementException, CertificateException {
         super(new InetSocketAddress("0.0.0.0", port));
 
         this.generationManager = generationManager;
-        this.statistics = statistics;
-
+        this.multiOutputStream = new MultiOutputStream(System.out);
+        PrintStream printStream = new PrintStream(multiOutputStream);
+        System.setOut(printStream);
     }
 
     @Override
     public void onOpen(WebSocket conn, ClientHandshake handshake) {
-        System.out.println("Nouveau client connecté : " + conn.getRemoteSocketAddress());
-        webSocket = conn;
-        System.setOut(new PrintStream(new DualOutputStream(System.out, webSocket)));
+        this.multiOutputStream.addWebSocket(conn);
+        conn.send(getConfiguration());
+        System.out.println("Nouveau client connecté : " + conn.getRemoteSocketAddress() + " - " + MultiOutputStream.webSocket.size() + " clients connectés.");
     }
 
     @Override
     public void onClose(WebSocket conn, int code, String reason, boolean remote) {
-        System.out.println("Client déconnecté : " + conn.getRemoteSocketAddress());
         running = false;
+        this.multiOutputStream.removeWebSocket(conn);
+        System.out.println("Client déconnecté : " + conn.getRemoteSocketAddress()+ " - " + MultiOutputStream.webSocket + " clients connectés.");
     }
 
     @Override
@@ -48,14 +50,20 @@ public class WebSocketHandler extends WebSocketServer {
         // Diviser le message en commande et paramètres
         String[] parts = message.split(" ", 2);  // Split message en 2 parties : commande et paramètre(s)
         String command = parts[0];  // La première partie est la commande
-        String parameters = parts.length > 1 ? parts[1] : "";  // Le reste est considéré comme paramètre(s)
+
+        // Le reste est considéré comme des paramètres
+        String[] parameters = new String[0];
+        if (parts.length > 1) {
+            parameters = parts[1].split(" ");  // Split des paramètres
+        }
+
 
         // Traitement des différentes commandes via switch
         switch (command) {
             case "GET_STATISTICS":
                 // Envoi des statistiques au client
-                String response = statistics.getScoresHistory().toString();
-                conn.send("Statistics : "+response);
+                String response = this.generationManager.getStatistics();
+                conn.send(response);
                 break;
 
             case "START_TRAINING":
@@ -67,9 +75,9 @@ public class WebSocketHandler extends WebSocketServer {
 
             case "START_SEMI_AUTO_TRAIN":
                 // Vérification si un paramètre est fourni
-                if (!parameters.isEmpty()) {
+                if (!(parameters.length == 0)) {
                     try {
-                        int nbGen = Integer.parseInt(parameters);  // Récupère le nombre de générations
+                        int nbGen = Integer.parseInt(parameters[0]);  // Récupère le nombre de générations
                         ExecutorService executor = Executors.newSingleThreadExecutor();
                         executor.submit(() -> generationManager.semiAutoTrain(nbGen));  // Démarrage de l'entraînement semi-auto
                         conn.send("Training semi-auto démarré pour " + nbGen + " générations.");
@@ -86,11 +94,38 @@ public class WebSocketHandler extends WebSocketServer {
                 generationManager.stopTraining();
                 break;
 
+            case "UPDATE_CONFIG":
+                // Mise à jour de la configuration
+                generationManager.setNumberOfThreads(Integer.parseInt(parameters[0]));
+                generationManager.setSimulationPerGeneration(Integer.parseInt(parameters[1]));
+                generationManager.setMutationAmplitude(Double.parseDouble(parameters[2]));
+
+                conn.send(getConfiguration());
+                break;
+
+            case "DESACTIVATE_CONSOLE":
+                // Mise à jour de la configuration
+                this.multiOutputStream.deactivateConsoleOutput();
+                conn.send("Console désactivée.");
+                break;
+
+            case "ACTIVATE_CONSOLE":
+                // Mise à jour de la configuration
+                this.multiOutputStream.activateConsoleOutput();
+
+                conn.send("Console activée.");
+                break;
+
             default:
                 // Commande inconnue
                 conn.send("Commande inconnue.");
                 break;
         }
+    }
+
+    //send configuration to client
+    private String getConfiguration() {
+        return "Configuration " + generationManager.getNumberOfThreads() + " " + generationManager.getSimulationPerGeneration() + " " + generationManager.getMutationAmplitude();
     }
 
     @Override
@@ -119,4 +154,7 @@ public class WebSocketHandler extends WebSocketServer {
         return running;
     }
 
+    public void deactivateConsoleOutput() {
+        this.multiOutputStream.deactivateConsoleOutput();
+    }
 }

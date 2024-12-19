@@ -2,6 +2,8 @@ package fr.tanchou.pvz.ia.utils;
 
 import fr.tanchou.pvz.ia.data.ModelManager;
 import fr.tanchou.pvz.ia.network.NeuralNetwork;
+import fr.tanchou.pvz.web.MultiOutputStream;
+import org.java_websocket.WebSocket;
 
 import java.util.*;
 
@@ -74,7 +76,7 @@ public class GenerationManager {
 
     // Méthode pour faire évoluer les modèles
     private void trainModel() {
-        System.out.println("========= Génération " + this.generationNumber + " =========");
+        System.out.println("========= Génération " + this.generationNumber + " ==========");
         if (this.bestModels.isEmpty()) {
             this.createNextGenerationFromOne(this.bestModelOverall);
         }
@@ -96,7 +98,7 @@ public class GenerationManager {
 
         this.printBestModels();
 
-        System.out.println("========= Fin de la génération " + this.generationNumber + " =========");
+        System.out.println("========= Fin de la génération " + (this.generationNumber-1) + " =========");
     }
 
     public void trainSandbox(boolean random) {
@@ -123,6 +125,9 @@ public class GenerationManager {
         // Attente de la fin de toutes les simulations
         while (!environmentManager.areAllSimulationsCompleted()) {
             System.out.println("Simulation advancement : " + environmentManager.getPrcntgOfSimulationsCompleted());
+            for (WebSocket ws : MultiOutputStream.webSocket) {
+                ws.send("Training " + environmentManager.getPrcntgOfSimulationsCompleted()+"%");
+            }
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
@@ -158,6 +163,10 @@ public class GenerationManager {
 
         // Calcul de la mutation en fonction du score normalisé
         this.computeMutationAmplitude(bestScore, this.currentAverageScore);
+
+        for (WebSocket ws : MultiOutputStream.webSocket) {
+            ws.send(this.getStatistics());
+        }
 
         double bestToAverageRatio = (double) bestScore / this.currentAverageScore;
         System.out.println("=========== Statistiques ===========");
@@ -314,7 +323,6 @@ public class GenerationManager {
 
     public void setNumberOfThreads(int nbThreads) {
         this.nbThreadToUse = nbThreads;
-        System.out.println("Nombre de threads mis à jour : " + nbThreads);
     }
 
     public void stopTraining() {
@@ -322,7 +330,12 @@ public class GenerationManager {
         System.out.println("Training stopped.");
     }
 
-    public void startTraining() {
+    public void resumeTraining() {
         this.continueTraining = true;
+    }
+
+    // Méthode pour récupérer les statistiques
+    public String getStatistics() {
+        return "Statistics " + this.generationNumber + " " + this.bestModelOverall.getScore() + " " + this.deltaScore + " " + this.currentAverageScore + " " + this.previousAverageScore + " " + this.randomLevel;
     }
 }

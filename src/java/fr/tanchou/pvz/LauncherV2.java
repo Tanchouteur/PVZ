@@ -39,6 +39,7 @@ public class LauncherV2 {
         this.statistics.loadScoresHistoryFromFile("statistics.csv");
         this.statistics.printScoresHistory();
         this.scanner = new Scanner(System.in);
+        startWebInterface();
     }
 
     public void start() {
@@ -347,6 +348,11 @@ public class LauncherV2 {
             }
             executorService.shutdown();
         }
+    }
+
+    //desactivate console output
+    private void deactivateConsoleOutput() {
+        api.deactivateConsoleOutput();
     }
 
     private void exitProgram() {
