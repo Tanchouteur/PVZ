@@ -3,13 +3,17 @@ package fr.tanchou.pvz;
 import fr.tanchou.pvz.game.PVZ;
 import fr.tanchou.pvz.game.Player;
 import fr.tanchou.pvz.guiJavaFx.PVZGraphic;
+import fr.tanchou.pvz.ia.data.ModelManager;
 import fr.tanchou.pvz.ia.utils.GenerationManager;
-import fr.tanchou.pvz.ia.data.ModelSaver;
 import fr.tanchou.pvz.ia.data.Statistics;
 import fr.tanchou.pvz.ia.network.GameAI;
 import fr.tanchou.pvz.ia.network.NeuralNetwork;
+import fr.tanchou.pvz.web.WebApi;
 
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static java.lang.System.exit;
 
@@ -18,9 +22,11 @@ public class LauncherV2 {
     private final GenerationManager generationManager;
     private final Statistics statistics;
     private final Scanner scanner;
+    private WebApi api;
+    ExecutorService executorService;
 
     public LauncherV2() {
-        NeuralNetwork model = ModelSaver.loadModel("best_model");
+        NeuralNetwork model = ModelManager.loadModel("best_model");
 
         this.player = new Player("Louis");
         this.generationManager = new GenerationManager(model);
@@ -48,7 +54,8 @@ public class LauncherV2 {
                 case 7 -> saveStatisticsToFile();
                 case 8 -> loadStatisticsFromFile();
                 case 9 -> changeNumberOfThreads();
-                case 10 -> exitProgram();
+                case 10 -> startWebInterface();
+                case 11 -> exitProgram();
                 default -> System.out.println("Choix invalide. Veuillez réessayer.");
             }
         }
@@ -70,7 +77,8 @@ public class LauncherV2 {
                 7. Sauvegarder les statistiques dans un fichier
                 8. Charger les statistiques depuis un fichier
                 9. Changer le nombre de threads
-                10. Quitter
+                10. Démarrer l'API web
+                11. Quitter
                 
                 """);
     }
@@ -109,13 +117,13 @@ public class LauncherV2 {
 
         NeuralNetwork model = null;
         if (!loadingPath.equalsIgnoreCase("")) {
-            model = ModelSaver.loadModel(loadingPath);
+            model = ModelManager.loadModel(loadingPath);
             if (model == null) {
                 System.err.println("Impossible de charger le model : " + loadingPath);
             }
         }else {
             System.out.println("Chargement du model par défaut : best_model.json");
-            model = ModelSaver.loadModel("best_model");
+            model = ModelManager.loadModel("best_model");
         }
 
         System.out.println("Lancement du jeu avec IA...");
@@ -148,18 +156,14 @@ public class LauncherV2 {
 
             this.generationManager.resetGenerationNumber();
 
-            for (int i = 0; i < nbGenerations; i++) {
-                this.generationManager.trainModel();
-                statistics.saveScoresHistory(this.generationManager);
-                System.out.println("\nGénération " + (i + 1) + " terminée\n");
-            }
-
+            this.generationManager.semiAutoTrain(nbGenerations);
             statistics.saveScoresHistory(this.generationManager);
+
         } else {
             System.out.println("Fin de la génération.");
         }
 
-        //ModelSaver.saveModel(this.generationManager.getBestModels().getFirst(), "best_model.json");
+        //ModelManager.saveModel(this.generationManager.getBestModels().getFirst(), "best_model.json");
 
     }
 
@@ -187,7 +191,7 @@ public class LauncherV2 {
         System.out.println("Sauvegarder le meilleur modèle ? (Oui/Non)");
         String save = scanner.next();
         if (save.equalsIgnoreCase("Oui") || save.equalsIgnoreCase("o") || save.equalsIgnoreCase("Y") || save.equalsIgnoreCase("Yes") || save.equalsIgnoreCase("1")){
-            ModelSaver.saveModel(this.generationManager.getBestModelOverall(), "best_model");
+            ModelManager.saveModel(this.generationManager.getBestModelOverall(), "best_model");
             saveStatisticsToFile();
         }
     }
@@ -211,21 +215,16 @@ public class LauncherV2 {
         }
 
         this.generationManager.resetGenerationNumber();
+        this.generationManager.semiAutoTrain(nbGenerations);
 
-        for (int i = 0; i < nbGenerations; i++) {
-
-            this.generationManager.trainModel();
-
-            statistics.saveScoresHistory(this.generationManager);
-            System.out.println("\nGénération " + (i + 1) + " terminée\n");
-        }
+        statistics.saveScoresHistory(this.generationManager);
 
         this.statistics.printGlobalStatistics();
 
         System.out.println("Sauvegarder le meilleur modèle ? (Oui/Non)");
         String save = scanner.next();
         if (save.equalsIgnoreCase("Oui") || save.equalsIgnoreCase("o") || save.equalsIgnoreCase("Y") || save.equalsIgnoreCase("Yes") || save.equalsIgnoreCase("1")){
-            ModelSaver.saveModel(this.generationManager.getBestModelOverall(), "best_model");
+            ModelManager.saveModel(this.generationManager.getBestModelOverall(), "best_model");
             saveStatisticsToFile();
         }
     }
@@ -266,7 +265,7 @@ public class LauncherV2 {
             if (save.equalsIgnoreCase("oui") || save.equalsIgnoreCase("o") || save.equalsIgnoreCase("y") || save.equalsIgnoreCase("yes") || save.equalsIgnoreCase("1")){
                 System.out.println("Nom du fichier (exemple : best_model) : ");
                 String fileName = scanner.next();
-                ModelSaver.saveModel(this.generationManager.getBestModelOverall(), fileName);
+                ModelManager.saveModel(this.generationManager.getBestModelOverall(), fileName);
 
                 this.saveStatisticsToFile();
             }
@@ -281,10 +280,10 @@ public class LauncherV2 {
     }
 
     private void displayStatistics() {
-        statistics.printAverageGenerationScore(generationManager.getAllModels());
-        statistics.printScoresHistory();
+        System.out.println(this.statistics.getAverageGenerationScore(this.generationManager.getAllModels()));
+        this.statistics.printScoresHistory();
         System.out.println("Amélioration par rapport à la génération précédente : " +
-                (statistics.isCurrentGenerationBetter() ? "Oui" : "Non"));
+                (this.statistics.isCurrentGenerationBetter() ? "Oui" : "Non"));
     }
 
     private void saveStatisticsToFile() {
@@ -303,8 +302,35 @@ public class LauncherV2 {
         this.generationManager.setNumberOfThreads(nbThreads);
     }
 
+    private void startWebInterface() {
+        if (this.api != null) {
+            System.out.println("L'API web est déjà en cours d'exécution.");
+            return;
+        }
+
+        this.executorService = Executors.newSingleThreadExecutor();
+        this.executorService.submit(() -> {
+            try {
+                this.api = new WebApi(8080, this.generationManager, this.statistics);
+                this.api.start();
+            } catch (IOException e) {
+                System.err.println("Impossible de créer l'API web : " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
+        this.executorService.shutdown();
+    }
+
+    private void stopWebInterface() {
+        if (api != null) {
+            api.stop();
+            executorService.shutdown();
+        }
+    }
+
     private void exitProgram() {
         saveStatisticsToFile();
+        stopWebInterface();
         System.out.println("Programme terminé. À bientôt !");
         exit(0);
     }

@@ -17,9 +17,9 @@ public class Statistics {
     private final List<Map<String, Integer>> scoresHistory = new LinkedList<>();
 
     // Méthode pour afficher la moyenne des scores d'une génération
-    public void printAverageGenerationScore(List<NeuralNetwork> models) {
+    public String getAverageGenerationScore(List<NeuralNetwork> models) {
         int averageScore = computeAverageGenerationScore(models);
-        System.out.println("Average score of the generation: " + averageScore);
+        return averageScore + "";
     }
 
     // Méthode pour sauvegarder l'historique des scores pour une génération
@@ -73,6 +73,10 @@ public class Statistics {
                     stats.getOrDefault("mutationAmplitude", 0)/100);
         }
         System.out.println("========================\n");
+    }
+
+    public List<Map<String, Integer>> getScoresHistory() {
+        return scoresHistory;
     }
 
     // Méthode pour écrire l'historique des scores dans un fichier

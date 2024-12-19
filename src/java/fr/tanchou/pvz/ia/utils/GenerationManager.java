@@ -1,6 +1,6 @@
 package fr.tanchou.pvz.ia.utils;
 
-import fr.tanchou.pvz.ia.data.ModelSaver;
+import fr.tanchou.pvz.ia.data.ModelManager;
 import fr.tanchou.pvz.ia.network.NeuralNetwork;
 
 import java.util.*;
@@ -31,6 +31,8 @@ public class GenerationManager {
 
     private int repereLast10Gen = 0;
 
+    private boolean continueTraining = true;
+
     // Constructeur
     public GenerationManager(NeuralNetwork sourceModel) {
         this.bestModelOverall = sourceModel;
@@ -43,10 +45,11 @@ public class GenerationManager {
     }
 
     public void fullAutoTrain() {
-        while (deltaScore > 100 || !this.randomLevel) {
+        this.continueTraining = true;
+        while ((deltaScore > 100 || !this.randomLevel) && this.continueTraining) {
             this.trainModel();
             if (this.generationNumber % 10 == 0) {
-                ModelSaver.saveModel(this.bestModelOverall, "bestModelOverall");
+                ModelManager.saveModel(this.bestModelOverall, "bestModelOverall");
                 if (this.repereLast10Gen == 0){
                     this.repereLast10Gen = this.currentAverageScore;
                 } else {
@@ -58,8 +61,19 @@ public class GenerationManager {
         }
     }
 
+    public void semiAutoTrain(int nbGen) {
+        this.continueTraining = true;
+        for (int i = 0; i < nbGen; i++) {
+            if (!this.continueTraining)
+                break;
+
+            this.trainModel();
+            ModelManager.saveModel(this.bestModelOverall, "bestModelOverall");
+        }
+    }
+
     // Méthode pour faire évoluer les modèles
-    public void trainModel() {
+    private void trainModel() {
         System.out.println("========= Génération " + this.generationNumber + " =========");
         if (this.bestModels.isEmpty()) {
             this.createNextGenerationFromOne(this.bestModelOverall);
@@ -110,7 +124,7 @@ public class GenerationManager {
         while (!environmentManager.areAllSimulationsCompleted()) {
             System.out.println("Simulation advancement : " + environmentManager.getPrcntgOfSimulationsCompleted());
             try {
-                Thread.sleep(1500);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
@@ -282,10 +296,6 @@ public class GenerationManager {
         return (int) (mutationAmplitude * 100);
     }
 
-    public void setNumberOfThreads(int nbThreads) {
-        this.nbThreadToUse = nbThreads;
-    }
-
     public NeuralNetwork getBestModelOverall() {
         return bestModelOverall;
     }
@@ -300,5 +310,19 @@ public class GenerationManager {
 
     public int getNumberOfThreads() {
         return this.nbThreadToUse;
+    }
+
+    public void setNumberOfThreads(int nbThreads) {
+        this.nbThreadToUse = nbThreads;
+        System.out.println("Nombre de threads mis à jour : " + nbThreads);
+    }
+
+    public void stopTraining() {
+        this.continueTraining = false;
+        System.out.println("Training stopped.");
+    }
+
+    public void startTraining() {
+        this.continueTraining = true;
     }
 }

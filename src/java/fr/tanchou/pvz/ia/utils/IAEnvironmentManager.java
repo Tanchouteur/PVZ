@@ -10,7 +10,6 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class IAEnvironmentManager {
-    private ExecutorService executorService; // Pool de threads pour les simulations
     private final AtomicInteger completedGames = new AtomicInteger(0);
     private int numberOfGames; // Nombre de jeux à simuler
 
@@ -19,7 +18,8 @@ public class IAEnvironmentManager {
 
     // Initialise les jeux
     public void initializeGames(List<NeuralNetwork> models, boolean random, int nbThreadToUse) {
-        this.executorService = Executors.newFixedThreadPool(nbThreadToUse);
+        // Pool de threads pour les simulations
+        ExecutorService executorService = Executors.newFixedThreadPool(nbThreadToUse);
         System.out.println("Init & Lancement des simulations...");
         this.numberOfGames = models.size()-1;
         this.completedGames.set(0);
