@@ -8,9 +8,14 @@ import fr.tanchou.pvz.ia.utils.GenerationManager;
 import fr.tanchou.pvz.ia.data.Statistics;
 import fr.tanchou.pvz.ia.network.GameAI;
 import fr.tanchou.pvz.ia.network.NeuralNetwork;
-import fr.tanchou.pvz.web.WebApi;
+import fr.tanchou.pvz.web.WebSocketHandler;
 
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,7 +27,7 @@ public class LauncherV2 {
     private final GenerationManager generationManager;
     private final Statistics statistics;
     private final Scanner scanner;
-    private WebApi api;
+    private WebSocketHandler api;
     ExecutorService executorService;
 
     public LauncherV2() {
@@ -303,7 +308,7 @@ public class LauncherV2 {
     }
 
     private void startWebInterface() {
-        if (this.api != null) {
+        if (this.api != null && this.api.isOpen()) {
             System.out.println("L'API web est déjà en cours d'exécution.");
             return;
         }
@@ -311,26 +316,46 @@ public class LauncherV2 {
         this.executorService = Executors.newSingleThreadExecutor();
         this.executorService.submit(() -> {
             try {
-                this.api = new WebApi(8080, this.generationManager, this.statistics);
-                this.api.start();
-            } catch (IOException e) {
-                System.err.println("Impossible de créer l'API web : " + e.getMessage());
-                e.printStackTrace();
+                if (this.api == null || !this.api.isOpen()) {
+                    this.api = new WebSocketHandler(8080, this.generationManager, this.statistics);
+                    this.api.start();
+                } else {
+                    System.out.println("Le serveur WebSocket est déjà démarré.");
+                }
+            } catch (KeyStoreException | IOException | UnrecoverableKeyException | NoSuchAlgorithmException |
+                     KeyManagementException | CertificateException e) {
+                // Gestion des erreurs au démarrage
+                if (this.api != null) {
+                    try {
+                        this.api.stop();
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+                throw new RuntimeException("Erreur lors du démarrage du serveur WebSocket", e);
             }
         });
         this.executorService.shutdown();
     }
 
-    private void stopWebInterface() {
+    private void stopWebInterface() throws InterruptedException {
         if (api != null) {
-            api.stop();
+            try {
+                this.api.stop();
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
             executorService.shutdown();
         }
     }
 
     private void exitProgram() {
         saveStatisticsToFile();
-        stopWebInterface();
+        try {
+            stopWebInterface();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("Programme terminé. À bientôt !");
         exit(0);
     }

@@ -56,6 +56,7 @@ public class WebApi {
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(response.getBytes());
             }
+
         } else {
             exchange.sendResponseHeaders(405, -1); // Method Not Allowed
         }
@@ -172,8 +173,9 @@ public class WebApi {
             Map<String, String> params = parseQuery(query);
             String modelName = params.getOrDefault("name", "model");
 
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
             // Sauvegarder le modèle
-            ModelManager.saveModel(generationManager.getBestModelOverall(), modelName);
+            executorService.submit(() -> ModelManager.saveModel(generationManager.getBestModelOverall(), modelName));
 
             sendResponse(exchange, "Modèle sauvegardé.");
 
