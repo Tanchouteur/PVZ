@@ -10,8 +10,11 @@ import java.util.*;
 
 public class ModelSaver {
 
+    public static String modelDirectory = "Models/"; // Répertoire de sauvegarde des modèles
+
     // Méthode pour sauvegarder un modèle
     public static void saveModel(NeuralNetwork network, String filePath) {
+        filePath = modelDirectory + filePath + ".json";
         System.out.println("Saving in " + filePath + " - NetworkScore : " + network.getScore());
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -41,6 +44,7 @@ public class ModelSaver {
 
     // Méthode pour charger un modèle
     public static NeuralNetwork loadModel(String filePath) {
+        filePath = modelDirectory + filePath + ".json";
         System.out.println("Loading " + filePath + "...");
         Gson gson = new Gson();
 

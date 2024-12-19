@@ -20,7 +20,7 @@ public class LauncherV2 {
     private final Scanner scanner;
 
     public LauncherV2() {
-        NeuralNetwork model = ModelSaver.loadModel("Models/best_model.json");
+        NeuralNetwork model = ModelSaver.loadModel("best_model");
 
         this.player = new Player("Louis");
         this.generationManager = new GenerationManager(model);
@@ -115,7 +115,7 @@ public class LauncherV2 {
             }
         }else {
             System.out.println("Chargement du model par défaut : best_model.json");
-            model = ModelSaver.loadModel("best_model.json");
+            model = ModelSaver.loadModel("best_model");
         }
 
         System.out.println("Lancement du jeu avec IA...");
@@ -171,7 +171,7 @@ public class LauncherV2 {
             System.out.println("Utilisation de la valeur par défaut.");
         }
 
-        System.out.println("\nQuelle amplitude de mutation de départ ? (par défaut : " + this.generationManager.getMutationAmplitude() + ") ");
+        System.out.println("\nQuelle amplitude de mutation de départ ? (par défaut : " + this.generationManager.getMutationAmplitude()/100 + ") ");
         try {
             this.generationManager.setMutationAmplitude(Double.parseDouble(scanner.next()));
         }catch (Exception e){
@@ -187,7 +187,7 @@ public class LauncherV2 {
         System.out.println("Sauvegarder le meilleur modèle ? (Oui/Non)");
         String save = scanner.next();
         if (save.equalsIgnoreCase("Oui") || save.equalsIgnoreCase("o") || save.equalsIgnoreCase("Y") || save.equalsIgnoreCase("Yes") || save.equalsIgnoreCase("1")){
-            ModelSaver.saveModel(this.generationManager.getBestModelOverall(), "best_model.json");
+            ModelSaver.saveModel(this.generationManager.getBestModelOverall(), "best_model");
             saveStatisticsToFile();
         }
     }
@@ -225,7 +225,7 @@ public class LauncherV2 {
         System.out.println("Sauvegarder le meilleur modèle ? (Oui/Non)");
         String save = scanner.next();
         if (save.equalsIgnoreCase("Oui") || save.equalsIgnoreCase("o") || save.equalsIgnoreCase("Y") || save.equalsIgnoreCase("Yes") || save.equalsIgnoreCase("1")){
-            ModelSaver.saveModel(this.generationManager.getBestModelOverall(), "best_model.json");
+            ModelSaver.saveModel(this.generationManager.getBestModelOverall(), "best_model");
             saveStatisticsToFile();
         }
     }
@@ -266,7 +266,7 @@ public class LauncherV2 {
             if (save.equalsIgnoreCase("oui") || save.equalsIgnoreCase("o") || save.equalsIgnoreCase("y") || save.equalsIgnoreCase("yes") || save.equalsIgnoreCase("1")){
                 System.out.println("Nom du fichier (exemple : best_model) : ");
                 String fileName = scanner.next();
-                ModelSaver.saveModel(this.generationManager.getBestModelOverall(), fileName + ".json");
+                ModelSaver.saveModel(this.generationManager.getBestModelOverall(), fileName);
 
                 this.saveStatisticsToFile();
             }

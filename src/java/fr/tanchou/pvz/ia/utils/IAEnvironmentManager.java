@@ -51,7 +51,7 @@ public class IAEnvironmentManager {
         return completedGames.get() >= numberOfGames ;
     }
 
-    public void setExecutorService(ExecutorService executorService) {
-        this.executorService = executorService;
+    public int getPrcntgOfSimulationsCompleted() {
+        return (int) (((double) completedGames.get() / numberOfGames) * 100);
     }
 }
