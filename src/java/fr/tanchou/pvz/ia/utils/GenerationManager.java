@@ -131,16 +131,16 @@ public class GenerationManager {
         int bestScore = this.bestModels.isEmpty() ? 0 : (int) this.bestModels.get(0).getScore();
         //double maxOptimalScore = 17000;  // Score théorique maximal
 
-        // Calcul du delta de score
-        this.deltaScore = (this.currentAverageScore - this.previousAverageScore);
-
-        this.previousAverageScore = this.currentAverageScore;
-
         // Calcul du score moyen des modèles
         this.currentAverageScore = (int) this.models.stream()
                 .mapToDouble(NeuralNetwork::getScore)
                 .average()
                 .orElse(0);
+
+        // Calcul du delta de score
+        this.deltaScore = (this.currentAverageScore - this.previousAverageScore);
+
+        this.previousAverageScore = this.currentAverageScore;
 
         // Calcul de la mutation en fonction du score normalisé
         this.computeMutationAmplitude(bestScore, this.currentAverageScore);
