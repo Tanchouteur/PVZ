@@ -3,7 +3,7 @@ package fr.tanchou.pvz;
 import fr.tanchou.pvz.game.PVZ;
 import fr.tanchou.pvz.game.Player;
 import fr.tanchou.pvz.guiJavaFx.PVZGraphic;
-import fr.tanchou.pvz.ia.GenerationManager;
+import fr.tanchou.pvz.ia.utils.GenerationManager;
 import fr.tanchou.pvz.ia.data.ModelSaver;
 import fr.tanchou.pvz.ia.data.Statistics;
 import fr.tanchou.pvz.ia.network.GameAI;

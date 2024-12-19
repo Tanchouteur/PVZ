@@ -1,6 +1,6 @@
 package fr.tanchou.pvz.ia.data;
 
-import fr.tanchou.pvz.ia.GenerationManager;
+import fr.tanchou.pvz.ia.utils.GenerationManager;
 import fr.tanchou.pvz.ia.network.NeuralNetwork;
 
 import java.io.BufferedReader;
