@@ -6,7 +6,9 @@ import org.java_websocket.server.WebSocketServer;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.InetSocketAddress;
 import java.security.*;
@@ -22,7 +24,7 @@ public class WebSocketHandler extends WebSocketServer {
     private final MultiOutputStream multiOutputStream;
 
     // Constructeur
-    public WebSocketHandler(int port, GenerationManager generationManager, Statistics statistics) throws KeyStoreException, IOException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyManagementException, CertificateException {
+    public WebSocketHandler(int port, GenerationManager generationManager) throws KeyStoreException, IOException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyManagementException, CertificateException {
         super(new InetSocketAddress("0.0.0.0", port));
 
         this.generationManager = generationManager;
@@ -135,8 +137,20 @@ public class WebSocketHandler extends WebSocketServer {
 
     @Override
     public void onStart() {
-        System.out.println("Serveur WebSocket démarré !");
+        System.out.println("Serveur WebSocket démarré : " + getPublicIPUsingCurl() + ":" + this.getPort());
         running = true;
+    }
+    public static String getPublicIPUsingCurl() {
+        try {
+            Process process = Runtime.getRuntime().exec("curl -s https://api.ipify.org");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String ip = reader.readLine();  // L'adresse IP publique est renvoyée
+            process.waitFor();
+            return ip;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Erreur lors de la récupération de l'adresse publique";
+        }
     }
 
     // Méthode pour envoyer des messages à tous les clients connectés

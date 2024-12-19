@@ -1,3 +1,7 @@
-Manifest-Version: 1.0
+Manifest-Version: 3.2
 Main-Class: fr.tanchou.pvz.LauncherV2
-
+Implementation-Title: Plants vs Zombies
+Implementation-Version: 3.0
+Implementation-Vendor: Tanchou
+Implementation-Vendor-Id: fr.tanchou.pvz
+Implementation-URL: https://www.tanchou.fr

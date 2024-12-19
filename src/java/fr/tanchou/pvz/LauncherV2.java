@@ -318,7 +318,7 @@ public class LauncherV2 {
         this.executorService.submit(() -> {
             try {
                 if (this.api == null || !this.api.isOpen()) {
-                    this.api = new WebSocketHandler(8080, this.generationManager, this.statistics);
+                    this.api = new WebSocketHandler(8080, this.generationManager);
                     this.api.start();
                 } else {
                     System.out.println("Le serveur WebSocket est déjà démarré.");
