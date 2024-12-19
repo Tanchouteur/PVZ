@@ -1,10 +1,10 @@
 package fr.tanchou.pvz.web;
 
-import fr.tanchou.pvz.ia.data.Statistics;
 import fr.tanchou.pvz.ia.utils.GenerationManager;
-import org.java_websocket.server.WebSocketServer;
+
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
+import org.java_websocket.server.WebSocketServer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
