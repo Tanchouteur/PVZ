@@ -55,7 +55,7 @@ public class WebSocketHandler extends WebSocketServer {
             case "GET_STATISTICS":
                 // Envoi des statistiques au client
                 String response = statistics.getScoresHistory().toString();
-                conn.send(response);
+                conn.send("Statistics : "+response);
                 break;
 
             case "START_TRAINING":
@@ -84,7 +84,6 @@ public class WebSocketHandler extends WebSocketServer {
             case "STOP_TRAINING":
                 // Arrêt de l'entraînement
                 generationManager.stopTraining();
-                conn.send("Training arrêté.");
                 break;
 
             default:
