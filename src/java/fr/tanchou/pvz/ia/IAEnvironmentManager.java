@@ -14,12 +14,12 @@ public class IAEnvironmentManager {
     private final AtomicInteger completedGames = new AtomicInteger(0);
     private int numberOfGames; // Nombre de jeux à simuler
 
-    public IAEnvironmentManager(ExecutorService executorService) {
-        this.executorService = executorService;
+    public IAEnvironmentManager() {
     }
 
     // Initialise les jeux
-    public void initializeGames(List<NeuralNetwork> models, boolean random) {
+    public void initializeGames(List<NeuralNetwork> models, boolean random, int nbThreadToUse) {
+        this.executorService = Executors.newFixedThreadPool(nbThreadToUse);
         System.out.println("Init & Lancement des simulations...");
         this.numberOfGames = models.size()-1;
         this.completedGames.set(0);
