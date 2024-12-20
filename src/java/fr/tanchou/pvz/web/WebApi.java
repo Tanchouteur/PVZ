@@ -31,7 +31,6 @@ public class WebApi {
         server.createContext("/api/train/stop", this::handleStopTrain);
         server.createContext("/api/config", this::handleConfig);
         server.createContext("/api/model/save", this::handleSaveModel);
-        server.createContext("/api/model/bestModelScore", this::handleGetBestModelScore);
 
         server.setExecutor(null); // Default executor
     }
@@ -144,24 +143,6 @@ public class WebApi {
         }
     }
 
-    private void handleGetBestModelScore(HttpExchange exchange) throws IOException {
-        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-        exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        exchange.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type");
-
-        if ("GET".equals(exchange.getRequestMethod())) {
-            // Obtenir le meilleur modèle
-            String response = this.generationManager.getBestModelOverall().getScore()+"";
-            exchange.sendResponseHeaders(200, response.getBytes().length);
-            try (OutputStream os = exchange.getResponseBody()) {
-                os.write(response.getBytes());
-            }
-        } else {
-            sendMethodNotAllowed(exchange);
-        }
-
-    }
-
     private void handleSaveModel(HttpExchange exchange) throws IOException {
         exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
         exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
@@ -175,7 +156,7 @@ public class WebApi {
 
             ExecutorService executorService = Executors.newSingleThreadExecutor();
             // Sauvegarder le modèle
-            executorService.submit(() -> ModelManager.saveModel(generationManager.getBestModelOverall(), modelName));
+            executorService.submit(() -> ModelManager.saveModel(generationManager.getBestModels().get(0), modelName));
 
             sendResponse(exchange, "Modèle sauvegardé.");
 

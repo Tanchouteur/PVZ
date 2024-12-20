@@ -174,7 +174,7 @@ public class LauncherV2 {
     }
 
     private void automaticTrainModel() {
-        System.out.println("\nCombien de simulations par génération ? (par défaut : " + this.generationManager.getSimulationPerGeneration() + ") ");
+        System.out.println("\nCombien de simulations par génération ?");
         try {
             this.generationManager.setSimulationPerGeneration(Integer.parseInt(scanner.next()));
         }catch (Exception e){
@@ -192,12 +192,16 @@ public class LauncherV2 {
 
         this.generationManager.fullAutoTrain();
 
+        endTraining();
+    }
+
+    private void endTraining() {
         this.statistics.printGlobalStatistics();
 
         System.out.println("Sauvegarder le meilleur modèle ? (Oui/Non)");
         String save = scanner.next();
         if (save.equalsIgnoreCase("Oui") || save.equalsIgnoreCase("o") || save.equalsIgnoreCase("Y") || save.equalsIgnoreCase("Yes") || save.equalsIgnoreCase("1")){
-            ModelManager.saveModel(this.generationManager.getBestModelOverall(), "best_model");
+            this.generationManager.saveBestModel("best_model");
             saveStatisticsToFile();
         }
     }
@@ -206,7 +210,7 @@ public class LauncherV2 {
         System.out.println("\nCombien de générations voulez-vous faire ? ");
         int nbGenerations = scanner.nextInt();
 
-        System.out.println("\nCombien de simulations par génération ? (par défaut : " + this.generationManager.getSimulationPerGeneration() + ") ");
+        System.out.println("\nCombien de simulations par génération ?");
         try {
             this.generationManager.setSimulationPerGeneration(Integer.parseInt(scanner.next()));
         }catch (Exception e){
@@ -225,14 +229,7 @@ public class LauncherV2 {
 
         statistics.saveScoresHistory(this.generationManager);
 
-        this.statistics.printGlobalStatistics();
-
-        System.out.println("Sauvegarder le meilleur modèle ? (Oui/Non)");
-        String save = scanner.next();
-        if (save.equalsIgnoreCase("Oui") || save.equalsIgnoreCase("o") || save.equalsIgnoreCase("Y") || save.equalsIgnoreCase("Yes") || save.equalsIgnoreCase("1")){
-            ModelManager.saveModel(this.generationManager.getBestModelOverall(), "best_model");
-            saveStatisticsToFile();
-        }
+        endTraining();
     }
 
     private void manualTrainModel() {
@@ -245,7 +242,7 @@ public class LauncherV2 {
             boolean random = scanner.nextBoolean();
 
             if (newGen == 1){
-                System.out.println("\nCombien de simulations par génération ? actuellement : " + generationManager.getSimulationPerGeneration());
+                System.out.println("\nCombien de simulations par génération ?");
                 try {
                     this.generationManager.setSimulationPerGeneration(Integer.parseInt(scanner.next()));
                 }catch (Exception e){
@@ -271,7 +268,7 @@ public class LauncherV2 {
             if (save.equalsIgnoreCase("oui") || save.equalsIgnoreCase("o") || save.equalsIgnoreCase("y") || save.equalsIgnoreCase("yes") || save.equalsIgnoreCase("1")){
                 System.out.println("Nom du fichier (exemple : best_model) : ");
                 String fileName = scanner.next();
-                ModelManager.saveModel(this.generationManager.getBestModelOverall(), fileName);
+                generationManager.saveBestModel(fileName);
 
                 this.saveStatisticsToFile();
             }
@@ -350,7 +347,7 @@ public class LauncherV2 {
         }
     }
 
-    //desactivate console output
+    //deactivate console output
     private void deactivateConsoleOutput() {
         api.deactivateConsoleOutput();
     }

@@ -79,9 +79,11 @@ public class WebSocketHandler extends WebSocketServer {
                 // Vérification si un paramètre est fourni
                 if (!(parameters.length == 0)) {
                     try {
+
                         int nbGen = Integer.parseInt(parameters[0]);  // Récupère le nombre de générations
                         ExecutorService executor = Executors.newSingleThreadExecutor();
                         executor.submit(() -> generationManager.semiAutoTrain(nbGen));  // Démarrage de l'entraînement semi-auto
+
                         conn.send("Training semi-auto démarré pour " + nbGen + " générations.");
                     } catch (NumberFormatException e) {
                         conn.send("Erreur : Le nombre de générations doit être un entier.");
@@ -98,9 +100,7 @@ public class WebSocketHandler extends WebSocketServer {
 
             case "UPDATE_CONFIG":
                 // Mise à jour de la configuration
-                generationManager.setNumberOfThreads(Integer.parseInt(parameters[0]));
-                generationManager.setSimulationPerGeneration(Integer.parseInt(parameters[1]));
-                generationManager.setMutationAmplitude(Double.parseDouble(parameters[2]));
+                generationManager.updateConfiguration(Integer.parseInt(parameters[0]), Integer.parseInt(parameters[1]), Double.parseDouble(parameters[2]));
 
                 conn.send(getConfiguration());
                 break;
@@ -127,7 +127,7 @@ public class WebSocketHandler extends WebSocketServer {
 
     //send configuration to client
     private String getConfiguration() {
-        return "Configuration " + generationManager.getNumberOfThreads() + " " + generationManager.getSimulationPerGeneration() + " " + generationManager.getMutationAmplitude();
+        return generationManager.getConfiguration();
     }
 
     @Override
@@ -144,7 +144,7 @@ public class WebSocketHandler extends WebSocketServer {
         try {
             Process process = Runtime.getRuntime().exec("curl -s https://api.ipify.org");
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String ip = reader.readLine();  // L'adresse IP publique est renvoyée
+            String ip = reader.readLine();  // L'adresse IP publique est renvoyée.
             process.waitFor();
             return ip;
         } catch (Exception e) {
