@@ -55,7 +55,7 @@ public class GenerationManager {
         // Préparation de la génération suivante
         populationManager.prepareNextGeneration(this.mutationAmplitude);
 
-        populationManager.evolve(evaluationManager.chooseRandomLevel(populationManager.getBestModels().get(1), generationNumber), this.nbThreadToUse);
+        populationManager.evolve(evaluationManager.chooseRandomLevel(populationManager.getBestModelOverall(), generationNumber), this.nbThreadToUse);
 
         // Sélectionner les meilleurs modèles
         populationManager.selectBestModels();
